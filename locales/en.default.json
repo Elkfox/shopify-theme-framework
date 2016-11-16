@@ -107,7 +107,10 @@
   "product": {
     "add_to_cart": "Add to Cart",
     "regular_price": "Regular Price",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "priced_from_html": "From {{ price }}",
+    "on_sale_html": "On sale for {{ price }}",
+    "original_price": "Originally"
   },
   "blog": {
     "title": "Blog",
