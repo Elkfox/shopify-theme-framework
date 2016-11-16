@@ -2,7 +2,7 @@
 
 Concrete Shopify Theme Framework - A lightweight framework for building Shopify themes
 
-Demo: [https://concrete-theme.myshopify.com](Demo Store)
+Demo: (https://concrete-theme.myshopify.com)[Demo Store]
 
 ## Included Libraries
 
