@@ -1,0 +1,51 @@
+<!-- snippets/index-featured-collections.liquid -->
+
+<div class="container">
+  <h3>{{ 'index.featured_collections' | t }}</h3>
+</div>
+
+{% assign index = 1 %}
+{% assign isEmpty = true %}
+
+{% for collection in collections limit:6 %}
+  {% unless index > 5 %}
+    <div class="container">
+
+      {% unless collection.handle == 'frontpage' %}
+        {% assign isEmpty = false %}
+        {% assign collection_item_width = 'column l4 m6 s12' %}
+        <div class="{{ collection_item_width }} text-center">
+
+          {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+
+          <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}" class="grid__image">
+            {% if collection.image %}
+              {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
+            {% else %}
+              {{ collection.products.first.featured_image | img_url: 'large' | img_tag: collection_title }}
+            {% endif %}
+          </a>
+
+          <p>
+            <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}">{{ collection.title }}</a><br>
+            {{ 'collection.items_with_count' | t: count: collection.all_products_count }}
+          </p>
+        </div>
+        {% assign index = index | plus: 1 %}
+      {% endunless %}
+
+    </div>
+  {% endunless %}
+{% endfor %}
+
+{% if isEmpty %}
+  {% unless emptyState %}
+    {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+    {% assign emptyState = true %}
+  {% endunless %}
+  {% include 'onboarding-featured-collections' %}
+{% endif %}
+
+<div class="container">
+  <hr>
+</div>

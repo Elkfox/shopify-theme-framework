@@ -1,0 +1,27 @@
+<!-- /snippets/theme-subscribe-form.liquid -->
+
+{% if settings.footer_newsletter_enable %}
+  {% form 'customer' %}
+    {{ form.errors | default_errors }}
+    {% if form.posted_successfully? %}
+      <p class="note form-success">{{ 'subscribe.confirmation' | t }}</p>
+    {% else %}
+      <input type="email"
+             value="{% if customer %}{{ customer.email }}{% endif %}"
+             placeholder="{{ 'form.email' | t }}"
+             name="contact[email]"
+             id="Email"
+             aria-label="{{ 'form.email' | t }}"
+             autocorrect="off"
+             autocapitalize="off">
+      <input type="hidden"
+             name="contact[tags]"
+             value="newsletter">
+      <input type="submit"
+             class="btn"
+             name="subscribe"
+             id="subscribe"
+             value="{{ 'subscribe.title' | t }}">
+    {% endif %}
+  {% endform %}
+{% endif %}

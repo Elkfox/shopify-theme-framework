@@ -1,0 +1,46 @@
+<!-- /snippets/theme-header.liquid -->
+
+<header class="theme-header" role="banner">
+  <div class="container full">
+    <div class="row l-table m-table">
+      <div class="column l8 m8 s12 l-left m-left s-middle">
+        {% if template == 'index' %}
+          <h1 class="logo" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h1 logo" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if settings.logo_use_image %}
+            <a href="/" itemprop="url">
+              <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+            </a>
+          {% else %}
+            <a href="/" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if template == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="column l4 m4 s12 l-right m-right s-middle">
+
+        {% if shop.customer_accounts_enabled %}
+          <a href="/account">{{ 'account.title' | t }}</a>
+        {% endif %}
+
+        <a href="/cart" id="CartLink" aria-controls="Cart" aria-expanded="false">
+          {{ 'cart.title' | t }}
+          (<span id="CartCount">{{ cart.item_count }}</span>
+          {{ 'cart.count' | t: count: cart.item_count }}
+          <span id="CartTotal">{{ cart.total_price | money }}</span>)
+        </a>
+
+      </div>
+    </div>
+
+    {% include 'theme-nav-main' %}
+
+    <hr>
+
+  </div>
+</header>

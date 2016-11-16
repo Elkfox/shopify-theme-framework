@@ -1,0 +1,26 @@
+<!-- snippets/onboarding-featured-collections.liquid -->
+
+<div class="helper-section">
+  <div class="container helper-note">
+    <span class="helper-icon"></span>
+    <h3>{{ 'onboarding.collections.modal_title' | t }}</h3>
+    <p>{{ 'onboarding.collections.no_collections_html' | t }}</p>
+    <p><a class="admin-btn-primary" href="/admin/custom_collections">{{ 'onboarding.collections.add_collection' | t }}</a></p>
+  </div>
+  <div class="container helper-content">
+    <div class="row">
+      {% for i in (1..6) %}
+        <div class="column l4 m6 s12">
+          <a href="#" class="grid__image">
+            {% capture imageUrl %}//cdn.shopify.com/s/images/themes/product-{{ i }}.png{% endcapture %}
+            {{ imageUrl | img_tag }}
+          </a>
+          <p>
+            <a href="#">{{ 'onboarding.collections.collection_title' | t }}</a><br>
+            {{ 'onboarding.collections.items_with_count' | t: count: i }}
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

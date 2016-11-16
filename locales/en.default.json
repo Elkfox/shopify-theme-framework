@@ -1,0 +1,168 @@
+{
+  "common": {
+    "tags": "Tags"
+  },
+  "account": {
+    "title": "Account",
+    "login": "Login",
+    "logout": "Logout",
+    "password": "Password",
+    "sign_in": "Sign In",
+    "create_account": "Register now",
+    "no_account": "No account?",
+    "already_registered": "Already have an account?",
+    "forgot_password": "Forgot Password?",
+    "register": "Register",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "company": "Company",
+    "address1": "Address1",
+    "address2": "Address2",
+    "city": "City",
+    "country": "Country",
+    "province": "Province",
+    "zip": "Postal/Zip Code",
+    "phone": "Phone",
+    "orders": {
+      "title": "Orders",
+      "none": "No previous orders found"
+    },
+    "address": {
+      "title": "Addresses",
+      "default": "Default Address",
+      "add": "Add a new address",
+      "update": "Update",
+      "edit": "Edit Address",
+      "set_default": "Set as default address",
+      "manage_addresses": "Manage Addresses",
+      "confirm_delete": "Are you absolutely sure you wish to delete this address?",
+      "count": {
+        "one": "Address",
+        "other": "Addresses"
+      }
+    },
+    "reset_password": {
+      "title": "Password Reset",
+      "sign_in": "Sign In",
+      "forgot_password": "Forgot Password?",
+      "create_account": "Create an Account",
+      "message": "Enter you details to request a password reset",
+      "success": "Please check your email for a link to update your password"
+    }
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "send": "Send",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "subscribe": {
+    "title": "Subscribe",
+    "confirmation": "Thank you for subscribing!"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty :(",
+    "back_to_shop_html": "Continue browsing <a href=\"/collections/all\">here</a>",
+    "count": {
+      "one": "item",
+      "other": "items"
+    }
+  },
+  "index": {
+    "title": "Home",
+    "featured_products": "Featured Products",
+    "featured_collections": "Featured Collections",
+    "featured_news": "Featured News"
+  },
+  "collection": {
+    "no_matches": "Sorry, there are no products in this collection",
+    "view": {
+      "title": "View",
+      "grid": "Grid",
+      "list": "List"
+    },
+    "items_with_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "sort": {
+      "title": "Sort",
+      "featured": "Featured",
+      "best_selling": "Best Selling",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_descending": "Date, new to old",
+      "date_ascending": "Date, old to new"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "categories": "Blog Categories",
+    "recent_articles": "Recent Articles",
+    "article": {
+      "title": "Home",
+      "published": "Published",
+      "author_on_date_html": "Posted by {{ author }} on {{ date }}",
+      "read_more": "Read More",
+      "previous_article": "Previous Article",
+      "next_article": "Next Article"
+    },
+    "comments": {
+      "title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Comment",
+      "moderated": "Please note, comments must be approved before they are published",
+      "success_moderated": "Your comment was submitted. It will be published after our moderators review your post.",
+      "success": "Your comment was posted. Thank you!",
+      "meta_html": "{{ author }} on {{ date }}",
+      "with_count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    }
+  },
+  "social": {
+    "facebook": "Facebook",
+    "fancy": "Fancy",
+    "google": "Google+",
+    "instagram": "Instagram",
+    "pinterest": "Pinterest",
+    "twitter": "Twitter",
+    "vimeo": "Vimeo",
+    "youtube": "YouTube",
+    "share": {
+      "title": "Share",
+      "fancy": "Fancy",
+      "google": "+1",
+      "facebook": "Share",
+      "pinterest": "Pin it",
+      "twitter": "Tweet"
+    }
+  },
+  "onboarding": {
+    "products": {
+      "modal_title": "This area will show your store's products",
+      "no_products_html": "There are no products yet, but once you begin adding them they will show up here regardless if they are in a collection.",
+      "add_product": "Add Product",
+      "product_title": "Example Product Title"
+    },
+    "collections": {
+      "modal_title": "This area will show your store's collections",
+      "no_collections_html": "You don't have any collections to show here. <a href=\"/admin/custom_collections\">Add some collections</a> to go along with the default home page.",
+      "add_collection": "Add a Collection",
+      "collection_title": "Example Collection Title",
+      "items_with_count": "{{ count }} Items"
+    }
+  }
+}

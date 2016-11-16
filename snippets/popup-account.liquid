@@ -1,0 +1,13 @@
+<!-- /snippets/popup-account.liquid -->
+
+<h3>{{ 'account.account' | t }}</h3>
+
+{% if customer %}
+  {% if customer.first_name != blank %}
+    {{ customer.first_name }}
+  {% endif %}
+  | {{ 'layout.customer.log_out' | t | customer_logout_link }}
+{% else %}
+  {{ 'layout.customer.log_in' | t | customer_login_link }}
+  | {{ 'layout.customer.create_account' | t | customer_register_link }}
+{% endif %}

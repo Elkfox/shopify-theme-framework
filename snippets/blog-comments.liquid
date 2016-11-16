@@ -1,0 +1,95 @@
+<!-- /snippets/blog-comments.liquid -->
+
+{% if blog.comments_enabled? %}
+
+  <hr>
+
+  <h2 class="h3">{{ 'blog.comments.with_count' | t: count: number_of_comments }}</h2>
+
+  {% paginate article.comments by 5 %}
+    <div id="comments">
+
+      {% if comment and comment.created_at %}
+        <p class="note form-success">
+          {% if blog.moderated? %}
+            {{ 'blog.comments.success_moderated' | t }}
+          {% else %}
+            {{ 'blog.comments.success' | t }}
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {% if number_of_comments > 0 %}
+
+        <ul>
+          {% if comment and comment.created_at %}
+            <li id="{{ comment.id }}" class="comment first{% if article.comments_count == 0 %} last{% endif %}">
+              <div class="comment">
+                <div class="rte">
+                  {{ comment.content }}
+                </div>
+                <span>
+                  {% capture author %}<strong>{{ comment.author }}</strong>{% endcapture %}
+                  {% capture date %}<time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
+                  {{ 'blog.comments.meta_html' | t: author: author, date: date }}
+                </span>
+              </div>
+            </li>
+          {% endif %}
+          {% for comment in article.comments %}
+            <li id="{{ comment.id }}" class="comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}">
+              <div class="comment">
+                <div class="rte">
+                  {{ comment.content }}
+                </div>
+                <span>
+                  {% capture author %}<strong>{{ comment.author }}</strong>{% endcapture %}
+                  {% capture date %}<time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
+                  {{ 'blog.comments.meta_html' | t: author: author, date: date }}
+                </span>
+              </div>
+            </li>
+            {% unless forloop.last %}
+              <li><hr></li>
+            {% endunless %}
+          {% endfor %}
+        </ul>
+
+        {% if paginate.pages > 1 %}
+          <hr>
+          <div class="pagination">
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+          </div>
+        {% endif %}
+
+        <hr>
+
+      {% endif %}
+
+      <div id="CommentForm">
+        {% form 'new_comment', article %}
+
+          <h2 class="h4">{{ 'blog.comments.title' | t }}</h2>
+
+          {% if blog.moderated? %}
+            <p><small>{{ 'blog.comments.moderated' | t }}</small></p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+
+          <label for="CommentAuthor" class="clearfix">{{ 'blog.comments.name' | t }}</label>
+          <input type="text" name="comment[author]" id="CommentAuthor" class="input-full{% if form.errors contains 'author' %} error{% endif %}" placeholder="{{ 'blog.comments.name' | t }}" value="{{ form.author }}" autocapitalize="words">
+
+          <label for="CommentEmail" class="clearfix">{{ 'blog.comments.email' | t }}</label>
+          <input type="email" name="comment[email]" id="CommentEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'blog.comments.email' | t }}" value="{{ form.email }}" autocorrect="off" autocapitalize="off">
+
+          <label for="CommentBody" class="clearfix">{{ 'blog.comments.message' | t }}</label>
+          <textarea name="comment[body]" id="CommentBody" class="input-full{% if form.errors contains 'body' %} error{% endif %}" placeholder="{{ 'blog.comments.message' | t }}">{{ form.body }}</textarea>
+
+          <input type="submit" class="btn" value="{{ 'blog.comments.post' | t }}">
+        {% endform %}
+      </div>
+
+    </div>
+  {% endpaginate %}
+{% endif %}

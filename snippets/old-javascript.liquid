@@ -1,0 +1,41 @@
+{{ 'fastclick.min.js' | asset_url | script_tag }}
+{{ 'timber.js' | asset_url | script_tag }}
+
+{% comment %}
+  Template-specific js
+{% endcomment %}
+<script>
+  {% if resetPassword %}
+    $(function() {
+      timber.resetPasswordSuccess();
+    });
+  {% endif %}
+</script>
+
+{% comment %}
+  Ajaxify your cart with this plugin.
+  Documentation:
+    - http://shopify.com/timber#ajax-cart
+{% endcomment %}
+{% if settings.ajax_cart_method == "drawer" %}
+  {{ 'handlebars.min.js' | asset_url | script_tag }}
+  {% include 'ajax-cart-template' %}
+  {{ 'ajax-cart.js' | asset_url | script_tag }}
+  <script>
+    jQuery(function($) {
+      ajaxCart.init({
+        formSelector: '#AddToCartForm',
+        cartContainer: '#CartContainer',
+        addToCartSelector: '#AddToCart',
+        cartCountSelector: '#CartCount',
+        cartCostSelector: '#CartCost',
+        moneyFormat: {{ shop.money_format | json }}
+      });
+    });
+
+    jQuery(document.body).on('afterCartLoad.ajaxCart', function(evt, cart) {
+      // Bind to 'afterCartLoad.ajaxCart' to run any javascript after the cart has loaded in the DOM
+      timber.RightDrawer.open();
+    });
+  </script>
+{% endif %}

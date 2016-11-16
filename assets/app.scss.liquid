@@ -1,0 +1,627 @@
+
+/*==============================================================================
+  ___  _   _    _
+ /   || | | |  | |
+ \__  | | | |  | |  __
+ /    |/  |/_) |/  /  \_/\/
+ \___/|__/| \_/|__/\__/  /\_/
+               |\
+               |/
+  Concrete v0.1
+  https://elkfox.com
+  https://experts.shopify.com/elkfox
+  Copyright 2015 Shopify Inc. & Elkfox Co Pty Ltd
+==============================================================================*/
+
+/* Variables =================================================================*/
+
+// Colors
+$colorBrand: {{ settings.color_brand }};
+$colorBody: {{ settings.color_body }};
+$colorBackground: {{ settings.color_background }};
+$colorHighlight: {{ settings.color_highlight }};
+$colorAlternate: {{ settings.color_alternate }};
+
+// Typography
+$fontLight: 300;
+$fontRegular: 400;
+$fontBold: 700;
+$lineHeight: 1.5;
+
+// Space & Borders
+$gutter: 50px;
+$borderRadius: 2px;
+$borderWeight: 2px;
+$borderStyle: solid;
+
+// Screen Sizes
+$s: 600px;
+$m: 850px;
+$l: 1150px;
+$xl: 1450px;
+
+// Miscellaneous
+$transition: all .25s ease-out;
+
+/* Reset =====================================================================*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, main {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+form, input, textarea, label, fieldset, legend, select, optgroup, option, button
+{
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  // line-height: inherit; TBC
+  line-height: 1; // TBC
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+  outline: none;
+  color: inherit;
+}
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-backface-visibility: hidden;
+  // Remove the following line if you have trouble with positioning transforms
+  // -webkit-transform: translateZ(0) scale(1.0, 1.0); TBC
+}
+
+/* Mixins ====================================================================*/
+
+// Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
+
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+// Flex
+
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin box-orient--vertical() {
+  @include prefixer(box-orient, vertical, webkit moz spec);
+}
+@mixin flex-direction($flex-direction) {
+  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
+}
+
+// Clearfix
+
+@mixin clearfix() {
+  display: block; // TBC - is this OK? Seems to work well :/
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  *zoom: 1;
+}
+
+// Screen Sizes & Types
+
+@mixin s() {
+  @media (max-width: $s) {
+    @content;
+  }
+}
+@mixin m() {
+  @media (min-width: $s) and (max-width: $l - 1px) {
+    @content;
+  }
+}
+@mixin l() {
+  @media (min-width: $l) and (max-width: $xl - 1px) {
+    @content;
+  }
+}
+
+// Table Grids
+
+@mixin table() {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 0 $gutter;
+  .column {
+    float: none;
+    display: table-cell;
+    &.middle {
+      vertical-align: middle;
+    }
+    &.top {
+      vertical-align: top;
+    }
+    &.bottom {
+      vertical-align: bottom;
+    }
+    &:first-of-type {
+      padding-left: 0;
+    }
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+}
+
+// Transitions
+
+@mixin transition() {
+  @include prefixer(transition, $transition, webkit moz ms spec);
+}
+
+/* Global ====================================================================*/
+
+body {
+  color: $colorBody;
+  background-color: $colorBackground;
+  font: 16px/21px sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+// Helpers
+
+.left {
+  text-align: left;
+}
+.center {
+  text-align: center;
+  margin: auto;
+}
+.right {
+  text-align: right;
+}
+.hidden {
+  display: none;
+}
+.highlight {
+  color: $colorHighlight;
+}
+.alternate {
+  color: $colorAlternate;
+}
+.inline {
+  list-style: none;
+  display: inline-block;
+  li {
+    display: inline-block;
+  }
+}
+.clearfix {
+  @include clearfix();
+}
+
+// Typography
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: sans-serif;
+  font-weight: $fontBold;
+  line-height: $lineHeight;
+  margin-bottom: $gutter/3;
+}
+h1, .h1 { font-size: 2.5rem; }
+h2, .h2 { font-size: 2rem; }
+h3, .h3 { font-size: 1.75rem; }
+h4, .h4 { font-size: 1.35rem; }
+h5, .h5 { font-size: 1rem; }
+h6, .h6 { font-size: 0.875rem; }
+
+p {
+  font-size: 1.125rem;
+  font-weight: $fontRegular;
+  line-height: 1.8;
+  margin-bottom: 1.4em;
+}
+
+a {
+  color: $colorBrand;
+  cursor: pointer;
+  @include transition();
+  &:hover, &:focus {
+    color: darken($colorBrand, 5%);
+  }
+}
+
+hr {
+  border: 0;
+  border-top: $borderWeight $borderStyle $colorBrand;
+  margin: $gutter 0;
+}
+
+strong {
+  font-weight: $fontBold;
+}
+
+.rte {
+  // TBA
+}
+
+.breadcrumb {
+  margin-bottom: $gutter;
+}
+
+// Forms
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="password"],
+textarea {
+  height: $gutter;
+  padding: 0 $gutter/2;
+  font-size: 1.125rem;
+  border: $borderWeight $borderStyle $colorAlternate;
+  border-radius: $borderRadius;
+  -webkit-appearance: none;
+  @media only screen and (max-width: $s) {
+    width: 100%;
+    clear: both;
+    margin-bottom: $gutter/3;
+  }
+}
+textarea {
+  height: initial;
+  padding: $gutter/2;
+}
+label {
+  line-height: inherit;
+}
+button, .button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select {
+  height: $gutter;
+  padding: 0 $gutter/1.5;
+  font-size: 1.125rem;
+  line-height: 2;
+  color: lighten($colorBrand, 25%);
+  background-color: $colorBrand;
+  border: $borderWeight $borderStyle $colorBrand;
+  border-radius: $borderRadius;
+  -webkit-appearance: none;
+  @include transition();
+  &:hover {
+    background-color: darken($colorBrand, 5%);
+    border-color: darken($colorBrand, 5%);
+    color: lighten($colorBrand, 35%);
+    cursor: pointer;
+  }
+  &.alternate {
+    color: lighten($colorAlternate, 25%);
+    background-color: $colorAlternate;
+    border: $borderWeight $borderStyle $colorAlternate;
+    &:hover {
+      background-color: darken($colorAlternate, 5%);
+      border-color: darken($colorAlternate, 5%);
+      color: lighten($colorAlternate, 35%);
+    }
+  }
+  @media only screen and (max-width: $s) {
+    width: 100%;
+    clear: both;
+    margin-bottom: $gutter/3;
+  }
+}
+a.button {
+  display: table-cell;
+  vertical-align: middle;
+  text-decoration: none;
+}
+.select-wrapper {
+  display: inline-block;
+  position: relative;
+  @media only screen and (max-width: $s) {
+    width: 100%;
+    clear: both;
+    margin-bottom: $gutter/3;
+  }
+}
+.errors {
+  padding: $gutter/3.5;
+  margin-bottom: $gutter/2;
+  color: lighten($colorHighlight, 50%);
+  background-color: $colorHighlight;
+  border: $borderWeight $borderStyle $colorHighlight;
+  border-radius: $borderRadius;
+  li {
+    margin-bottom: $gutter/3;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Grid System ===============================================================*/
+
+.container {
+  max-width: 100%;
+  width: $l;
+  margin: auto;
+  padding: 0 $gutter;
+  &.full {
+    width: 100%;
+  }
+}
+
+// Column Grid
+
+.row {
+  margin: 0 (-$gutter/2) $gutter;
+  @media only screen and (min-width: $m) {
+    &.table {
+      display: table;
+    }
+  }
+  .column {
+    float: left;
+    min-height: 0.125rem;
+    padding: 0 $gutter/2;
+  }
+}
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column.l1 { width: percentage(1/12); }
+.column.l2 { width: percentage(2/12); }
+.column.l3 { width: percentage(3/12); }
+.column.l4 { width: percentage(4/12); }
+.column.l5 { width: percentage(5/12); }
+.column.l6 { width: percentage(6/12); }
+.column.l7 { width: percentage(7/12); }
+.column.l8 { width: percentage(8/12); }
+.column.l9 { width: percentage(9/12); }
+.column.l10 { width: percentage(10/12); }
+.column.l11 { width: percentage(11/12); }
+.column.l12 { width: 100%; }
+@media only screen and (min-width: $m) {
+  .l-hide { display: none; }
+  .l-left { text-align: left; }
+  .l-center { text-align: center; }
+  .l-right { text-align: right; }
+}
+@media only screen and (min-width: $s) and (max-width: $m) {
+  .column.m1 { width: percentage(1/12); }
+  .column.m2 { width: percentage(2/12); }
+  .column.m3 { width: percentage(3/12); }
+  .column.m4 { width: percentage(4/12); }
+  .column.m5 { width: percentage(5/12); }
+  .column.m6 { width: percentage(6/12); }
+  .column.m7 { width: percentage(7/12); }
+  .column.m8 { width: percentage(8/12); }
+  .column.m9 { width: percentage(9/12); }
+  .column.m10 { width: percentage(10/12); }
+  .column.m11 { width: percentage(11/12); }
+  .column.m12 { width: 100%; }
+  .m-hide { display: none; }
+  .m-left { text-align: left; }
+  .m-center { text-align: center; }
+  .m-right { text-align: right; }
+}
+@media only screen and (max-width: $s) {
+  .column.s1 { width: percentage(1/12); }
+  .column.s2 { width: percentage(2/12); }
+  .column.s3 { width: percentage(3/12); }
+  .column.s4 { width: percentage(4/12); }
+  .column.s5 { width: percentage(5/12); }
+  .column.s6 { width: percentage(6/12); }
+  .column.s7 { width: percentage(7/12); }
+  .column.s8 { width: percentage(8/12); }
+  .column.s9 { width: percentage(9/12); }
+  .column.s10 { width: percentage(10/12); }
+  .column.s11 { width: percentage(11/12); }
+  .column.s12 { width: 100%; }
+  .s-hide { display: none; }
+  .s-left { text-align: left; }
+  .s-center { text-align: center; }
+  .s-right { text-align: right; }
+}
+
+// Uniform Height Clearing
+
+@media only screen and (min-width: $m) {
+  .column.l2:nth-child(6n+1) { clear: both; }
+  .column.l3:nth-child(4n+1) { clear: both; }
+  .column.l4:nth-child(3n+1) { clear: both; }
+  .column.l6:nth-child(2n+1) { clear: both; }
+}
+@media only screen and (min-width: $s) and (max-width: $m) {
+  .column.m2:nth-child(6n+1) { clear: both; }
+  .column.m3:nth-child(4n+1) { clear: both; }
+  .column.m4:nth-child(3n+1) { clear: both; }
+  .column.m6:nth-child(2n+1) { clear: both; }
+}
+@media only screen and (max-width: $s) {
+  .column.s2:nth-child(6n+1) { clear: both; }
+  .column.s3:nth-child(4n+1) { clear: both; }
+  .column.s4:nth-child(3n+1) { clear: both; }
+  .column.s6:nth-child(2n+1) { clear: both; }
+}
+
+// Table Grid
+
+.row {
+  &.table { @include table(); }
+  &.l-table {
+    @media only screen and (min-width: $m) { @include table(); }
+  }
+  &.m-table {
+    @media only screen and (min-width: $s) and (max-width: $m) { @include table(); }
+  }
+  &.s-table {
+    @media only screen and (max-width: $s) { @include table(); }
+  }
+}
+
+// Flex Grid
+
+.flex {
+  @include flex();
+  @include box-orient--vertical();
+  @include flex-direction(column);
+  .row {
+    @include flex();
+    @include flex-direction(row);
+    .box {
+      margin: 0 $gutter/2 $gutter;
+      flex: auto;
+      align-self: center;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      &.center {
+        text-align: center;
+        align-items: center;
+      }
+    }
+    @include s() {
+      @include flex-direction(column);
+      .box {
+        width: 100%;
+        margin: 0 0 $gutter;
+      }
+    }
+  }
+}
+
+/* Header ====================================================================*/
+
+.theme-header {
+  padding: $gutter/2 0;
+}
+
+/* Navigation =================================================================*/
+
+.theme-main-nav {
+  .nav-link {
+    font-size: 1.25rem;
+    margin-right: $gutter/3;
+  }
+}
+
+/* Footer ====================================================================*/
+
+.theme-footer {
+  padding: $gutter/2 0 $gutter;
+}
+
+/* Collections ===============================================================*/
+
+.template-collection {
+
+}
+
+/* Products ==================================================================*/
+
+/* Pages =====================================================================*/
+
+/* Forms =====================================================================*/
+
+#ContactForm,
+#CommentForm form,
+#AddAddress form,
+.edit_address form,
+form#customer_login,
+form#create_customer,
+#RecoverPasswordForm form {
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select,
+  button, .button {
+    width: 100%;
+    margin-bottom: $gutter/2;
+  }
+  label, input[type="checkbox"] {
+    margin-bottom: $gutter/5;
+  }
+}
+
+/* Blogs =====================================================================*/
+
+/* Cart ======================================================================*/

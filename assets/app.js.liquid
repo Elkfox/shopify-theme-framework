@@ -1,0 +1,168 @@
+/* replaceUrlParam - http://stackoverflow.com/questions/7171099/how-to-replace-url-parameter-with-javascript-jquery */
+function replaceUrlParam(e,r,a){var n=new RegExp("("+r+"=).*?(&|$)"),c=e;return c=e.search(n)>=0?e.replace(n,"$1"+a+"$2"):c+(c.indexOf("?")>0?"&":"?")+r+"="+a};
+
+// Money formatting
+if ((typeof Shopify) === 'undefined') { Shopify = {}; }
+if (!Shopify.formatMoney) {
+  Shopify.formatMoney = function(cents, format) {
+    var value = '',
+        placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
+        formatString = (format || this.money_format);
+
+    if (typeof cents == 'string') {
+      cents = cents.replace('.','');
+    }
+    function defaultOption(opt, def) {
+      return (typeof opt == 'undefined' ? def : opt);
+    }
+    function formatWithDelimiters(number, precision, thousands, decimal) {
+      precision = defaultOption(precision, 2);
+      thousands = defaultOption(thousands, ',');
+      decimal   = defaultOption(decimal, '.');
+      if (isNaN(number) || number == null) {
+        return 0;
+      }
+      number = (number/100.0).toFixed(precision);
+      var parts   = number.split('.'),
+          dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+          cents   = parts[1] ? (decimal + parts[1]) : '';
+      return dollars + cents;
+    }
+    switch(formatString.match(placeholderRegex)[1]) {
+      case 'amount':
+        value = formatWithDelimiters(cents, 2);
+        break;
+      case 'amount_no_decimals':
+        value = formatWithDelimiters(cents, 0);
+        break;
+      case 'amount_with_comma_separator':
+        value = formatWithDelimiters(cents, 2, '.', ',');
+        break;
+      case 'amount_no_decimals_with_comma_separator':
+        value = formatWithDelimiters(cents, 0, '.', ',');
+        break;
+    }
+    return formatString.replace(placeholderRegex, value);
+  };
+}
+
+// Functions
+window.concrete = window.concrete || {};
+concrete.cacheSelectors = function () {
+  concrete.cache = {
+    // General
+    $html : $('html'),
+    $body : $(document.body),
+    // Visibility
+    $toggleItemLink : $('.js_toggle'),
+    $revealItemLink : $('.js_open'),
+    $hideItemLink : $('.js_close'),
+    // Collection Pages
+    $changeView              : $('.change-view'),
+
+
+    
+    // Customer Pages
+    $customerLoginForm       : $('#LoginForm'),
+    $recoverPasswordLink     : $('#RecoverPasswordLink'),
+    $hideRecoverPasswordLink : $('#HideRecoverPasswordLink'),
+    $recoverPasswordForm     : $('#RecoverPasswordForm'),
+    $passwordResetSuccess    : $('#ResetSuccess')
+  };
+};
+
+// Initialize the functions
+concrete.init = function () {
+  concrete.cacheSelectors();
+
+  concrete.visibilityManager();
+
+  concrete.responsiveVideos();
+  concrete.collectionViews();
+  concrete.loginForms();
+};
+
+// Get current window location
+concrete.getHash = function () {
+  return window.location.hash;
+};
+
+// responsive Videos
+concrete.responsiveVideos = function () {
+  var $iframeVideo = $('iframe[src*="youtube.com/embed"], iframe[src*="player.vimeo"]');
+  var $iframeReset = $iframeVideo.add('iframe#admin_bar_iframe');
+  $iframeVideo.each(function () {
+    // Add wrapper to make video responsive
+    $(this).wrap('<div class="video-wrapper"></div>');
+  });
+  $iframeReset.each(function () {
+    // Re-set the src attribute on each iframe after page load
+    // for Chrome's "incorrect iFrame content on back" bug https://code.google.com/p/chromium/issues/detail?id=395791
+    // Need to specifically target video and admin bar
+    this.src = this.src;
+  });
+};
+
+// Collection view switching
+concrete.collectionViews = function () {
+  if (concrete.cache.$changeView.length) {
+    concrete.cache.$changeView.on('click', function() {
+      var view = $(this).data('view'),
+          url = document.URL,
+          hasParams = url.indexOf('?') > -1;
+      if (hasParams) {
+        window.location = replaceUrlParam(url, 'view', view);
+      } else {
+        window.location = url + '?view=' + view;
+      }
+    });
+  }
+};
+
+// Password recovery forms
+concrete.loginForms = function() {
+  function showRecoverPasswordForm() {
+    concrete.cache.$recoverPasswordForm.removeClass('hidden');
+    concrete.cache.$customerLoginForm.addClass('hidden');
+  }
+  function hideRecoverPasswordForm() {
+    concrete.cache.$recoverPasswordForm.addClass('hidden');
+    concrete.cache.$customerLoginForm.removeClass('hidden');
+  }
+  concrete.cache.$recoverPasswordLink.on('click', function(evt) {
+    evt.preventDefault();
+    showRecoverPasswordForm();
+  });
+  concrete.cache.$hideRecoverPasswordLink.on('click', function(evt) {
+    evt.preventDefault();
+    hideRecoverPasswordForm();
+  });
+  if (concrete.getHash() == '#recover') {
+    showRecoverPasswordForm();
+  }
+};
+concrete.resetPasswordSuccess = function() {
+  concrete.cache.$passwordResetSuccess.removeClass('hidden');
+};
+
+
+
+
+
+concrete.visibilityManager = function() {
+  // Reveal elements on toggle
+  concrete.cache.$toggleItemLink.on('click', function(event) {
+    event.preventDefault();
+    var itemId = $(this).attr('href');
+    $(itemId).toggleClass('hidden');
+  });
+  // hide elements on click
+  concrete.cache.$hideItemLink.on('click', function(event) {
+    event.preventDefault();
+    var itemId = $(this).attr('href');
+    $(itemId).addClass('hidden');
+  });
+};
+
+// Initialize on docready
+$(concrete.init);
