@@ -175,9 +175,7 @@
     </div>
 
     <div class="column l4 m12">
-      <h3 class="h4">{{ customer.name }}</h3>
-      <p><a href="/account/logout" title="{{ 'account.logout' | t }}">{{ 'account.logout' | t }}</a><br>
-      <a href="/account/addresses" title="">{{ 'account.address.manage_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+      {% include 'account-sidebar' %}
     </div>
 
   </div>

@@ -579,23 +579,27 @@ a.button {
     font-size: 1.25rem;
     margin-right: $gutter/3;
   }
+  .dropdown {
+    position: relative;
+    .dropdown_menu {
+      padding: $gutter/3 0;
+      position: absolute;
+      top: 1.5rem;
+      z-index: 2;
+      li {
+        display: block;
+        padding: $gutter/4 $gutter/1.5;
+        background: lighten($colorBackground, 30%);
+        &:first-of-type {
+          padding-top: $gutter/2;
+        }
+        &:last-of-type {
+          padding-bottom: $gutter/2;
+        }
+      }
+    }
+  }
 }
-
-/* Footer ====================================================================*/
-
-.theme-footer {
-  padding: $gutter/2 0 $gutter;
-}
-
-/* Collections ===============================================================*/
-
-.template-collection {
-
-}
-
-/* Products ==================================================================*/
-
-/* Pages =====================================================================*/
 
 /* Forms =====================================================================*/
 
@@ -623,6 +627,28 @@ form#create_customer,
   }
 }
 
+/* Footer ====================================================================*/
+
+.theme-footer {
+  padding: $gutter/2 0 $gutter;
+}
+
+/* Collections ===============================================================*/
+
+.template-collection { }
+
+/* Products ==================================================================*/
+
+.template-collection { }
+
+/* Pages =====================================================================*/
+
+.template-page { }
+
 /* Blogs =====================================================================*/
 
+.template-blog { }
+
 /* Cart ======================================================================*/
+
+.template-cart { }

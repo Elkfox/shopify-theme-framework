@@ -5,11 +5,11 @@
     {% for link in linklists.main-menu.links %}
       {% assign child_list_handle = link.title | handleize %}
       {% if linklists[child_list_handle].links != blank %}
-        <li class="dropdown" aria-haspopup="true">
-          <a href="{{ link.url }}" class="nav-link{% if link.active %} active{% endif %}">
+        <li class="dropdown" aria-haspopup="true" data-id="{{ child_list_handle}}">
+          <a href="{{ link.url }}" class="nav-link {% if link.active %} active{% endif %}">
             {{ link.title }}
           </a>
-          <ul class="dropdown">
+          <ul class="dropdown_menu hidden" id="{{ child_list_handle }}">
             {% for childlink in linklists[child_list_handle].links %}
               <li>
                 <a href="{{ childlink.url }}" class="nav-link{% if childlink.active %} active{% endif %}">{{ childlink.title | escape }}</a>
@@ -25,3 +25,14 @@
     {% endfor %}
   </ul>
 </nav>
+
+
+<script>
+  $('.dropdown').hover(function () {
+    var itemId = $(this).attr('data-id');
+    $('#'+itemId).removeClass('hidden');
+  }, function () {
+    var itemId = $(this).attr('data-id');
+    $('#'+itemId).addClass('hidden');
+  });
+</script>
