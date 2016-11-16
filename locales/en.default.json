@@ -104,6 +104,11 @@
       "date_ascending": "Date, old to new"
     }
   },
+  "product": {
+    "add_to_cart": "Add to Cart",
+    "regular_price": "Regular Price",
+    "quantity": "Quantity"
+  },
   "blog": {
     "title": "Blog",
     "categories": "Blog Categories",

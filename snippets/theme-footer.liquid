@@ -6,10 +6,14 @@
     <hr>
     <div class="row">
       <div class="column l5 m12 s12 l-left middle">
-        {% include 'theme-social-links' %}
+        {% if settings.enable_footer_social %}
+          {% include 'theme-social-links' %}
+        {% endif %}
       </div>
       <div class="column l7 m12 s12 l-right m-middle">
-        {% include 'theme-subscribe-form' %}
+        {% if settings.enable_footer_social %}
+          {% include 'theme-subscribe-form' %}
+        {% endif %}
       </div>
     </div>
   </div>
@@ -17,7 +21,9 @@
   <div class="container full center">
     <div class="row">
       <div class="column l7 m12 s12 l-left middle">
-        {% include 'theme-gateway-icons' %}
+        {% if settings.enable_gateway_icons %}
+          {% include 'theme-gateway-icons' %}
+        {% endif %}
       </div>
       <div class="column l5 m12 s12 l-right m-middle">
         <a href="http://shopify.com/timber" title="Concrete Shopify Theme Framework">Concrete</a>
