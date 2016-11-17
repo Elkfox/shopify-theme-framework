@@ -1,33 +1,44 @@
 /* replaceUrlParam - http://stackoverflow.com/questions/7171099/how-to-replace-url-parameter-with-javascript-jquery */
 function replaceUrlParam(e,r,a){var n=new RegExp("("+r+"=).*?(&|$)"),c=e;return c=e.search(n)>=0?e.replace(n,"$1"+a+"$2"):c+(c.indexOf("?")>0?"&":"?")+r+"="+a};
 
+var $ = jQuery;
+
 // Money formatting
 if ((typeof Shopify) === 'undefined') { Shopify = {}; }
 if (!Shopify.formatMoney) {
   Shopify.formatMoney = function(cents, format) {
+    console.log("Shopify.formatMoney Format: ", format);
     var value = '',
         placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
-        formatString = (format || this.money_format);
-
+        formatString = (format || "{% raw %} ${{amount}} {% endraw %}");
+    console.log("Format String: ", formatString);
+    console.log(formatString.match(placeholderRegex))
     if (typeof cents == 'string') {
       cents = cents.replace('.','');
     }
+
     function defaultOption(opt, def) {
       return (typeof opt == 'undefined' ? def : opt);
     }
+
     function formatWithDelimiters(number, precision, thousands, decimal) {
       precision = defaultOption(precision, 2);
       thousands = defaultOption(thousands, ',');
       decimal   = defaultOption(decimal, '.');
+
       if (isNaN(number) || number == null) {
         return 0;
       }
+
       number = (number/100.0).toFixed(precision);
+
       var parts   = number.split('.'),
           dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
           cents   = parts[1] ? (decimal + parts[1]) : '';
+
       return dollars + cents;
     }
+
     switch(formatString.match(placeholderRegex)[1]) {
       case 'amount':
         value = formatWithDelimiters(cents, 2);
@@ -42,6 +53,7 @@ if (!Shopify.formatMoney) {
         value = formatWithDelimiters(cents, 0, '.', ',');
         break;
     }
+
     return formatString.replace(placeholderRegex, value);
   };
 }
@@ -57,15 +69,10 @@ concrete.cacheSelectors = function () {
     $toggleItemLink : $('.js_toggle'),
     $revealItemLink : $('.js_open'),
     $hideItemLink : $('.js_close'),
-
-
     // Collection Pages
     $changeView              : $('.change-view'),
 
 
-    // Product Page
-    $productImage            : $('#ProductPhotoImg'),
-    $thumbImages             : $('#ProductThumbs').find('a.product-single__thumbnail'),
 
     // Customer Pages
     $customerLoginForm       : $('#LoginForm'),
@@ -79,9 +86,9 @@ concrete.cacheSelectors = function () {
 // Initialize the functions
 concrete.init = function () {
   concrete.cacheSelectors();
+
   concrete.visibilityManager();
 
-  concrete.productImageSwitch();
   concrete.responsiveVideos();
   concrete.collectionViews();
   concrete.loginForms();
@@ -90,82 +97,6 @@ concrete.init = function () {
 // Get current window location
 concrete.getHash = function () {
   return window.location.hash;
-};
-
-concrete.productPage = function (options) {
-  var moneyFormat = options.money_format,
-      variant = options.variant,
-      selector = options.selector;
-
-  // Selectors
-  var $productImage = $('#ProductPhotoImg'),
-      $addToCart = $('#AddToCart'),
-      $productPrice = $('#ProductPrice'),
-      $comparePrice = $('#ComparePrice'),
-      $quantityElements = $('.quantity-selector, label + .js-qty'),
-      $addToCartText = $('#AddToCartText');
-
-  if (variant) {
-
-    // Update variant image, if one is set
-    if (variant.featured_image) {
-      var newImg = variant.featured_image,
-          el = $productImage[0];
-      Shopify.Image.switchImage(newImg, el, concrete.switchImage);
-    }
-
-    // Select a valid variant if available
-    if (variant.available) {
-      // Available, enable the submit button, change text, show quantity elements
-      $addToCart.removeClass('disabled').prop('disabled', false);
-      $addToCartText.html({{ 'products.product.add_to_cart' | t | json }});
-      $quantityElements.show();
-    } else {
-      // Sold out, disable the submit button, change text, hide quantity elements
-      $addToCart.addClass('disabled').prop('disabled', true);
-      $addToCartText.html({{ 'products.product.sold_out' | t | json }});
-      $quantityElements.hide();
-    }
-
-    // Regardless of stock, update the product price
-    $productPrice.html( Shopify.formatMoney(variant.price, moneyFormat) );
-
-    // Also update and show the product's compare price if necessary
-    if (variant.compare_at_price > variant.price) {
-      $comparePrice
-        .html({{ 'products.product.compare_at' | t | json }} + ' ' + Shopify.formatMoney(variant.compare_at_price, moneyFormat))
-        .show();
-    } else {
-      $comparePrice.hide();
-    }
-
-  } else {
-    // The variant doesn't exist, disable submit button.
-    // This may be an error or notice that a specific variant is not available.
-    // To only show available variants, implement linked product options:
-    //   - http://docs.shopify.com/manual/configuration/store-customization/advanced-navigation/linked-product-options
-    $addToCart.addClass('disabled').prop('disabled', true);
-    $addToCartText.html({{ 'products.product.unavailable' | t | json }});
-    $quantityElements.hide();
-  }
-};
-
-concrete.productImageSwitch = function () {
-  if (concrete.cache.$thumbImages.length) {
-    // Switch the main image with one of the thumbnails
-    // Note: this does not change the variant selected, just the image
-    concrete.cache.$thumbImages.on('click', function(evt) {
-      evt.preventDefault();
-      var newImage = $(this).attr('href');
-      concrete.switchImage(newImage, null, concrete.cache.$productImage);
-    });
-  }
-};
-
-concrete.switchImage = function (src, imgObject, el) {
-  // Make sure element is a jquery object
-  var $el = $(el);
-  $el.attr('src', src);
 };
 
 // responsive Videos
@@ -243,6 +174,46 @@ concrete.visibilityManager = function() {
     var itemId = $(this).attr('href');
     $(itemId).addClass('hidden');
   });
+};
+
+
+concrete.switchVariant = function(options) {
+  var moneyFormat = options.moneyFormat,
+    variant = options.variant;
+  var $addToCart = $("#AddToCart");
+  var $addToCartText = $("#AddToCartText");
+  var $productPrice = $("#ProductPrice");
+  var $comparePrice = $("#ComparePrice");
+
+  if (variant) {
+    if (variant.featured_image) {
+      console.log("Switching image");
+      Shopify.Image.switchImage(variant.featured_image, $("#ProductPhotoImg")[0], function(i, e, t) {
+        console.log(i, e, t);
+        var $t = $(t);
+        $t.attr('src', i);
+      });
+    } else {
+      console.log("No image");
+    }
+    if (variant.available) {
+      $addToCart.removeClass("disabled").prop('disabled', false);
+      $addToCartText.html({{ 'product.add_to_cart' | t | json }});
+      $addToCart.attr("data-cart-add", variant.id);
+
+    } else {
+      $addToCart.addClass("disabled").prop('disabled', true);
+    }
+
+    $productPrice.html(Shopify.formatMoney(variant.price, moneyFormat));
+
+       if (variant.compare_at_price > variant.price) {
+      $comparePrice.html({{ 'products.product.compare_at' | t | json }} + ' ' + Shopify.formatMoney(variant.compare_at_price, moneyFormat)).show();
+    } else {
+      $comparePrice.hide();
+    }
+  }
+
 };
 
 // Initialize on docready

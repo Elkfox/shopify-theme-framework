@@ -2,105 +2,66 @@
 
 {% if cart.item_count > 0 %}
 
-  <h1>{{ 'cart.general.title' | t }}</h1>
+  <div class="container">
+    <h1>{{ 'cart.title' | t }}</h1>
+  </div>
 
-  <form action="/cart" method="post" novalidate>
-
-    <div id="CartHeader">
-      <div>{{ 'cart.label.product' | t }}</div>
-      <div>{{ 'cart.label.price' | t }}</div>
-      <div>{{ 'cart.label.quantity' | t }}</div>
-      <div>{{ 'cart.label.total' | t }}</div>
+  <form id="CartPage" action="/cart" method="post" novalidate>
+    <div class="container s-hide">
+      <div class="row l-table m-table" id="CartHeader">
+        <div class="column l5 m5">{{ 'cart.label.product' | t }}</div>
+        <div class="column l3 m3">{{ 'cart.label.price' | t }}</div>
+        <div class="column l2 m2">{{ 'cart.label.quantity' | t }}</div>
+        <div class="column l2 m2 l-right m-right">{{ 'cart.label.subtotal' | t }}</div>
+      </div>
+    </div>
+    <div class="container" id="CartItems" data-cart-view>
+      <div class="row l-table m-table" rv-each-item="cart.items">
+        <div class="column l5 m5 s12">
+          <strong>{ item.title }</strong>
+        </div>
+        <div class="column l3 m3 s-hide">
+          { item.price | money_with_currency}
+        </div>
+        <div class="column l2 m2 s12 s-right">
+          <div class="quanity_adjust">
+            <a class="adjust" id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
+            <span class="quantity">{ item.quantity }</span>
+            <a class="adjust" id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">&#43;</a>
+          </div>
+        </div>
+        <div class="column l2 m2 s12 right">
+          { item.line_price | money_with_currency }
+        </div>
+      </div>
     </div>
 
-    <div id="CartItems">
-
-      {% for item in cart.items %}
-
-        <div data-label="{{ 'customer.order.product' | t }}">
-          <a href="{{ item.url | within: collections.all }}" class="cart__image">
-            <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
-          </a>
+    <div class="container">
+      <div class="row">
+        <div class="column l6 m6 s12">
+          {% if settings.cart_notes_enable %}
+            <label class="clearfix "for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
+            <textarea name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+          {% endif %}
         </div>
+        <div class="column l6 m6 s12 l-right m-right">
 
-        <a href="{{ item.url }}" class="h4">
-          {{ item.product.title }}
-        </a>
-        {% unless item.variant.title contains 'Default' %}
-          <br>
-          <small>{{ item.variant.title }}</small>
-        {% endunless %}
+          <p>
+            <span class="h5">{{ 'cart.total' | t }}</span>
+            <span class="h3" data-cart-view>{ cart.total_price | money_with_currency }</span>
+          </p>
 
-        {% if settings.cart_vendor_enable %}
-          <p>{{ item.vendor }}</p>
-        {% endif %}
-
-        {% assign property_size = item.properties | size %}
-        {% if property_size > 0 %}
-          {% for p in item.properties %}
-            {% unless p.last == blank %}
-              {{ p.first }}:
-              {% if p.last contains '/uploads/' %}
-                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-              {% else %}
-                {{ p.last }}
-              {% endif %}
-              <br>
-            {% endunless %}
-          {% endfor %}
-        {% endif %}
-
-        <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="cart__remove">
-          <small>{{ 'cart.general.remove' | t }}</small>
-        </a>
-
-        <div data-label="{{ 'cart.label.price' | t }}">
-          <span class="h3">
-            {{ item.price | money }}
-          </span>
-        </div>
-
-        <div data-label="{{ 'cart.label.quantity' | t }}">
-          <input type="number" name="updates[]" id="updates_{{ item.key }}" data-id="{{ item.key }}" value="{{ item.quantity }}" min="0">
-        </div>
-
-        <div data-label="{{ 'cart.label.total' | t }}">
-
-          {% if item.original_line_price != item.line_price %}
-            <span><s>{{ item.original_line_price | money }}</s></span>
+          {% if cart.total_discounts > 0 %}
+            {% assign savings = cart.total_discounts | money %}
+            <p><span><em>{{ 'cart.savings_html' | t: price: savings }}</em></span></p>
           {% endif %}
 
-          <span class="h3">{{ item.line_price | money }}</span>
-
-          {% for discount in item.discounts %}
-            <span>{{ discount.title }}</span>
-          {% endfor %}
+          <p><em>{{ 'cart.shipping_at_checkout' | t }}</em></p>
+          <button type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
 
         </div>
-
-      {% endfor %}
-
+      </div>
     </div>
-
-    {% if settings.cart_notes_enable %}
-      <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
-      <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
-    {% endif %}
-
-    <p>
-      <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
-      <span class="h3 cart__subtotal">{{ cart.total_price | money }}</span>
-    </p>
-
-    {% if cart.total_discounts > 0 %}
-      {% assign savings = cart.total_discounts | money %}
-      <p><span><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span></p>
-    {% endif %}
-
-    <p><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
-
-    <button type="submit" name="update">{{ 'cart.general.update' | t }}</button>
-    <button type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
 
   </form>
 

@@ -51,21 +51,21 @@
           </select>
 
           <span class="hidden">{{ 'product.regular_price' | t }}</span>
-          <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+          <span id="ProductPrice" class="h2 clearfix" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
             {{ current_variant.price | money }}
           </span>
 
           {% if product.compare_at_price_max > product.price %}
-            <span class="hidden">{{ 'products.general.sale_price' | t }}</span>
-            <s id="ComparePrice"  class="h4">
-              {{ current_variant.compare_at_price | money }}
-            </s>
+            <span>{{ 'products.general.sale_price' | t }}</span>
+            <p id="ComparePrice">
+              {{ 'product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
+            </p>
           {% endif %}
 
           <label for="Quantity" class="clearfix">{{ 'product.quantity' | t }}</label>
-          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector" data-cart-quantity="1">
 
-          <button type="submit" name="add" id="AddToCart" class="btn">
+          <button type="submit" name="add" id="AddToCart" class="btn" data-cart-add="{{ product.variant.id }}">
             <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
           </button>
         </form>
@@ -114,13 +114,18 @@
       * E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
 {% endcomment %}
 {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
 <script>
+  $("#Quantity").on("change", function() {
+    $("#AddToCart").attr("data-cart-quantity", $(this).val());
+  })
+
   var selectCallback = function(variant, selector) {
-    timber.productPage({
-      money_format: "{{ shop.money_format }}",
+    console.log("Switching variant: ", variant);
+    concrete.switchVariant({
+      moneyFormat: "{{ shop.money_format }}",
       variant: variant,
-      selector: selector
-    });
+    })
   };
 
   jQuery(function($) {

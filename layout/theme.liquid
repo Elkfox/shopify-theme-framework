@@ -64,16 +64,23 @@
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
   <div id="PageContainer">
     {% include 'theme-header' %}
-    <main class="wrapper main-content" role="main">
+    <main id="MainContent" role="main">
       {% include 'theme-breadcrumbs' %}
       {{ content_for_layout }}
     </main>
     {% include 'theme-footer' %}
   </div>
 
-  <!-- OLD JAVASCRIPT REMOVED -->
   {% comment %}{{ 'cookies.min.js' | asset_url | script_tag }}{% endcomment %}
   {{ 'app.js' | asset_url | script_tag }}
+  {{ 'rivets.min.js' | asset_url | script_tag }}
+  {{ 'cart.js' | asset_url | script_tag }}
+
+  <script type="text/javascript">
+    jQuery(function() {
+        CartJS.init({{ cart | json }});
+    });
+  </script>
 
 </body>
 </html>
