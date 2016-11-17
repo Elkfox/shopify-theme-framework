@@ -51,15 +51,15 @@
           </select>
 
           <span class="hidden">{{ 'product.regular_price' | t }}</span>
-          <span id="ProductPrice" class="h2 clearfix" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+          <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
             {{ current_variant.price | money }}
           </span>
 
           {% if product.compare_at_price_max > product.price %}
-            <span>{{ 'products.general.sale_price' | t }}</span>
-            <p id="ComparePrice">
-              {{ 'product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
-            </p>
+            <span class="hidden">{{ 'products.general.sale_price' | t }}</span>
+            <s id="ComparePrice"  class="h4">
+              {{ current_variant.compare_at_price | money }}
+            </s>
           {% endif %}
 
           <label for="Quantity" class="clearfix">{{ 'product.quantity' | t }}</label>
