@@ -601,6 +601,12 @@ a.button {
   }
 }
 
+/* Footer ====================================================================*/
+
+.theme-footer {
+  padding: $gutter/2 0;
+}
+
 /* Forms =====================================================================*/
 
 form#AddToCartForm,
@@ -627,10 +633,23 @@ form#create_customer,
   }
 }
 
-/* Footer ====================================================================*/
-
-.theme-footer {
-  padding: $gutter/2 0 $gutter;
+form#CartPage {
+  display: block;
+  width: 100%;
+  .quanity_adjust {
+    .adjust {
+      font-size: 1.35rem;
+    }
+    .quantity {
+      display: inline-block;
+      width: $gutter/2;
+      height: $gutter/2;
+      line-height: $gutter/2;
+      text-align: center;
+      background-color: lighten($colorBackground, 30%);
+      border-radius: $borderRadius;
+    }
+  }
 }
 
 /* Collections ===============================================================*/
@@ -648,7 +667,3 @@ form#create_customer,
 /* Blogs =====================================================================*/
 
 .template-blog { }
-
-/* Cart ======================================================================*/
-
-.template-cart { }

@@ -79,7 +79,16 @@
       "quantity": "Quantity",
       "total": "Total"
     },
+    "total": "Total",
+    "checkout": "Checkout",
+    "shipping_at_checkout": "Shipping calculated at checkout",
     "back_to_shop_html": "Continue browsing <a href=\"/collections/all\">here</a>",
+    "label": {
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "subtotal": "Subtotal"
+    },
     "count": {
       "one": "item",
       "other": "items"
@@ -120,6 +129,7 @@
     "quantity": "Quantity",
     "priced_from_html": "From {{ price }}",
     "on_sale_html": "On sale for {{ price }}",
+    "on_sale": "On sale",
     "original_price": "Originally"
   },
   "blog": {

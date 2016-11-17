@@ -5,6 +5,7 @@
    {% for address in addresses %}``
 
 
- ## Libraries that may or may not be added later
+## Libraries that may or may not be added later
 
- * [FastClick](https://github.com/ftlabs/fastclick) eliminates the 300ms delay on click events on mobile browsers
+* [FastClick](https://github.com/ftlabs/fastclick) eliminates the 300ms delay on click events on mobile browsers
+* Unslider by Idiot http://unslider.com

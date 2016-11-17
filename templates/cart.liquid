@@ -1,35 +1,66 @@
 <!-- /templates/cart.liquid -->
 
 {% if cart.item_count > 0 %}
-<div class="container">
-  <h1>{{ 'cart.title' | t }}</h1>
+  <div class="container">
+    <h1>{{ 'cart.title' | t }}</h1>
+  </div>
 
-  <form action="/cart" method="post" novalidate>
-
-    <div id="CartHeader" class="row">
-      <div class="column l4">{{ 'cart.label.product' | t }}</div>
-      <div class="column l2">{{ 'cart.label.price' | t }}</div>
-      <div class="column l2">{{ 'cart.label.quantity' | t }}</div>
-      <div class="column l2">{{ 'cart.label.total' | t }}</div>
+  <form id="CartPage" action="/cart" method="post" novalidate>
+    <div class="container s-hide">
+      <div class="row l-table m-table" id="CartHeader">
+        <div class="column l5 m5">{{ 'cart.label.product' | t }}</div>
+        <div class="column l3 m3">{{ 'cart.label.price' | t }}</div>
+        <div class="column l2 m2">{{ 'cart.label.quantity' | t }}</div>
+        <div class="column l2 m2 l-right m-right">{{ 'cart.label.subtotal' | t }}</div>
+      </div>
     </div>
-
-    <div id="CartItems" data-cart-view>
-      <div class="row" rv-each-item="cart.items">
-        <div class="column l4">
-          { item.title }
+    <div class="container" id="CartItems" data-cart-view>
+      <div class="row l-table m-table" rv-each-item="cart.items">
+        <div class="column l5 m5 s12">
+          <strong>{ item.title }</strong>
         </div>
-        <div class="column l2">
+        <div class="column l3 m3 s-hide">
           { item.price | money_with_currency}
         </div>
-        <div class="column l2">
-         <a id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">-</a> { item.quantity } <a id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">+</a>
+        <div class="column l2 m2 s12 s-right">
+          <div class="quanity_adjust">
+            <a class="adjust" id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
+            <span class="quantity">{ item.quantity }</span>
+            <a class="adjust" id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">&#43;</a>
+          </div>
         </div>
-        <div class="column l2">
+        <div class="column l2 m2 s12 right">
           { item.line_price | money_with_currency }
         </div>
       </div>
     </div>
 
+    <div class="container">
+      <div class="row">
+        <div class="column l6 m6 s12">
+          {% if settings.cart_notes_enable %}
+            <label class="clearfix "for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
+            <textarea name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+          {% endif %}
+        </div>
+        <div class="column l6 m6 s12 l-right m-right">
+
+          <p>
+            <span class="h5">{{ 'cart.total' | t }}</span>
+            <span class="h3" data-cart-view>{ cart.total_price | money_with_currency }</span>
+          </p>
+
+          {% if cart.total_discounts > 0 %}
+            {% assign savings = cart.total_discounts | money %}
+            <p><span><em>{{ 'cart.savings_html' | t: price: savings }}</em></span></p>
+          {% endif %}
+
+          <p><em>{{ 'cart.shipping_at_checkout' | t }}</em></p>
+          <button type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+
+        </div>
+      </div>
+    </div>
     {% if settings.cart_notes_enable %}
       <label for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
       <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
@@ -47,7 +78,6 @@
 
     <p><em>{{ 'cart.shipping_at_checkout' | t }}</em></p>
     <button type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
-
   </form>
 
 {% else %}
