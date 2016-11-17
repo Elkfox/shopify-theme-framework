@@ -41,7 +41,13 @@
           <select name="id" id="productSelect" class="product-single__variants">
             {% for variant in product.variants %}
               {% if variant.available %}
-                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+                <option
+                  {% if variant == product.selected_or_first_available_variant %}
+                  selected="selected"
+                  {% endif %}
+                  data-sku="{{ variant.sku }}"
+                  value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+                </option>
               {% else %}
                 <option disabled="disabled">
                   {{ variant.title }} - {{ 'product.sold_out' | t }}
@@ -63,9 +69,9 @@
           {% endif %}
 
           <label for="Quantity" class="clearfix">{{ 'product.quantity' | t }}</label>
-          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector" data-cart-quantity="1">
+          <input type="number" id="Quantity" name="quantity" value="1" min="1" data-cart-quantity="1">
 
-          <button type="submit" name="add" id="AddToCart" class="btn" data-cart-add="{{ product.variant.id }}">
+          <button type="submit" name="add" id="AddToCart" data-cart-add="{{ product.variant.id }}">
             <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
           </button>
         </form>
@@ -81,12 +87,12 @@
           <p>
             {% if collection.previous_product %}
               <span class="left">
-                {{ 'products.general.previous_product_html' | t | link_to: collection.previous_product }}
+                {{ 'product.previous_product' | t | link_to: collection.previous_product }}
               </span>
             {% endif %}
             {% if collection.next_product %}
               <span class="right">
-                {{ 'products.general.next_product_html' | t | link_to: collection.next_product }}
+                {{ 'product.next_product' | t | link_to: collection.next_product }}
               </span>
             {% endif %}
           </p>
