@@ -69,6 +69,16 @@
   "cart": {
     "title": "Cart",
     "empty": "Your cart is empty :(",
+    "note": "Customer Notes",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "shipping_at_checkout": "Shipping calculated at checkout",
+    "label": { 
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total"
+    },
     "back_to_shop_html": "Continue browsing <a href=\"/collections/all\">here</a>",
     "count": {
       "one": "item",

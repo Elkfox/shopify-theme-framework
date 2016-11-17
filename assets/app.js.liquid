@@ -1,33 +1,44 @@
 /* replaceUrlParam - http://stackoverflow.com/questions/7171099/how-to-replace-url-parameter-with-javascript-jquery */
 function replaceUrlParam(e,r,a){var n=new RegExp("("+r+"=).*?(&|$)"),c=e;return c=e.search(n)>=0?e.replace(n,"$1"+a+"$2"):c+(c.indexOf("?")>0?"&":"?")+r+"="+a};
 
+var $ = jQuery;
+
 // Money formatting
 if ((typeof Shopify) === 'undefined') { Shopify = {}; }
 if (!Shopify.formatMoney) {
-  Shopify.formatMoney = function(cents, format) {
+  Shopify.formatMoney = function(cents, format) { 
+    console.log("Shopify.formatMoney Format: ", format);
     var value = '',
         placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
-        formatString = (format || this.money_format);
-
+        formatString = (format || "{% raw %} ${{amount}} {% endraw %}");
+    console.log("Format String: ", formatString);
+    console.log(formatString.match(placeholderRegex))
     if (typeof cents == 'string') {
       cents = cents.replace('.','');
     }
+
     function defaultOption(opt, def) {
       return (typeof opt == 'undefined' ? def : opt);
     }
+
     function formatWithDelimiters(number, precision, thousands, decimal) {
       precision = defaultOption(precision, 2);
       thousands = defaultOption(thousands, ',');
       decimal   = defaultOption(decimal, '.');
+
       if (isNaN(number) || number == null) {
         return 0;
       }
+
       number = (number/100.0).toFixed(precision);
+
       var parts   = number.split('.'),
           dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
           cents   = parts[1] ? (decimal + parts[1]) : '';
+
       return dollars + cents;
     }
+
     switch(formatString.match(placeholderRegex)[1]) {
       case 'amount':
         value = formatWithDelimiters(cents, 2);
@@ -42,6 +53,7 @@ if (!Shopify.formatMoney) {
         value = formatWithDelimiters(cents, 0, '.', ',');
         break;
     }
+
     return formatString.replace(placeholderRegex, value);
   };
 }
@@ -162,6 +174,46 @@ concrete.visibilityManager = function() {
     var itemId = $(this).attr('href');
     $(itemId).addClass('hidden');
   });
+};
+
+
+concrete.switchVariant = function(options) {
+  var moneyFormat = options.moneyFormat,
+    variant = options.variant;
+  var $addToCart = $("#AddToCart");
+  var $addToCartText = $("#AddToCartText");
+  var $productPrice = $("#ProductPrice");
+  var $comparePrice = $("#ComparePrice");
+
+  if (variant) {
+    if (variant.featured_image) {
+      console.log("Switching image");
+      Shopify.Image.switchImage(variant.featured_image, $("#ProductPhotoImg")[0], function(i, e, t) {
+        console.log(i, e, t);
+        var $t = $(t);
+        $t.attr('src', i);
+      });
+    } else {
+      console.log("No image");
+    }
+    if (variant.available) {
+      $addToCart.removeClass("disabled").prop('disabled', false);
+      $addToCartText.html({{ 'product.add_to_cart' | t | json }});
+      $addToCart.attr("data-cart-add", variant.id);
+
+    } else {
+      $addToCart.addClass("disabled").prop('disabled', true);
+    }
+
+    $productPrice.html(Shopify.formatMoney(variant.price, moneyFormat));
+
+       if (variant.compare_at_price > variant.price) {
+      $comparePrice.html({{ 'products.product.compare_at' | t | json }} + ' ' + Shopify.formatMoney(variant.compare_at_price, moneyFormat)).show();
+    } else {
+      $comparePrice.hide();
+    }
+  }
+  
 };
 
 // Initialize on docready

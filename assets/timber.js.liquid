@@ -12,6 +12,7 @@ function replaceUrlParam(e,r,a){var n=new RegExp("("+r+"=).*?(&|$)"),c=e;return 
 if ((typeof Shopify) === 'undefined') { Shopify = {}; }
 if (!Shopify.formatMoney) {
   Shopify.formatMoney = function(cents, format) {
+
     var value = '',
         placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
         formatString = (format || this.money_format);
@@ -214,7 +215,6 @@ timber.productPage = function (options) {
       $addToCartText = $('#AddToCartText');
 
   if (variant) {
-
     // Update variant image, if one is set
     if (variant.featured_image) {
       var newImg = variant.featured_image,

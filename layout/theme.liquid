@@ -74,6 +74,14 @@
   <!-- OLD JAVASCRIPT REMOVED -->
   {% comment %}{{ 'cookies.min.js' | asset_url | script_tag }}{% endcomment %}
   {{ 'app.js' | asset_url | script_tag }}
+  {{ 'rivets.min.js' | asset_url | script_tag }}
+  {{ 'cart.js' | asset_url | script_tag }}
+
+  <script type="text/javascript">
+    jQuery(function() {
+        CartJS.init({{ cart | json }});
+    });
+  </script>
 
 </body>
 </html>

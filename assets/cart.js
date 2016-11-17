@@ -204,6 +204,7 @@
         }
       }
       if (((_ref1 = window.Shopify) != null ? _ref1.formatMoney : void 0) != null) {
+        console.log(format);
         return Shopify.formatMoney(value, format);
       } else {
         return value;
@@ -603,6 +604,7 @@
       return value.slice(start, end);
     };
     rivets.formatters.pluralize = function(input, singular, plural) {
+      console.log("Pluralizing");
       if (plural == null) {
         plural = singular + 's';
       }
