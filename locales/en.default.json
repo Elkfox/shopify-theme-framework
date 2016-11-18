@@ -69,7 +69,16 @@
   "cart": {
     "title": "Cart",
     "empty": "Your cart is empty :(",
-    "note": "Customer Notes",
+    "note": "Customer Notes", 
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "shipping_at_checkout": "Shipping calculated at checkout",
+    "label": { 
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total"
+    },
     "total": "Total",
     "checkout": "Checkout",
     "shipping_at_checkout": "Shipping calculated at checkout",

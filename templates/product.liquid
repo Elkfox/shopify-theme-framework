@@ -1,7 +1,6 @@
 <!-- /templates/product.liquid -->
 
 <div class="container" itemscope itemtype="http://schema.org/Product">
-
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
   {% assign current_variant = product.selected_or_first_available_variant %}
@@ -126,7 +125,7 @@
 {% endcomment %}
 {{ 'option_selection.js' | shopify_asset_url | script_tag }}
 
-<script>
+<script> 
   $("#Quantity").on("change", function() {
     $("#AddToCart").attr("data-cart-quantity", $(this).val());
   })

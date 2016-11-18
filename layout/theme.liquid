@@ -24,7 +24,7 @@
         content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="theme-color" content="{{ settings.color_primary }}">
 
-  <title>
+  <title> 
     {{ page_title }}
     {% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %}&ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}
     {% if current_page != 1 %}&ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
@@ -72,15 +72,19 @@
   </div>
 
   {% comment %}{{ 'cookies.min.js' | asset_url | script_tag }}{% endcomment %}
-  {{ 'app.js' | asset_url | script_tag }}
+
   {{ 'rivets.min.js' | asset_url | script_tag }}
   {{ 'cart.js' | asset_url | script_tag }}
-
+  {{ 'app.js' | asset_url | script_tag }}
   <script type="text/javascript">
     jQuery(function() {
       CartJS.init({{ cart | json }});
     });
-  </script>
 
+    CartJS.errorHandling.cartError = function(error) {
+      console.log("THERE WAS A CART ERROR: ", error);
+    }
+  </script>
+  
 </body>
 </html>
