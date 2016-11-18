@@ -5,6 +5,10 @@
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
   {% assign current_variant = product.selected_or_first_available_variant %}
+  {% assign on_sale = false %}
+  {% if product.compare_at_price > product.price %}{% assign on_sale = true %}{% endif %}
+  {% assign sold_out = true %}
+  {% if product.available %}{% assign sold_out = false %}{% endif %}
 
   <div class="row">
     <div class="column l6 m6 s12">
@@ -61,10 +65,11 @@
             {{ current_variant.price | money }}
           </span>
 
-          {% if product.compare_at_price_max > product.price %}
-            <span>{{ 'products.general.sale_price' | t }}</span>
-            <p id="ComparePrice">
-              {{ 'product.compare_at' | t }} {{ current_variant.compare_at_price | money }}
+          {% if on_sale %}
+            <p>
+              <span class="hidden">{{ 'product.original_price' | t }}</span>
+              <span>{{ 'product.original_price' | t }}</span>
+              <s id="ComparePrice">{{ product.compare_at_price | money }}</s>
             </p>
           {% endif %}
 

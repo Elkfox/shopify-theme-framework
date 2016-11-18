@@ -207,8 +207,8 @@ concrete.switchVariant = function(options) {
 
     $productPrice.html(Shopify.formatMoney(variant.price, moneyFormat));
 
-       if (variant.compare_at_price > variant.price) {
-      $comparePrice.html({{ 'products.product.compare_at' | t | json }} + ' ' + Shopify.formatMoney(variant.compare_at_price, moneyFormat)).show();
+    if (variant.compare_at_price > variant.price) {
+      $comparePrice.html(Shopify.formatMoney(variant.compare_at_price, moneyFormat)).show();
     } else {
       $comparePrice.hide();
     }

@@ -120,10 +120,11 @@
     "quantity": "Quantity",
     "priced_from_html": "From {{ price }}",
     "on_sale_html": "On sale for {{ price }}",
+    "on_sale_from_html": "On sale from {{ price }}",
     "on_sale": "On sale",
     "original_price": "Originally",
-    "previous_product": "Previous Product",
-    "next_product": "Next Product"
+    "previous_product": "Previous",
+    "next_product": "Next"
   },
   "blog": {
     "title": "Blog",
