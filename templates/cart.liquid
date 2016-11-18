@@ -18,7 +18,7 @@
     <div class="container" id="CartItems" data-cart-view>
       <div class="row l-table m-table" rv-each-item="cart.items">
         <div class="column l5 m5 s12">
-          <strong>{ item.title }</strong>
+          <strong><a rv-href="item.url">{ item.title }</a></strong>
         </div>
         <div class="column l3 m3 s-hide">
           { item.price | money_with_currency}

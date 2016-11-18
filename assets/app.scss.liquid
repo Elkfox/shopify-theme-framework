@@ -576,7 +576,8 @@ a.button {
 
 .theme-main-nav {
   .nav-link {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+    font-weight: $fontBold;
     margin-right: $gutter/3;
   }
   .dropdown {
@@ -638,13 +639,19 @@ form#CartPage {
   width: 100%;
   .quanity_adjust {
     .adjust {
+      display: inline-block;
+      width: $gutter/1.5;
+      height: $gutter/1.5;
+      vertical-align: middle;
+      line-height: 1.4;
+      text-align: center;
       font-size: 1.35rem;
     }
     .quantity {
       display: inline-block;
-      width: $gutter/2;
-      height: $gutter/2;
-      line-height: $gutter/2;
+      width: $gutter/1.5;
+      height: $gutter/1.5;
+      line-height: $gutter/1.5;
       text-align: center;
       background-color: lighten($colorBackground, 30%);
       border-radius: $borderRadius;
