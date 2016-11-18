@@ -22,7 +22,7 @@
         <div class="column l3 m3 s-hide">
           { item.price | money_with_currency}
         </div>
-        <div class="column l2 m2 s12 s-right">
+        <div class="column l2 m2 s6">
           <div class="quanity_adjust">
             <a class="adjust" id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
             <span class="quantity">{ item.quantity }</span>
@@ -31,7 +31,7 @@
             <a class="adjust" href="#" rv-data-cart-remove="index | plus 1">&times;</a>
           </div>
         </div>
-        <div class="column l2 m2 s12 right">
+        <div class="column l2 m2 s6 right">
           { item.line_price | money_with_currency }
         </div>
       </div>

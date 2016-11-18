@@ -1,7 +1,7 @@
-<!-- /snippets/product-grid-item.liquid -->
+<!-- /snippets/collection-product.liquid -->
 
-{% unless grid_item_width %}
-  {% assign grid_item_width = 'large--one-third medium--one-half' %}
+{% unless column_width %}
+  {% assign column_width = 'large--one-third medium--one-half' %}
 {% endunless %}
 
 {% assign on_sale = false %}
@@ -14,7 +14,7 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<div class="{{ grid_item_width }}">
+<div class="{{ column_width }}">
 
   <a href="{{ product.url | within: collection }}" class="grid__image">
     <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
@@ -25,7 +25,7 @@
     {% if on_sale %}
       {% if product.price_varies %}
         {% assign sale_price = product.price | money %}
-        {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+        {{ 'product.on_sale_from_html' | t: price: sale_price }}
       {% else %}
         <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
         {{ product.price | money }}

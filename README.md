@@ -26,6 +26,16 @@ View the (demo store)[https://concrete-theme.myshopify.com]
 
 [Modernizr](https://github.com/Modernizr/Modernizr) provides feature detection library for HTML5/CSS3
 
+## Reference Material
+
+### Liquid
+
+[The Shopify Cheat Sheet](https://www.shopify.com.au/partners/shopify-cheat-sheet) gives quick access to liquid markup elements
+
+Shopify's [Theme Documentation](https://help.shopify.com/themes) is an exhaustive resource for anything related to building themes
+
+[Cart.js Reference](https://cartjs.org/pages/reference) is also particularly useful
+
 ## Special Thanks
 
 #### Carson Shold

@@ -63,7 +63,7 @@
           {% if on_sale %}
             {% if product.price_varies %}
               {% assign sale_price = product.price | money %}
-              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+              {{ 'product.on_sale_from_html' | t: price: sale_price }}
             {% else %}
               <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
               {{ product.price | money }}

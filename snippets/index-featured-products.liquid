@@ -1,6 +1,6 @@
 <!-- snippets/index-featured-products.liquid -->
 
-{% assign grid_item_width = 'column l4 m6 s12' %}
+{% assign column_width = 'column l4 m6 s12' %}
 
 <div class="container">
   <h3>{{ 'index.featured_products' | t }}</h3>
@@ -9,7 +9,7 @@
 <div class="container">
   <div class="row">
     {% for product in collections.frontpage.products limit:6 %}
-      {% include 'product-grid-item' %}
+      {% include 'collection-product' %}
     {% else %}
       {% unless emptyState %}
         {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
