@@ -29,7 +29,7 @@
         {% endif %}
 
         <a href="/cart" id="CartLink" aria-controls="Cart" aria-expanded="false" data-cart-view>
-          {{ 'cart.title' | t }}
+          <span rv-text="cart.title"></span>
           { cart.item_count } { cart.item_count | pluralize "item" }
           (<span id="CartTotal">{cart.total_price | money_with_currency}</span>)
         </a>

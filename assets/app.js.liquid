@@ -10,7 +10,7 @@ if (!Shopify.formatMoney) {
     console.log("Shopify.formatMoney Format: ", format);
     var value = '',
         placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
-        formatString = (format || "{% raw %} ${{amount}} {% endraw %}");
+        formatString = (format || "{% raw %}${{amount}}{% endraw %}");
     console.log("Format String: ", formatString);
     console.log(formatString.match(placeholderRegex))
     if (typeof cents == 'string') {
@@ -92,6 +92,12 @@ concrete.init = function () {
   concrete.responsiveVideos();
   concrete.collectionViews();
   concrete.loginForms();
+
+
+  rivets.binders.href = function(el, value) {
+    console.log("Rivets value: ", value);
+    return el.href = "{{ shop.url }}" + value;
+  }
 };
 
 // Get current window location
@@ -185,7 +191,7 @@ concrete.switchVariant = function(options) {
   var $productPrice = $("#ProductPrice");
   var $comparePrice = $("#ComparePrice");
 
-  if (variant) {
+  if (variant) { 
     if (variant.featured_image) {
       console.log("Switching image");
       Shopify.Image.switchImage(variant.featured_image, $("#ProductPhotoImg")[0], function(i, e, t) {

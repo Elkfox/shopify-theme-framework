@@ -45,7 +45,7 @@
         if (key !== 'properties') {
           this[key] = value;
         }
-      }
+      } 
       return this.properties = CartJS.Utils.extend({}, item.properties);
     };
 
@@ -204,7 +204,7 @@
         }
       }
       if (((_ref1 = window.Shopify) != null ? _ref1.formatMoney : void 0) != null) {
-        console.log(format);
+
         return Shopify.formatMoney(value, format);
       } else {
         return value;
@@ -243,6 +243,13 @@
         data: data,
         type: options.type || 'POST',
         dataType: options.dataType || 'json',
+        statusCode: {
+          422: function(err) {
+            if (CartJS.errorHandling.cartError) {
+              CartJS.errorHandling.cartError(JSON.parse(err.responseText));
+            }
+          }
+        },
         success: CartJS.Utils.ensureArray(options.success),
         error: CartJS.Utils.ensureArray(options.error),
         complete: CartJS.Utils.ensureArray(options.complete)
@@ -250,6 +257,7 @@
       if (options.updateCart) {
         request.success.push(CartJS.cart.update);
       }
+
       queue.push(request);
       if (processing) {
         return;
@@ -604,7 +612,6 @@
       return value.slice(start, end);
     };
     rivets.formatters.pluralize = function(input, singular, plural) {
-      console.log("Pluralizing");
       if (plural == null) {
         plural = singular + 's';
       }
@@ -660,6 +667,12 @@
     };
   }
 
+  CartJS.errorHandling = {
+    cartError: function(error) {
+      console.log("There was an error: ", error);
+    }
+  };
+
   CartJS.factory = function(exports) {
     exports.init = CartJS.init;
     exports.configure = CartJS.configure;
@@ -680,8 +693,11 @@
     exports.clearAttributes = CartJS.Core.clearAttributes;
     exports.getNote = CartJS.Core.getNote;
     exports.setNote = CartJS.Core.setNote;
+    exports.errorHandling = CartJS.errorHandling;
     return exports.render = CartJS.Data.render;
   };
+
+
 
   if (typeof exports === 'object') {
     CartJS.factory(exports);

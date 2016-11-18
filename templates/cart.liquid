@@ -1,5 +1,4 @@
 <!-- /templates/cart.liquid -->
-
 {% if cart.item_count > 0 %}
   <div class="container">
     <h1>{{ 'cart.title' | t }}</h1>
@@ -14,10 +13,11 @@
         <div class="column l2 m2 l-right m-right">{{ 'cart.label.subtotal' | t }}</div>
       </div>
     </div>
-    <div class="container" id="CartItems" data-cart-view>
+    <div class="container" id="CartItems" data-cart-view> 
       <div class="row l-table m-table" rv-each-item="cart.items">
         <div class="column l5 m5 s12">
-          <strong>{ item.title }</strong>
+          <strong><a rv-href="item.url">{ item.product_title }</a></strong>
+          <span>{ item.variant_title }</span>
         </div>
         <div class="column l3 m3 s-hide">
           { item.price | money_with_currency}
@@ -27,6 +27,8 @@
             <a class="adjust" id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
             <span class="quantity">{ item.quantity }</span>
             <a class="adjust" id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">&#43;</a>
+
+            <a class="adjust" href="#" rv-data-cart-remove="index | plus 1">&times;</a>
           </div>
         </div>
         <div class="column l2 m2 s12 right">
@@ -61,23 +63,6 @@
         </div>
       </div>
     </div>
-    {% if settings.cart_notes_enable %}
-      <label for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
-      <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
-    {% endif %}
-
-    <p>
-      <span class="cart__subtotal-title">{{ 'cart.subtotal' | t }}</span>
-      <span class="h3 cart__subtotal" data-cart-view>{ cart.total_price | money_with_currency }</span>
-    </p>
-
-    {% if cart.total_discounts > 0 %}
-      {% assign savings = cart.total_discounts | money %}
-      <p><span><em>{{ 'cart.savings_html' | t: price: savings }}</em></span></p>
-    {% endif %}
-
-    <p><em>{{ 'cart.shipping_at_checkout' | t }}</em></p>
-    <button type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
   </form>
 
 {% else %}
