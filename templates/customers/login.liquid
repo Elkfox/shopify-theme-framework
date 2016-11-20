@@ -1,8 +1,8 @@
 <!-- /templates/customers/login.liquid -->
 
-<div class="container">
+<div class="container center">
 
-  <div id="LoginForm" class="center">
+  <div id="LoginForm">
     {% form 'customer_login' %}
 
       <h1>{{ 'account.login' | t }}</h1>
@@ -32,11 +32,11 @@
     {% endform %}
   </div>
 
-  <div class="note form-success center hidden" id="ResetSuccess">
+  <p class="note hidden" id="ResetSuccess">
     {{ 'account.reset_password.success' | t }}
-  </div>
+  </p>
 
-  <div id="RecoverPasswordForm" class="center hidden">
+  <div id="RecoverPasswordForm" class="hidden">
 
     <h2 class="h1">{{ 'account.reset_password.title' | t }}</h2>
     <p>{{ 'account.reset_password.message' | t }}</p>
@@ -49,12 +49,12 @@
         {% assign resetPassword = true %}
       {% endif %}
 
-      <label for="RecoverEmail" class="clearfix">{{ 'form.email' | t }}</label>
+      <label for="RecoverEmail" class="hidden">{{ 'form.email' | t }}</label>
       <input type="email" value="" name="email" id="RecoverEmail" placeholder="{{ 'form.email' | t }}" autocorrect="off" autocapitalize="off">
 
       <input type="submit" value="{{ 'form.send' | t }}">
 
-      <a href="#" id="HideRecoverPasswordLink">{{ 'form.cancel' | t }}</a>
+      <p><a href="#" id="HideRecoverPasswordLink">{{ 'form.cancel' | t }}</a></p>
 
     {% endform %}
 

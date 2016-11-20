@@ -11,7 +11,7 @@
           {% if icons %}
             {% include 'icon' with type %}
           {% else %}
-            {{ type | camelcase | replace:'_',' ' | prepend:'● ' }}
+            {{ type | camelcase | replace:'_',' ' }}
           {% endif %}
         </li>
       {% endif %}

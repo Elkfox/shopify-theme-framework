@@ -24,20 +24,17 @@
         content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="theme-color" content="{{ settings.color_primary }}">
 
-  <title> 
+  <title>
     {{ page_title }}
     {% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %}&ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}
     {% if current_page != 1 %}&ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
     {% unless page_title contains shop.name %}&ndash; {{ shop.name }}{% endunless %}
   </title>
-
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
-
   {% include 'social-meta-tags' %}
   <link rel="canonical" href="{{ canonical_url }}">
-
   {% if settings.favicon_enable %}
     <link rel="shortcut icon"
           href="{{ 'favicon.png' | asset_url }}"
@@ -69,10 +66,10 @@
       {{ content_for_layout }}
     </main>
     {% include 'theme-footer' %}
+    {% include 'popup-cart' %}
   </div>
 
   {% comment %}{{ 'cookies.min.js' | asset_url | script_tag }}{% endcomment %}
-
   {{ 'rivets.min.js' | asset_url | script_tag }}
   {{ 'cart.js' | asset_url | script_tag }}
   {{ 'app.js' | asset_url | script_tag }}
@@ -80,11 +77,10 @@
     jQuery(function() {
       CartJS.init({{ cart | json }});
     });
-
     CartJS.errorHandling.cartError = function(error) {
-      console.log("THERE WAS A CART ERROR: ", error);
+      console.log("CART ERROR: ", error);
     }
   </script>
-  
+
 </body>
 </html>

@@ -6,13 +6,13 @@ var $ = jQuery;
 // Money formatting
 if ((typeof Shopify) === 'undefined') { Shopify = {}; }
 if (!Shopify.formatMoney) {
-  Shopify.formatMoney = function(cents, format) { 
-    console.log("Shopify.formatMoney Format: ", format);
+  Shopify.formatMoney = function(cents, format) {
+    // console.log("Shopify.formatMoney Format: ", format);
     var value = '',
         placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
         formatString = (format || "{% raw %}${{amount}}{% endraw %}");
-    console.log("Format String: ", formatString);
-    console.log(formatString.match(placeholderRegex))
+    // console.log("Format String: ", formatString);
+    // console.log(formatString.match(placeholderRegex))
     if (typeof cents == 'string') {
       cents = cents.replace('.','');
     }
@@ -70,35 +70,31 @@ concrete.cacheSelectors = function () {
     $revealItemLink : $('.js_open'),
     $hideItemLink : $('.js_close'),
     // Collection Pages
-    $changeView              : $('.change-view'),
-
-
-
-    // Customer Pages
-    $customerLoginForm       : $('#LoginForm'),
-    $recoverPasswordLink     : $('#RecoverPasswordLink'),
+    $changeView : $('.change-view'),
+    // Products
+    $productMainImage : $('#ProductMainImage'),
+    $productThumbnailImages : $('#ProductThumbnailImages').find('a.thumbnail'),
+    // Login Forms
+    $recoverPasswordLink : $('#RecoverPasswordLink'),
     $hideRecoverPasswordLink : $('#HideRecoverPasswordLink'),
-    $recoverPasswordForm     : $('#RecoverPasswordForm'),
-    $passwordResetSuccess    : $('#ResetSuccess')
+    $recoverPasswordForm : $('#RecoverPasswordForm'),
+    $customerLoginForm : $('#LoginForm'),
+    $passwordResetSuccess : $('#ResetSuccess')
   };
 };
 
 // Initialize the functions
 concrete.init = function () {
   concrete.cacheSelectors();
-
   concrete.visibilityManager();
-
   concrete.responsiveVideos();
   concrete.collectionViews();
+  concrete.productImageSwitch();
+  concrete.popups();
   concrete.loginForms();
 
-
-  rivets.binders.href = function(el, value) {
-    console.log("Rivets value: ", value);
-    return el.href = "{{ shop.url }}" + value;
-  }
-
+  // Rivets seems to have a delay
+  // This needs work!
   rivets.binders.cloak = {
     priority: -1000,
     bind: function(el) {
@@ -144,35 +140,7 @@ concrete.collectionViews = function () {
   }
 };
 
-// Password recovery forms
-concrete.loginForms = function() {
-  function showRecoverPasswordForm() {
-    concrete.cache.$recoverPasswordForm.removeClass('hidden');
-    concrete.cache.$customerLoginForm.addClass('hidden');
-  }
-  function hideRecoverPasswordForm() {
-    concrete.cache.$recoverPasswordForm.addClass('hidden');
-    concrete.cache.$customerLoginForm.removeClass('hidden');
-  }
-  concrete.cache.$recoverPasswordLink.on('click', function(evt) {
-    evt.preventDefault();
-    showRecoverPasswordForm();
-  });
-  concrete.cache.$hideRecoverPasswordLink.on('click', function(evt) {
-    evt.preventDefault();
-    hideRecoverPasswordForm();
-  });
-  if (concrete.getHash() == '#recover') {
-    showRecoverPasswordForm();
-  }
-};
-concrete.resetPasswordSuccess = function() {
-  concrete.cache.$passwordResetSuccess.removeClass('hidden');
-};
-
-
-
-
+// Visibility Management
 
 concrete.visibilityManager = function() {
   // Reveal elements on toggle
@@ -180,6 +148,12 @@ concrete.visibilityManager = function() {
     event.preventDefault();
     var itemId = $(this).attr('href');
     $(itemId).toggleClass('hidden');
+  });
+  // display elements on click
+  concrete.cache.$revealItemLink.on('click', function(event) {
+    event.preventDefault();
+    var itemId = $(this).attr('href');
+    $(itemId).removeClass('hidden');
   });
   // hide elements on click
   concrete.cache.$hideItemLink.on('click', function(event) {
@@ -189,43 +163,116 @@ concrete.visibilityManager = function() {
   });
 };
 
+// Product Image Thumbnails
+concrete.productImageSwitch = function () {
+  if (concrete.cache.$productThumbnailImages.length) {
+    // Switch the main image with one of the thumbnails
+    // Note: this does not change the variant selected, just the image
+    concrete.cache.$productThumbnailImages.on('click', function(event) {
+      event.preventDefault();
+      var newImage = $(this).attr('href');
+      concrete.switchImage(newImage, null, concrete.cache.$productMainImage);
+    });
+  }
+};
+concrete.switchImage = function (src, imgObject, el) {
+  // Make sure element is a jquery object
+  var $el = $(el);
+  $el.attr('src', src);
+};
 
+// Variant Switching
 concrete.switchVariant = function(options) {
   var moneyFormat = options.moneyFormat,
-    variant = options.variant;
+      variant = options.variant;
   var $addToCart = $("#AddToCart");
   var $addToCartText = $("#AddToCartText");
   var $productPrice = $("#ProductPrice");
   var $comparePrice = $("#ComparePrice");
-
-  if (variant) { 
+  var $onSale = $("#OnSale");
+  if (variant) {
     if (variant.featured_image) {
-      console.log("Switching image");
-      Shopify.Image.switchImage(variant.featured_image, $("#ProductPhotoImg")[0], function(i, e, t) {
-        console.log(i, e, t);
+      // console.log("Switching image");
+      Shopify.Image.switchImage(variant.featured_image, $("#ProductMainImage")[0], function(i, e, t) {
+        // console.log(i, e, t);
         var $t = $(t);
         $t.attr('src', i);
       });
     } else {
-      console.log("No image");
+      // console.log("No image");
     }
+    // Disabled button if variant is unavailable
     if (variant.available) {
       $addToCart.removeClass("disabled").prop('disabled', false);
       $addToCartText.html({{ 'product.add_to_cart' | t | json }});
       $addToCart.attr("data-cart-add", variant.id);
-
     } else {
       $addToCart.addClass("disabled").prop('disabled', true);
+      $addToCartText.html({{ 'product.add_to_cart_unavailable' | t | json }});
     }
 
     $productPrice.html(Shopify.formatMoney(variant.price, moneyFormat));
-
+    // Hide the compare at price if the item is not on sale
     if (variant.compare_at_price > variant.price) {
-      $comparePrice.html(Shopify.formatMoney(variant.compare_at_price, moneyFormat)).show();
+      $comparePrice.html(Shopify.formatMoney(variant.compare_at_price, moneyFormat));
+      $onSale.show();
     } else {
-      $comparePrice.hide();
+      $onSale.hide();
     }
   }
+};
+
+// Popups
+concrete.popups = function() {
+  // Move popups to the end of the body
+  $('.popup').detach().appendTo('body');
+  // Close popup
+  $('.popup').on('click', '.popup-close, .popup-cancel, .popup-outside', function(event){
+    event.preventDefault();
+    $(this).closest('.popup').removeClass('visible');
+  });
+  // Close popup when clicking the esc keyboard button
+  $(document).keyup(function(event){
+    if(event.which=='27'){
+      $('.popup').removeClass('visible');
+    }
+  });
+};
+// Open modals based on their ID as data-attribute
+$('.popup-link').on('click', function(event) {
+  event.preventDefault();
+  var popupId = $(this).attr('data-popup');
+  $(popupId + '.popup').addClass('visible');
+});
+
+// Login Forms
+
+concrete.loginForms = function() {
+  function showRecoverPasswordForm() {
+    event.preventDefault();
+    concrete.cache.$recoverPasswordForm.show();
+    concrete.cache.$customerLoginForm.hide();
+  }
+  function hideRecoverPasswordForm() {
+    event.preventDefault();
+    concrete.cache.$recoverPasswordForm.hide();
+    concrete.cache.$customerLoginForm.show();
+  }
+  concrete.cache.$recoverPasswordLink.on('click', function(event) {
+    event.preventDefault();
+    showRecoverPasswordForm();
+  });
+  concrete.cache.$hideRecoverPasswordLink.on('click', function(event) {
+    event.preventDefault();
+    hideRecoverPasswordForm();
+  });
+  // Allow deep linking to recover password form
+  if (concrete.getHash() == '#recover') {
+    showRecoverPasswordForm();
+  }
+};
+concrete.resetPasswordSuccess = function() {
+  concrete.cache.$passwordResetSuccess.show();
 };
 
 // Initialize on docready

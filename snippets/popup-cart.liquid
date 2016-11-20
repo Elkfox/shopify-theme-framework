@@ -1,0 +1,33 @@
+{% comment %}
+  The popup cart has been added to display the opportunities for displaying the
+  cart contents on any page
+{% endcomment %}
+
+<div id="PopupCart" class="popup">
+  <div class="popup-inner">
+    <div class="popup-outside"></div>
+    <div class="popup-content left" data-cart-view rv-cloak>
+      <div class="h4">{{ 'cart.title' | t }}</div>
+      <div rv-each-item="cart.items">
+        <p>
+          <a rv-href="item.url">{ item.product_title } { item.variant_title }</a>
+        </p>
+        <div class="row cart-item">
+          <div class="column l6 m6 s6">
+            <strong>{ item.line_price | money_with_currency }</strong>
+          </div>
+          <div class="column l6 m6 s6 right">
+            <a id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
+            <span>{ item.quantity }</span>
+            <a id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">&#43;</a>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="right">
+        <strong>{{ 'cart.total' | t }} <span data-cart-view>{ cart.total_price | money_with_currency }</span></strong>
+      </div>
+      <a href="#close" class="popup-close" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+    </div>
+  </div>
+</div>

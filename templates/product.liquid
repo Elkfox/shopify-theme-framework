@@ -12,16 +12,14 @@
   <div class="row">
     <div class="column l6 m6 s12">
 
-      <div id="ProductPhoto">
-        {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
-        <img src="{{ featured_image | img_url: 'grande' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
-      </div>
+      {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+      <img src="{{ featured_image | img_url: 'grande' }}" alt="{{ featured_image.alt | escape }}" id="ProductMainImage">
 
       {% if product.images.size > 1 %}
-        <ul class="inline" id="ProductThumbs">
+        <ul class="inline" id="ProductThumbnailImages">
           {% for image in product.images %}
             <li>
-              <a href="{{ image.src | img_url: 'grande' }}">
+              <a href="{{ image.src | img_url: 'grande' }}" class="thumbnail">
                 <img src="{{ image.src | img_url: 'thumbnail' }}" alt="{{ image.alt | escape }}">
               </a>
             </li>
@@ -65,10 +63,10 @@
           </span>
 
           {% if on_sale %}
-            <p>
+            <p id="OnSale">
               <span class="hidden">{{ 'product.original_price' | t }}</span>
               <span>{{ 'product.original_price' | t }}</span>
-              <s id="ComparePrice">{{ product.compare_at_price | money }}</s>
+              <s>{{ product.compare_at_price | money }}</s>
             </p>
           {% endif %}
 
@@ -125,7 +123,7 @@
 {% endcomment %}
 {{ 'option_selection.js' | shopify_asset_url | script_tag }}
 
-<script> 
+<script>
   $("#Quantity").on("change", function() {
     $("#AddToCart").attr("data-cart-quantity", $(this).val());
   })

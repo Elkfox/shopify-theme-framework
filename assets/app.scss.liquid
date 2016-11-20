@@ -41,7 +41,7 @@ $l: 1150px;
 $xl: 1450px;
 
 // Miscellaneous
-$transition: all .25s ease-out;
+$transition: all .5s ease-out;
 
 /* Reset =====================================================================*/
 
@@ -120,7 +120,6 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 /* Mixins ====================================================================*/
 
 // Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
-
 @mixin prefixer($property, $value, $prefixes) {
   @each $prefix in $prefixes {
     @if $prefix == webkit {
@@ -140,7 +139,6 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 }
 
 // Flex
-
 @mixin flex() {
   display: -webkit-box;
   display: -moz-box;
@@ -158,9 +156,8 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 }
 
 // Clearfix
-
 @mixin clearfix() {
-  display: block; // TBC - is this OK? Seems to work well :/
+  display: block; // TBC - is this OK? Seems to help
   &:after {
     content: '';
     display: table;
@@ -169,8 +166,16 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
   *zoom: 1;
 }
 
-// Screen Sizes & Types
+// Verically Align
+@mixin vertical-align() {
+  position: relative;
+  top: 50%;
+  -webkit-transform: perspective(1px) translateY(-50%);
+  -ms-transform: perspective(1px) translateY(-50%);
+  transform: perspective(1px) translateY(-50%);
+}
 
+// Screen Sizes & Types
 @mixin s() {
   @media (max-width: $s) {
     @content;
@@ -182,13 +187,17 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
   }
 }
 @mixin l() {
-  @media (min-width: $l) and (max-width: $xl - 1px) {
+  @media (min-width: $l) {
+    @content;
+  }
+}
+@mixin xl() {
+  @media (min-width: $xl) {
     @content;
   }
 }
 
 // Table Grids
-
 @mixin table() {
   display: table;
   table-layout: fixed;
@@ -216,7 +225,6 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 }
 
 // Transitions
-
 @mixin transition() {
   @include prefixer(transition, $transition, webkit moz ms spec);
 }
@@ -227,42 +235,11 @@ body {
   color: $colorBody;
   background-color: $colorBackground;
   font: 16px/21px sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 img {
   max-width: 100%;
-}
-
-// Helpers
-
-.left {
-  text-align: left;
-}
-.center {
-  text-align: center;
-  margin: auto;
-}
-.right {
-  text-align: right;
-}
-.hidden {
-  display: none;
-}
-.highlight {
-  color: $colorHighlight;
-}
-.alternate {
-  color: $colorAlternate;
-}
-.inline {
-  list-style: none;
-  display: inline-block;
-  li {
-    display: inline-block;
-  }
-}
-.clearfix {
-  @include clearfix();
 }
 
 // Typography
@@ -272,6 +249,7 @@ h1, h2, h3, h4, h5, h6,
   font-family: sans-serif;
   font-weight: $fontBold;
   line-height: $lineHeight;
+  display: block;
   margin-bottom: $gutter/3;
 }
 h1, .h1 { font-size: 2.5rem; }
@@ -299,12 +277,16 @@ a {
 
 hr {
   border: 0;
-  border-top: $borderWeight $borderStyle $colorBrand;
+  border-top: $borderWeight $borderStyle $colorAlternate;
   margin: $gutter 0;
 }
 
 strong {
   font-weight: $fontBold;
+}
+
+small {
+  font-size: 0.8rem;
 }
 
 .rte {
@@ -373,6 +355,15 @@ select {
       color: lighten($colorAlternate, 35%);
     }
   }
+  &.disabled {
+    cursor: default;
+    background-color: lighten($colorAlternate, 30%);
+    border-color: lighten($colorAlternate, 30%);
+    color: $colorBackground;
+    &:hover {
+      @extend .disabled
+    }
+  }
   @media only screen and (max-width: $s) {
     width: 100%;
     clear: both;
@@ -393,9 +384,9 @@ a.button {
     margin-bottom: $gutter/3;
   }
 }
-.errors {
+.errors, .note {
   padding: $gutter/3.5;
-  margin-bottom: $gutter/2;
+  margin: $gutter/2 auto;
   color: lighten($colorHighlight, 50%);
   background-color: $colorHighlight;
   border: $borderWeight $borderStyle $colorHighlight;
@@ -406,6 +397,38 @@ a.button {
       margin-bottom: 0;
     }
   }
+}
+
+// Helpers
+
+.left {
+  text-align: left;
+}
+.center {
+  text-align: center;
+  margin: auto;
+}
+.right {
+  text-align: right;
+}
+.hidden {
+  display: none;
+}
+.highlight {
+  color: $colorHighlight;
+}
+.alternate {
+  color: $colorAlternate;
+}
+.inline {
+  list-style: none;
+  display: inline-block;
+  li {
+    display: inline-block;
+  }
+}
+.clearfix {
+  @include clearfix();
 }
 
 /* Grid System ===============================================================*/
@@ -453,13 +476,7 @@ a.button {
 .column.l10 { width: percentage(10/12); }
 .column.l11 { width: percentage(11/12); }
 .column.l12 { width: 100%; }
-@media only screen and (min-width: $m) {
-  .l-hide { display: none; }
-  .l-left { text-align: left; }
-  .l-center { text-align: center; }
-  .l-right { text-align: right; }
-}
-@media only screen and (min-width: $s) and (max-width: $m) {
+@include m() {
   .column.m1 { width: percentage(1/12); }
   .column.m2 { width: percentage(2/12); }
   .column.m3 { width: percentage(3/12); }
@@ -472,12 +489,8 @@ a.button {
   .column.m10 { width: percentage(10/12); }
   .column.m11 { width: percentage(11/12); }
   .column.m12 { width: 100%; }
-  .m-hide { display: none; }
-  .m-left { text-align: left; }
-  .m-center { text-align: center; }
-  .m-right { text-align: right; }
 }
-@media only screen and (max-width: $s) {
+@include s() {
   .column.s1 { width: percentage(1/12); }
   .column.s2 { width: percentage(2/12); }
   .column.s3 { width: percentage(3/12); }
@@ -490,27 +503,23 @@ a.button {
   .column.s10 { width: percentage(10/12); }
   .column.s11 { width: percentage(11/12); }
   .column.s12 { width: 100%; }
-  .s-hide { display: none; }
-  .s-left { text-align: left; }
-  .s-center { text-align: center; }
-  .s-right { text-align: right; }
 }
 
 // Uniform Height Clearing
 
-@media only screen and (min-width: $m) {
+@include l() {
   .column.l2:nth-child(6n+1) { clear: both; }
   .column.l3:nth-child(4n+1) { clear: both; }
   .column.l4:nth-child(3n+1) { clear: both; }
   .column.l6:nth-child(2n+1) { clear: both; }
 }
-@media only screen and (min-width: $s) and (max-width: $m) {
+@include m() {
   .column.m2:nth-child(6n+1) { clear: both; }
   .column.m3:nth-child(4n+1) { clear: both; }
   .column.m4:nth-child(3n+1) { clear: both; }
   .column.m6:nth-child(2n+1) { clear: both; }
 }
-@media only screen and (max-width: $s) {
+@include s() {
   .column.s2:nth-child(6n+1) { clear: both; }
   .column.s3:nth-child(4n+1) { clear: both; }
   .column.s4:nth-child(3n+1) { clear: both; }
@@ -521,15 +530,9 @@ a.button {
 
 .row {
   &.table { @include table(); }
-  &.l-table {
-    @media only screen and (min-width: $m) { @include table(); }
-  }
-  &.m-table {
-    @media only screen and (min-width: $s) and (max-width: $m) { @include table(); }
-  }
-  &.s-table {
-    @media only screen and (max-width: $s) { @include table(); }
-  }
+  &.l-table { @include l() { @include table(); } }
+  &.m-table { @include m() { @include table(); } }
+  &.s-table { @include s() { @include table(); } }
 }
 
 // Flex Grid
@@ -564,6 +567,25 @@ a.button {
       }
     }
   }
+}
+
+@include l() {
+  .l-hide { display: none !important; }
+  .l-left { text-align: left; }
+  .l-center { text-align: center; }
+  .l-right { text-align: right; }
+}
+@include m() {
+  .m-hide { display: none !important; }
+  .m-left { text-align: left; }
+  .m-center { text-align: center; }
+  .m-right { text-align: right; }
+}
+@include s() {
+  .s-hide { display: none !important; }
+  .s-left { text-align: left; }
+  .s-center { text-align: center; }
+  .s-right { text-align: right; }
 }
 
 /* Header ====================================================================*/
@@ -617,7 +639,8 @@ form#AddToCartForm,
 .edit_address form,
 form#customer_login,
 form#create_customer,
-#RecoverPasswordForm form {
+#RecoverPasswordForm form,
+#PasswordResetForm form {
   input[type="text"],
   input[type="email"],
   input[type="number"],
@@ -637,48 +660,124 @@ form#create_customer,
 form#CartPage {
   display: block;
   width: 100%;
-  .quanity_adjust {
-    .adjust {
-      display: inline-block;
-      width: $gutter/1.5;
-      height: $gutter/1.5;
-      vertical-align: middle;
-      line-height: 1.4;
-      text-align: center;
-      font-size: 1.35rem;
-    }
-    .quantity {
-      display: inline-block;
-      width: $gutter/1.5;
-      height: $gutter/1.5;
-      line-height: $gutter/1.5;
-      text-align: center;
-      background-color: lighten($colorBackground, 30%);
-      border-radius: $borderRadius;
+}
+
+/* Cart ======================================================================*/
+
+// Quantity Adjustment
+.quanity_adjust {
+  min-width: $gutter*3;
+  .adjust {
+    display: inline-block;
+    width: $gutter/1.5;
+    height: $gutter/1.5;
+    vertical-align: middle;
+    line-height: 1.4;
+    text-align: center;
+    font-size: 1.35rem;
+  }
+  .quantity {
+    display: inline-block;
+    width: $gutter/1.5;
+    height: $gutter/1.5;
+    line-height: $gutter/1.5;
+    text-align: center;
+    background-color: lighten($colorBackground, 30%);
+    border-radius: $borderRadius;
+  }
+}
+
+.template-cart {
+  @include s() {
+    .product_title {
+      display: block;
+      margin-bottom: $gutter/2;
     }
   }
 }
 
-/* Collections ===============================================================*/
+#PopupCart {
+  .popup-content {
+    width: 400px;
+  }
+  p {
+    margin-bottom: 0;
+  }
+  .cart-item {
+    margin-bottom: $gutter/3;
+  }
+}
 
-.template-collection { }
-
-/* Products ==================================================================*/
-
-.template-collection { }
-
-/* Pages =====================================================================*/
-
-.template-page { }
-
-/* Blogs =====================================================================*/
-
-.template-blog { }
-
-
-/* Rivet Attribute Styling =====================================================================*/
+/* Rivets ====================================================================*/
 [rv-cloak] {
   opacity: 0;
-  -webkit-transition: opacity 0.5s ease;
-  transition: opacity 0.5s ease;
+  @include transition();
+}
+
+
+/* =============================================================================
+   Optional Extras
+==============================================================================*/
+
+/* Popups ====================================================================*/
+
+@mixin overlay() {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* General Popup Styles */
+.popup {
+  position: fixed;
+  z-index: 9996;
+  opacity: 0;
+  visibility: hidden;
+  @include overlay();
+  @include transition();
+  background: rgba($colorBody, 0.85);
+  .popup-outside {
+    position: absolute;
+    z-index: 9998;
+    @include overlay();
+  }
+  .popup-inner {
+    z-index: 9997;
+    text-align: center;
+    white-space: nowrap;
+    @include overlay();
+    @include prefixer(transform, translateY(-50px), webkit moz ms spec);
+    @include transition();
+    -webkit-backface-visibility: hidden;
+    cursor: pointer;
+  }
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    @include transition();
+    .popup-inner {
+      @include prefixer(transform, translateY(0px), webkit moz ms spec);
+    }
+  }
+  .popup-content {
+    @include vertical-align();
+    display: inline-block;
+    z-index: 9999;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: scroll; // Optional line for overly tall popups
+    padding: $gutter;
+    background-color: $colorBackground;
+    cursor: default;
+    white-space: initial;
+  }
+	.popup-close {
+  	display: block;
+		position: absolute;
+		top: $gutter/3;
+		right: $gutter/3;
+  }
 }

@@ -28,7 +28,7 @@
           <a href="/account">{{ 'account.title' | t }}</a>
         {% endif %}
 
-        <a href="/cart" id="CartLink" aria-controls="Cart" aria-expanded="false" rv-cloak data-cart-view>
+        <a href="/cart" id="CartLink" data-popup="#PopupCart" class="popup-link" aria-controls="Cart" aria-expanded="false" rv-cloak data-cart-view>
           <span rv-text="cart.title"></span>
           { cart.item_count } { cart.item_count | pluralize "item" }
           (<span id="CartTotal">{cart.total_price | money_with_currency}</span>)

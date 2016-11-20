@@ -7,27 +7,23 @@
 <div class="container">
   <div class="row">
 
-    <div class="column l8 m12">
+    <div class="column l9 m12 s12">
       <h2 class="h4">{{ 'account.orders.title' | t }}</h2>
       {% paginate customer.orders by 20 %}
         {% if customer.orders.size != 0 %}
-          <div class="container">
-            <div class="row">
-              <div class="column l3">{{ 'customer.orders.order_number' | t }}</div>
-              <div class="column l2">{{ 'customer.orders.date' | t }}</div>
-              <div class="column l2">{{ 'customer.orders.payment_status' | t }}</div>
-              <div class="column l3">{{ 'customer.orders.fulfillment_status' | t }}</div>
-              <div class="column l2">{{ 'customer.orders.total' | t }}</div>
-            </div>
-            <div class="row">
-              {% for order in customer.orders %}
-                <div class="l3">{{ order.name | link_to: order.customer_url }}</div>
-                <div class="l2">{{ order.created_at | date: format: 'month_day_year' }}</div>
-                <div class="l2">{{ order.financial_status_label }}</div>
-                <div class="l3">{{ order.fulfillment_status_label }}</div>
-                <div class="l2">{{ order.total_price | money }}</div>
-              {% endfor %}
-            </div>
+          <div class="row table s-hide">
+            <div class="column l2">{{ 'account.orders.order_number' | t }}</div>
+            <div class="column l2">{{ 'account.orders.date' | t }}</div>
+            <div class="column l5">{{ 'account.orders.status' | t }}</div>
+            <div class="column l2 l-right">{{ 'account.orders.total' | t }}</div>
+          </div>
+          <div class="row l-table m-table">
+            {% for order in customer.orders %}
+              <div class="column l2 s12"><strong>{{ order.name | link_to: order.customer_url }}</strong></div>
+              <div class="column l2 s12">{{ order.created_at | date: format: 'simple' }}</div>
+              <div class="column l5 s12">{{ order.financial_status_label }} / {{ order.fulfillment_status_label }}</div>
+              <div class="column l2 s12 l-right">{{ order.total_price | money }}</div>
+            {% endfor %}
           </div>
         {% else %}
           <p>{{ 'account.orders.none' | t }}</p>
@@ -43,7 +39,7 @@
       {% endpaginate %}
     </div>
 
-    <div class="column l4 m12">
+    <div class="column l3 m12 s12">
       {% include 'account-sidebar' %}
     </div>
 

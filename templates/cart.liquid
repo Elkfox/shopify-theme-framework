@@ -1,5 +1,7 @@
 <!-- /templates/cart.liquid -->
+
 {% if cart.item_count > 0 %}
+
   <div class="container">
     <h1>{{ 'cart.title' | t }}</h1>
   </div>
@@ -7,32 +9,35 @@
   <form id="CartPage" action="/cart" method="post" novalidate>
     <div class="container s-hide">
       <div class="row l-table m-table" id="CartHeader">
-        <div class="column l5 m5">{{ 'cart.label.product' | t }}</div>
-        <div class="column l3 m3">{{ 'cart.label.price' | t }}</div>
-        <div class="column l2 m2">{{ 'cart.label.quantity' | t }}</div>
-        <div class="column l2 m2 l-right m-right">{{ 'cart.label.subtotal' | t }}</div>
+        <div class="column l5 m5">{{ 'cart.product' | t }}</div>
+        <div class="column l3 m2">{{ 'cart.price' | t }}</div>
+        <div class="column l2 m3">&nbsp;</div>
+        <div class="column l2 m2 l-right m-right">{{ 'cart.subtotal' | t }}</div>
       </div>
     </div>
     <div class="container" id="CartItems" data-cart-view rv-cloak>
       <div class="row l-table m-table" rv-each-item="cart.items">
         <div class="column l5 m5 s12">
-          <strong><a rv-href="item.url">{ item.product_title }</a></strong>
-          <span>{ item.variant_title }</span>
+          <a class="product_title h4" rv-href="item.url">
+            { item.product_title }
+            {% unless item.variant.title contains 'Default' %}
+              - <span>{ item.variant_title }</span>
+            {% endunless %}
+          </a>
         </div>
-        <div class="column l3 m3 s-hide">
+        <div class="column l3 m2 s-hide">
           { item.price | money_with_currency}
         </div>
-        <div class="column l2 m2 s6">
+        <div class="column l2 m3 s6">
           <div class="quanity_adjust">
             <a class="adjust" id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
             <span class="quantity">{ item.quantity }</span>
             <a class="adjust" id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">&#43;</a>
-
-            <a class="adjust" href="#" rv-data-cart-remove="index | plus 1">&times;</a>
           </div>
         </div>
         <div class="column l2 m2 s6 right">
-          { item.line_price | money_with_currency }
+          <strong>{ item.line_price | money_with_currency }</strong><br>
+          <a class="adjust" rv-data-cart-remove="index | plus 1"><small>{{ 'cart.remove_item' | t }}</small></a>
         </div>
       </div>
     </div>
@@ -66,10 +71,11 @@
   </form>
 
 {% else %}
+
   <div class="container">
     <h2>{{ 'cart.title' | t }}</h2>
     <p class="h4">{{ 'cart.empty' | t }}</p>
     <p>{{ 'cart.back_to_shop_html' | t }}</p>
   </div>
+
 {% endif %}
-</div>

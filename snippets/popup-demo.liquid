@@ -1,0 +1,22 @@
+<!-- /snippets/demo-popup.liquid -->
+
+<div class="popup" role="alert" id="demo-popup">
+  <div class="popup-inner">
+    <div class="popup-outside"></div>
+    <div class="popup-content">
+      <h3>Concrete Shopify Theme Framework</h3>
+      <span>Welcome to the Concrete Shopify Theme Framework!</span>
+      <a href="#close" class="popup-close" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Demo Popup
+  jQuery(document).ready(function($){
+    // Open demo modal after 1.5 seconds
+    setTimeout(function(){
+      $('#demo-popup.popup').addClass('visible');
+    }, 1500);
+  });
+</script>

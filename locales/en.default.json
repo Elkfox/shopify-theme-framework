@@ -1,17 +1,26 @@
 {
   "common": {
-    "tags": "Tags"
+    "tags": "Tags",
+    "close": "Close"
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y",
+    "day_month_year": "%d %B, %Y",
+    "simple": "%d/%m/%y",
+    "simple_usa": "%m/%d/%y"
   },
   "account": {
     "title": "Account",
     "login": "Login",
     "logout": "Logout",
     "password": "Password",
+    "password_confirmation": "Confirm Password",
     "sign_in": "Sign In",
     "create_account": "Register now",
     "no_account": "No account?",
     "already_registered": "Already have an account?",
     "forgot_password": "Forgot Password?",
+    "reset_password_message": "Enter a new password for {{ email }} ",
     "register": "Register",
     "first_name": "First Name",
     "last_name": "Last Name",
@@ -25,7 +34,13 @@
     "phone": "Phone",
     "orders": {
       "title": "Orders",
-      "none": "No previous orders found"
+      "none": "No previous orders found",
+      "order_number": "Order",
+      "date": "Date",
+      "status": "Status",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fullfilment Status",
+      "total": "Total"
     },
     "address": {
       "title": "Addresses",
@@ -46,7 +61,7 @@
       "sign_in": "Sign In",
       "forgot_password": "Forgot Password?",
       "create_account": "Create an Account",
-      "message": "Enter you details to request a password reset",
+      "message": "Enter your email to request a password reset",
       "success": "Please check your email for a link to update your password"
     }
   },
@@ -68,27 +83,16 @@
   },
   "cart": {
     "title": "Cart",
-    "empty": "Your cart is empty :(",
-    "note": "Customer Notes", 
+    "product": "Product",
+    "price": "Price",
+    "quantity": "Quantity",
     "subtotal": "Subtotal",
-    "checkout": "Checkout",
-    "shipping_at_checkout": "Shipping calculated at checkout",
-    "label": { 
-      "product": "Product",
-      "price": "Price",
-      "quantity": "Quantity",
-      "total": "Total"
-    },
     "total": "Total",
+    "remove_item": "Remove",
+    "empty": "Your cart is empty :(",
+    "note": "Customer Notes",
     "checkout": "Checkout",
     "shipping_at_checkout": "Shipping calculated at checkout",
-    "back_to_shop_html": "Continue browsing <a href=\"/collections/all\">here</a>",
-    "label": {
-      "product": "Product",
-      "price": "Price",
-      "quantity": "Quantity",
-      "subtotal": "Subtotal"
-    },
     "count": {
       "one": "item",
       "other": "items"
@@ -125,6 +129,7 @@
   },
   "product": {
     "add_to_cart": "Add to Cart",
+    "add_to_cart_unavailable": "Unavailable",
     "regular_price": "Regular Price",
     "quantity": "Quantity",
     "priced_from_html": "From {{ price }}",
