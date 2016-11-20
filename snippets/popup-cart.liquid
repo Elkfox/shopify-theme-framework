@@ -1,3 +1,5 @@
+<!-- /snippets/popup-cart.liquid -->
+
 {% comment %}
   The popup cart has been added to display the opportunities for displaying the
   cart contents on any page
@@ -24,9 +26,16 @@
         </div>
       </div>
       <hr>
-      <div class="right">
-        <strong>{{ 'cart.total' | t }} <span data-cart-view>{ cart.total_price | money_with_currency }</span></strong>
+      <p><small>{{ 'cart.shipping_at_checkout' | t }}</small></p>
+      <div class="row cart-item">
+        <div class="column l6 m6 s6">
+          <a href="/cart" aria-label="{{ 'cart.view_cart' | t }}">{{ 'cart.view_cart' | t }}</a>
+        </div>
+        <div class="column l6 m6 s6 right">
+          <strong>{{ 'cart.total' | t }} <span data-cart-view>{ cart.total_price | money_with_currency }</span></strong>
+        </div>
       </div>
+      <p class="center"><a href="/cart" class="button wide" aria-label="{{ 'cart.checkout' | t }}">{{ 'cart.checkout' | t }}</a></p>
       <a href="#close" class="popup-close" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
     </div>
   </div>

@@ -4,6 +4,12 @@
 
 ## Products
 
+* Error handling
+  * Need some!
+  * Importantly product quantities aren't limited, so adding more than the available amount leads to nothing
+
+## Products
+
 * Compare at price function is not working on variant switch
   * See https://concrete-theme.myshopify.com/products/product-demo-1?variant=32550079759
 * The delay on load for the product selection needs work

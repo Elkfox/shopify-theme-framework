@@ -66,8 +66,10 @@
       {{ content_for_layout }}
     </main>
     {% include 'theme-footer' %}
-    {% include 'popup-cart' %}
   </div>
+
+  {% include 'popup-cart' %}
+
 
   {% comment %}{{ 'cookies.min.js' | asset_url | script_tag }}{% endcomment %}
   {{ 'rivets.min.js' | asset_url | script_tag }}
@@ -75,11 +77,21 @@
   {{ 'app.js' | asset_url | script_tag }}
   <script type="text/javascript">
     jQuery(function() {
-      CartJS.init({{ cart | json }});
+        CartJS.init({{ cart | json }}, {
+            // 'debug': true,
+            'requestBodyClass': 'loading'
+        });
     });
+    // Cart error handling
     CartJS.errorHandling.cartError = function(error) {
+      // Event handling goes here
       console.log("CART ERROR: ", error);
     }
+    $(document).on('cart.requestComplete', function(event, cart) {
+      {% unless template == 'cart' %}
+        $('#PopupCart.popup').addClass('visible');
+      {% endunless %}
+    });
   </script>
 
 </body>
