@@ -25,7 +25,7 @@
       <div class="column l4 m4 s12 l-right m-right s-middle">
 
         {% if shop.customer_accounts_enabled %}
-          <a href="/account">{{ 'account.title' | t }}</a>
+          <a href="/account" data-popup="#PopupAccount" class="popup-link">{{ 'account.title' | t }}</a>
         {% endif %}
 
         <a href="/cart" id="CartLink" data-popup="#PopupCart" class="popup-link" aria-controls="Cart" aria-expanded="false" rv-cloak data-cart-view>

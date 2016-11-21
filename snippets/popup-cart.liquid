@@ -19,9 +19,11 @@
             <strong>{ item.line_price | money_with_currency }</strong>
           </div>
           <div class="column l6 m6 s6 right">
-            <a id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
-            <span>{ item.quantity }</span>
-            <a id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">&#43;</a>
+            <div class="quanity_adjust">
+              <a class="adjust" id="minusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">&#8722;</a>
+              <span class="quantity">{ item.quantity }</span>
+              <a class="adjust" id="plusOne" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">&#43;</a>
+            </div>
           </div>
         </div>
       </div>

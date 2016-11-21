@@ -1,0 +1,33 @@
+<!-- /snippets/popup-login.liquid -->
+
+<div id="PopupAccount" class="popup">
+  <div class="popup-inner">
+    <div class="popup-outside"></div>
+    <div class="popup-content left" data-cart-view rv-cloak>
+
+      <div class="h4 left">{{ 'account.login' | t }}</div>
+
+      <div id="LoginForm">
+        {% form 'customer_login' %}
+
+          <p>{{ 'account.no_account' | t }} {{ 'account.create_account' | t | customer_register_link }}</p>
+
+          {{ form.errors | default_errors }}
+
+          <label for="CustomerEmail" class="clearfix">{{ 'form.email' | t }}</label>
+          <input type="email" name="customer[email]" id="CustomerEmail" class="{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'form.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
+
+          {% if form.password_needed %}
+            <label for="CustomerPassword" class="clearfix">{{ 'account.password' | t }}</label>
+            <input type="password" value="" name="customer[password]" id="CustomerPassword" class="{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'account.password' | t }}">
+          {% endif %}
+
+          <input type="submit" class="wide" value="{{ 'account.sign_in' | t }}">
+
+        {% endform %}
+      </div>
+
+      <a href="#close" class="popup-close" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+    </div>
+  </div>
+</div>

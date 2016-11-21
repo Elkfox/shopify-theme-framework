@@ -24,34 +24,41 @@
         <ul>
           {% if comment and comment.created_at %}
             <li id="{{ comment.id }}" class="comment first{% if article.comments_count == 0 %} last{% endif %}">
-              <div class="comment">
-                <div class="rte">
-                  {{ comment.content }}
+              <div class="row">
+                <div class="column l2 m2 s-hide">
+                  <img src="https://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=150&amp;d=mm" />
                 </div>
-                <span>
-                  {% capture author %}<strong>{{ comment.author }}</strong>{% endcapture %}
-                  {% capture date %}<time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
-                  {{ 'blog.comments.meta_html' | t: author: author, date: date }}
-                </span>
+                <div class="column l10 m10 s12">
+                  <span>
+                    {% capture author %}{{ comment.author }}{% endcapture %}
+                    {% capture date %}<time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
+                    <small><strong>{{ 'blog.comments.meta_html' | t: author: author, date: date }}</strong></small>
+                  </span>
+                  <div class="rte">
+                    {{ comment.content }}
+                  </div>
+                </div>
               </div>
             </li>
           {% endif %}
           {% for comment in article.comments %}
             <li id="{{ comment.id }}" class="comment{% unless number_of_comments > article.comments_count %}{% if forloop.first %} first{% endif %}{% endunless %}{% if forloop.last %} last {% endif %}">
-              <div class="comment">
-                <div class="rte">
-                  {{ comment.content }}
+              <div class="row">
+                <div class="column l2 m2 s-hide">
+                  <img src="https://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=150&amp;d=mm" />
                 </div>
-                <span>
-                  {% capture author %}<strong>{{ comment.author }}</strong>{% endcapture %}
-                  {% capture date %}<time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
-                  {{ 'blog.comments.meta_html' | t: author: author, date: date }}
-                </span>
+                <div class="column l10 m10 s12">
+                  <span>
+                    {% capture author %}{{ comment.author }}{% endcapture %}
+                    {% capture date %}<time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">{{ comment.created_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
+                    <small><strong>{{ 'blog.comments.meta_html' | t: author: author, date: date }}</strong></small>
+                  </span>
+                  <div class="rte">
+                    {{ comment.content }}
+                  </div>
+                </div>
               </div>
             </li>
-            {% unless forloop.last %}
-              <li><hr></li>
-            {% endunless %}
           {% endfor %}
         </ul>
 

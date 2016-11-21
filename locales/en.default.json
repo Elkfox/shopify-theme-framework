@@ -167,6 +167,9 @@
         "one": "{{ count }} comment",
         "other": "{{ count }} comments"
       }
+    },
+    "author": {
+      "about_with_name": "About {{ first_name }}"
     }
   },
   "social": {

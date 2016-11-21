@@ -1,0 +1,17 @@
+<!-- /snippets/blog-author.liquid -->
+
+{% if article.user.account_owner %}
+  <hr>
+  <div class="row">
+    <div class="column l3 m3 s-hide">
+      <img src="https://www.gravatar.com/avatar/{{ article.user.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=400&amp;d=mm" />
+    </div>
+    <div class="column l9 m9 s12">
+      <h4>{{ 'blog.author.about_with_name' | t: first_name: article.user.first_name  }}</h4>
+      <div class="rte">
+        <p>{{ article.user.bio }}</p>
+      </div>
+      <a href="{{ article.user.homepage }}">{{ article.user.homepage }}</a>
+    </div>
+  </div>
+{% endif %}

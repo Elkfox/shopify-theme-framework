@@ -29,6 +29,8 @@
 * Add SKU (default to hidden)
 * Add quantity available (default to hidden)
 
+NOTE: We need to keep support for option_selection js
+
 
 ## Libraries that may or may not be added later
 

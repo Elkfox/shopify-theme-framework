@@ -26,7 +26,7 @@ $colorAlternate: {{ settings.color_alternate }};
 $fontLight: 300;
 $fontRegular: 400;
 $fontBold: 700;
-$lineHeight: 1.5;
+$lineHeight: 1.75;
 
 // Space & Borders
 $gutter: 50px;
@@ -262,7 +262,7 @@ h6, .h6 { font-size: 0.875rem; }
 p {
   font-size: 1.125rem;
   font-weight: $fontRegular;
-  line-height: 1.8;
+  line-height: $lineHeight;
   margin-bottom: 1.4em;
 }
 
@@ -700,18 +700,6 @@ form#CartPage {
   }
 }
 
-#PopupCart {
-  .popup-content {
-    width: 400px;
-  }
-  p {
-    margin-bottom: $gutter/3;
-  }
-  .cart-item {
-    margin-bottom: $gutter/3;
-  }
-}
-
 /* Rivets ====================================================================*/
 [rv-cloak] {
   opacity: 0;
@@ -739,7 +727,7 @@ body {
   height: 100%;
 }
 
-/* General Popup Styles */
+/// Basic popup styling
 .popup {
   position: fixed;
   z-index: 9996;
@@ -780,13 +768,36 @@ body {
     overflow: scroll; // Optional line for overly tall popups
     padding: $gutter;
     background-color: $colorBackground;
+    text-align: initial;
     cursor: default;
     white-space: initial;
   }
 	.popup-close {
   	display: block;
 		position: absolute;
-		top: $gutter/3;
-		right: $gutter/3;
+		top: $gutter/2;
+		right: $gutter/2;
+  }
+}
+
+// Popup Cart
+
+#PopupCart {
+  .popup-content {
+    width: 400px;
+  }
+  p {
+    margin-bottom: $gutter/3;
+  }
+  .cart-item {
+    margin-bottom: $gutter/3;
+  }
+}
+
+// Popup Account
+
+#PopupAccount {
+  .popup-content {
+    width: 400px;
   }
 }
