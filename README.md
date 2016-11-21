@@ -40,7 +40,7 @@ Shopify's [Theme Documentation](https://help.shopify.com/themes) is an exhaustiv
 
 #### Carson Shold
 
-Whose work on the Timber Framework led to the creation of this
+Whose outstanding work on the Timber Framework led to the creation of this
 
 #### Caroline Schnapp
 
