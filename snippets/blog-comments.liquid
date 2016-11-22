@@ -4,7 +4,11 @@
 
   <hr>
 
-  <h2 class="h3">{{ 'blog.comments.with_count' | t: count: number_of_comments }}</h2>
+  <div class="row">
+    <div class="column l12 m12 s12">
+      <h2 class="h3">{{ 'blog.comments.with_count' | t: count: number_of_comments }}</h2>
+    </div>
+  </div>
 
   {% paginate article.comments by 5 %}
     <div id="comments">

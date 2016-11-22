@@ -175,6 +175,13 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
   transform: perspective(1px) translateY(-50%);
 }
 
+// Transition Property (for legacy support)
+@mixin transition-property() {
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+}
+
 // Screen Sizes & Types
 @mixin s() {
   @media (max-width: $s) {
@@ -600,7 +607,7 @@ a.button {
 
 /* Navigation =================================================================*/
 
-.theme-main-nav {
+.theme-nav-main {
   .nav-link {
     font-size: 1.1rem;
     font-weight: $fontBold;
@@ -772,11 +779,11 @@ body {
     cursor: default;
     white-space: initial;
   }
-	.popup-close {
-  	display: block;
-		position: absolute;
-		top: $gutter/2;
-		right: $gutter/2;
+  .popup-close {
+    display: block;
+    position: absolute;
+    top: $gutter/2;
+    right: $gutter/2;
   }
 }
 
@@ -799,5 +806,45 @@ body {
 #PopupAccount {
   .popup-content {
     width: 400px;
+  }
+}
+
+/* Toggle Side Menu ==========================================================*/
+
+.theme-nav-toggled {
+  z-index: 9995;
+  position: fixed;
+	width: 400px;
+  max-width: 90%;
+	height: 100%;
+	top: 0;
+	right: 0;
+  padding: $gutter;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  @include transition-property(); // For legacy support
+  @include prefixer(transition-duration, 0.3s, webkit moz spec);
+  @include prefixer(transition-delay, 0.3s, webkit moz spec);
+  &.from-left {
+    left: 0;
+    @include prefixer(transform, translate3d(-100%, 0, 0), webkit moz ms o spec);
+  }
+  &.from-right {
+    right: 0;
+    @include prefixer(transform, translate3d(100%, 0, 0), webkit moz ms o spec);
+  }
+  &.visible {
+    @include prefixer(transform, translate3d(0, 0, 0), webkit moz ms o spec);
+  }
+  background-color: $colorAlternate;
+  color: $colorBackground;
+  a {
+    color: $colorBackground;
+  }
+  .nav-toggled-close {
+    display: block;
+    position: absolute;
+    top: $gutter/2;
+    right: $gutter/2;
   }
 }

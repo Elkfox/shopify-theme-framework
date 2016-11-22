@@ -1,7 +1,7 @@
-<!-- /snippets/theme-nav-main.liquid -->
+<!-- /snippets/theme-nav-toggled.liquid -->
 
-<nav class="theme-nav-main s-hide" role="navigation">
-  <ul class="inline">
+<nav class="theme-nav-toggled from-left" id="NavToggled" role="navigation">
+  <ul>
     {% for link in linklists.main-menu.links %}
       {% assign child_list_handle = link.title | handleize %}
       {% if linklists[child_list_handle].links != blank %}
@@ -24,18 +24,17 @@
       {% endif %}
     {% endfor %}
   </ul>
+  <a href="#close" class="nav-toggled-close" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
 </nav>
 
-<a href="/" data-nav="#NavToggled" class="nav-toggled-link l-hide m-hide">{{ 'common.menu' | t }}</a>
-
-
 <script>
-  // Nav dropdowns
-  $('.dropdown').hover(function () {
-    var itemId = $(this).attr('data-id');
-    $('#'+itemId).removeClass('hidden');
-  }, function () {
-    var itemId = $(this).attr('data-id');
-    $('#'+itemId).addClass('hidden');
+  // Toggled nav visibility. This will be merged with main JS visibility functions
+  $('.nav-toggled-link').on('click', function(event) {
+    event.preventDefault();
+    $('#NavToggled').addClass('visible');
+  });
+  $('.nav-toggled-close').on('click', function(event) {
+    event.preventDefault();
+    $('#NavToggled').removeClass('visible');
   });
 </script>

@@ -1,5 +1,6 @@
 {
   "common": {
+    "menu": "Menu",
     "tags": "Tags",
     "close": "Close"
   },

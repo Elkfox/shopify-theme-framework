@@ -19,10 +19,7 @@
       <div class="row l-table m-table" rv-each-item="cart.items">
         <div class="column l5 m5 s12">
           <a class="product_title h4" rv-href="item.url">
-            { item.product_title }
-            {% unless item.variant.title contains 'Default' %}
-              - <span>{ item.variant_title }</span>
-            {% endunless %}
+            { item.product_title } { item.variant_title }
           </a>
         </div>
         <div class="column l3 m2 s-hide">

@@ -163,6 +163,29 @@ concrete.visibilityManager = function() {
   });
 };
 
+// Popups
+concrete.popups = function() {
+  // Move popups to the end of the body
+  $('.popup').detach().appendTo('body');
+  // Close popup
+  $('.popup').on('click', '.popup-close, .popup-cancel, .popup-outside', function(event){
+    event.preventDefault();
+    $(this).closest('.popup').removeClass('visible');
+  });
+  // Close popup when clicking the esc keyboard button
+  $(document).keyup(function(event){
+    if(event.which=='27'){
+      $('.popup').removeClass('visible');
+    }
+  });
+};
+// Open things based on their ID as data-attribute
+$('.popup-link').on('click', function(event) {
+  event.preventDefault();
+  var popupId = $(this).attr('data-popup');
+  $(popupId + '.popup').addClass('visible');
+});
+
 // Product Image Thumbnails
 concrete.productImageSwitch = function () {
   if (concrete.cache.$productThumbnailImages.length) {
@@ -221,29 +244,6 @@ concrete.switchVariant = function(options) {
     }
   }
 };
-
-// Popups
-concrete.popups = function() {
-  // Move popups to the end of the body
-  $('.popup').detach().appendTo('body');
-  // Close popup
-  $('.popup').on('click', '.popup-close, .popup-cancel, .popup-outside', function(event){
-    event.preventDefault();
-    $(this).closest('.popup').removeClass('visible');
-  });
-  // Close popup when clicking the esc keyboard button
-  $(document).keyup(function(event){
-    if(event.which=='27'){
-      $('.popup').removeClass('visible');
-    }
-  });
-};
-// Open modals based on their ID as data-attribute
-$('.popup-link').on('click', function(event) {
-  event.preventDefault();
-  var popupId = $(this).attr('data-popup');
-  $(popupId + '.popup').addClass('visible');
-});
 
 // Login Forms
 

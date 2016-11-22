@@ -1,6 +1,7 @@
 1. Global
   1. The rivets delay issue needs more work. See 1.2
   2. We probably need a global way of dealing with loading delays that affect rendering
+  3. Merge the visibility manager and popup js functions together
 
 ## Products
 
