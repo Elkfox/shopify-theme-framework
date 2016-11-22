@@ -329,6 +329,7 @@ textarea {
   height: initial;
   line-height: $lineHeight;
   padding: $gutter/2;
+  font-family: inherit; // for Firefox
 }
 label {
   line-height: inherit;
@@ -347,7 +348,15 @@ select {
   border: $borderWeight $borderStyle $colorBrand;
   border-radius: $borderRadius;
   -webkit-appearance: none;
+  -moz-appearance: none;
   @include transition();
+  option {
+    // for Firefox
+    background-color: $colorBackground;
+    border: 0;
+    display: block;
+    color: $colorBody;
+  }
   &:hover {
     background-color: darken($colorBrand, 5%);
     border-color: darken($colorBrand, 5%);
