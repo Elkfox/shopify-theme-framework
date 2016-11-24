@@ -2,6 +2,8 @@
   1. The rivets delay issue needs more work. See 1.2
   2. We probably need a global way of dealing with loading delays that affect rendering
   3. Merge the visibility manager and popup js functions together
+  4. Move overlay to one intance
+  5. z-index manager
 
 ## Products
 
