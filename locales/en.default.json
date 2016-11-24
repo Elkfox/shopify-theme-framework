@@ -89,12 +89,12 @@
     "price": "Price",
     "quantity": "Quantity",
     "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "shipping_at_checkout": "Shipping calculated at checkout",
     "total": "Total",
     "remove_item": "Remove",
     "empty": "Your cart is empty :(",
     "note": "Customer Notes",
-    "checkout": "Checkout",
-    "shipping_at_checkout": "Shipping calculated at checkout",
     "count": {
       "one": "item",
       "other": "items"

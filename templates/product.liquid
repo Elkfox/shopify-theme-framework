@@ -66,7 +66,7 @@
             <p id="OnSale">
               <span class="hidden">{{ 'product.original_price' | t }}</span>
               <span>{{ 'product.original_price' | t }}</span>
-              <s>{{ product.compare_at_price | money }}</s>
+              <s id="ComparePrice">{{ product.compare_at_price | money }}</s>
             </p>
           {% endif %}
 
@@ -108,7 +108,7 @@
 
 {% comment %}
   To take advantage of a callback on the select dropdown, add option_selection.js
-  and customize the JS in timber.productPage as needed.
+  and customize the JS in concrete.productPage as needed.
 
   Currently, timber.productPage does the following:
     - Hides your <select> tag from above
@@ -126,7 +126,7 @@
 <script>
   $("#Quantity").on("change", function() {
     $("#AddToCart").attr("data-cart-quantity", $(this).val());
-  })
+  });
 
   var selectCallback = function(variant, selector) {
     console.log("Switching variant: ", variant);

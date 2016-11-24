@@ -80,6 +80,10 @@ concrete.cacheSelectors = function () {
     $recoverPasswordForm : $('#RecoverPasswordForm'),
     $customerLoginForm : $('#LoginForm'),
     $passwordResetSuccess : $('#ResetSuccess')
+    // Cart JS
+
+    // TO DO
+
   };
 };
 
@@ -198,6 +202,7 @@ concrete.productImageSwitch = function () {
     });
   }
 };
+
 concrete.switchImage = function (src, imgObject, el) {
   // Make sure element is a jquery object
   var $el = $(el);
@@ -229,6 +234,7 @@ concrete.switchVariant = function(options) {
       $addToCart.removeClass("disabled").prop('disabled', false);
       $addToCartText.html({{ 'product.add_to_cart' | t | json }});
       $addToCart.attr("data-cart-add", variant.id);
+      $("#Quantity").attr('max', variant.inventory_quantity);
     } else {
       $addToCart.addClass("disabled").prop('disabled', true);
       $addToCartText.html({{ 'product.add_to_cart_unavailable' | t | json }});

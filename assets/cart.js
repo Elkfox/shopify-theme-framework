@@ -231,9 +231,12 @@
   queue = [];
 
   processing = false;
+  var isError = false;
+  var error = null;
 
   CartJS.Queue = {
     add: function(url, data, options) {
+      error = null;
       var request;
       if (options == null) {
         options = {};
@@ -245,8 +248,12 @@
         dataType: options.dataType || 'json',
         statusCode: {
           422: function(err) {
+            isError = true;
+            error = JSON.parse(err.responseText);
             if (CartJS.errorHandling.cartError) {
               CartJS.errorHandling.cartError(JSON.parse(err.responseText));
+            } else {
+              console.log("Cannot add item to cart: " + error.description);
             }
           }
         },
@@ -269,7 +276,7 @@
       var params;
       if (!queue.length) {
         processing = false;
-        jQuery(document).trigger('cart.requestComplete', [CartJS.cart]);
+        jQuery(document).trigger('cart.requestComplete', [CartJS.cart, error]);
         return;
       }
       processing = true;

@@ -71,6 +71,7 @@
   {% include 'theme-nav-toggled' %}
 
   {% include 'popup-cart' %}
+  {% include 'popup-error' %}
   {% include 'popup-login' %}
 
   {% comment %}{{ 'cookies.min.js' | asset_url | script_tag }}{% endcomment %}
@@ -87,11 +88,16 @@
     // Cart error handling
     CartJS.errorHandling.cartError = function(error) {
       // Event handling goes here
-      console.log("CART ERROR: ", error);
+      $("#errorMessage").html(error.description);
     }
-    $(document).on('cart.requestComplete', function(event, cart) {
+
+    $(document).on('cart.requestComplete', function(event, cart, error) {
       {% unless template == 'cart' %}
+      if (error) {
+        $("#ErrorPopup").addClass('visible');
+      } else {
         $('#PopupCart.popup').addClass('visible');
+      }
       {% endunless %}
     });
   </script>
