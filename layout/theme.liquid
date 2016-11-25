@@ -59,14 +59,13 @@
 </head>
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
-  <div id="PageContainer">
-    {% include 'theme-header' %}
-    <main id="MainContent" role="main">
-      {% include 'theme-breadcrumbs' %}
-      {{ content_for_layout }}
-    </main>
-    {% include 'theme-footer' %}
-  </div>
+
+  {% include 'theme-header' %}
+  <main id="MainContent" role="main">
+    {% include 'theme-breadcrumbs' %}
+    {{ content_for_layout }}
+  </main>
+  {% include 'theme-footer' %}
 
   {% include 'theme-nav-toggled' %}
 
