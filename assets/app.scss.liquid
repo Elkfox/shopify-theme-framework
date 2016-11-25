@@ -41,6 +41,7 @@ $l: 1150px;
 $xl: 1450px;
 
 // Miscellaneous
+$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
 $transition: all .3s ease-out;
 
 /* Reset =====================================================================*/
@@ -617,6 +618,11 @@ a.button {
 
 .theme-header {
   padding: $gutter/2 0;
+  .logo {
+    img {
+      max-width: $logoMaxWidth;
+    }
+  }
 }
 
 /* Navigation =================================================================*/

@@ -100,12 +100,6 @@
       "other": "items"
     }
   },
-  "index": {
-    "title": "Home",
-    "featured_products": "Featured Products",
-    "featured_collections": "Featured Collections",
-    "featured_news": "Featured News"
-  },
   "collection": {
     "no_matches": "Sorry, there are no products in this collection",
     "view": {
