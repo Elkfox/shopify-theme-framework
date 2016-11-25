@@ -1,7 +1,12 @@
 <!-- /snippets/search-form.liquid -->
 
 <form action="/search" method="get" role="search">
-  <input type="hidden" name="type" value="product">
+  {% comment %}
+    To return only products or pages in results:
+    - http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+    - Or manually add type=product or type=page to the search URL as a parameter
+  {% endcomment %}
+  {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
   <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.title' | t }}" aria-label="{{ 'search.title' | t }}">
   <button type="submit" class="hidden">{{ 'form.submit' | t }}</button>
 </form>
