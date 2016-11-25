@@ -136,6 +136,9 @@
     "previous_product": "Previous",
     "next_product": "Next"
   },
+  "home_page": {
+    "title": "Home Page"
+  },
   "blog": {
     "title": "Blog",
     "categories": "Blog Categories",

@@ -34,6 +34,10 @@
 
 NOTE: We need to keep support for option_selection js
 
+## Sections
+
+Increased support for sections https://www.shopify.com/partners/blog/introducing-sections-for-shopify-themes
+
 
 ## Libraries that may or may not be added later
 
