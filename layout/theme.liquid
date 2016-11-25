@@ -78,27 +78,26 @@
   {{ 'rivets.min.js' | asset_url | script_tag }}
   {{ 'cart.js' | asset_url | script_tag }}
   {{ 'app.js' | asset_url | script_tag }}
+
   <script type="text/javascript">
     jQuery(function() {
-        CartJS.init({{ cart | json }}, {
-            // 'debug': true,
-            'requestBodyClass': 'loading'
-        });
+      CartJS.init({{ cart | json }}, {
+        // 'debug': true,
+        'requestBodyClass': 'loading'
+      });
     });
     // Cart error handling
     CartJS.errorHandling.cartError = function(error) {
-      // Event handling goes here
       $("#errorMessage").html(error.description);
     }
-
     $(document).on('cart.requestComplete', function(event, cart, error) {
-      {% unless template == 'cart' %}
       if (error) {
-        $("#ErrorPopup").addClass('visible');
+        $("#PopupError").addClass('visible');
       } else {
-        $('#PopupCart.popup').addClass('visible');
+        {% unless template == 'cart' %}
+          $('#PopupCart.popup').addClass('visible');
+        {% endunless %}
       }
-      {% endunless %}
     });
   </script>
 

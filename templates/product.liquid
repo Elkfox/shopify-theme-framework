@@ -37,7 +37,7 @@
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
         <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
 
-        <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="form-vertical">
+        <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
 
           <select name="id" id="productSelect" class="product-single__variants">
             {% for variant in product.variants %}
@@ -83,6 +83,8 @@
       <div class="rte" itemprop="description">
         {{ product.description }}
       </div>
+
+      {% include 'social-sharing' %}
 
       {% if collection %}
         {% if collection.previous_product or collection.next_product %}

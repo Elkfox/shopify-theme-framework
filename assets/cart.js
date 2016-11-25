@@ -45,7 +45,7 @@
         if (key !== 'properties') {
           this[key] = value;
         }
-      } 
+      }
       return this.properties = CartJS.Utils.extend({}, item.properties);
     };
 

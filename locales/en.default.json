@@ -173,6 +173,11 @@
       "about_with_name": "About {{ first_name }}"
     }
   },
+  "search": {
+    "title": "Search",
+    "no_results_html": "Sorry, no results for \"{{ terms }}\"",
+    "results_for_html": "We found these matches for \"{{ terms }}\""
+  },
   "social": {
     "facebook": "Facebook",
     "fancy": "Fancy",

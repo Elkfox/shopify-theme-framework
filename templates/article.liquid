@@ -28,6 +28,8 @@
         {{ article.content }}
       </div>
 
+      {% include 'social-sharing' %}
+
       {% if article.tags.size > 0 %}
         <p>
           <span>{{ 'common.tags' | t }}:</span>

@@ -2,8 +2,10 @@
 
 <header class="theme-header" role="banner">
   <div class="container full">
+
     <div class="row l-table m-table">
       <div class="column l8 m8 s12 l-left m-left s-middle">
+
         {% if template == 'index' %}
           <h1 class="logo" itemscope itemtype="http://schema.org/Organization">
         {% else %}
@@ -21,6 +23,7 @@
         {% else %}
           </div>
         {% endif %}
+
       </div>
       <div class="column l4 m4 s12 l-right m-right s-middle">
 
@@ -37,7 +40,23 @@
       </div>
     </div>
 
-    {% include 'theme-nav-main' %}
+    <div class="row l-table m-table">
+      <div class="column l6 m6 s12 l-left m-left s-middle">
+
+        <div class="s-hide">
+          {% include 'theme-nav-main' %}
+        </div>
+        <div class="l-hide m-hide">
+          <a href="/" data-nav="#NavToggled" class="nav-toggled-link ">{{ 'common.menu' | t }}</a>
+        </div>
+
+      </div>
+      <div class="column l6 m6 s12 l-right m-right s-hide">
+
+        {% include 'search-form' %}
+
+      </div>
+    </div>
 
     <hr>
 
