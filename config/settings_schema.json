@@ -5,19 +5,15 @@
     "settings": [
       {
         "type": "header",
-        "content": "Timber Framework"
+        "content": "Concrete Framework"
       },
       {
         "type": "paragraph",
-        "content": "v2.1.0"
+        "content": "v0.1"
       },
       {
         "type": "paragraph",
         "content": "Theme settings allow designers to provide an easy way for any user to customize the look and feel of their shop without having to delve into HTML or CSS code. Please see our [help page on theme settings](http:\/\/docs.shopify.com\/themes\/theme-templates\/settings) to learn more about how you can make the theme customizable."
-      },
-      {
-        "type": "paragraph",
-        "content": "Review [Timber's documentation](http:\/\/shopify.github.io\/Timber\/) for any development help."
       }
     ]
   },
