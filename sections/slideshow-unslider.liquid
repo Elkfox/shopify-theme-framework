@@ -4,7 +4,7 @@
         <li>
           {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
             {% if block.settings.image == blank %}
-              <div class="placeholder-background">
+              <div class="placeholder-background" style="opacity:0.7;">
                 {% capture current %}{% cycle 1, 2 %}{% endcapture %}
                 {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
               </div>
@@ -27,7 +27,7 @@ $(document).ready(function($) {
 
 {% schema %}
   {
-    "name": "Slideshow",
+    "name": "Slideshow (Unslider)",
     "class": "slider-section",
     "max_blocks": 4,
     "settings": [
@@ -71,7 +71,7 @@ $(document).ready(function($) {
       }
     ],
     "presets": [{
-      "name": "Slideshow",
+      "name": "Slideshow (Unslider)",
       "category": "Image",
       "settings": {
         "autoplay": true,
