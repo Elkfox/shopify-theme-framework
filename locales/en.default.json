@@ -7,8 +7,8 @@
   "date_formats": {
     "month_day_year": "%B %d, %Y",
     "day_month_year": "%d %B, %Y",
-    "simple": "%d/%m/%y",
-    "simple_usa": "%m/%d/%y"
+    "simple": "%d\/%m\/%y",
+    "simple_usa": "%m\/%d\/%y"
   },
   "account": {
     "title": "Account",
@@ -31,7 +31,7 @@
     "city": "City",
     "country": "Country",
     "province": "Province",
-    "zip": "Postal/Zip Code",
+    "zip": "Postal\/Zip Code",
     "phone": "Phone",
     "orders": {
       "title": "Orders",
@@ -202,7 +202,7 @@
     },
     "collections": {
       "modal_title": "This area will show your store's collections",
-      "no_collections_html": "You don't have any collections to show here. <a href=\"/admin/custom_collections\">Add some collections</a> to go along with the default home page.",
+      "no_collections_html": "You don't have any collections to show here. <a href=\"\/admin\/custom_collections\">Add some collections<\/a> to go along with the default home page.",
       "add_collection": "Add a Collection",
       "collection_title": "Example Collection Title",
       "items_with_count": "{{ count }} Items"

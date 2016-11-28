@@ -16,28 +16,49 @@
 {% if section.settings.slider-container %}</div>{% endif %}
 
 <script>
-// function loadSlider() {
-//
-// }
-$(document).ready(function($) {
-  $(".slider").slick({
-    infinite: true,
-    autoplay: {% if section.settings.slick_autoplay %}true,{% else %}false,{% endif %}
-    speed: {{ section.settings.slick_speed }},
-    dots: {% if section.settings.slick_dots %}true,{% else %}false,{% endif %}
-    customPaging: function(slider, i) {
-      return '<span></span>';
-    },
-    arrows: {% if section.settings.slick_arrows %}true,{% else %}false,{% endif %}
-    adaptiveHeight: {% if section.settings.slick_fixed_height %}true,{% else %}false,{% endif %}
-    slidesToShow: 1
+ $(document).on('shopify:section:load', function(e) {
+    $(e.target).children('.slider').slick({
+      infinite: true,
+      autoplay: {% if section.settings.slick_autoplay %}true,{% else %}false,{% endif %}
+      speed: {{ section.settings.slick_speed }},
+      dots: {% if section.settings.slick_dots %}true,{% else %}false,{% endif %}
+      customPaging: function(slider, i) {
+        return '<span></span>';
+      },
+      arrows: {% if section.settings.slick_arrows %}true,{% else %}false,{% endif %}
+      adaptiveHeight: {% if section.settings.slick_fixed_height %}true,{% else %}false,{% endif %}
+      slidesToShow: 1
+    });
   });
-});
-// For theme editor preview
-// $('iframe').ready(function(){
-//   NOT WORKING?!!??!
-//   loadSlider();
-// });
+  
+  {% comment %}
+  	Set up triggers for these events if the autoplay for the slider is turned on.
+  {% endcomment %}
+  {% if section.settings.slick_autoplay %}
+  $(document).on('shopify:section:select', function(e) {
+    $(e.target).children('.slider').slick('slickPause');
+  });
+  
+  $(document).on('shopify:section:deselect', function(e) {
+    $(e.target).children('.slider').slick('slickPlay');
+  });
+  {% endif %}
+
+  $(document).ready(function() {
+    $(".slider").slick({
+      infinite: true,
+      autoplay: {% if section.settings.slick_autoplay %}true,{% else %}false,{% endif %}
+      speed: {{ section.settings.slick_speed }},
+      dots: {% if section.settings.slick_dots %}true,{% else %}false,{% endif %}
+      customPaging: function(slider, i) {
+        return '<span></span>';
+      },
+      arrows: {% if section.settings.slick_arrows %}true,{% else %}false,{% endif %}
+      adaptiveHeight: {% if section.settings.slick_fixed_height %}true,{% else %}false,{% endif %}
+      slidesToShow: 1
+    });
+  });
+  
 </script>
 
 {% schema %}
