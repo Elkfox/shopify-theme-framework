@@ -204,7 +204,6 @@
         }
       }
       if (((_ref1 = window.Shopify) != null ? _ref1.formatMoney : void 0) != null) {
-
         return Shopify.formatMoney(value, format);
       } else {
         return value;
@@ -231,12 +230,13 @@
   queue = [];
 
   processing = false;
+  // Concrete added error handling
   var isError = false;
   var error = null;
 
   CartJS.Queue = {
     add: function(url, data, options) {
-      error = null;
+      // error = null;
       var request;
       if (options == null) {
         options = {};
@@ -246,6 +246,7 @@
         data: data,
         type: options.type || 'POST',
         dataType: options.dataType || 'json',
+        // Concrete added error handling
         statusCode: {
           422: function(err) {
             isError = true;
@@ -264,7 +265,6 @@
       if (options.updateCart) {
         request.success.push(CartJS.cart.update);
       }
-
       queue.push(request);
       if (processing) {
         return;
@@ -276,6 +276,8 @@
       var params;
       if (!queue.length) {
         processing = false;
+        // jQuery(document).trigger('cart.requestComplete', [CartJS.cart]);
+        // Concrete added error handling
         jQuery(document).trigger('cart.requestComplete', [CartJS.cart, error]);
         return;
       }
@@ -674,6 +676,7 @@
     };
   }
 
+  // Concrete added error handling
   CartJS.errorHandling = {
     cartError: function(error) {
       console.log("There was an error: ", error);
@@ -700,11 +703,10 @@
     exports.clearAttributes = CartJS.Core.clearAttributes;
     exports.getNote = CartJS.Core.getNote;
     exports.setNote = CartJS.Core.setNote;
+    // Concrete added error handling
     exports.errorHandling = CartJS.errorHandling;
     return exports.render = CartJS.Data.render;
   };
-
-
 
   if (typeof exports === 'object') {
     CartJS.factory(exports);
@@ -715,6 +717,15 @@
     });
   } else {
     CartJS.factory(this.CartJS = {});
+  }
+
+  // Rivets seems to have a delay
+  // Added for Concrete... this needs work!
+  rivets.binders.cloak = {
+    priority: -1000,
+    bind: function(el) {
+      el.style.opacity = 1;
+    }
   }
 
 }).call(this);
