@@ -280,11 +280,14 @@ $(concrete.init);
 var linkParent = '.LoadMore';
 var linkElem = linkParent+' a';
 var parentContainer = '#MainContent';
-var contentContainer
-var action
+var contentContainer;
+var endlessScrollContainer = '#EndlessScroll';
+var endlessClickContainer = '#EndlessClick';
+var action;
 
 $.loadMore = function() {
   var moreURL = $(contentContainer+':last-child '+ linkElem).attr('href')
+  console.log( moreURL );
   if (moreURL.length){
     $.ajax({
       type: 'GET',
@@ -306,7 +309,8 @@ $.loadMore = function() {
             $.endlessScroll(); // check if at bottom again
           });
         } else {
-          $(linkElem).on( action, function() {
+          $(linkElem).on( action, function(e) {
+            e.preventDefault();
             $.loadMore();
           });
         }
@@ -330,18 +334,29 @@ $.endlessScroll = function() {
 
 // Detection
 // Click
-$('.loadMore').on( 'click', function() {
-  $.loadMore();
-});
+if ( $( endlessClickContainer ).length ) {
+  $(linkElem).on( 'click', function(e) {
+    e.preventDefault();
+    action = 'click';
+    contentContainer = endlessClickContainer;
+    $.loadMore();
+  });
+}
 // Scroll
 $(window).on( 'scroll', function() {
-  $.endlessScroll();
+  if ( $( endlessScrollContainer ).length ) {
+    $.endlessScroll();
+  }
 });
 // Load
 $(window).on( 'load', function() {
-  $.endlessScroll();
+  if ( $( endlessScrollContainer ).length ) {
+    $.endlessScroll();
+  }
 });
 // Resize
 $(window).on( 'resize', function() {
-  $.endlessScroll();
+  if ( $( endlessScrollContainer ).length ) {
+    $.endlessScroll();
+  }
 });
