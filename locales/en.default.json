@@ -231,5 +231,9 @@
     "print": "Print this gift card",
     "remaining_html": "{{ balance }} of",
     "add_to_apple_wallet": "Add to Apple Wallet"
+  },
+  "404": {
+    "title": "404 Error: Page Not Found",
+    "subtext_html": "Sorry, that page doesn't appear to exist! Click <a href=\"/collections/all\">here</a> to continue shopping"
   }
 }
