@@ -121,6 +121,9 @@
       "price_descending": "Price, high to low",
       "date_descending": "Date, new to old",
       "date_ascending": "Date, old to new"
+    },
+    "endless": {
+      "loading": "Loading..."
     }
   },
   "product": {

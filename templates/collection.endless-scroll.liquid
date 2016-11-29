@@ -1,6 +1,6 @@
-<!-- /templates/collection.liquid -->
+<!-- /templates/collection.endless-scroll.liquid -->
 
-{% paginate collection.products by 12 %}
+{% paginate collection.products by 2 %}
 
 {% assign column_width = 'column l4 m6 s12' %}
 
@@ -34,8 +34,8 @@
   </header>
   <p>
     <span for="SortBy">{{ 'collection.view.title' | t }}</span>
-    <a title="{{ 'collection.view.grid' | t }}" class="change-view" data-view="grid">Grid</a>
-    <a title="{{ 'collection.view.list' | t }}" class="change-view" data-view="list">List</a>
+    <a title="{{ 'collection.view.grid' | t }}" class="change-view" data-view="grid">{{ 'collection.view.grid' | t }}</a>
+    <a title="{{ 'collection.view.list' | t }}" class="change-view" data-view="list">{{ 'collection.view.list' | t }}</a>
   </p>
 </div>
 
@@ -56,17 +56,14 @@
         </div>
       {% endif %}
     {% endfor %}
+    {% if paginate.next %}
+      <div class="row LoadMore">
+        <a href="{{ paginate.next.url }}">{{ 'collection.endless.loading' | t }}</a>
+  	  </div>
+    {% endif %}
   </div>
 </div>
 
-{% if paginate.pages > 1 %}
-  <div class="container">
-    <hr>
-    <div class="pagination">
-      {{ paginate | default_pagination }}
-    </div>
-  </div>
-{% endif %}
 
 {% endpaginate %}
 

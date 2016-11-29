@@ -1,6 +1,6 @@
-<!-- /templates/collection.liquid -->
+<!-- /templates/collection.endless-click.liquid -->
 
-{% paginate collection.products by 12 %}
+{% paginate collection.products by 2 %}
 
 {% assign column_width = 'column l4 m6 s12' %}
 
@@ -40,7 +40,7 @@
 </div>
 
 <div class="container">
-  <div class="row">
+  <div class="row" id="EndlessScroll">
     {% for product in collection.products %}
       {% include 'collection-product' %}
     {% else %}
@@ -56,17 +56,14 @@
         </div>
       {% endif %}
     {% endfor %}
+    {% if paginate.next %}
+      <div class="row LoadMore">
+        <a href="{{ paginate.next.url }}">{{ 'collection.endless.loading' | t }}</a>
+  	  </div>
+    {% endif %}
   </div>
 </div>
 
-{% if paginate.pages > 1 %}
-  <div class="container">
-    <hr>
-    <div class="pagination">
-      {{ paginate | default_pagination }}
-    </div>
-  </div>
-{% endif %}
 
 {% endpaginate %}
 
