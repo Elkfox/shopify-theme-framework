@@ -275,3 +275,86 @@ concrete.resetPasswordSuccess = function() {
 
 // Initialize on docready
 $(concrete.init);
+
+// Detect whether the page is at the bottom
+{% if template == 'collection.endless' %}
+  $.endlessScroll = function() {
+    if ($("#EndlessScroll:last-child").length){
+      var bottom = $("#MainContent").outerHeight()
+      var docTop = ($(document).scrollTop() + ($(window).height() + 2000) );
+      if( docTop > bottom ) {
+      	$.loadMore();
+      }
+    }
+  }
+{% endif %}
+
+// $.loadMore = function() {
+//   var scrollURL = $('#endless:last-child .more p a').last().attr("href");
+//   $("#endless:last-child").addClass("has-more");
+//   $.ajax({
+//     type: 'GET',
+//     dataType: 'html',
+//     url: scrollURL,
+//     beforeSend: function() {
+//       $(document).off('scroll');
+//       $('#endless:last-child .more p a').fadeIn( "fast" );
+//     },
+//     success: function(data) {
+//       var filteredData = $(data).find("#endless:last-child");
+//       $('#endless:last-child .more p a').fadeOut( "fast" );
+//       filteredData.appendTo( $("#endless").parent() ).hide().fadeIn( "slow" );
+//       $(document).on( "scroll", function() {
+//         $.endlessScroll();
+//       });
+//     }
+//   });
+// }
+
+// Ajax Pagination
+$.loadMore = function() {
+  var parentElem = '#loadMore';
+  var parentLastChild = $(parentElem + ':last-child');
+  var buttonElem = $('.loadMore')
+  var moreURL = $( buttonElem ).last().attr('data-url');
+
+  if (moreURL.length){
+    $.ajax({
+      type: 'GET',
+      dataType: 'html',
+      url: moreURL,
+      beforeSend: function() {
+        $('.loadMore').off('click');
+      },
+      success: function(data) {
+        var filteredData = $(data).find('#loadMore' + ':last-child');
+        $('.loadMore').fadeOut( "fast" );
+        filteredData.appendTo( $('#loadMore').parent() ).hide().fadeIn( "slow" );
+        $('.loadMore').on( 'click', function() {
+          $.loadMore();
+        });
+      }
+    });
+  }
+}
+
+// Detection
+// Click
+$('.loadMore').on( 'click', function() {
+  $.loadMore();
+});
+{% if template == 'collection.endless' %}
+  console.log('template is endless');
+  // Scroll
+  $(window).on( 'scroll', function() {
+    $.endlessScroll();
+  });
+  // Load
+  $(window).on( 'load', function() {
+    $.endlessScroll();
+  });
+  // Resize
+  $(window).on( 'resize', function() {
+    $.endlessScroll();
+  });
+{% endif %}
