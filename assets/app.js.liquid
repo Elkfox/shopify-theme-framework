@@ -278,16 +278,18 @@ $(concrete.init);
 
 // Ajax Pagination
 var linkParent = '.LoadMore';
-var linkElem = linkParent+' a';
+var linkElem;
 var parentContainer = '#MainContent';
 var contentContainer;
 var endlessScrollContainer = '#EndlessScroll';
 var endlessClickContainer = '#EndlessClick';
+var ajaxinateContainer = '#Ajaxinate';
+var ajaxinateLink = '.PaginationLink';
+var pageType;
 var action;
+var moreURL;
 
 $.loadMore = function() {
-  var moreURL = $(contentContainer+':last-child '+ linkElem).attr('href')
-  console.log( moreURL );
   if (moreURL.length){
     $.ajax({
       type: 'GET',
@@ -303,14 +305,22 @@ $.loadMore = function() {
       success: function(data) {
         var filteredData = $(data).find(contentContainer);
         $(linkElem).fadeOut( 'fast' );
+        if (pageType == 'ajax') {
+          // Hide the existing page
+        }
         filteredData.appendTo( $(contentContainer).parent() ).hide().fadeIn( 'slow' );
         if (action == 'scroll') {
           $(window).on( action, function() {
-            $.endlessScroll(); // check if at bottom again
+            $.endlessScroll();
           });
-        } else {
+        } else if (action == 'click') {
           $(linkElem).on( action, function(e) {
             e.preventDefault();
+            if (pageType == 'ajax') {
+              moreURL = $(this).attr('href');
+            } else if(pageType == 'endlessClick') {
+              moreURL = $(contentContainer+':last-child '+ linkElem).attr('href');
+            }
             $.loadMore();
           });
         }
@@ -321,7 +331,10 @@ $.loadMore = function() {
 
 // Check whether the page is at the bottom
 $.endlessScroll = function() {
+  linkElem = linkParent+' a';
   contentContainer = '#EndlessScroll';
+  moreURL = $(contentContainer+':last-child '+ linkElem).attr('href');
+  pageType = 'endlessScroll';
   if ($(contentContainer+':last-child '+linkElem).length){
     var bottom = $( parentContainer ).outerHeight()
     var docTop = ($(document).scrollTop() + $(window).height());
@@ -333,28 +346,45 @@ $.endlessScroll = function() {
 }
 
 // Detection
-// Click
+  // Click
+    // Endless Click
 if ( $( endlessClickContainer ).length ) {
+  linkElem = linkParent+' a';
   $(linkElem).on( 'click', function(e) {
     e.preventDefault();
     action = 'click';
     contentContainer = endlessClickContainer;
+    moreURL = $(contentContainer+':last-child '+ linkElem).attr('href');
+    pageType = 'endlessClick';
     $.loadMore();
   });
 }
-// Scroll
+    // Ajaxination Click
+if ( $(ajaxinateContainer).length ) {
+  linkElem = ajaxinateLink;
+  $(linkElem).on( 'click', function(e) {
+    e.preventDefault();
+    action = 'click';
+    contentContainer = ajaxinateContainer;
+    moreURL = $(this).attr('href');
+    pageType = 'ajax';
+    $.loadMore();
+  });
+}
+
+  // Scroll
 $(window).on( 'scroll', function() {
   if ( $( endlessScrollContainer ).length ) {
     $.endlessScroll();
   }
 });
-// Load
+  // Load
 $(window).on( 'load', function() {
   if ( $( endlessScrollContainer ).length ) {
     $.endlessScroll();
   }
 });
-// Resize
+  // Resize
 $(window).on( 'resize', function() {
   if ( $( endlessScrollContainer ).length ) {
     $.endlessScroll();
