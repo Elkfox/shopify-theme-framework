@@ -13,7 +13,7 @@
     {{ form.errors | default_errors }}
 
     <label for="CustomerPassword">{{ 'customer.activate_account.password' | t }}</label>
-    <input type="password" value="" name="customer[password]" id="CustomerPassword" class="input-full" placeholder="{{ 'customer.activate_account.password' | t }}">
+    <input type="password" value="" name="customer[password]" id="CustomerPassword" placeholder="{{ 'customer.activate_account.password' | t }}">
 
     <label for="CustomerPasswordConfirmation">{{ 'customer.activate_account.password_confirm' | t }}</label>
     <input type="password" value="" name="customer[password_confirmation]" id="CustomerPasswordConfirmation" placeholder="{{ 'customer.activate_account.password_confirm' | t }}">
