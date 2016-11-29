@@ -40,7 +40,7 @@
 </div>
 
 <div class="container">
-  <div class="row" id="EndlessClick">
+  <div class="row" id="Ajaxinate" data-page="{{ paginate.current_page }}">
     {% for product in collection.products %}
       {% include 'collection-product' %}
     {% else %}
@@ -56,15 +56,12 @@
         </div>
       {% endif %}
     {% endfor %}
-    {% if paginate.next %}
-      <div class="row LoadMore">
-        <a class="button center" role="button" href="{{ paginate.next.url }}">{{ 'collection.endless.loading' | t }}</a>
-  	  </div>
-    {% endif %}
+    {% assign count = paginate.pages %}
+    {% for part in (1..count) %}
+      <a href="{{ collection.url }}?page={{ forloop.index }}" data-number="{{ forloop.index }}" class="PaginationLink{% if paginate.current_page == part %} active{% endif %}">{{ forloop.index }}</a></li>
+    {% endfor %}
   </div>
 </div>
-
-
 {% endpaginate %}
 
 <script>
