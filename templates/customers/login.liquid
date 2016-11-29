@@ -12,11 +12,11 @@
       {{ form.errors | default_errors }}
 
       <label for="CustomerEmail" class="clearfix">{{ 'form.email' | t }}</label>
-      <input type="email" name="customer[email]" id="CustomerEmail" class="{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'form.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
+      <input type="email" name="customer[email]" id="CustomerEmail" {% if form.errors contains 'email' %}class="error"{% endif %} placeholder="{{ 'form.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
 
       {% if form.password_needed %}
         <label for="CustomerPassword" class="clearfix">{{ 'account.password' | t }}</label>
-        <input type="password" value="" name="customer[password]" id="CustomerPassword" class="{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'account.password' | t }}">
+        <input type="password" value="" name="customer[password]" id="CustomerPassword" {% if form.errors contains 'password' %}class="error"{% endif %} placeholder="{{ 'account.password' | t }}">
       {% endif %}
 
       <input type="submit" value="{{ 'account.sign_in' | t }}">
