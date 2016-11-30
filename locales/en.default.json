@@ -2,7 +2,13 @@
   "common": {
     "menu": "Menu",
     "tags": "Tags",
-    "close": "Close"
+    "close": "Close",
+    "pagination": {
+      "loadmore": "Load More",
+      "loading": "Loading...",
+      "previous": "<",
+      "next": ">"
+    }
   },
   "date_formats": {
     "month_day_year": "%B %d, %Y",
@@ -121,9 +127,6 @@
       "price_descending": "Price, high to low",
       "date_descending": "Date, new to old",
       "date_ascending": "Date, old to new"
-    },
-    "endless": {
-      "loading": "Loading..."
     }
   },
   "product": {

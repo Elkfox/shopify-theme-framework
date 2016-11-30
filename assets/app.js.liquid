@@ -277,15 +277,19 @@ concrete.resetPasswordSuccess = function() {
 $(concrete.init);
 
 // Ajax Pagination
-var linkParent = '.LoadMore';
+
+// Change the default selectors here
+var linkParent = (typeof linkParent === 'undefined' ) ? '.LoadMore' : linkParent; // Class of pagination container
+var parentContainer = (typeof parentContainer === 'undefined') ? '#MainContent' : parentContainer ; // All of the content selector used to detect scroll bottom distance
+var endlessScrollContainer = (typeof endlessScrollContainer === 'undefined') ? '#EndlessScroll' : endlessScrollContainer; // Selector for endless scroll pages
+var endlessClickContainer = (typeof endlessClickContainer === 'undefined') ? '#EndlessClick' : endlessClickContainer; // Class of pagination container
+var ajaxinateContainer = (typeof ajaxinateContainer === 'undefined') ? '#Ajaxinate' : ajaxinateContainer; // ID Selector for ajax pagination pages
+var ajaxinateLink = (typeof ajaxinateLink === 'undefined') ? '.PaginationLink' : ajaxinateLink; // Class Selector for ajax pagination links
+var ajaxinateClass = (typeof ajaxinateClass == 'undefined') ? '.ajaxcontainer' : ajaxinateClass; // Class Selector for ajax pagination pages
+var fade = (typeof fade === 'undefined') ? 'fast' : fade; // fade speed
+
 var linkElem;
-var parentContainer = '#MainContent';
 var contentContainer;
-var endlessScrollContainer = '#EndlessScroll';
-var endlessClickContainer = '#EndlessClick';
-var ajaxinateContainer = '#Ajaxinate';
-var ajaxinateLink = '.PaginationLink';
-var ajaxinateClass = '.ajaxcontainer';
 var pageNumber;
 var pageType;
 var action;
@@ -297,28 +301,19 @@ $.loadMore = function() {
       type: 'GET',
       dataType: 'html',
       url: moreURL,
-      beforeSend: function() {
-        if (action == 'scroll') {
-          $(window).off(action);
-        } else {
-          $(linkElem).off(action);
-        }
-      },
       success: function(data) {
-        var filteredData = $(data).find(contentContainer);
         if (pageType == 'ajax') {
-          $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut('fast');
+          $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut(fade);
         } else {
-          $(linkElem).fadeOut( 'fast' );
+          $(linkElem).fadeOut(fade);
         }
-        filteredData.appendTo( $(contentContainer).parent() ).hide().fadeIn('slow');
-        if (action == 'scroll') {
-          $(window).on( action, function() {
-            $.endlessScroll();
-          });
-        } else if ((action == 'click') && (pageType == 'ajax')) {
+        var filteredData = $(data).find(contentContainer);
+        filteredData.appendTo( $(contentContainer).parent() ).hide().fadeIn(fade);
+        if (pageType == 'endlessScroll') {
+          $.endlessScroll();
+        } else if (pageType == 'ajax') {
           $.ajaxinationClick();
-        } else if ((action == 'click') && (pageType == 'endlessClick')) {
+        } else if (pageType == 'endlessClick') {
           $.endlessClick();
         }
       }
@@ -328,18 +323,22 @@ $.loadMore = function() {
 
 // Check whether the page is at the bottom
 $.endlessScroll = function() {
-  linkElem = linkParent+' a';
-  contentContainer = '#EndlessScroll';
-  moreURL = $(contentContainer+':last-child '+ linkElem).attr('href');
-  pageType = 'endlessScroll';
-  if ($(contentContainer+':last-child '+linkElem).length){
-    var bottom = $( parentContainer ).outerHeight()
-    var docTop = ($(document).scrollTop() + $(window).height());
-    if( docTop > bottom ) {
-      action = 'scroll';
-    	$.loadMore();
+  action = 'scroll load resize';
+  $(window).on( action, function() {
+    contentContainer = endlessScrollContainer;
+    moreURL = $(contentContainer+':last-child '+linkElem).attr('href');
+    pageType = 'endlessScroll';
+    var textChange = 'Loading...';
+    $(linkElem).text(textChange);
+    if ($(contentContainer+':last-child '+linkElem).length){
+      var bottom = $( parentContainer ).outerHeight()
+      var docTop = ($(document).scrollTop() + $(window).height());
+      if( docTop > bottom ) {
+        $(window).off(action);
+      	$.loadMore();
+      }
     }
-  }
+  });
 }
 
 //Endless click function
@@ -350,6 +349,7 @@ $.endlessClick = function() {
     contentContainer = endlessClickContainer;
     moreURL = $(contentContainer+':last-child '+ linkElem).attr('href');
     pageType = 'endlessClick';
+    $(linkElem).off(action);
     $.loadMore();
   });
 }
@@ -364,41 +364,28 @@ $.ajaxinationClick = function() {
     pageNumber = $(this).attr('data-number');
     pageType = 'ajax';
     if( $(ajaxinateClass+'[data-page="'+pageNumber+'"]').length ) {
-      $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut('fast');
-      $(ajaxinateClass+'[data-page="'+pageNumber+'"]').fadeIn('slow');
+      $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut(fade);
+      $(ajaxinateClass+'[data-page="'+pageNumber+'"]').fadeIn(fade);
     } else {
+      $(linkElem).off(action);
       $.loadMore();
     }
   });
 }
 
-// Detection
-  // Click
-  // Endless Click
+// Detect whether the pagination types exist
+  // Endless Click Initialize
 if ( $( endlessClickContainer ).length ) {
   linkElem = linkParent+' a';
+  $.endlessClick();
 }
-  // Ajaxination Click
+  // Ajaxination Click Initialize
 if ( $(ajaxinateContainer).length ) {
   linkElem = ajaxinateLink;
   $.ajaxinationClick();
 }
-
-  // Scroll
-$(window).on( 'scroll', function() {
-  if ( $( endlessScrollContainer ).length ) {
-    $.endlessScroll();
-  }
-});
-  // Load
-$(window).on( 'load', function() {
-  if ( $( endlessScrollContainer ).length ) {
-    $.endlessScroll();
-  }
-});
-  // Resize
-$(window).on( 'resize', function() {
-  if ( $( endlessScrollContainer ).length ) {
-    $.endlessScroll();
-  }
-});
+  // Endless Scroll Initialize
+if ( $( endlessScrollContainer ).length ) {
+  linkElem = linkParent+' a';
+  $.endlessScroll();
+}

@@ -56,16 +56,24 @@
         </div>
       {% endif %}
     {% endfor %}
-    {% if paginate.next %}
-      <div class="row LoadMore">
-        <a href="{{ paginate.next.url }}">{{ 'collection.endless.loading' | t }}</a>
-  	  </div>
-    {% endif %}
+    <div class="column l12 center">
+      {% if paginate.next %}
+        <div class="row LoadMore">
+          <a class="button" href="{{ paginate.next.url }}">{{ 'common.pagination.loadmore' | t }}</a>
+    	  </div>
+      {% endif %}
+    </div>
   </div>
 </div>
 
 
 {% endpaginate %}
+
+<script>
+var linkParent = '.LoadMore'; // Class of pagination container
+var parentContainer = '#MainContent'; // All of the content selector used to detect scroll bottom distance
+var endlessScrollContainer = '#EndlessScroll'; // Selector for endless scroll pages
+</script>
 
 <script>
   // Collection template sorting
