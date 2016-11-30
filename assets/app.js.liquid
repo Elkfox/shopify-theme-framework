@@ -363,6 +363,9 @@ $.ajaxinationClick = function() {
     moreURL = $(this).attr('href');
     pageNumber = $(this).attr('data-number');
     pageType = 'ajax';
+   $('html, body').animate({
+      scrollTop: $(contentContainer).offset().top
+    }, 2000);
     if( $(ajaxinateClass+'[data-page="'+pageNumber+'"]').length ) {
       $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut(fade);
       $(ajaxinateClass+'[data-page="'+pageNumber+'"]').fadeIn(fade);
