@@ -631,6 +631,7 @@ a.button {
 
 /* Navigation =================================================================*/
 
+// Main Nav
 .theme-nav-main {
   .nav-link {
     font-size: 1.1rem;
@@ -659,6 +660,27 @@ a.button {
   }
 }
 
+// Pagination
+.pagination {
+  a {
+    min-width: $gutter;
+    height: $gutter;
+    text-align: center;
+    display: inline-block;
+    line-height: ($gutter - $borderWeight*2);
+    text-decoration: none;
+    font-size: 1.125rem;
+    color: $colorBrand;
+    border: $borderWeight $borderStyle $colorBrand;
+    border-radius: $borderRadius;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &.active, &:hover{
+      color: lighten($colorBrand, 25%);
+      background-color: $colorBrand;
+    }
+  }
+}
 /* Footer ====================================================================*/
 
 .theme-footer {

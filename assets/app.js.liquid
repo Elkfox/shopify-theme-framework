@@ -285,6 +285,8 @@ var endlessScrollContainer = '#EndlessScroll';
 var endlessClickContainer = '#EndlessClick';
 var ajaxinateContainer = '#Ajaxinate';
 var ajaxinateLink = '.PaginationLink';
+var ajaxinateClass = '.ajaxcontainer';
+var pageNumber;
 var pageType;
 var action;
 var moreURL;
@@ -304,25 +306,20 @@ $.loadMore = function() {
       },
       success: function(data) {
         var filteredData = $(data).find(contentContainer);
-        $(linkElem).fadeOut( 'fast' );
         if (pageType == 'ajax') {
-          // Hide the existing page
+          $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut('fast');
+        } else {
+          $(linkElem).fadeOut( 'fast' );
         }
-        filteredData.appendTo( $(contentContainer).parent() ).hide().fadeIn( 'slow' );
+        filteredData.appendTo( $(contentContainer).parent() ).hide().fadeIn('slow');
         if (action == 'scroll') {
           $(window).on( action, function() {
             $.endlessScroll();
           });
-        } else if (action == 'click') {
-          $(linkElem).on( action, function(e) {
-            e.preventDefault();
-            if (pageType == 'ajax') {
-              moreURL = $(this).attr('href');
-            } else if(pageType == 'endlessClick') {
-              moreURL = $(contentContainer+':last-child '+ linkElem).attr('href');
-            }
-            $.loadMore();
-          });
+        } else if ((action == 'click') && (pageType == 'ajax')) {
+          $.ajaxinationClick();
+        } else if ((action == 'click') && (pageType == 'endlessClick')) {
+          $.endlessClick();
         }
       }
     });
@@ -345,11 +342,8 @@ $.endlessScroll = function() {
   }
 }
 
-// Detection
-  // Click
-    // Endless Click
-if ( $( endlessClickContainer ).length ) {
-  linkElem = linkParent+' a';
+//Endless click function
+$.endlessClick = function() {
   $(linkElem).on( 'click', function(e) {
     e.preventDefault();
     action = 'click';
@@ -359,17 +353,35 @@ if ( $( endlessClickContainer ).length ) {
     $.loadMore();
   });
 }
-    // Ajaxination Click
-if ( $(ajaxinateContainer).length ) {
-  linkElem = ajaxinateLink;
+
+//Ajaxination click function
+$.ajaxinationClick = function() {
   $(linkElem).on( 'click', function(e) {
     e.preventDefault();
     action = 'click';
     contentContainer = ajaxinateContainer;
     moreURL = $(this).attr('href');
+    pageNumber = $(this).attr('data-number');
     pageType = 'ajax';
-    $.loadMore();
+    if( $(ajaxinateClass+'[data-page="'+pageNumber+'"]').length ) {
+      $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut('fast');
+      $(ajaxinateClass+'[data-page="'+pageNumber+'"]').fadeIn('slow');
+    } else {
+      $.loadMore();
+    }
   });
+}
+
+// Detection
+  // Click
+  // Endless Click
+if ( $( endlessClickContainer ).length ) {
+  linkElem = linkParent+' a';
+}
+  // Ajaxination Click
+if ( $(ajaxinateContainer).length ) {
+  linkElem = ajaxinateLink;
+  $.ajaxinationClick();
 }
 
   // Scroll
