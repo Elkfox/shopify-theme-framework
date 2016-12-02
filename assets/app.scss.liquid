@@ -65,6 +65,7 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  outline: none;
 }
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, main {
@@ -640,7 +641,13 @@ a.button {
   }
   .dropdown {
     position: relative;
+    &:hover {
+      .dropdown_menu {
+        display: block;
+      }
+    }
     .dropdown_menu {
+      display: none;
       padding: $gutter/3 0;
       position: absolute;
       top: 1.5rem;

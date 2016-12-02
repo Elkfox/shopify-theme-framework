@@ -303,7 +303,8 @@ $.loadMore = function() {
       url: moreURL,
       success: function(data) {
         if (pageType == 'ajax') {
-          $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut(fade);
+          $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').hide();
+          history.pushState({}, pageNumber, moreURL);
         } else {
           $(linkElem).fadeOut(fade);
         }
@@ -367,8 +368,9 @@ $.ajaxinationClick = function() {
       scrollTop: $(parentContainer).offset().top
     }, 500 );
     if( $(ajaxinateClass+'[data-page="'+pageNumber+'"]').length ) {
-      $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').fadeOut(fade);
+      $(ajaxinateClass).not('[data-page="'+pageNumber+'"]').hide();
       $(ajaxinateClass+'[data-page="'+pageNumber+'"]').fadeIn(fade);
+      history.pushState({}, pageNumber, moreURL);
     } else {
       $(linkElem).off(action);
       $.loadMore();
