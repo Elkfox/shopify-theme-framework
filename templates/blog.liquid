@@ -36,7 +36,7 @@
             </p>
 
             {% if article.image %}
-              <a class="article__featured-image" href="{{ article.url }}">
+              <a href="{{ article.url }}">
                 {{ article | img_url: '1024x1024' | img_tag: article.title }}
               </a>
             {% endif %}

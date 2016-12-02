@@ -24,7 +24,7 @@
             <h2 class="h3"><a href="{{ article.url }}">{{ article.title }}</a></h2>
 
             {% if article.image %}
-              <a class="article__featured-image" href="{{ article.url }}">
+              <a href="{{ article.url }}">
                 {{ article | img_url: '1024x1024' | img_tag: article.title }}
               </a>
             {% endif %}

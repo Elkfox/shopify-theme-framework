@@ -11,8 +11,6 @@
   * Need some!
   * Importantly product quantities aren't limited, so adding more than the available amount leads to nothing
 
-## Products
-
 * Compare at price function is not working on variant switch
   * See https://concrete-theme.myshopify.com/products/product-demo-1?variant=32550079759
 * The delay on load for the product selection needs work
@@ -33,6 +31,11 @@
 * Add quantity available (default to hidden)
 
 NOTE: We need to keep support for option_selection js
+
+## Accounts
+
+* 'customer/addresses' and 'customer/orders' have not been cleaned up and resturctured yet
+* We need to Ajaxify the forms... the old method is too clunky for our default
 
 ## Sections
 
