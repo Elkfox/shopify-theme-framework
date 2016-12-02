@@ -42,7 +42,7 @@ $xl: 1450px;
 
 // Miscellaneous
 $logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
-$transition: all .2s ease-out;
+$transition: all .3s ease-out;
 
 /* Reset =====================================================================*/
 
@@ -806,7 +806,7 @@ body {
     text-align: center;
     white-space: nowrap;
     @include overlay();
-    @include prefixer(transition-delay, 0.2s, webkit moz spec);
+    @include prefixer(transition-delay, 0.3s, webkit moz spec);
     @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
     @include transition();
     -webkit-backface-visibility: hidden;
@@ -878,7 +878,7 @@ body {
   -webkit-overflow-scrolling: touch;
   @include transition-property(); // For legacy support
   @include prefixer(transition-duration, 0.4s, webkit moz spec);
-  @include prefixer(transition-delay, 0.2s, webkit moz spec);
+  @include prefixer(transition-delay, 0.3s, webkit moz spec);
   &.from-left {
     left: 0;
     @include prefixer(transform, translate3d(-100%, 0, 0), webkit moz ms o spec);
