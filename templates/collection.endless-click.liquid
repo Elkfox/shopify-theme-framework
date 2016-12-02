@@ -56,11 +56,13 @@
         </div>
       {% endif %}
     {% endfor %}
-    {% if paginate.next %}
-      <div class="row LoadMore">
-        <a class="button center" role="button" href="{{ paginate.next.url }}">{{ 'common.pagination.loadmore' | t }}</a>
-  	  </div>
-    {% endif %}
+    <div class="column l12 center">
+      {% if paginate.next %}
+        <div class="LoadMore">
+          <a class="button center" role="button" href="{{ paginate.next.url }}">{{ 'common.pagination.loadmore' | t }}</a>
+    	  </div>
+      {% endif %}
+    </div>
   </div>
 </div>
 
