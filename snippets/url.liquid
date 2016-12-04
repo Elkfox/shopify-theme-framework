@@ -1,0 +1,6 @@
+{% capture handle %}{% unless template == 'index' or template == 'cart' %}
+{% if template contains 'product' %}{% if collection and collection.handle %}/collections/{{ collection.handle }}{% endif %}{{ product.url }}
+{% elsif template contains 'collection' and collection.handle %}/collections/{{ collection.handle }}{% if current_tags %}/{{ current_tags | join: '+' | handleize }}{% endif %}
+{% elsif template == 'blog' %}{{ blog.url }}{% if current_tags %}/{{ current_tags | join: '+' | handleize }}{% endif %}{% elsif template == 'article' %}{{ article.url }}
+{% elsif template contains 'customers' %}/account{% if template contains 'login' %}/login{% elsif template contains 'register' %}/register{% endif %}
+{% else %}{{ page.url }}{% endif %}{% endunless %}{% endcapture %}{{ handle | strip_newlines }}
