@@ -17,7 +17,7 @@
 
 // Colors
 $colorBrand: {{ settings.color_brand }};
-$colorBody: {{ settings.color_body }};
+$colorForeground: {{ settings.color_body }};
 $colorBackground: {{ settings.color_background }};
 $colorHighlight: {{ settings.color_highlight }};
 $colorAlternate: {{ settings.color_alternate }};
@@ -246,7 +246,7 @@ html {
 
 body {
   height: 100%;
-  color: $colorBody;
+  color: $colorForeground;
   background-color: $colorBackground;
   font: 16px/21px sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -374,7 +374,7 @@ select {
     background-color: $colorBackground;
     border: 0;
     display: block;
-    color: $colorBody;
+    color: $colorForeground;
   }
   &:hover {
     background-color: darken($colorBrand, 5%);
@@ -804,7 +804,7 @@ body {
   visibility: hidden;
   @include overlay();
   @include transition();
-  background: rgba($colorBody, 0.85);
+  background: rgba($colorForeground, 0.85);
   .popup-outside {
     position: absolute;
     z-index: 9998;
