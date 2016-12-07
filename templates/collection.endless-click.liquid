@@ -56,18 +56,19 @@
         </div>
       {% endif %}
     {% endfor %}
-    <div class="column l12 center">
-      {% if paginate.next %}
-        <div class="LoadMore">
-          <a class="button center" role="button" href="{{ paginate.next.url }}">{{ 'common.pagination.loadmore' | t }}</a>
-    	  </div>
-      {% endif %}
-    </div>
+
+    {% if paginate.next %}
+      <div class="LoadMore center">
+        <a class="button" role="button" href="{{ paginate.next.url }}">{{ 'common.pagination.loadmore' | t }}</a>
+      </div>
+    {% endif %}
+
   </div>
 </div>
 
-
 {% endpaginate %}
+
+{{ 'app.endless.js' | asset_url | script_tag }}
 
 <script>
   // Collection template sorting

@@ -56,13 +56,15 @@
         </div>
       {% endif %}
     {% endfor %}
-
     <div class="column l12 pagination center">
       {% include 'pagination-numbers-linear' %}
     </div>
   </div>
 </div>
+
 {% endpaginate %}
+
+{{ 'app.endless.js' | asset_url | script_tag }}
 
 <script>
   // Collection template sorting
