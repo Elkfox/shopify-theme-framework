@@ -220,37 +220,44 @@
       {
         "type": "checkbox",
         "id": "social_sharing_products",
-        "label": "Enable sharing for products"
+        "label": "Enable sharing for products",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "social_sharing_blog",
-        "label": "Enable sharing for blog articles"
+        "label": "Enable sharing for blog articles",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_facebook",
-        "label": "Share on Facebook"
+        "label": "Share on Facebook",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_twitter",
-        "label": "Tweet on Twitter"
+        "label": "Tweet on Twitter",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_pinterest",
-        "label": "Pin on Pinterest"
+        "label": "Pin on Pinterest",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_fancy",
-        "label": "Add to Fancy"
+        "label": "Add to Fancy",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_google",
-        "label": "+1 on Google Plus"
+        "label": "+1 on Google Plus",
+        "default": true
       }
     ]
   }

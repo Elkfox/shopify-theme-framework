@@ -392,7 +392,7 @@ select {
       color: lighten($colorAlternate, 35%);
     }
   }
-  &.disabled {
+  &:disabled, &.disabled {
     cursor: default;
     background-color: lighten($colorAlternate, 30%);
     border-color: lighten($colorAlternate, 30%);
@@ -401,7 +401,7 @@ select {
       @extend .disabled
     }
   }
-  @media only screen and (max-width: $s) {
+  @include s() {
     width: 100%;
     clear: both;
     margin-bottom: $gutter/3;
