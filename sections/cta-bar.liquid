@@ -1,0 +1,135 @@
+<!-- /sections/cta-bar.liquid -->
+{% schema %}
+  {
+    "name": "Call to Action Bar",
+    "blocks": [
+      {
+        "type": "call-to-action",
+        "name": "Call to Action Bar",
+        "settings": [
+          {
+            "type":      "checkbox",
+            "id":        "enabled",
+            "label":     "Enabled",
+            "default":   true
+          },
+          {
+            "type":      "text",
+            "id":        "text",
+            "label":     "Text",
+            "default":   "Storewide sale on now!",
+            "placeholder": "Storewide sale on now!"
+          },
+          {
+            "type":      "text",
+            "id":        "url",
+            "label":     "Link",
+            "placeholder": "http://"
+          },
+          {
+            "type":      "select",
+            "id":        "icon",
+            "label":     "Icon",
+            "options": [
+              { "value": "", "label": "None"},
+              { "value": "bag", "label": "Bag"},
+              { "value": "check", "label": "Tick"},
+              { "value": "shipping", "label": "Shipping"},
+              { "value": "heart", "label": "Heart"},
+              { "value": "star", "label": "Star"},
+              { "value": "loudspeaker", "label": "Loudspeaker"},
+              { "value": "phone", "label": "Phone"},
+              { "value": "tree", "label": "Tree"}
+            ],
+            "default":   "bag"
+          },
+          {
+            "type":      "select",
+            "id":        "colour",
+            "label":     "Colour",
+            "options": [
+              { "value": "#eb666b", "label": "Red"},
+              { "value": "#3D8BB8", "label": "Blue"},
+              { "value": "#00C978", "label": "Green"},
+              { "value": "#7a7391", "label": "Grey"}
+            ],
+            "default":   "#eb666b"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet 'scss' %}
+/*================ CTA Bar ================*/
+  .cta-bar-wrapper {
+    position: relative;
+
+    .cta-bar {
+      position: absolute;
+      padding: 15px;
+      top: 0;
+      left: 0;
+      right: 0;
+      visibility: hidden;
+      opacity: 0;
+      -webkit-transition: opacity 0.3s, visibility 0.3s;
+      -moz-transition: opacity 0.3s, visibility 0.3s;
+      transition: opacity 0.3s, visibility 0.3s;
+
+      &.active {
+        visibility: visible;
+        opacity: 1;
+      }
+      .icon {
+        margin-right: 10px;
+        margin-top: -7px;
+        height: 24px;
+      }
+      h5 {
+        margin: 0;
+        color: #fff;
+      }
+    }
+    .cta-height-fix {
+      /* Fix for height of container div */
+      height: 58px;
+    }
+  }
+{% endstylesheet %}
+
+{% assign cta_counter = 0 %}
+<div class="cta-bar-wrapper">
+  {% for block in section.blocks %}
+    {% if block.settings.enabled %}
+      {% assign cta_counter = cta_counter | plus: 1 %}
+      <div class="cta-bar center{% if cta_counter == 1 %} active{% endif %}" style="background:{{ block.settings.colour }}" {{ block.shopify_attributes }}>
+        {% if block.settings.url != "" %}<a href="{{ block.settings.url }}">{% endif %}
+          <h5>{% if block.settings.icon != "" %}{% include 'icon' with block.settings.icon %}{% endif %} {{ block.settings.text }}</h5>
+        {% if block.settings.url != "" %}</a>{% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+  {% if cta_counter > 0 %}
+    <div class="cta-height-fix"></div>
+  {% endif %}
+</div>
+
+{% if cta_counter > 1 %}
+  <script>
+    $(document).ready(function() {
+      var timeout = 5000;
+      var rotate = function() {
+        if($('.cta-bar-wrapper .cta-bar.active').is(':nth-last-child(2)')){
+          $('.cta-bar-wrapper .cta-bar.active').removeClass("active");
+          $('.cta-bar-wrapper .cta-bar:first').addClass("active");
+        }
+        else{
+          $('.cta-bar-wrapper .cta-bar.active').removeClass("active").next('.cta-bar').addClass("active");
+        }
+      };
+      setInterval(rotate, timeout);
+    });
+  </script>
+{% endif %}
