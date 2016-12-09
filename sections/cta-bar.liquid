@@ -1,4 +1,5 @@
 <!-- /sections/cta-bar.liquid -->
+
 {% schema %}
   {
     "name": "Call to Action Bar",
@@ -100,6 +101,7 @@
 {% endstylesheet %}
 
 {% assign cta_counter = 0 %}
+
 <div class="cta-bar-wrapper">
   {% for block in section.blocks %}
     {% if block.settings.enabled %}
