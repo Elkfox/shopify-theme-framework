@@ -473,6 +473,11 @@ a.button {
 
 /* Grid System ===============================================================*/
 
+.container, .row, .column {
+  // Margin collapse fix
+  overflow: auto;
+ }
+
 .container {
   max-width: 100%;
   width: $l;
