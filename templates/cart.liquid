@@ -23,7 +23,7 @@
           </a>
         </div>
         <div class="column l3 m2 s-hide">
-          { item.price | money_with_currency}
+          { item.price | money_with_currency }
         </div>
         <div class="column l2 m3 s6">
           <div class="quanity_adjust">
@@ -43,7 +43,7 @@
       <div class="row">
         <div class="column l6 m6 s12">
           {% if settings.cart_notes_enable %}
-            <label class="clearfix "for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
+            <label class="clearfix" for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
             <textarea name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
           {% endif %}
         </div>

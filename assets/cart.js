@@ -460,6 +460,14 @@
       var $this;
       e.preventDefault();
       $this = jQuery(this);
+      var properties = [];
+      $this('[name~=properties]').each(function() {
+        var key = $(this).attr('name').split('[')[1].split(']')[0];
+        var value = $(this).val();
+        var prop = {};
+        prop[key] = value;
+        properties.push(prop);
+      });
       return CartJS.Core.addItem($this.attr('data-cart-add'), $this.attr('data-cart-quantity'));
     },
     remove: function(e) {
