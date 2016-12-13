@@ -396,7 +396,7 @@ select {
     cursor: default;
     background-color: lighten($colorAlternate, 30%);
     border-color: lighten($colorAlternate, 30%);
-    color: lighten($colorAlternate, 45%);
+    color: lighten($colorAlternate, 0%);
     &:hover {
       @extend .disabled
     }
@@ -473,16 +473,14 @@ a.button {
 
 /* Grid System ===============================================================*/
 
-.container, .row, .column {
-  // Margin collapse fix
-  overflow: auto;
- }
-
 .container {
   max-width: 100%;
   width: $l;
   margin: auto;
   padding: 0 $gutter;
+  &.full {
+    width: 100%;
+  }
 }
 
 // Column Grid
