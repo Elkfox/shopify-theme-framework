@@ -1,0 +1,36 @@
+{% comment %} Start Pop Up {% endcomment %}
+<div  class="popup" role="alert" id="dropahint">
+  <div class="popup-inner">
+    <div class="popup-outside"></div>
+    <div class="popup-container form-vertical">
+      <div id="loading">
+        <div class="loader">Loading...</div>
+      </div>
+      <form id="dropaform">
+        <label>Recipient's Name</label><br>
+        <input type="text" required="required" name="recName" id="recName"><br>
+        <label>Recipient's Email</label><br>
+        <input type="email" required="required" name="recEmail" id="recEmail"><br>
+        <label>Your Name</label><br>
+        <input type="text" required="required" name="senderName" id="senderName"><br>
+        <label>Your Email</label><br>
+        <input type="email" required="required" name="senderEmail" id="senderEmail"><br>
+        <input type="hidden" id="productName" value="{{ product.title }}">
+        <input type="hidden" id="productURL" value="{{ shop.url }}{{ product.url }}">
+        <input type="hidden" id="productImageURL" value="{{ product.featured_image | img_url: '1024x1024' }}">
+        <br>
+        <input id="drop-a-hint-submit" type="submit" class="btn" value="Drop A Hint">
+      </form>
+
+      <a href="#0" class="popup-close" title="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24"><g  transform="translate(0, 0)">
+        <line fill="none" stroke="#343434" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="19" y1="5" x2="5" y2="19" stroke-linejoin="miter"/>
+        <line fill="none" stroke="#343434" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" x1="19" y1="19" x2="5" y2="5" stroke-linejoin="miter"/>
+        </g></svg>
+      </a>
+    </div>
+  </div>
+</div>
+{% comment %} End Pop Up {% endcomment %}
+{% comment %} Popup Button {% endcomment %}
+<button class="drop-a-hint modal-link" data-popup="dropahint">Drop a Hint</button>
