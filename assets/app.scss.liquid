@@ -492,16 +492,17 @@ a.button {
       display: table;
     }
   }
-  .column {
-    float: left;
-    min-height: 0.125rem;
-    padding: 0 $gutter/2;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
   }
 }
-.row::after {
-  content: "";
-  display: table;
-  clear: both;
+
+.column {
+  float: left;
+  min-height: 0.125rem;
+  padding: 0 $gutter/2;
 }
 
 .column.l1 { width: percentage(1/12); }
