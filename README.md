@@ -2,9 +2,9 @@
 
 Concrete Shopify Theme Framework - A lightweight framework for building Shopify themes
 
-View the (demo store)[https://concrete-theme.myshopify.com]
+View the [demo store](https://concrete-theme.myshopify.com)
 
-## Included Libraries
+## Libraries
 
 #### jQuery
 
@@ -38,14 +38,4 @@ Shopify's [Theme Documentation](https://help.shopify.com/themes) is an exhaustiv
 
 ## Special Thanks
 
-#### Carson Shold
-
-Whose outstanding work on the Timber Framework led to the creation of this
-
-#### Caroline Schnapp
-
-Whose brilliant javascript and clever ideas inspire us
-
-#### Tobi Lütke
-
-Becasue without him none of this would be possible
+Tobi Lütke, Carson Shold, Caroline Schnapp, Jason Bowman, Gavin Ballard

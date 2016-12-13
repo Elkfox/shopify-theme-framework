@@ -97,15 +97,6 @@ concrete.init = function () {
   concrete.productImageSwitch();
   concrete.popups();
   concrete.loginForms();
-
-  // Rivets seems to have a delay
-  // This needs work!
-  rivets.binders.cloak = {
-    priority: -1000,
-    bind: function(el) {
-      el.style.opacity = 1;
-    }
-  }
 };
 
 // Get current window location

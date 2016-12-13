@@ -17,7 +17,7 @@
 
 // Colors
 $colorBrand: {{ settings.color_brand }};
-$colorBody: {{ settings.color_body }};
+$colorForeground: {{ settings.color_body }};
 $colorBackground: {{ settings.color_background }};
 $colorHighlight: {{ settings.color_highlight }};
 $colorAlternate: {{ settings.color_alternate }};
@@ -65,6 +65,7 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  outline: none;
 }
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, main {
@@ -239,8 +240,13 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 
 /* Global ====================================================================*/
 
+html {
+  height: 100%
+}
+
 body {
-  color: $colorBody;
+  height: 100%;
+  color: $colorForeground;
   background-color: $colorBackground;
   font: 16px/21px sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -271,7 +277,7 @@ p {
   font-size: 1.125rem;
   font-weight: $fontRegular;
   line-height: $lineHeight;
-  margin-bottom: 1.4em;
+  margin-bottom: 1.4rem;
 }
 
 a {
@@ -289,12 +295,16 @@ hr {
   margin: $gutter/1.5 0;
 }
 
-strong {
+strong, b {
   font-weight: $fontBold;
 }
 
 small {
   font-size: 0.8rem;
+}
+
+i {
+  font-style: italic;
 }
 
 .rte {
@@ -329,6 +339,9 @@ textarea {
     clear: both;
     margin-bottom: $gutter/3;
   }
+  &.error {
+    border-color: $colorHighlight;
+  }
 }
 textarea {
   height: initial;
@@ -361,7 +374,7 @@ select {
     background-color: $colorBackground;
     border: 0;
     display: block;
-    color: $colorBody;
+    color: $colorForeground;
   }
   &:hover {
     background-color: darken($colorBrand, 5%);
@@ -379,16 +392,16 @@ select {
       color: lighten($colorAlternate, 35%);
     }
   }
-  &.disabled {
+  &:disabled, &.disabled {
     cursor: default;
     background-color: lighten($colorAlternate, 30%);
     border-color: lighten($colorAlternate, 30%);
-    color: $colorBackground;
+    color: lighten($colorAlternate, 45%);
     &:hover {
       @extend .disabled
     }
   }
-  @media only screen and (max-width: $s) {
+  @include s() {
     width: 100%;
     clear: both;
     margin-bottom: $gutter/3;
@@ -429,7 +442,8 @@ a.button {
 }
 .center {
   text-align: center;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 .right {
   text-align: right;
@@ -458,6 +472,11 @@ a.button {
 }
 
 /* Grid System ===============================================================*/
+
+.container, .row, .column {
+  // Margin collapse fix
+  overflow: auto;
+ }
 
 .container {
   max-width: 100%;
@@ -627,6 +646,7 @@ a.button {
 
 /* Navigation =================================================================*/
 
+// Main Nav
 .theme-nav-main {
   .nav-link {
     font-size: 1.1rem;
@@ -635,7 +655,13 @@ a.button {
   }
   .dropdown {
     position: relative;
+    &:hover {
+      .dropdown_menu {
+        display: block;
+      }
+    }
     .dropdown_menu {
+      display: none;
       padding: $gutter/3 0;
       position: absolute;
       top: 1.5rem;
@@ -655,6 +681,27 @@ a.button {
   }
 }
 
+// Pagination
+.pagination {
+  a {
+    min-width: $gutter;
+    height: $gutter;
+    text-align: center;
+    display: inline-block;
+    line-height: ($gutter - $borderWeight*2);
+    text-decoration: none;
+    font-size: 1.125rem;
+    color: $colorBrand;
+    border: $borderWeight $borderStyle $colorBrand;
+    border-radius: $borderRadius;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &.active, &:hover{
+      color: lighten($colorBrand, 25%);
+      background-color: $colorBrand;
+    }
+  }
+}
 /* Footer ====================================================================*/
 
 .theme-footer {
@@ -735,7 +782,8 @@ form#AddToCartForm, form#CartPage, form#contact_form {
 body {
   @include transition();
   &.loading {
-    // Do something while the Ajax loads
+    // Do something while the Ajax elements load
+    opacity: 0;
   }
 }
 
@@ -762,7 +810,7 @@ body {
   visibility: hidden;
   @include overlay();
   @include transition();
-  background: rgba($colorBody, 0.85);
+  background: rgba($colorForeground, 0.85);
   .popup-outside {
     position: absolute;
     z-index: 9998;
@@ -773,7 +821,7 @@ body {
     text-align: center;
     white-space: nowrap;
     @include overlay();
-    @include prefixer(transition-delay, 0.2s, webkit moz spec);
+    @include prefixer(transition-delay, 0.3s, webkit moz spec);
     @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
     @include transition();
     -webkit-backface-visibility: hidden;
@@ -845,7 +893,7 @@ body {
   -webkit-overflow-scrolling: touch;
   @include transition-property(); // For legacy support
   @include prefixer(transition-duration, 0.4s, webkit moz spec);
-  @include prefixer(transition-delay, 0.2s, webkit moz spec);
+  @include prefixer(transition-delay, 0.3s, webkit moz spec);
   &.from-left {
     left: 0;
     @include prefixer(transform, translate3d(-100%, 0, 0), webkit moz ms o spec);

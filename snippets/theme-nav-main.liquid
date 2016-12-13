@@ -25,14 +25,3 @@
     {% endfor %}
   </ul>
 </nav>
-
-<script>
-  // Nav dropdowns
-  $('.dropdown').hover(function () {
-    var itemId = $(this).attr('data-id');
-    $('#'+itemId).removeClass('hidden');
-  }, function () {
-    var itemId = $(this).attr('data-id');
-    $('#'+itemId).addClass('hidden');
-  });
-</script>

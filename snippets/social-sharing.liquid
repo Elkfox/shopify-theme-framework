@@ -7,7 +7,7 @@
   {% capture shareTitle %}{{ product.title }}{% endcapture %}
 {% endif %}
 {% if settings.social_sharing_blog %}
-  {% if template contains 'article' or template contains 'blog' %}
+  {% if template contains 'article' or template contains 'blog' or template == 'password' %}
     {% assign sharing_on = true %}
     {% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
     {% capture shareTitle %}{{ article.title }}{% endcapture %}
@@ -16,8 +16,6 @@
 {% if sharing_on %}
 
   <div class="social-sharing" data-permalink="{{ permalinkURL }}">
-
-    <h4>{{ 'social.share.title' | t }}</h4>
 
     {% if settings.share_facebook %}
       <a target="_blank"

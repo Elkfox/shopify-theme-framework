@@ -84,6 +84,7 @@
         {{ product.description }}
       </div>
 
+      <h4>{{ 'social.share.title' | t }}</h4>
       {% include 'social-sharing' %}
       
       {% include 'drop-a-hint' %}
@@ -113,7 +114,7 @@
   To take advantage of a callback on the select dropdown, add option_selection.js
   and customize the JS in concrete.productPage as needed.
 
-  Currently, timber.productPage does the following:
+  Currently, the Concrete Product Page does the following:
     - Hides your <select> tag from above
     - Breaks out the product variants into separate product options, if more than one exists
     - Generates a <select> tag for each product option

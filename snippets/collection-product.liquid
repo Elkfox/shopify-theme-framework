@@ -1,7 +1,7 @@
 <!-- /snippets/collection-product.liquid -->
 
 {% unless column_width %}
-  {% assign column_width = 'large--one-third medium--one-half' %}
+  {% assign column_width = 'column l4 m6 s12' %}
 {% endunless %}
 
 {% assign on_sale = false %}
@@ -16,7 +16,7 @@
 
 <div class="{{ column_width }}">
 
-  <a href="{{ product.url | within: collection }}" class="grid__image">
+  <a href="{{ product.url | within: collection }}">
     <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
   </a>
 

@@ -1,8 +1,8 @@
-<!-- /templates/collection.liquid -->
+<!-- /templates/collection.endless-scroll.liquid -->
 
-{% paginate collection.products by 12 %}
+{% paginate collection.products by 2 %}
 
-{% assign column_width = 'column l4 m6 s12' %}
+{% assign column_width = 'column l6 m6 s12' %}
 
 <div class="container">
   <header>
@@ -40,7 +40,7 @@
 </div>
 
 <div class="container">
-  <div class="row">
+  <div class="row" id="EndlessScroll">
     {% for product in collection.products %}
       {% include 'collection-product' %}
     {% else %}
@@ -56,19 +56,25 @@
         </div>
       {% endif %}
     {% endfor %}
+
+    {% if paginate.next %}
+      <div class="LoadMore center">
+        <a class="button" href="{{ paginate.next.url }}">{{ 'common.pagination.loadmore' | t }}</a>
+  	  </div>
+    {% endif %}
+
   </div>
 </div>
 
-{% if paginate.pages > 1 %}
-  <div class="container">
-    <hr>
-    <div class="pagination">
-      {{ paginate | default_pagination }}
-    </div>
-  </div>
-{% endif %}
-
 {% endpaginate %}
+
+{{ 'app.endless.js' | asset_url | script_tag }}
+
+<script>
+var linkParent = '.LoadMore'; // Class of pagination container
+var parentContainer = '#MainContent'; // All of the content selector used to detect scroll bottom distance
+var endlessScrollContainer = '#EndlessScroll'; // Selector for endless scroll pages
+</script>
 
 <script>
   // Collection template sorting

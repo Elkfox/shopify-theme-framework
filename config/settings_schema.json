@@ -168,33 +168,33 @@
         "type": "text",
         "id": "social_twitter_link",
         "label": "Twitter URL",
-        "default": "http://twitter.com/shopify",
-        "info": "https://twitter.com/shopify"
+        "default": "http:\/\/twitter.com\/shopify",
+        "info": "https:\/\/twitter.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_instagram_link",
         "label": "Instagram URL",
-        "default": "http://instagram.com/shopify",
-        "info": "http://instagram.com/shopify"
+        "default": "http:\/\/instagram.com\/shopify",
+        "info": "http:\/\/instagram.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_facebook_link",
         "label": "Facebook link",
-        "default": "http://facebook.com/shopify"
+        "default": "http:\/\/facebook.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_pinterest_link",
         "label": "Pinterest link",
-        "default": "http://pinterest.com/shopify"
+        "default": "http:\/\/pinterest.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_fancy_link",
         "label": "Fancy link",
-        "default": "http://fancy.com/shopify"
+        "default": "http:\/\/fancy.com\/shopify"
       },
       {
         "type": "text",
@@ -205,13 +205,13 @@
         "type": "text",
         "id": "social_youtube_link",
         "label": "YouTube link",
-        "default": "http://youtube.com/shopify"
+        "default": "http:\/\/youtube.com\/shopify"
       },
       {
         "type": "text",
         "id": "social_vimeo_link",
         "label": "Vimeo link",
-        "default": "http://vimeo.com/shopify"
+        "default": "http:\/\/vimeo.com\/shopify"
       },
       {
         "type": "header",
@@ -220,37 +220,44 @@
       {
         "type": "checkbox",
         "id": "social_sharing_products",
-        "label": "Enable sharing for products"
+        "label": "Enable sharing for products",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "social_sharing_blog",
-        "label": "Enable sharing for blog articles"
+        "label": "Enable sharing for blog articles",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_facebook",
-        "label": "Share on Facebook"
+        "label": "Share on Facebook",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_twitter",
-        "label": "Tweet on Twitter"
+        "label": "Tweet on Twitter",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_pinterest",
-        "label": "Pin on Pinterest"
+        "label": "Pin on Pinterest",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_fancy",
-        "label": "Add to Fancy"
+        "label": "Add to Fancy",
+        "default": true
       },
       {
         "type": "checkbox",
         "id": "share_google",
-        "label": "+1 on Google Plus"
+        "label": "+1 on Google Plus",
+        "default": true
       }
     ]
   }

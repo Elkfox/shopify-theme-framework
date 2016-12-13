@@ -1,8 +1,8 @@
-<!-- /templates/collection.liquid -->
+<!-- /templates/collection.endless-ajaxination.liquid -->
 
-{% paginate collection.products by 12 %}
+{% paginate collection.products by 2 %}
 
-{% assign column_width = 'column l4 m6 s12' %}
+{% assign column_width = 'column l6 m6 s12' %}
 
 <div class="container">
   <header>
@@ -40,7 +40,7 @@
 </div>
 
 <div class="container">
-  <div class="row">
+  <div class="row ajaxcontainer" id="Ajaxinate" data-page="{{ paginate.current_page }}">
     {% for product in collection.products %}
       {% include 'collection-product' %}
     {% else %}
@@ -56,19 +56,15 @@
         </div>
       {% endif %}
     {% endfor %}
+    <div class="column l12 pagination center">
+      {% include 'pagination-numbers-linear' %}
+    </div>
   </div>
 </div>
 
-{% if paginate.pages > 1 %}
-  <div class="container">
-    <hr>
-    <div class="pagination">
-      {{ paginate | default_pagination }}
-    </div>
-  </div>
-{% endif %}
-
 {% endpaginate %}
+
+{{ 'app.endless.js' | asset_url | script_tag }}
 
 <script>
   // Collection template sorting

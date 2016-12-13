@@ -2,13 +2,19 @@
   "common": {
     "menu": "Menu",
     "tags": "Tags",
-    "close": "Close"
+    "close": "Close",
+    "pagination": {
+      "loadmore": "Load More",
+      "loading": "Loading...",
+      "previous": "<",
+      "next": ">"
+    }
   },
   "date_formats": {
     "month_day_year": "%B %d, %Y",
     "day_month_year": "%d %B, %Y",
-    "simple": "%d/%m/%y",
-    "simple_usa": "%m/%d/%y"
+    "simple": "%d\/%m\/%y",
+    "simple_usa": "%m\/%d\/%y"
   },
   "account": {
     "title": "Account",
@@ -31,7 +37,7 @@
     "city": "City",
     "country": "Country",
     "province": "Province",
-    "zip": "Postal/Zip Code",
+    "zip": "Postal\/Zip Code",
     "phone": "Phone",
     "orders": {
       "title": "Orders",
@@ -202,10 +208,38 @@
     },
     "collections": {
       "modal_title": "This area will show your store's collections",
-      "no_collections_html": "You don't have any collections to show here. <a href=\"/admin/custom_collections\">Add some collections</a> to go along with the default home page.",
+      "no_collections_html": "You don't have any collections to show here. <a href=\"\/admin\/custom_collections\">Add some collections<\/a> to go along with the default home page.",
       "add_collection": "Add a Collection",
       "collection_title": "Example Collection Title",
       "items_with_count": "{{ count }} Items"
     }
+  },
+  "password_page": {
+    "opening_soon": "Opening Soon",
+    "password_link": "Have a password?",
+    "login_form_heading": "Enter with a password",
+    "login_form_password_label": "Password",
+    "login_form_password_placeholder": "Your password",
+    "login_form_submit": "Enter",
+    "signup_form_email_label": "Email",
+    "signup_form_success": "We will send you an email right before we open!",
+    "admin_link_html": "Are you the store owner? <a href=\"\/admin\" class=\"text-link\">Log in here<\/a>",
+    "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
+  },
+  "gift_cards": {
+    "title_html": "Here's your {{ value }} gift card for {{ shop }}!",
+    "subtext": "Your gift card",
+    "disabled": "Disabled",
+    "expired": "Expired on {{ expiry }}",
+    "active": "Expires on {{ expiry }}",
+    "redeem_html": "Use this code at checkout to redeem your {{ value }} gift card",
+    "shop_link": "Start shopping",
+    "print": "Print this gift card",
+    "remaining_html": "{{ balance }} of",
+    "add_to_apple_wallet": "Add to Apple Wallet"
+  },
+  "404": {
+    "title": "404 Error: Page Not Found",
+    "subtext_html": "Sorry, that page doesn't appear to exist! Click <a href=\"/collections/all\">here</a> to continue shopping"
   }
 }

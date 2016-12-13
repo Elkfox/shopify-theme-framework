@@ -10,24 +10,23 @@
 
     <article class="column l8 m12 s12" itemscope itemtype="http://schema.org/Article">
 
-      <header class="section-header">
-        <div class="section-header__left">
-          <h1>{{ article.title }}</h1>
-          {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
-          {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
-          <p>
-            {{ 'blog.article.author_on_date_html' | t: author: author, date: date }}
-            {% if blog.comments_enabled? %}
-              <a href="{{ article.url }}#comments">{{ 'blog.comments.with_count' | t: count: article.comments_count }}</a>
-            {% endif %}
-          </p>
-        </div>
+      <header>
+        <h1>{{ article.title }}</h1>
+        {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+        {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
+        <p>
+          {{ 'blog.article.author_on_date_html' | t: author: author, date: date }}
+          {% if blog.comments_enabled? %}
+            <a href="{{ article.url }}#comments">{{ 'blog.comments.with_count' | t: count: article.comments_count }}</a>
+          {% endif %}
+        </p>
       </header>
 
       <div class="rte" itemprop="articleBody">
         {{ article.content }}
       </div>
 
+      <h4>{{ 'social.share.title' | t }}</h4>
       {% include 'social-sharing' %}
 
       {% if article.tags.size > 0 %}
