@@ -460,7 +460,14 @@
       var $this;
       e.preventDefault();
       $this = jQuery(this);
-      return CartJS.Core.addItem($this.attr('data-cart-add'), $this.attr('data-cart-quantity'));
+      //Look for property fields and add them to cart if needed.
+      var props = {};
+      $('input[name*="properties"]').each(function() {
+        var key = $(this).attr('name').split('[')[1].split(']')[0];
+        var value = $(this).val();
+        props[key] = value;
+      });
+      return CartJS.Core.addItem($this.attr('data-cart-add'), $this.attr('data-cart-quantity'), CartJS.Utils.unwrapKeys(props));
     },
     remove: function(e) {
       var $this;

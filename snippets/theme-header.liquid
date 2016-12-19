@@ -29,7 +29,7 @@
 
         {% if shop.customer_accounts_enabled %}
           {% if customer %}
-            <a href="/account">{{ 'account.title' | t }}</a>
+            <a href="/account" data-popup="#PopupAccount" class="popup-link">{{ 'account.title' | t }}</a>
           {% else %}
             <a href="/account" data-popup="#PopupAccount" class="popup-link">{{ 'account.title' | t }}</a>
           {% endif %}
