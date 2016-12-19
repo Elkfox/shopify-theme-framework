@@ -18,7 +18,7 @@
     ]
   },
   {
-    "name": "Colors",
+    "name": "Colors & Icons",
     "settings": [
       {
         "type": "header",
@@ -53,6 +53,38 @@
         "id": "color_alternate",
         "label": "Alternate Color",
         "default": "#7A7391"
+      },
+      {
+        "type": "header",
+        "content": "Icons"
+      },
+      {
+        "type":      "select",
+        "id":        "icon_size",
+        "label":     "Icon Size",
+        "options": [
+          {
+            "value": "12",
+            "label": "12px"
+          },
+          {
+            "value": "24",
+            "label": "24px"
+          },
+          {
+            "value": "32",
+            "label": "32px"
+          },
+          {
+            "value": "48",
+            "label": "48px"
+          },
+          {
+            "value": "64",
+            "label": "64px"
+          }
+        ],
+        "default":   "24"
       }
     ]
   },

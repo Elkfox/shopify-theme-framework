@@ -1,66 +1,63 @@
 <!-- /sections/cta-bar.liquid -->
 
-{% schema %}
-  {
-    "name": "Call to Action Bar",
-    "blocks": [
-      {
-        "type": "call-to-action",
-        "name": "Call to Action Bar",
-        "settings": [
-          {
-            "type":      "checkbox",
-            "id":        "enabled",
-            "label":     "Enabled",
-            "default":   true
-          },
-          {
-            "type":      "text",
-            "id":        "text",
-            "label":     "Text",
-            "default":   "Storewide sale on now!",
-            "placeholder": "Storewide sale on now!"
-          },
-          {
-            "type":      "text",
-            "id":        "url",
-            "label":     "Link",
-            "placeholder": "http://"
-          },
-          {
-            "type":      "select",
-            "id":        "icon",
-            "label":     "Icon",
-            "options": [
-              { "value": "", "label": "None"},
-              { "value": "bag", "label": "Bag"},
-              { "value": "check", "label": "Tick"},
-              { "value": "shipping", "label": "Shipping"},
-              { "value": "heart", "label": "Heart"},
-              { "value": "star", "label": "Star"},
-              { "value": "loudspeaker", "label": "Loudspeaker"},
-              { "value": "phone", "label": "Phone"},
-              { "value": "tree", "label": "Tree"}
-            ],
-            "default":   "bag"
-          },
-          {
-            "type":      "select",
-            "id":        "colour",
-            "label":     "Colour",
-            "options": [
-              { "value": "#eb666b", "label": "Red"},
-              { "value": "#3D8BB8", "label": "Blue"},
-              { "value": "#00C978", "label": "Green"},
-              { "value": "#7a7391", "label": "Grey"}
-            ],
-            "default":   "#eb666b"
+{% if section.settings.enabled %}
+
+  {% assign cta_clear_height = settings.icon_size | plus: 36 %}
+
+  {% assign cta_counter = 0 %}
+  <div class="cta-bar-wrapper">
+
+    {% for block in section.blocks %}
+
+      {% if block.settings.enabled %}
+
+        {% assign cta_counter = cta_counter | plus: 1 %}
+        <div class="cta-bar {% if block.settings.dark_text %}cta-dark {% endif %}center {% if cta_counter == 1 %}active{% endif %}" style="background-color:{% if block.settings.color == 'custom' %}{{ block.settings.custom_color }}{% else %}{{ block.settings.color }}{% endif %}" {{ block.shopify_attributes }}>
+
+          {% unless block.settings.url == blank %}
+            <a href="{{ block.settings.url }}">
+          {% endunless %}
+
+          <div class="cta-content center">
+            {% unless block.settings.icon == blank %}<div class="cta-icon">{% include 'icon' with block.settings.icon %}</div>{% endunless %}
+            <h5>{{ block.settings.title }}</h5>
+          </div>
+
+          {% unless block.settings.url == blank %}
+            </a>
+          {% endunless %}
+
+        </div>
+
+      {% endif %}
+
+    {% endfor %}
+
+    {% if cta_counter > 0 %}
+      <div class="cta-height-fix" style="height:{{ cta_clear_height }}px"></div>
+    {% endif %}
+
+  </div>
+
+  {% if cta_counter > 1 %}
+    <script>
+      $(document).ready(function() {
+        var timeout = {{ section.settings.timing }};
+        var rotate = function() {
+          if($('.cta-bar-wrapper .cta-bar.active').is(':nth-last-child(2)')){
+            $('.cta-bar-wrapper .cta-bar.active').removeClass("active");
+            $('.cta-bar-wrapper .cta-bar:first').addClass("active");
           }
-        ]
-      }
-    ]
-  }
-{% endschema %}
+          else{
+            $('.cta-bar-wrapper .cta-bar.active').removeClass("active").next('.cta-bar').addClass("active");
+          }
+        };
+        setInterval(rotate, timeout);
+      });
+    </script>
+  {% endif %}
+
+{% endif %}
 
 {% stylesheet 'scss' %}
 /*================ CTA Bar ================*/
@@ -83,55 +80,145 @@
         visibility: visible;
         opacity: 1;
       }
-      .icon {
-        margin-right: 10px;
-        margin-top: -7px;
-        height: 24px;
+      .cta-content {
+        display: table;
+
+        .cta-icon {
+          display: table-cell;
+          padding-right: 15px;
+
+          svg polyline, svg polygon, svg path, svg circle, svg line{
+            fill: none;
+            stroke: #fff;
+          }
+        }
+        h5 {
+          display: table-cell;
+          vertical-align: middle;
+          margin: 0;
+          color: #fff;
+        }
       }
-      h5 {
-        margin: 0;
-        color: #fff;
+      &.cta-dark{
+        .cta-icon {
+          svg polyline, svg polygon, svg path, svg circle, svg line{
+            stroke: #222;
+          }
+        }
+        h5{
+          color: #222;
+        }
       }
     }
     .cta-height-fix {
       /* Fix for height of container div */
       height: 58px;
+      pointer-events: none;
     }
   }
 {% endstylesheet %}
 
-{% assign cta_counter = 0 %}
-
-<div class="cta-bar-wrapper">
-  {% for block in section.blocks %}
-    {% if block.settings.enabled %}
-      {% assign cta_counter = cta_counter | plus: 1 %}
-      <div class="cta-bar center{% if cta_counter == 1 %} active{% endif %}" style="background:{{ block.settings.colour }}" {{ block.shopify_attributes }}>
-        {% if block.settings.url != "" %}<a href="{{ block.settings.url }}">{% endif %}
-          <h5>{% if block.settings.icon != "" %}{% include 'icon' with block.settings.icon %}{% endif %} {{ block.settings.text }}</h5>
-        {% if block.settings.url != "" %}</a>{% endif %}
-      </div>
-    {% endif %}
-  {% endfor %}
-  {% if cta_counter > 0 %}
-    <div class="cta-height-fix"></div>
-  {% endif %}
-</div>
-
-{% if cta_counter > 1 %}
-  <script>
-    $(document).ready(function() {
-      var timeout = 5000;
-      var rotate = function() {
-        if($('.cta-bar-wrapper .cta-bar.active').is(':nth-last-child(2)')){
-          $('.cta-bar-wrapper .cta-bar.active').removeClass("active");
-          $('.cta-bar-wrapper .cta-bar:first').addClass("active");
-        }
-        else{
-          $('.cta-bar-wrapper .cta-bar.active').removeClass("active").next('.cta-bar').addClass("active");
-        }
-      };
-      setInterval(rotate, timeout);
-    });
-  </script>
-{% endif %}
+{% schema %}
+  {
+    "name": "Call To Action Bar",
+    "settings": [
+      {
+        "type":      "header",
+        "content":   "General Settings"
+      },
+      {
+        "type":      "checkbox",
+        "id":        "enabled",
+        "label":     "Enable Call To Action Bar",
+        "default":   true
+      },
+      {
+        "type":      "select",
+        "id":        "timing",
+        "label":     "Timing",
+        "options": [
+          {
+            "value": "3000",
+            "label": "3 Seconds"
+          },
+          {
+            "value": "5000",
+            "label": "5 Seconds"
+          },
+          {
+            "value": "10000",
+            "label": "10 Seconds"
+          }
+        ],
+        "default":   "5000"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "call-to-action",
+        "name": "Call To Action Bar",
+        "settings": [
+          {
+            "type":      "checkbox",
+            "id":        "enabled",
+            "label":     "Enable Bar",
+            "default":   true
+          },
+          {
+            "type":      "text",
+            "id":        "title",
+            "label":     "Text",
+            "default":   "Storewide sale on now!",
+            "placeholder": "Storewide sale on now!"
+          },
+          {
+            "type":      "url",
+            "id":        "url",
+            "label":     "Link"
+          },
+          {
+            "type":      "select",
+            "id":        "icon",
+            "label":     "Icon",
+            "options": [
+              { "value": "", "label": "None"},
+              { "value": "bag", "label": "Bag"},
+              { "value": "check", "label": "Tick"},
+              { "value": "shipping", "label": "Shipping"},
+              { "value": "heart", "label": "Heart"},
+              { "value": "star", "label": "Star"},
+              { "value": "loudspeaker", "label": "Loudspeaker"},
+              { "value": "tree", "label": "Tree"}
+            ],
+            "default":   "bag"
+          },
+          {
+            "type":      "select",
+            "id":        "color",
+            "label":     "color",
+            "options": [
+              { "value": "#eb666b", "label": "Red"},
+              { "value": "#3D8BB8", "label": "Blue"},
+              { "value": "#6fbba4", "label": "Green"},
+              { "value": "#333", "label": "Grey"},
+              { "value": "custom", "label": "Custom"}
+            ],
+            "default":   "#eb666b"
+          },
+          {
+            "type": "color",
+            "id": "custom_color",
+            "label": "Custom color",
+            "default": "#eb666b"
+          },
+          {
+            "type": "checkbox",
+            "id": "dark_text",
+            "label": "Dark Text",
+            "default": false
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
