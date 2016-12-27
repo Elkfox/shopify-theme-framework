@@ -72,11 +72,11 @@
 
           <label for="Quantity" class="clearfix">{{ 'product.quantity' | t }}</label>
           <input type="number" id="Quantity" name="quantity" value="1" min="1" data-cart-quantity="1">
-          <label for="Item">Item
-          <input type="text" id="Item" name="properties[ItemName]">
+
           <button type="submit" name="add" id="AddToCart" data-cart-add="{{ product.id }}">
             <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
           </button>
+          
         </form>
 
       </div>
