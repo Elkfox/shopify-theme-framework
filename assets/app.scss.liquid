@@ -483,28 +483,41 @@ a.button {
   }
 }
 
-// Column Grid
+// Rows
 
 .row {
   margin: 0 (-$gutter/2) $gutter;
+  // Table Grid
   @media only screen and (min-width: $m) {
     &.table {
       display: table;
     }
   }
+  &.table { @include table(); }
+  &.l-table { @include l() { @include table(); } }
+  &.m-table { @include m() { @include table(); } }
+  &.s-table { @include s() { @include table(); } }
+  // Standard Grid
   &:after {
     content: "";
     display: table;
     clear: both;
   }
+  &.collapse {
+    margin: 0;
+    .column {
+      padding: 0;
+    }
+  }
 }
+
+// Column Grid
 
 .column {
   float: left;
   min-height: 0.125rem;
   padding: 0 $gutter/2;
 }
-
 .column.l1 { width: percentage(1/12); }
 .column.l2 { width: percentage(2/12); }
 .column.l3 { width: percentage(3/12); }
@@ -565,15 +578,6 @@ a.button {
   .column.s3:nth-child(4n+1) { clear: both; }
   .column.s4:nth-child(3n+1) { clear: both; }
   .column.s6:nth-child(2n+1) { clear: both; }
-}
-
-// Table Grid
-
-.row {
-  &.table { @include table(); }
-  &.l-table { @include l() { @include table(); } }
-  &.m-table { @include m() { @include table(); } }
-  &.s-table { @include s() { @include table(); } }
 }
 
 // Flex Grid
