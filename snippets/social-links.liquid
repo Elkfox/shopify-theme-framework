@@ -2,23 +2,21 @@
 
 {% assign icons = false %}
 
-{% if settings.enable_social_links %}
-  {% assign social_icons_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo' | split: ',' %}
-  <ul class="inline">
-    {% for social in social_icons_available %}
-      {% capture title %}social.{{ social }}{% endcapture %}
-      {% capture link %}social_{{ social }}_link{% endcapture %}
-      {% if settings[link] != blank %}
-        <li>
-          <a href="{{ settings[link] }}" title="{{ shop.name }} on {{ title | t }}">
-            {% if icons %}
-              {% include 'icon' with social %}
-            {% else %}
-              {{ title | t }}
-            {% endif %}
-          </a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-{% endif %}
+{% assign social_icons_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo' | split: ',' %}
+<ul class="inline">
+  {% for social in social_icons_available %}
+    {% capture title %}social.{{ social }}{% endcapture %}
+    {% capture link %}social_{{ social }}_link{% endcapture %}
+    {% if settings[link] != blank %}
+      <li>
+        <a href="{{ settings[link] }}" title="{{ shop.name }} on {{ title | t }}">
+          {% if icons %}
+            {% include 'icon' with social %}
+          {% else %}
+            {{ title | t }}
+          {% endif %}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
