@@ -1,10 +1,10 @@
 <!-- /templates/customers/account.liquid -->
 
-<div class="container">
+<div class="container l">
   <h1>{{ 'account.title' | t }}</h1>
 </div>
 
-<div class="container">
+<div class="container l">
   <div class="row">
 
     <div class="column l9 m12 s12">
@@ -29,7 +29,7 @@
           <p>{{ 'account.orders.none' | t }}</p>
         {% endif %}
         {% if paginate.pages > 1 %}
-          <div class="container">
+          <div class="container l">
             <hr>
             <div class="pagination">
               {{ paginate | default_pagination | replace: '&laquo; Previous', 'Previous' | replace: 'Next &raquo;', 'Next' }}

@@ -1,6 +1,6 @@
 <!-- sections/products.liquid -->
 
-<div class="container">
+<div class="container l">
   {% if section.settings.title != blank %}
     <h2 class="h3">{{ section.settings.title | escape }}</h2>
   {% endif %}
@@ -10,7 +10,7 @@
 
 {% assign column_width = 'column l4 m6 s12' %}
 
-<div class="container">
+<div class="container l">
   <div class="row">
     {% for product in collection.products limit: product_limit %}
       {% include 'collection-product' %}

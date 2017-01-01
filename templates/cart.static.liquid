@@ -1,12 +1,12 @@
 <!-- /templates/cart-basic.liquid -->
 {% include 'wholesale-logic' %}
 {% if cart.item_count > 0 %}
-  <div class="container">
+  <div class="container l">
     <h1>{{ 'cart.title' | t }}</h1>
   </div>
 
   <form id="CartPage" action="/cart" method="post" novalidate>
-    <div class="container s-hide">
+    <div class="container l s-hide">
       <div class="row l-table m-table" id="CartHeader">
         <div class="col l5 m5">{{ 'cart.product' | t }}</div>
         <div class="col l3 m2">{{ 'cart.price' | t }}</div>
@@ -14,7 +14,7 @@
         <div class="col l2 m2 l-right m-right">{{ 'cart.subtotal' | t }}</div>
       </div>
     </div>
-    <div class="container" id="CartItems">
+    <div class="container l" id="CartItems">
       {% for item in cart.items %}
         <div class="row l-table m-table">
           <div class="col l5 m5 s12">
@@ -49,7 +49,7 @@
         </div>
       {% endfor %}
     </div>
-    <div class="container">
+    <div class="container l">
       <div class="row">
         <div class="col l6 m6 s12">
           {% if settings.cart_notes_enable %}
@@ -78,7 +78,7 @@
   </form>
 {% else %}
 
-  <div class="container">
+  <div class="container l">
     <h2>{{ 'cart.title' | t }}</h2>
     <p class="h4">{{ 'cart.empty' | t }}</p>
   </div>

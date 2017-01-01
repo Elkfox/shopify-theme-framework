@@ -49,6 +49,26 @@
       "fulfillment_status": "Fullfilment Status",
       "total": "Total"
     },
+    "order": {
+      "title": "Order {{ name }}",
+      "date": "Order date",
+      "cancelled": "Order Cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "billing_address": "Billing Address",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fullfilment Status",
+      "shipping_address": "Shipping Address",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "fulfilled_at": "Fulfilled {{ date }}",
+      "subtotal": "Subtotal"
+    },
     "address": {
       "title": "Addresses",
       "default": "Default Address",

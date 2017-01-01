@@ -2,12 +2,12 @@
 
 {% if cart.item_count > 0 %}
 
-  <div class="container">
+  <div class="container l">
     <h1>{{ 'cart.title' | t }}</h1>
   </div>
 
   <form id="CartPage" action="/cart" method="post" novalidate>
-    <div class="container s-hide">
+    <div class="container l s-hide">
       <div class="row l-table m-table" id="CartHeader">
         <div class="column l5 m5">{{ 'cart.product' | t }}</div>
         <div class="column l3 m2">{{ 'cart.price' | t }}</div>
@@ -15,7 +15,7 @@
         <div class="column l2 m2 l-right m-right">{{ 'cart.subtotal' | t }}</div>
       </div>
     </div>
-    <div class="container" id="CartItems" data-cart-view rv-cloak>
+    <div class="container l" id="CartItems" data-cart-view rv-cloak>
       <div class="row l-table m-table" rv-each-item="cart.items">
         <div class="column l5 m5 s12">
           <a class="product_title h4" rv-href="item.url">
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container l">
       <div class="row">
         <div class="column l6 m6 s12">
           {% if settings.cart_notes_enable %}
@@ -70,7 +70,7 @@
 
 {% else %}
 
-  <div class="container">
+  <div class="container l">
     <h2>{{ 'cart.title' | t }}</h2>
     <p class="h4">{{ 'cart.empty' | t }}</p>
   </div>

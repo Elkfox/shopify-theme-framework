@@ -478,6 +478,8 @@ a.button {
 .container {
   max-width: 100%;
   width: 100%;
+  margin: auto;
+  padding: 0 $gutter;
   &.xl {
     width: $xl;
   }
@@ -487,13 +489,7 @@ a.button {
   &.m {
     width: $m;
   }
-  margin: auto;
-  padding: 0 $gutter;
   @include s() {
-    padding: 0 $gutter/2;
-  }
-  &.full {
-    width: 100%;
     padding: 0 $gutter/2;
   }
 }

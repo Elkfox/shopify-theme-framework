@@ -2,7 +2,7 @@
 
 {% paginate collection.products by 4 %}
 
-<div class="container">
+<div class="container l">
   <header>
     <div class="row">
       <div class="column l6 m12">
@@ -37,7 +37,7 @@
   </p>
 </div>
 
-<div class="container">
+<div class="container l">
   {% for product in collection.products %}
     <div class="row">
 
@@ -95,7 +95,7 @@
 </div>
 
 {% if paginate.pages > 1 %}
-  <div class="container">
+  <div class="container l">
     <hr>
     <div class="pagination">
       {{ paginate | default_pagination }}

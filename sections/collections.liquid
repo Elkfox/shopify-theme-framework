@@ -1,14 +1,14 @@
 <!-- snippets/index-featured-collections.liquid -->
 
 {% if section.settings.title != blank %}
-  <div class="container">
+  <div class="container l">
     <h2 class="h3">{{ section.settings.title | escape }}</h2>
   </div>
 {% endif %}
 
 {% assign collection_item_width = 'column l4 m6 s12' %}
 
-<div class="container">
+<div class="container l">
 
   {% if section.blocks.size == 0 %}
     {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}

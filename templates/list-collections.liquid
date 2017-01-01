@@ -6,12 +6,12 @@
 
     {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
 
-    <div class="container">
+    <div class="container l">
       <p class="h1 section-header__left">{{ collection_title }}</p>
       <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}">More {{ collection_title }} &rsaquo;</a>
     </div>
 
-    <div class="container">
+    <div class="container l">
       <div class="row">
         {% for product in collection.products limit:4 %}
           {% assign column_width = 'column l4 m6 s12' %}

@@ -1,14 +1,14 @@
 <!-- sections/news.liquid -->
 
 {% if section.settings.title != blank %}
-  <header class="container">
+  <header class="container l">
     <h2 class="h3">{{ section.settings.title | escape }}</h2>
   </header>
 {% endif %}
 
 {%- assign blog = blogs[section.settings.blog] -%}
 
-<div class="container">
+<div class="container l">
   <div class="row">
 
     {% for article in blog.articles limit: section.settings.post_limit %}

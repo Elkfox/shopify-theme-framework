@@ -1,6 +1,6 @@
 <!-- /templates/product.liquid -->
 
-<div class="container" itemscope itemtype="http://schema.org/Product">
+<div class="container l" itemscope itemtype="http://schema.org/Product">
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
   {% assign current_variant = product.selected_or_first_available_variant %}
@@ -76,7 +76,7 @@
           <button type="submit" name="add" id="AddToCart" data-cart-add="{{ product.id }}">
             <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
           </button>
-          
+
         </form>
 
       </div>
