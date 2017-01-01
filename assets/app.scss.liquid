@@ -702,7 +702,7 @@ a.button {
 
 // Pagination
 .pagination {
-  a {
+  a, .page.current {
     min-width: $gutter;
     height: $gutter;
     text-align: center;
@@ -715,10 +715,14 @@ a.button {
     border-radius: $borderRadius;
     -webkit-appearance: none;
     -moz-appearance: none;
-    &.active, &:hover{
+    &.active, &:hover {
       color: lighten($colorBrand, 25%);
       background-color: $colorBrand;
     }
+  }
+  .page.current {
+    color: lighten($colorBrand, 25%);
+    background-color: $colorBrand;
   }
 }
 /* Footer ====================================================================*/

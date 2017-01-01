@@ -34,8 +34,12 @@ NOTE: We need to keep support for option_selection js
 
 ## Accounts
 
-* 'customer/addresses' and 'customer/orders' have not been cleaned up and resturctured yet
+* 'customer/addresses' has not been cleaned up and resturctured yet
 * We need to Ajaxify the forms... the old method is too clunky for our default
+
+## Blogs
+
+* Add ajax pagination to blogs in 'reinforced concrete'
 
 ## Sections
 

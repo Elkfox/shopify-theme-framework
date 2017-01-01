@@ -6,8 +6,8 @@
     "pagination": {
       "loadmore": "Load More",
       "loading": "Loading...",
-      "previous": "<",
-      "next": ">"
+      "previous": "←",
+      "next": "→"
     }
   },
   "date_formats": {
