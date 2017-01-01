@@ -433,6 +433,9 @@ a.button {
       margin-bottom: 0;
     }
   }
+  a {
+    color: lighten($colorHighlight, 50%);
+  }
 }
 
 // Helpers
@@ -806,7 +809,8 @@ body {
   @include transition();
   &.loading {
     // Do something while the Ajax elements load
-    opacity: 0;
+    opacity: 0.7;
+    pointer-events: none;
   }
 }
 

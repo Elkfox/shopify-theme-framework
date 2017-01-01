@@ -34,7 +34,8 @@ NOTE: We need to keep support for option_selection js
 
 ## Accounts
 
-* 'customer/addresses' has not been cleaned up and resturctured yet
+* 'customer/addresses' needs some work
+* Orders shows 0, even when 1 unfulfilled order exists - is this only when bogus gateway is used?
 * We need to Ajaxify the forms... the old method is too clunky for our default
 
 ## Blogs
