@@ -473,13 +473,28 @@ a.button {
 
 /* Grid System ===============================================================*/
 
+/* Grid System ===============================================================*/
+
 .container {
   max-width: 100%;
-  width: $l;
+  width: 100%;
+  &.xl {
+    width: $xl;
+  }
+  &.l {
+    width: $l;
+  }
+  &.m {
+    width: $m;
+  }
   margin: auto;
   padding: 0 $gutter;
+  @include s() {
+    padding: 0 $gutter/2;
+  }
   &.full {
     width: 100%;
+    padding: 0 $gutter/2;
   }
 }
 
@@ -488,12 +503,8 @@ a.button {
 .row {
   margin: 0 (-$gutter/2) $gutter;
   // Table Grid
-  @media only screen and (min-width: $m) {
-    &.table {
-      display: table;
-    }
-  }
   &.table { @include table(); }
+  &.xl-table { @include xl() { @include table(); } }
   &.l-table { @include l() { @include table(); } }
   &.m-table { @include m() { @include table(); } }
   &.s-table { @include s() { @include table(); } }
@@ -614,23 +625,35 @@ a.button {
   }
 }
 
+@include xl() {
+  .xl-hide { display: none !important; }
+  .xl-left { text-align: left; }
+  .xl-center { text-align: center; }
+  .xl-right { text-align: right; }
+  .l-show, .m-show, .s-show { display: none !important; }
+}
 @include l() {
   .l-hide { display: none !important; }
   .l-left { text-align: left; }
   .l-center { text-align: center; }
   .l-right { text-align: right; }
+  .xl-show, .m-show, .s-show { display: none !important; }
 }
 @include m() {
   .m-hide { display: none !important; }
   .m-left { text-align: left; }
   .m-center { text-align: center; }
   .m-right { text-align: right; }
+  .l-show { display: none !important; }
+  .xl-show, .l-show, .s-show { display: none !important; }
 }
 @include s() {
   .s-hide { display: none !important; }
   .s-left { text-align: left; }
   .s-center { text-align: center; }
   .s-right { text-align: right; }
+  .l-show { display: none !important; }
+  .xl-show, .l-show, .m-show { display: none !important; }
 }
 
 /* Header ====================================================================*/
@@ -883,29 +906,40 @@ body {
 .theme-nav-toggled {
   z-index: 9995;
   position: fixed;
-	width: 400px;
-  max-width: 90%;
-	height: 100%;
-	top: 0;
-	right: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
   padding: $gutter;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
   @include transition-property(); // For legacy support
-  @include prefixer(transition-duration, 0.4s, webkit moz spec);
+  @include prefixer(transition-duration, 0.3s, webkit moz spec);
   @include prefixer(transition-delay, 0.3s, webkit moz spec);
   &.from-left {
+    top: 0;
     left: 0;
     @include prefixer(transform, translate3d(-100%, 0, 0), webkit moz ms o spec);
+    max-width: 350px;
   }
   &.from-right {
+    top: 0;
     right: 0;
     @include prefixer(transform, translate3d(100%, 0, 0), webkit moz ms o spec);
   }
+  &.from-bottom {
+    bottom: 0;
+    @include prefixer(transform, translate3d(0, 100%, 0), webkit moz ms o spec);
+  }
+  &.from-top {
+    bottom: 0;
+    @include prefixer(transform, translate3d(0, -100%, 0), webkit moz ms o spec);
+  }
   &.visible {
     @include prefixer(transform, translate3d(0, 0, 0), webkit moz ms o spec);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
-  background-color: $colorAlternate;
+
+  // Demo styling
+  background-color: $colorForeground;
   color: $colorBackground;
   a {
     color: $colorBackground;
@@ -916,6 +950,7 @@ body {
     top: $gutter/2;
     right: $gutter/2;
   }
+  &.from-left, &.from-right { width: 400px; max-width: 90%; }
 }
 
 /* Social Sharing ============================================================*/
