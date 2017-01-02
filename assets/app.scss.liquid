@@ -835,35 +835,13 @@ body {
   z-index: 9996;
   opacity: 0;
   visibility: hidden;
-  @include overlay();
   @include transition();
-  background: rgba($colorForeground, 0.85);
-  .popup-outside {
-    position: absolute;
-    z-index: 9998;
-    @include overlay();
-  }
-  .popup-inner {
-    z-index: 9997;
-    text-align: center;
-    white-space: nowrap;
-    @include overlay();
-    @include prefixer(transition-delay, 0.3s, webkit moz spec);
-    @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
-    @include transition();
-    -webkit-backface-visibility: hidden;
-    cursor: pointer;
-  }
   &.visible {
     opacity: 1;
     visibility: visible;
     @include transition();
-    .popup-inner {
-      @include prefixer(transform, translateY(0px), webkit moz ms spec);
-    }
   }
   .popup-content {
-    @include vertical-align();
     display: inline-block;
     z-index: 9999;
     max-width: 100%;
@@ -874,6 +852,50 @@ body {
     text-align: initial;
     cursor: default;
     white-space: initial;
+  }
+  &.overlay {
+    background: rgba($colorForeground, 0.85);
+    @include overlay();
+    .popup-outside {
+      position: absolute;
+      z-index: 9998;
+      @include overlay();
+    }
+    .popup-inner {
+      -webkit-backface-visibility: hidden;
+      cursor: pointer;
+      z-index: 9997;
+      text-align: center;
+      white-space: nowrap;
+      @include overlay();
+      @include prefixer(transition-delay, 0.3s, webkit moz spec);
+      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include transition();
+    }
+    .popup-content {
+      @include vertical-align();
+    }
+    &.visible {
+      .popup-inner {
+        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+      }
+    }
+  }
+  &.notification {
+    .popup-content {
+      position: fixed;
+      bottom: $gutter;
+      left: $gutter;
+      padding: $gutter/2;
+      @include prefixer(transition-delay, 0.3s, webkit moz spec);
+      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include transition();
+    }
+    &.visible {
+      .popup-content {
+        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+      }
+    }
   }
   .popup-close {
     display: block;

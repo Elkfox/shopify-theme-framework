@@ -1,0 +1,28 @@
+<!-- sections/page.liquid -->
+
+{% if section.settings.title != blank %}
+  <div class="container l">
+    <h2 class="h3">Title</h2>
+  </div>
+{% endif %}
+
+<div class="container l">
+  <div class="container l">
+    content
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Page content",
+    "class": "page-section",
+    "settings": [
+      {
+        "type": "page",
+        "id": "id",
+        "label": "Text",
+        "info": "Text"
+      }
+    ]
+  }
+{% endschema %}
