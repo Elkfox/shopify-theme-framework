@@ -140,23 +140,6 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
   }
 }
 
-// Flex
-@mixin flex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
-  display: -webkit-flex;
-  display: flex;
-}
-@mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical, webkit moz spec);
-}
-@mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
-}
-
 // Clearfix
 @mixin clearfix() {
   display: block; // TBC - is this OK? Seems to help
@@ -166,22 +149,6 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
     clear: both;
   }
   *zoom: 1;
-}
-
-// Verically Align
-@mixin vertical-align() {
-  position: relative;
-  top: 50%;
-  -webkit-transform: perspective(1px) translateY(-50%);
-  -ms-transform: perspective(1px) translateY(-50%);
-  transform: perspective(1px) translateY(-50%);
-}
-
-// Transition Property (for legacy support)
-@mixin transition-property() {
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
 }
 
 // Screen Sizes & Types
@@ -204,6 +171,23 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
   @media (min-width: $xl) {
     @content;
   }
+}
+
+// Flex
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin box-orient--vertical() {
+  @include prefixer(box-orient, vertical, webkit moz spec);
+}
+@mixin flex-direction($flex-direction) {
+  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
 }
 
 // Table Grids
@@ -231,6 +215,22 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
       padding-right: 0;
     }
   }
+}
+
+// Verically Align
+@mixin vertical-align() {
+  position: relative;
+  top: 50%;
+  -webkit-transform: perspective(1px) translateY(-50%);
+  -ms-transform: perspective(1px) translateY(-50%);
+  transform: perspective(1px) translateY(-50%);
+}
+
+// Transition Property (for legacy support)
+@mixin transition-property() {
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
 }
 
 // Transitions
@@ -473,8 +473,6 @@ a.button {
 .clearfix {
   @include clearfix();
 }
-
-/* Grid System ===============================================================*/
 
 /* Grid System ===============================================================*/
 
@@ -852,6 +850,10 @@ body {
     text-align: initial;
     cursor: default;
     white-space: initial;
+    color: $colorForeground;
+    a {
+      color: $colorForeground;
+    }
   }
   &.overlay {
     background: rgba($colorForeground, 0.85);

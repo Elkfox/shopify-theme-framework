@@ -1,4 +1,0 @@
-{% assign count = paginate.pages %}
-{% for part in (1..count) %}
-  <a href="{{ collection.url }}?page={{ forloop.index }}" data-number="{{ forloop.index }}" class="PaginationLink{% if paginate.current_page == part %} active{% endif %}">{{ forloop.index }}</a></li>
-{% endfor %}
