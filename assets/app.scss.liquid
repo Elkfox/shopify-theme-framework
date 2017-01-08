@@ -704,14 +704,15 @@ a.button {
 // Pagination
 .pagination {
   a, .page.current {
+    display: inline-block;
     min-width: $gutter;
     height: $gutter;
     text-align: center;
-    display: inline-block;
     line-height: ($gutter - $borderWeight*2);
     text-decoration: none;
     font-size: 1.125rem;
     color: $colorBrand;
+    padding: 0 $gutter/4;
     border: $borderWeight $borderStyle $colorBrand;
     border-radius: $borderRadius;
     -webkit-appearance: none;

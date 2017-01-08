@@ -38,60 +38,72 @@
 </div>
 
 <div class="container l">
-  {% for product in collection.products %}
-    <div class="row">
+  <div class="row">
 
-      {% assign on_sale = false %}
-      {% if product.compare_at_price > product.price %}
-        {% assign on_sale = true %}
-      {% endif %}
+    <div class="column l9 m12 s12">
 
-      {% assign sold_out = true %}
-      {% if product.available %}
-        {% assign sold_out = false %}
-      {% endif %}
+      <div class="row">
+        {% for product in collection.products %}
 
-      <div class="column l2 m3 s4">
-        <a href="{{ product.url | within: collection }}">
-          <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" class="grid__image">
-        </a>
-      </div>
-      <div class="column l10 m9 s8">
-        <p class="h4">{{ product.title }}</p>
-        <p>
-          <a href="{{ product.url | within: collection }}">{{ product.title }}</a><br>
-          {% if on_sale %}
-            {% if product.price_varies %}
-              {% assign sale_price = product.price | money %}
-              {{ 'product.on_sale_from_html' | t: price: sale_price }}
-            {% else %}
-              <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
-              {{ product.price | money }}
-            {% endif %}
+          {% assign on_sale = false %}
+          {% if product.compare_at_price > product.price %}
+            {% assign on_sale = true %}
+          {% endif %}
+
+          {% assign sold_out = true %}
+          {% if product.available %}
+            {% assign sold_out = false %}
+          {% endif %}
+
+          <div class="column l2 m3 s4">
+            <a href="{{ product.url | within: collection }}">
+              <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" class="grid__image">
+            </a>
+          </div>
+          <div class="column l10 m9 s8">
+            <p class="h4">{{ product.title }}</p>
+            <p>
+              <a href="{{ product.url | within: collection }}">{{ product.title }}</a><br>
+              {% if on_sale %}
+                {% if product.price_varies %}
+                  {% assign sale_price = product.price | money %}
+                  {{ 'product.on_sale_from_html' | t: price: sale_price }}
+                {% else %}
+                  <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
+                  {{ product.price | money }}
+                {% endif %}
+              {% else %}
+                {% if product.price_varies %}
+                  {% assign price = product.price | money %}
+                  {{ 'product.priced_from_html' | t: price: price }}
+                {% else %}
+                  {{ product.price | money }}
+                {% endif %}
+              {% endif %}
+              {% if sold_out %}
+                <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+              {% endif %}
+              {% if on_sale %}
+                <span class="hidden">{{ 'product.original_price' | t }}</span>
+                <s>{{ product.compare_at_price | money }}</s>
+              {% endif %}
+            </p>
+            <div class="rte">
+              <p>{{ product.content | strip_html | truncatewords: 30 }}</p>
+            </div>
+          </div>
+
           {% else %}
-            {% if product.price_varies %}
-              {% assign price = product.price | money %}
-              {{ 'product.priced_from_html' | t: price: price }}
-            {% else %}
-              {{ product.price | money }}
-            {% endif %}
-          {% endif %}
-          {% if sold_out %}
-            <br><strong>{{ 'products.product.sold_out' | t }}</strong>
-          {% endif %}
-          {% if on_sale %}
-            <span class="hidden">{{ 'product.original_price' | t }}</span>
-            <s>{{ product.compare_at_price | money }}</s>
-          {% endif %}
-        </p>
-        <div class="rte">
-          <p>{{ product.content | strip_html | truncatewords: 30 }}</p>
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          {% endfor %}
+
         </div>
+
       </div>
-    </div>
-  {% else %}
-    <p>{{ 'collections.general.no_matches' | t }}</p>
-  {% endfor %}
+      <div class="column l3 s-hide">
+        {% include 'collection-sidebar' %}
+      </div>
+  </div>
 </div>
 
 {% if paginate.pages > 1 %}
@@ -104,3 +116,25 @@
 {% endif %}
 
 {% endpaginate %}
+
+<script>
+  // Collection template sorting
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+  $(function() {
+    $('#SortBy')
+      .val('{{ collection.sort_by | default: collection.default_sort_by }}')
+      .bind('change', function() {
+        Shopify.queryParams.sort_by = jQuery(this).val();
+        location.search = jQuery.param(Shopify.queryParams);
+      }
+    );
+  });
+</script>

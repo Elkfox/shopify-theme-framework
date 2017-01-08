@@ -1,4 +1,5 @@
 <!-- /snippets/collection-sidebar.liquid -->
+
 {% comment %}
 
   Side navigation for the product types, vendors, and tags.
@@ -14,21 +15,21 @@
   Product tags in the current collection
 {% endcomment %}
 {% if collection.all_tags.size > 0 %}
-  <h2 class="h3">{{ 'collections.sidebar.tags' | t }}</h2>
+  <h2 class="h3">{{ 'collection.filter.title' | t }}</h2>
 
   {% comment %}
     To provide a 'catch-all' link at the top of the list,
     check against the collection.handle, product type, and vendor.
   {% endcomment %}
-  <ul class="no-bullets">
-    <li{% unless current_tags %} class="filter--active"{% endunless %}>
+  <ul>
+    <li{% unless current_tags %} class="active"{% endunless %}>
 
       {% comment %}
         Good for /collections/all collection and regular collections
       {% endcomment %}
       {% if collection.handle %}
         <a href="/collections/{{ collection.handle }}">
-          {{ 'collections.general.all_of_collection' | t: collection: collection.title }}
+          {{ 'collection.filter.all_items' | t: collection: collection.title }}
         </a>
 
       {% comment %}
@@ -54,7 +55,7 @@
     {% endcomment %}
     {% for tag in collection.all_tags %}
       {% if current_tags contains tag %}
-        <li class="filter--active">
+        <li class="active">
           {{ tag | link_to_remove_tag: tag }}
         </li>
       {% else %}
@@ -68,4 +69,5 @@
       {% endif %}
     {% endfor %}
   </ul>
+
 {% endif %}
