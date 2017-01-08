@@ -22,6 +22,7 @@
     check against the collection.handle, product type, and vendor.
   {% endcomment %}
   <ul>
+
     <li{% unless current_tags %} class="active"{% endunless %}>
 
       {% comment %}
@@ -37,7 +38,7 @@
       {% endcomment %}
       {% elsif collection.current_type %}
         <a href="{{ collection.current_type | url_for_type }}">
-          {{ 'collections.general.all_of_collection' | t: collection: collection.title }}
+          {{ 'collections.filter.all_items' | t: collection: collection.title }}
         </a>
 
       {% comment %}
@@ -45,7 +46,7 @@
       {% endcomment %}
       {% elsif collection.current_vendor %}
         <a href="{{ collection.current_vendor | url_for_vendor }}">
-          {{ 'collections.general.all_of_collection' | t: collection: collection.title }}
+          {{ 'collections.filter.all_items' | t: collection: collection.title }}
         </a>
       {% endif %}
     </li>
@@ -68,6 +69,7 @@
         </li>
       {% endif %}
     {% endfor %}
+
   </ul>
 
 {% endif %}

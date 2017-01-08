@@ -23,7 +23,7 @@
 
           {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
 
-          <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}" class="grid__image">
+          <a href="{{ collection.url }}" title="{{ 'collection.title' }}">
             {% if collection.image %}
               {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
             {% else %}
@@ -32,7 +32,7 @@
           </a>
 
           <p>
-            <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}">{{ collection.title }}</a><br>
+            <a href="{{ collection.url }}" title="{{ 'collection.title' }}">{{ collection.title }}</a><br>
             {{ 'collection.items_with_count' | t: count: collection.all_products_count }}
           </p>
 
