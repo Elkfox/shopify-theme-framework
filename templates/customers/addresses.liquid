@@ -105,7 +105,7 @@
         <div id="{{ address.id }}_delete" class="hidden">
           <p class="note">{{ 'account.address.confirm_delete' | t }}<br>
           <a href="{{ address_hash }}_delete" class="js_close">{{ 'form.cancel' | t }}</a></p>
-          <a href="#" class="button alternate delete_address" onclick="Shopify.CustomerAddress.destroy({{ address.id }});return false">{{ 'form.delete' | t }}</a>
+          <a href="#" rel="nofollow" class="button alternate delete_address" onclick="Shopify.CustomerAddress.destroy({{ address.id }});return false">{{ 'form.delete' | t }}</a>
         </div>
 
         <div id="{{ address.id }}" class="hidden edit_address">

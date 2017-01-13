@@ -42,8 +42,9 @@
 
     <div class="column l9 m12 s12">
 
-      <div class="row">
-        {% for product in collection.products %}
+      {% for product in collection.products %}
+
+        <div class="row">
 
           {% assign on_sale = false %}
           {% if product.compare_at_price > product.price %}
@@ -93,16 +94,16 @@
             </div>
           </div>
 
-          {% else %}
-            <p>{{ 'collection.no_matches' | t }}</p>
-          {% endfor %}
-
         </div>
 
-      </div>
-      <div class="column l3 s-hide">
-        {% include 'collection-sidebar' %}
-      </div>
+      {% else %}
+        <p>{{ 'collection.no_matches' | t }}</p>
+      {% endfor %}
+
+    </div>
+    <div class="column l3 s-hide">
+      {% include 'collection-sidebar' %}
+    </div>
   </div>
 </div>
 
