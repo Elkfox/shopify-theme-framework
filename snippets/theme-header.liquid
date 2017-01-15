@@ -7,9 +7,9 @@
       <div class="column l8 m8 s12 l-left m-left s-middle">
 
         {% if template == 'index' %}
-          <h1 class="logo" itemscope itemtype="http://schema.org/Organization">
+          <h1 class="logo" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
         {% else %}
-          <div class="h1 logo" itemscope itemtype="http://schema.org/Organization">
+          <div class="h1 logo" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
         {% endif %}
           {% if settings.logo_use_image %}
             <a href="/" itemprop="url">
