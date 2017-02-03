@@ -8,6 +8,10 @@
       "loading": "Loading...",
       "previous": "←",
       "next": "→"
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
     }
   },
   "date_formats": {
@@ -83,6 +87,9 @@
         "other": "Addresses"
       }
     },
+    "activate": {
+      "title": "Acitvate account"
+    },
     "reset_password": {
       "title": "Password Reset",
       "sign_in": "Sign In",
@@ -102,7 +109,10 @@
     "cancel": "Cancel",
     "add": "Add",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "contact": {
+      "success": "Form posted successfully"
+    }
   },
   "subscribe": {
     "title": "Subscribe",

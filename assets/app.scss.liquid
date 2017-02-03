@@ -309,6 +309,19 @@ i {
 
 .rte {
   // TBA
+  ul, ol {
+    list-style: initial;
+    list-style-position: inside;
+    margin-bottom: $gutter/2;
+    li {
+      list-style: inherit;
+      list-style-position: inherit;
+      margin-bottom: $gutter/2;
+    }
+  }
+  ol {
+    list-style-type: decimal;
+  }
 }
 
 .breadcrumb {
