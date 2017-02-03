@@ -538,67 +538,65 @@ a.button {
   float: left;
   min-height: 0.125rem;
   padding: 0 $gutter/2;
-}
-.column.l1 { width: percentage(1/12); }
-.column.l2 { width: percentage(2/12); }
-.column.l3 { width: percentage(3/12); }
-.column.l4 { width: percentage(4/12); }
-.column.l5 { width: percentage(5/12); }
-.column.l6 { width: percentage(6/12); }
-.column.l7 { width: percentage(7/12); }
-.column.l8 { width: percentage(8/12); }
-.column.l9 { width: percentage(9/12); }
-.column.l10 { width: percentage(10/12); }
-.column.l11 { width: percentage(11/12); }
-.column.l12 { width: 100%; }
-@include m() {
-  .column.m1 { width: percentage(1/12); }
-  .column.m2 { width: percentage(2/12); }
-  .column.m3 { width: percentage(3/12); }
-  .column.m4 { width: percentage(4/12); }
-  .column.m5 { width: percentage(5/12); }
-  .column.m6 { width: percentage(6/12); }
-  .column.m7 { width: percentage(7/12); }
-  .column.m8 { width: percentage(8/12); }
-  .column.m9 { width: percentage(9/12); }
-  .column.m10 { width: percentage(10/12); }
-  .column.m11 { width: percentage(11/12); }
-  .column.m12 { width: 100%; }
-}
-@include s() {
-  .column.s1 { width: percentage(1/12); }
-  .column.s2 { width: percentage(2/12); }
-  .column.s3 { width: percentage(3/12); }
-  .column.s4 { width: percentage(4/12); }
-  .column.s5 { width: percentage(5/12); }
-  .column.s6 { width: percentage(6/12); }
-  .column.s7 { width: percentage(7/12); }
-  .column.s8 { width: percentage(8/12); }
-  .column.s9 { width: percentage(9/12); }
-  .column.s10 { width: percentage(10/12); }
-  .column.s11 { width: percentage(11/12); }
-  .column.s12 { width: 100%; }
-}
-
-// Uniform Height Clearing
-
-@include l() {
-  .column.l2:nth-child(6n+1) { clear: both; }
-  .column.l3:nth-child(4n+1) { clear: both; }
-  .column.l4:nth-child(3n+1) { clear: both; }
-  .column.l6:nth-child(2n+1) { clear: both; }
-}
-@include m() {
-  .column.m2:nth-child(6n+1) { clear: both; }
-  .column.m3:nth-child(4n+1) { clear: both; }
-  .column.m4:nth-child(3n+1) { clear: both; }
-  .column.m6:nth-child(2n+1) { clear: both; }
-}
-@include s() {
-  .column.s2:nth-child(6n+1) { clear: both; }
-  .column.s3:nth-child(4n+1) { clear: both; }
-  .column.s4:nth-child(3n+1) { clear: both; }
-  .column.s6:nth-child(2n+1) { clear: both; }
+  &.l1 { width: percentage(1/12); }
+  &.l2 { width: percentage(2/12); }
+  &.l3 { width: percentage(3/12); }
+  &.l4 { width: percentage(4/12); }
+  &.l5 { width: percentage(5/12); }
+  &.l6 { width: percentage(6/12); }
+  &.l7 { width: percentage(7/12); }
+  &.l8 { width: percentage(8/12); }
+  &.l9 { width: percentage(9/12); }
+  &.l10 { width: percentage(10/12); }
+  &.l11 { width: percentage(11/12); }
+  &.l12 { width: 100%; }
+  @include m() {
+    &.m1 { width: percentage(1/12); }
+    &.m2 { width: percentage(2/12); }
+    &.m3 { width: percentage(3/12); }
+    &.m4 { width: percentage(4/12); }
+    &.m5 { width: percentage(5/12); }
+    &.m6 { width: percentage(6/12); }
+    &.m7 { width: percentage(7/12); }
+    &.m8 { width: percentage(8/12); }
+    &.m9 { width: percentage(9/12); }
+    &.m10 { width: percentage(10/12); }
+    &.m11 { width: percentage(11/12); }
+    &.m12 { width: 100%; }
+  }
+  @include s() {
+    &.s1 { width: percentage(1/12); }
+    &.s2 { width: percentage(2/12); }
+    &.s3 { width: percentage(3/12); }
+    &.s4 { width: percentage(4/12); }
+    &.s5 { width: percentage(5/12); }
+    &.s6 { width: percentage(6/12); }
+    &.s7 { width: percentage(7/12); }
+    &.s8 { width: percentage(8/12); }
+    &.s9 { width: percentage(9/12); }
+    &.s10 { width: percentage(10/12); }
+    &.s11 { width: percentage(11/12); }
+    &.s12 { width: 100%; }
+  }
+  // Uniform Height Clearing
+  @include l() {
+    &:nth-child(6n+1).l2 { clear: both; }
+    &:nth-child(4n+1).l3 { clear: both; }
+    &:nth-child(3n+1).l4 { clear: both; }
+    &:nth-child(2n+1).l6 { clear: both; }
+  }
+  @include m() {
+    &:nth-child(6n+1).m2 { clear: both; }
+    &:nth-child(4n+1).m3 { clear: both; }
+    &:nth-child(3n+1).m4 { clear: both; }
+    &:nth-child(2n+1).m6 { clear: both; }
+  }
+  @include s() {
+    &:nth-child(6n+1).s2 { clear: both; }
+    &:nth-child(4n+1).s3 { clear: both; }
+    &:nth-child(3n+1).s4 { clear: both; }
+    &:nth-child(2n+1).s6 { clear: both; }
+  }
 }
 
 // Flex Grid
