@@ -5,6 +5,7 @@ Concrete Shopify Theme Framework - A lightweight framework for building Shopify 
 #### Get Started
 With [Theme Kit](https://shopify.github.io/themekit/)
 Replace the bits in square brackets!
+
 `theme bootstrap --password=[your-api-password] --store=[your-store.myshopify.com] --url=https://github.com/Elkfox/Concrete/archive/master.zip --name=Concrete`
 
 View the [demo store](https://concrete-theme.myshopify.com)
