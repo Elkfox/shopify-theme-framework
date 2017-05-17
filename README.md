@@ -29,3 +29,6 @@ View the [documentation](https://github.com/Elkfox/Concrete/wiki)
 [The Shopify Cheat Sheet](https://www.shopify.com.au/partners/shopify-cheat-sheet) gives quick access to liquid markup elements
 
 Shopify's [Theme Documentation](https://help.shopify.com/themes) is an exhaustive resource for anything related to building themes
+
+##### Thanks to:
+@bradfordbradford
