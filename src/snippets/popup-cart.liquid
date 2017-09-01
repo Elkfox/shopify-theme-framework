@@ -1,0 +1,74 @@
+<!-- /snippets/popup-cart.liquid -->
+
+{% comment %}
+  This snippets adds the ability to display the cart contents on any shopify page.
+  Dependencies:
+   - Handlebars
+{% endcomment %}
+
+<div id="PopupCart" class="popup overlay">
+  <div class="popup-inner">
+    <div class="popup-content left">
+      <div class="h4">{{ 'cart.title' | t }}</div>
+      <div class="items">
+        {% for item in cart.items %}
+          <div class="item">
+            <p>
+              <a class="item-title" href={{ item.url }}>{{ item.title }}</a>
+            </p>
+            <div class="row cart-item">
+              <div class="column l6 m6 s6">
+                <strong class="item-price">{{ item.line_price | money_with_currency }}</strong>
+                <p><small><a href="#" class="removeItem" data-item-id="{{item.id}}">Remove</a></small></p>
+              </div>
+              <div class="column l6 m6 s6 right">
+                <div class="quantity-adjust">
+                  <a class="adjust minusOne" data-minus-one>&#8722;</a>
+                  <span class="quantity item-qty" data-item-id="{{item.id}}">{{ item.quantity }}</span>
+                  <a class="adjust plusOne" data-plus-one>&#43;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <hr>
+      <p><small>{{ 'cart.shipping_at_checkout' | t }}</small></p>
+      <div class="row cart-item">
+        <div class="column l6 m6 s6">
+          <a href="/cart" aria-label="{{ 'cart.view_cart' | t }}">{{ 'cart.view_cart' | t }}</a>
+        </div>
+        <div class="column l6 m6 s6 right">
+          <strong>{{ 'cart.total' | t }} <span id="CartTotal" class="cart-total">{{ cart.total_price | money_with_currency }}</span></strong>
+        </div>
+      </div>
+      <p class="center"><a href="/cart" class="button wide" aria-label="{{ 'cart.checkout' | t }}">{{ 'cart.checkout' | t }}</a></p>
+      <a href="#close" class="popup-close" data-close data-target="#PopupCart.popup" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+    </div>
+  </div>
+  {% raw %}
+  <script id="CartTemplate" type="text/x-handlebars-template">
+    <div class="item">
+      <p>
+        <a class="item-title" href="{{lineItem.url}}">{{lineItem.title}}</a>
+      </p>
+      <div class="row cart-item">
+        <div class="column l6 m6 s6">
+          <strong class="item-price">{{formatMoney lineItem.original_line_price}}</strong>
+          <p><small><a href="#" class="removeItem" data-item-id="{{lineItem.id}}">Remove</a></small></p>
+        </div>
+        <div class="column l6 m6 s6 right">
+          <div class="quantity-adjust">
+            <a class="adjust" data-minus-one>&#8722;</a>
+            <span class="quantity item-qty" data-item-id="{{lineItem.id}}">{{ lineItem.quantity }}</span>
+            <a class="adjust" data-plus-one>&#43;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+  {% endraw %}
+</div>
+<script>
+  var cartPopup = new Concrete.Popup('#PopupCart.popup');
+</script>

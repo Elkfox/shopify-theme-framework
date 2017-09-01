@@ -1,0 +1,55 @@
+
+.social-sharing {
+  margin-bottom: $gutter;
+}
+.button.share {
+  padding: 0 $gutter/4;
+  height: $gutter/1.5;
+  line-height: ($gutter/1.5 - $borderWeight*2);
+  font-size: .85rem;
+  &.facebook {
+    background-color: #3b5998;
+    border-color: #3b5998;
+    color: lighten(#3b5998, 40%);
+    &:hover {
+      background-color: darken(#3b5998, 10%);
+      border-color: darken(#3b5998, 10%)
+    }
+  }
+  &.twitter {
+    background-color: #00aced;
+    border-color: #00aced;
+    color: lighten(#00aced, 40%);
+    &:hover {
+      background-color: darken(#00aced, 10%);
+      border-color: darken(#00aced, 10%);
+    }
+  }
+  &.pinterest {
+    background-color: #cb2027;
+    border-color: #cb2027;
+    color: lighten(#cb2027, 40%);
+    &:hover {
+      background-color: darken(#cb2027, 10%);
+      border-color: darken(#cb2027, 10%);
+    }
+  }
+  &.fancy {
+    background-color: #4999dc;
+    border-color: #4999dc;
+    color: lighten(#4999dc, 40%);
+    &:hover {
+      background-color: darken(#4999dc, 10%);
+      border-color: darken(#4999dc, 10%);
+    }
+  }
+  &.google {
+    background-color: #dd4b39;
+    border-color: #dd4b39;
+    color: lighten(#dd4b39, 40%);
+    &:hover {
+      background-color: darken(#dd4b39, 10%);
+      border-color: darken(#dd4b39, 10%);
+    }
+  }
+}

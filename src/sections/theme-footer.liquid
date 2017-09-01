@@ -1,0 +1,102 @@
+<!-- /snippets/theme-footer.liquid -->
+
+{% assign heading = section.settings.heading %}
+{% assign email_placeholder = section.settings.email_placeholder %}
+{% assign button_text = section.settings.button_text %}
+{% assign success = section.settings.success %}
+{% assign show_button = section.settings.show_button %}
+
+<footer class="theme-footer" role="contentinfo">
+  <div class="container center">
+    <div class="row l-table">
+      <div class="column l5 m12 s12 l-left v-middle">
+        {% if section.settings.enable_social %}
+          {% include 'social-links' %}
+        {% endif %}
+      </div>
+      <div class="column l7 m12 s12 l-right v-middle">
+        {% if section.settings.enable_subscribe %}
+          <h5>{{ heading }}</h5>
+          {% include 'section-subscribe-form' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container center">
+    <div class="row l-table">
+      <div class="column l7 m12 s12 l-left v-middle">
+        {% if section.settings.enable_gateway_icons %}
+          {% include 'payment-gateways' %}
+        {% endif %}
+      </div>
+      <div class="column l5 m12 s12 l-right v-middle">
+        <small>&copy; {{ 'now' | date: "%Y" }} <a href="/">{{ shop.name }}</a> | site by <a href="https://elkfox.com?ref={{ shop.name | handleize }}" title="Digital Commerce Agency Elkfox.com">{% include 'icon' with 'elkfox' %}</a> &amp; <a href="http://shopify.com?ref=elkfox" title="Shopify.com" class="icon-small">{% include 'icon' with 'shopify' %} Shopify</a></small>
+      </div>
+    </div>
+  </div>
+
+</footer>
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_social",
+        "label": "Show social media icons"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_gateway_icons",
+        "label": "Show payment gateway icons",
+        "info": "Relevant payment icons will appear automatically when configured in [Payment Settings](/admin/settings/payments)"
+      },
+      {
+        "type": "header",
+        "content": "Subscribe form"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_subscribe",
+        "label": "Show subscribe form"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Title",
+        "placeholder": "Subscribe"
+      },
+      {
+        "id": "email_placeholder",
+        "type": "text",
+        "placeholder": "Email",
+        "label": "Email Placeholder",
+        "default": "Email"
+      },
+      {
+        "id": "show_button",
+        "type": "checkbox",
+        "default": true,
+        "label": "Show button"
+      },
+      {
+        "id": "success",
+        "type": "text",
+        "placeholder": "Thank you for subscribing",
+        "label": "Confirmation message",
+        "default": "Thank you for subscribing"
+      },
+      {
+        "id": "button_text",
+        "type": "text",
+        "label": "Button Text",
+        "default": "Subscribe"
+      }
+    ]
+  }
+{% endschema %}

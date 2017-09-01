@@ -1,0 +1,9 @@
+<!-- /snippets/form-search.liquid -->
+
+<form action="/search" method="get" role="search">
+  {% if include_results %}
+    <input type="hidden" name="type" value="{{ include_results }}">
+  {% endif %}
+  <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.title' | t }}" aria-label="{{ 'search.title' | t }}">
+  <button type="submit" class="hidden">{{ 'form.submit' | t }}</button>
+</form>

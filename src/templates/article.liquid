@@ -1,0 +1,67 @@
+<!-- /templates/article.liquid -->
+
+{% assign number_of_comments = article.comments_count %}
+{% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+<div class="container l">
+  <div class="row">
+
+    <article class="column l8 m12 s12" itemscope itemtype="http://schema.org/Article">
+
+      <header>
+        <h1>{{ article.title }}</h1>
+        {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+        {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
+        <p>
+          {{ 'blog.article.author_on_date_html' | t: author: author, date: date }}
+          {% if blog.comments_enabled? %}
+            <a href="{{ article.url }}#comments">{{ 'blog.comments.with_count' | t: count: article.comments_count }}</a>
+          {% endif %}
+        </p>
+      </header>
+
+      <div class="rte" itemprop="articleBody">
+        {{ article.content }}
+      </div>
+
+      <h4>{{ 'social.share.title' | t }}</h4>
+      {% include 'social-sharing' %}
+
+      {% if article.tags.size > 0 %}
+        <p>
+          <span>{{ 'common.tags' | t }}:</span>
+          {% for tag in article.tags %}
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </p>
+      {% endif %}
+
+      {% if blog.next_article or blog.previous_article %}
+        <div class="row">
+          {% if blog.previous_article %}
+            <div class="column l6 left">
+              {{ 'blog.article.previous_article' | t | link_to: blog.previous_article }}
+            </div>
+          {% endif %}
+          {% if blog.next_article %}
+            <div class="column l6 right">
+              {{ 'blog.article.next_article' | t | link_to: blog.next_article }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% include 'blog-author' %}
+
+      {% include 'blog-comments' %}
+
+    </article>
+
+    <aside class="column l4 m12 s12" role="complementary">
+      {% include 'blog-sidebar' %}
+    </aside>
+
+  </div>
+</div>

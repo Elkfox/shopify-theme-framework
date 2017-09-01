@@ -1,0 +1,7 @@
+{
+  "name": "slate-concrete",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@shopify/slate-tools": "0.12.1"
+  }
+}

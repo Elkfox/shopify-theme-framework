@@ -1,0 +1,23 @@
+<!-- snippets/social-links.liquid -->
+
+{% assign icons = false %}
+{% assign social_icons_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo' | split: ',' %}
+
+<ul class="inline" itemscope itemtype="http://schema.org/Organization">
+  <link itemprop="url" href="{{ shop.url }}">
+  {% for social in social_icons_available %}
+    {% capture title %}social.{{ social }}{% endcapture %}
+    {% capture link %}social_{{ social }}_link{% endcapture %}
+    {% if settings[link] != blank %}
+      <li>
+        <a href="{{ settings[link] }}" title="{{ shop.name }} on {{ title | t }}" target="_blank" itemprop="sameAs">
+          {% if icons %}
+            {% include 'icon' with social %}
+          {% else %}
+            {{ title | t }}
+          {% endif %}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

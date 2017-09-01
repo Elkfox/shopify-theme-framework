@@ -1,0 +1,32 @@
+<!-- /snippets/section-subscribe-form.liquid -->
+
+{% unless success %}{% assign success = 'form.subscribe.confirmation' | t %}{% endunless %}
+{% unless email_placeholder %}{% assign email_placeholder = 'form.email' | t %}{% endunless %}
+{% unless button_text %}{% assign button_text = 'form.subscribe.title' | t %}{% endunless %}
+
+{% form 'customer' %}
+  {{ form.errors | default_errors }}
+  {% if form.posted_successfully? %}
+    <p class="note form-success">{{ success }}</p>
+  {% else %}
+    <input type="email"
+           value="{% if customer %}{{ customer.email }}{% endif %}"
+           placeholder="{{ email_placeholder }}"
+           name="contact[email]"
+           id="Email"
+           aria-label="{{ email_placeholder }}"
+           autocorrect="off"
+           autocapitalize="off">
+    <input type="hidden"
+           name="contact[tags]"
+           value="newsletter">
+    <input type="hidden"
+           name="customer[accepts_marketing]"
+           value="" />
+    <input type="submit"
+           name="subscribe"
+           id="subscribe"
+           class="button{% unless show_button %} hidden{% endunless %}"
+           value="{{ button_text }}">
+  {% endif %}
+{% endform %}

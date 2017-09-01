@@ -1,0 +1,32 @@
+/* SVG Icons =================================================================*/
+
+// Don't forget to comrpress your icons! https://jakearchibald.github.io/svgomg/
+// All icons must be created at 32px by 32px regardless of size to be scaled to
+
+.icon {
+  @include icon();
+  svg {
+    height: $baseIconSize;
+    width: $baseIconSize;
+  }
+}
+.icon-small .icon {
+  @include icon();
+  svg {
+    height: $baseIconSize/2;
+    width: $baseIconSize/2;
+    .stroke {
+      stroke-width: $borderWeight*2;
+    }
+  }
+}
+.icon-large .icon {
+  @include icon();
+  svg {
+    height: $baseIconSize*2;
+    width: $baseIconSize*2;
+    .stroke {
+      stroke-width: $borderWeight/2;
+    }
+  }
+}

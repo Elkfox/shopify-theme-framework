@@ -1,0 +1,92 @@
+<!-- sections/index-collections.liquid -->
+
+{% if section.settings.title != blank %}
+  <div class="container l">
+    <h2 class="h3">{{ section.settings.title | escape }}</h2>
+  </div>
+{% endif %}
+
+{% assign collection_item_width = 'column l4 m6 s12' %}
+
+<div class="container l">
+
+  {% if section.blocks.size == 0 %}
+    {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+    {% include 'onboarding-featured-collections' %}
+  {% else %}
+
+    <div class="row">
+
+      {% for block in section.blocks limit: section.blocks.size %}
+        <div class="{{ collection_item_width }} text-center" {{ block.shopify_attributes }}>
+          {%- assign collection = collections[block.settings.collection] -%}
+
+          {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+
+          <a href="{{ collection.url }}" title="{{ 'collection.title' }}">
+            {% if collection.image %}
+              {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
+            {% else %}
+              {{ collection.products.first.featured_image | img_url: 'large' | img_tag: collection_title }}
+            {% endif %}
+          </a>
+
+          <p>
+            <a href="{{ collection.url }}" title="{{ 'collection.title' }}">{{ collection.title }}</a><br>
+            {{ 'collection.items_with_count' | t: count: collection.all_products_count }}
+          </p>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+  {% endif %}
+
+</div>
+
+{% schema %}
+  {
+    "name": "Collection list",
+    "class": "collections-section",
+    "max_blocks": 9,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Collection list"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "featured_collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Collections",
+        "category": "Collection",
+        "blocks": [
+          {
+            "type": "featured_collection"
+          },
+          {
+            "type": "featured_collection"
+          },
+          {
+            "type": "featured_collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

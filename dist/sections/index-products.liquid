@@ -1,0 +1,74 @@
+<!-- sections/products.liquid -->
+
+<div class="container l">
+  {% if section.settings.title != blank %}
+    <h2 class="h3">{{ section.settings.title | escape }}</h2>
+  {% endif %}
+</div>
+
+{%- assign collection = collections[section.settings.collection] -%}
+
+{% assign column_width = 'column l4 m6 s12' %}
+
+<div class="container l">
+  <div class="row">
+    {% for product in collection.products limit: product_limit %}
+      {% include 'collection-product' %}
+    {% else %}
+      {% unless emptyState %}
+        {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+        {% assign emptyState = true %}
+      {% endunless %}
+      {% include 'onboarding-featured-products' %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Featured collection",
+    "class": "products-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      },
+      {
+        "type": "select",
+        "id": "product_limit",
+        "label": "Products to show",
+        "default": "6",
+        "options": [
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "9",
+            "label": "9"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Products",
+        "category": "Products",
+        "settings": {
+          "collection": "frontpage"
+        }
+      }
+    ]
+  }
+{% endschema %}

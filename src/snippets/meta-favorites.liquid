@@ -1,0 +1,23 @@
+<!-- /snippets/meta-favorites.liquid -->
+{% unless settings.favorites_favicon == blank %}
+  {% comment %}
+    Favicons
+  {% endcomment %}
+  <link rel="icon" href="{{ settings.favorites_favicon | img_url: '16x16' }}" sizes="16x16" type="image/png">
+  <link rel="icon" href="{{ settings.favorites_favicon | img_url: '32x32' }}" sizes="32x32" type="image/png">
+  <link rel="icon" href="{{ settings.favorites_favicon | img_url: '48x48' }}" sizes="48x48" type="image/png">
+  <link rel="icon" href="{{ settings.favorites_favicon | img_url: '62x62' }}" sizes="62x62" type="image/png">
+  <link rel="icon" href="{{ settings.favorites_favicon | img_url: '192x192' }}" sizes="192x192" type="image/png">
+
+  {% comment %}
+    iOS icon
+  {% endcomment %}
+  <link rel="apple-touch-icon" href="{% if settings.favorites_webapp_icon == blank %}{{ settings.favorites_favicon | img_url: '180x180' }}{% else %}{{ settings.favorites_webapp_icon | img_url: '180x180' }}{% endif %}">
+{% endunless %}
+
+{% comment %}
+  Safari pinned site SVG
+{% endcomment %}
+{% unless settings.favorites_pinned_svg == blank %}
+  <link rel="mask-icon" href="{{ settings.favorites_pinned_svg }}" color="{{ settings.color_brand }}">
+{% endunless %}

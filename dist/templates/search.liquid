@@ -1,0 +1,119 @@
+<!-- /templates/search.liquid -->
+
+{% comment %}
+  To return only products or pages in results http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+  Or manually add type=product or type=page to the search URL as a parameter
+{% endcomment %}
+
+{% paginate search.results by 10 %}
+
+  <div class="container l">
+
+    {% include 'theme-breadcrumbs' %}
+
+    {% if search.performed %}
+      {% if search.results_count == 0 %}
+        <h1 class="h3">{{ 'search.no_results_html' | t: terms: search.terms }}</h1>
+      {% else %}
+        <h1 class="h3">{{ 'search.results_for_html' | t: terms: search.terms }}</h1>
+      {% endif %}
+    {% else %}
+      <h1>{{ 'search.title' | t }}</h1>
+      {% include 'form-search' %}
+    {% endif %}
+
+    {% if search.performed %}
+
+      <hr class="hr">
+
+      {% for item in search.results %}
+
+        <div class="row">
+
+          {% if item.featured_image %}
+            {% comment %}
+              If it has a featured_image, it is probably a product
+            {% endcomment %}
+            <div class="column l2 m3 s4">
+              <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
+                <img srcset="{{ item.featured_image.src | img_url: 'x1400' }} 2x"  src="{{ item.featured_image.src | img_url: 'x700' }}" alt="{{ item.featured_image.alt | escape }}" class="grid__image">
+              </a>
+            </div>
+          {% endif %}
+
+          {% if item.image %}
+            {% comment %}
+              If it has an article image, it is probably a blog article
+            {% endcomment %}
+            <div class="column l2 m3 s4">
+              <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                <img srcset="{{ item.featured_image.src | img_url: 'x1400' }} 2x" src="{{ item.featured_image.src | img_url: 'x700' }}" alt="{{ item.featured_image.alt | escape }}" class="grid__image">
+              </a>
+            </div>
+          {% endif %}
+
+          <div class="column {% if item.featured_image or item.image %}l10 m9 s8{% else %}l12{% endif %}">
+            <h2 class="h3">{{ item.title | link_to: item.url }}</h2>
+
+            {% if item.price %}
+              {% comment %}
+                If it has a fprice, it is definitely a product
+              {% endcomment %}
+              {% assign on_sale = false %}
+              {% if item.compare_at_price > item.price %}
+                {% assign on_sale = true %}
+              {% endif %}
+              {% assign sold_out = true %}
+              {% if item.available %}
+                {% assign sold_out = false %}
+              {% endif %}
+              <p>
+                {% if on_sale %}
+                  {% if item.price_varies %}
+                    {% assign sale_price = item.price | money %}
+                    {{ 'product.on_sale_from_html' | t: price: sale_price }}
+                  {% else %}
+                    <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
+                    {{ item.price | money }}
+                  {% endif %}
+                {% else %}
+                  {% if item.price_varies %}
+                    {% assign price = item.price | money %}
+                    {{ 'product.priced_from_html' | t: price: price }}
+                  {% else %}
+                    {{ item.price | money }}
+                  {% endif %}
+                {% endif %}
+                {% if sold_out %}
+                  <br><strong>{{ 'product.sold_out' | t }}</strong>
+                {% endif %}
+                {% if on_sale %}
+                  <span class="hidden">{{ 'product.original_price' | t }}</span>
+                  <s>{{ item.compare_at_price | money }}</s>
+                {% endif %}
+              </p>
+            {% endif %}
+
+            <div class="rte">
+              <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
+            </div>
+
+          </div>
+        </div>
+
+        {% unless forloop.last %}<hr>{% endunless %}
+
+      {% endfor %}
+
+      {% if paginate.pages > 1 %}
+        <hr>
+        <div class="pagination">
+          {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+        </div>
+      {% endif %}
+
+    {% endif %}
+
+  </div>
+
+{% endpaginate %}

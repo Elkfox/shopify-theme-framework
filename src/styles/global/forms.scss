@@ -1,0 +1,31 @@
+/* Forms =====================================================================*/
+
+form#AddToCartForm,
+#ContactForm,
+#CommentForm form,
+#AddAddress form,
+.edit_address form,
+form#customer_login,
+form#create_customer,
+#RecoverPasswordForm form,
+#PasswordResetForm form {
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select,
+  button, .button {
+    width: 100%;
+    margin-bottom: $gutter/2;
+  }
+  label, input[type="checkbox"] {
+    margin-bottom: $gutter/5;
+  }
+}
+
+form#AddToCartForm, form#CartPage, form#contact_form {
+  display: block;
+  width: 100%;
+}

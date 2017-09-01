@@ -1,0 +1,83 @@
+
+/*==============================================================================
+  ___  _   _    _
+ /   || | | |  | |
+ \__  | | | |  | |  __
+ /    |/  |/_) |/  /  \_/\/
+ \___/|__/| \_/|__/\__/  /\_/
+               |\
+               |/
+  Concrete v0.1
+  https://elkfox.com
+  https://experts.shopify.com/elkfox
+  Copyright 2015 Shopify Inc. & Elkfox Co Pty Ltd
+==============================================================================*/
+
+/* Variables =================================================================*/
+
+// Colors
+$colorBrand: {{ settings.color_brand }};
+$colorBody: {{ settings.color_body }};
+$colorBackground: {{ settings.color_background }};
+$colorHighlight: {{ settings.color_highlight }};
+$colorAlternate: {{ settings.color_alternate }};
+
+// Typography
+$fontLight: 300;
+$fontRegular: 400;
+$fontBold: 700;
+$lineHeight: 1.75;
+
+// Space & Borders
+$gutter: 50px;
+$borderRadius: 2px;
+$borderWeight: 2px;
+$borderStyle: solid;
+
+// Screen Sizes
+$s: 600px;
+$m: 850px;
+$l: 1150px;
+$xl: 1450px;
+
+// Miscellaneous
+$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
+$transition: all .3s ease-out;
+
+
+/* Main Styling  =============================================================*/
+
+.giftcard {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Print Styles  =============================================================*/
+
+@media print {
+  @page {
+    margin: 0.5cm;
+  }
+
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2, h3 {
+    page-break-after: avoid;
+  }
+
+  html, body {
+    background-color: #fff;
+  }
+
+  .add-to-apple-wallet {
+    display: none;
+  }
+
+  .shop-url {
+    display: block;
+  }
+
+}

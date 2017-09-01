@@ -1,0 +1,39 @@
+/*==============================================================================
+  ___  _   _    _
+ /   || | | |  | |
+ \__  | | | |  | |  __
+ /    |/  |/_) |/  /  \_/\/
+ \___/|__/| \_/|__/\__/  /\_/
+               |\
+               |/
+  Concrete v0.1
+  https://elkfox.com
+  https://experts.shopify.com/elkfox
+  Copyright 2015 Shopify Inc. & Elkfox Co Pty Ltd
+==============================================================================*/
+
+window.concrete = window.concrete || {};
+
+// perhaps turn into an assign in function?
+concrete.strings = {
+  soldOut: "{{ 'product.sold_out' | t }}",
+  addToCart: "{{ 'product.add_to_cart' | t }}",
+  unavailable: "{{ 'product.unavailable' | t }}"
+};
+
+/*================ Concrete ================*/
+// =require concrete/cache.js
+// =require concrete/url-params.js
+// =require concrete/currency.js
+// =require concrete/sections.js
+// =require concrete/images.js
+// =require concrete/variants.js
+// =require concrete/product.js
+// =require concrete/empty-section.js
+
+
+// Initialize on document ready
+$(document).ready(function() {
+  var sections = new concrete.Sections();
+  sections.register('product', concrete.Product);
+})

@@ -1,0 +1,150 @@
+/* Mixins ====================================================================*/
+
+// Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+// Clearfix
+@mixin clearfix() {
+  display: block; // TBC - is this OK? Seems to help
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  *zoom: 1;
+}
+
+// Screen Sizes & Types
+@mixin s() {
+  @media (max-width: $s) {
+    @content;
+  }
+}
+@mixin m() {
+  @media (min-width: $s) and (max-width: $l - 1px) {
+    @content;
+  }
+}
+@mixin l() {
+  @media (min-width: $l) {
+    @content;
+  }
+}
+@mixin xl() {
+  @media (min-width: $xl) {
+    @content;
+  }
+}
+
+// Flex
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin box-orient--vertical() {
+  @include prefixer(box-orient, vertical, webkit moz spec);
+}
+@mixin flex-direction($flex-direction) {
+  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
+}
+
+// Table Grids
+@mixin table() {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 0 $gutter;
+  .column {
+    float: none;
+    display: table-cell;
+    &.middle {
+      vertical-align: middle;
+    }
+    &.top {
+      vertical-align: top;
+    }
+    &.bottom {
+      vertical-align: bottom;
+    }
+    &:first-of-type {
+      padding-left: 0;
+    }
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+}
+
+// Verically Align
+@mixin vertical-align() {
+  position: relative;
+  top: 50%;
+  -webkit-transform: perspective(1px) translateY(-50%);
+  -ms-transform: perspective(1px) translateY(-50%);
+  transform: perspective(1px) translateY(-50%);
+}
+
+// Transition Property (for legacy support)
+@mixin transition-property() {
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+}
+
+// Transitions
+@mixin transition() {
+  @include prefixer(transition, $transition, webkit moz ms spec);
+}
+
+// Overlays
+@mixin overlay() {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Icons
+@mixin icon {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1%; // Makes inline SVGs behave more like text characters
+  svg {
+    // vertical-align: middle;
+    overflow: visible;
+    fill: none;
+    stroke: none;
+    .fill {
+      fill: $colorBrand;
+    }
+    .stroke {
+      stroke: $colorBrand;
+      stroke-width: $borderWeight;
+      stroke-linecap: $iconLinecap;
+      stroke-miterlimit: 10;
+    }
+  }
+}

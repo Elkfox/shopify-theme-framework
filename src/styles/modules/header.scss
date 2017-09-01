@@ -1,0 +1,10 @@
+/* Header ====================================================================*/
+
+.theme-header {
+  padding: $gutter/2 0;
+  .logo {
+    img {
+      max-width: $logoMaxWidth;
+    }
+  }
+}

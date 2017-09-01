@@ -1,0 +1,76 @@
+<!-- snippets/social-sharing.liquid -->
+
+{% assign sharing_on = false %}
+{% if template contains 'product' and settings.social_sharing_products %}
+  {% assign sharing_on = true %}
+  {% capture permalinkURL %}{{ shop.url }}{{ product.url }}{% endcapture %}
+  {% capture shareTitle %}{{ product.title }}{% endcapture %}
+{% endif %}
+{% if settings.social_sharing_blog %}
+  {% if template contains 'article' or template contains 'blog' or template == 'password' %}
+    {% assign sharing_on = true %}
+    {% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
+    {% capture shareTitle %}{{ article.title }}{% endcapture %}
+  {% endif %}
+{% endif %}
+{% if sharing_on %}
+
+  <div class="social-sharing" data-permalink="{{ permalinkURL }}">
+
+    {% if settings.share_facebook %}
+      <a target="_blank"
+         rel="nofollow"
+         href="//www.facebook.com/sharer.php?u={{ permalinkURL }}"
+         class="button share facebook"
+         data-social="facebook">
+        {{ 'social.share.facebook' | t }}
+      </a>
+    {% endif %}
+
+    {% if settings.share_twitter %}
+      <a target="_blank"
+         rel="nofollow"
+         href="//twitter.com/share?url={{ permalinkURL }}&amp;text={{ shareTitle | url_param_escape }}"
+         class="button share twitter"
+         data-social="twitter">
+        {{ 'social.share.twitter' | t }}
+      </a>
+    {% endif %}
+
+    {% if template contains 'product' %}
+
+      {% if settings.share_pinterest %}
+        <a target="_blank"
+           rel="nofollow"
+           href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ product.featured_image | img_url: '1024x1024' }}&amp;description={{ shareTitle | url_param_escape }}"
+           class="button share pinterest"
+           data-social="pinterest">
+          {{ 'social.share.pinterest' | t }}
+        </a>
+      {% endif %}
+
+      {% if settings.share_fancy %}
+        <a target="_blank"
+           rel="nofollow"
+           href="http://www.thefancy.com/fancyit?ItemURL={{ permalinkURL }}&amp;Title={{ shareTitle | url_param_escape }}&amp;Category=Other&amp;ImageURL={{ product.featured_image | img_url: '1024x1024' }}"
+           class="button share fancy"
+           data-social="fancy">
+          {{ 'social.share.fancy' | t }}
+        </a>
+      {% endif %}
+
+    {% endif %}
+
+    {% if settings.share_google %}
+      <a target="_blank"
+         rel="nofollow"
+         href="//plus.google.com/share?url={{ permalinkURL }}"
+         class="button share google"
+         data-social="google">
+        {{ 'social.share.google' | t }}
+      </a>
+    {% endif %}
+
+  </div>
+
+{% endif %}

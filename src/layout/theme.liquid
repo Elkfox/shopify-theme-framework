@@ -1,0 +1,82 @@
+<!doctype html>
+<!-- ===========================================================================
+  ___  _   _    _
+ /   || | | |  | |
+ \__  | | | |  | |  __
+ /    |/  |/_) |/  /  \_/\/
+ \___/|__/| \_/|__/\__/  /\_/
+               |\
+               |/
+  Concrete v0.2
+  https://elkfox.com
+  https://experts.shopify.com/elkfox
+  Copyright 2015 Shopify Inc. & Elkfox Co Pty Ltd
+============================================================================ -->
+<!--[if IE 9]><html class="ie9 no-js" lang="{{ shop.locale }}"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="no-js" lang="{{ shop.locale }}"><!--<![endif]-->
+
+<head>
+  <!-- META ================================================================ -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <title>{% include 'meta-title' %}</title>
+  {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  {% include 'meta-social-tags' %}
+  {% include 'meta-favorites' %}
+  <!-- Shopify ============================================================= -->
+  {{ content_for_header }}
+  <!-- CSS ================================================================= -->
+  {{ 'app.scss.css' | asset_url | stylesheet_tag }}
+  <!-- JavaScript =========================================================== -->
+  {% if shop.customer_accounts_enabled and template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+
+  {{ 'vendor.js' | asset_url | script_tag }}
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'app.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'app.js' | asset_url }}"></script><![endif]-->
+  <script>
+    var cart;
+    $(document).ready(function() {
+      cart = new Cartfox.Cart({{ cart | json }}, {
+        addItem: '#AddToCart',
+        cartItemCount: "#CartItemCount",
+        cartTotal: "#CartTotal, .cart-total",
+        decreaseQuantity: "[data-minus-one]",
+        increaseQuantity: "[data-plus-one]",
+        itemQuantity: '.item-qty',
+        removeItem: '.removeItem',
+        emptyTemplate: '#CartTemplate',
+        itemContainer: '#PopupCart .items'
+      });
+    });
+  </script>
+</head>
+
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != null %} suffix-{{ template.suffix }}{% endif %}" itemscope itemtype="http://schema.org/WebSite">
+  {% section 'theme-header' %}
+  {% include 'theme-nav-toggled' %}
+  <main id="MainContent" role="main">
+    {{ content_for_layout }}
+  </main>
+  {% section 'theme-footer' %}
+  {% include 'popup-cart' %}
+
+  <script type="text/javascript">
+    // Cart error handling
+    $(document).on('cartfox:requestComplete', function(event, cart, error) {
+      if (error) {
+        $("#ErrorPopup").find("#errorMessage").text(error);
+        errorPopup.show();
+      } else {
+        {% unless template == 'cart' %}
+          cartPopup.show();
+        {% endunless %}
+      }
+    });
+  </script>
+</body>
+</html>

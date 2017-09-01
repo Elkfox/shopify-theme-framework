@@ -1,0 +1,4 @@
+{% assign divider = ' - ' %}{{- page_title -}}
+{%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' -%}{{ divider }}{{- 'common.meta.tags' | t: tags: meta_tags -}}{%- endif -%}
+{%- if current_page != 1 -%}{{ divider }}{{ 'common.meta.page' | t: page: current_page -}}{%- endif -%}
+{%- unless page_title contains shop.name -%}{{ divider }}{{- shop.name -}}{%- endunless -%}

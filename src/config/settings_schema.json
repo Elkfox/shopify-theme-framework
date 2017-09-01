@@ -1,0 +1,259 @@
+[
+  {
+    "name": "theme_info",
+    "logo": "https:\/\/cdn.shopify.com\/s\/files\/1\/0070\/7032\/files\/2010_6_23_Shopify-Green_256x256.jpg",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Concrete Framework"
+      },
+      {
+        "type": "paragraph",
+        "content": "v0.1"
+      },
+      {
+        "type": "paragraph",
+        "content": "Theme settings allow designers to provide an easy way for any user to customize the look and feel of their shop without having to delve into HTML or CSS code. Please see our [help page on theme settings](http:\/\/docs.shopify.com\/themes\/theme-templates\/settings) to learn more about how you can make the theme customizable."
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General colors"
+      },
+      {
+        "type": "color",
+        "id": "color_brand",
+        "label": "Brand Color",
+        "default": "#EB666B"
+      },
+      {
+        "type": "color",
+        "id": "color_body",
+        "label": "Main Text Color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background Color",
+        "default": "#EFECE8"
+      },
+      {
+        "type": "color",
+        "id": "color_highlight",
+        "label": "Highlight Color",
+        "default": "#6FBBA4"
+      },
+      {
+        "type": "color",
+        "id": "color_alternate",
+        "label": "Alternate Color",
+        "default": "#7A7391"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "checkbox",
+        "id": "logo_use_image",
+        "label": "Use custom logo"
+      },
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Custom logo",
+        "max-width": 450,
+        "max-height": 200,
+        "info": "450 x 200px .png"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Max logo width",
+        "default": "450",
+        "info": "Defined in pixels. Do not add the 'px' unit."
+      },
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "checkbox",
+        "id": "favicon_enable",
+        "label": "Use custom icon"
+      },
+      {
+        "type": "image",
+        "id": "favicon.png",
+        "label": "Icon",
+        "max-width": 32,
+        "max-height": 32,
+        "info": "32 x 32px .png required"
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_footer_social",
+        "label": "Show social media icons"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_footer_subscribe",
+        "label": "Show a subscribe form"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_gateway_icons",
+        "label": "Show payment gateway icons"
+      }
+    ]
+  },
+  {
+    "name": "Cart page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_vendor_enable",
+        "label": "Show product vendor"
+      },
+      {
+        "type": "select",
+        "id": "ajax_cart_method",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Links"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter URL",
+        "default": "http:\/\/twitter.com\/shopify",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL",
+        "default": "http:\/\/instagram.com\/shopify",
+        "info": "http:\/\/instagram.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link",
+        "default": "http:\/\/facebook.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link",
+        "default": "http:\/\/pinterest.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_fancy_link",
+        "label": "Fancy link",
+        "default": "http:\/\/fancy.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_google_plus_link",
+        "label": "Google+ link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube link",
+        "default": "http:\/\/youtube.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo link",
+        "default": "http:\/\/vimeo.com\/shopify"
+      },
+      {
+        "type": "header",
+        "content": "Sharing"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_products",
+        "label": "Enable sharing for products",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_blog",
+        "label": "Enable sharing for blog articles",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_fancy",
+        "label": "Add to Fancy",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_google",
+        "label": "+1 on Google Plus",
+        "default": true
+      }
+    ]
+  }
+]

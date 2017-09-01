@@ -1,0 +1,63 @@
+/* Navigation =================================================================*/
+
+// Main Nav
+.theme-nav-main {
+  .nav-link {
+    font-size: 1.1rem;
+    font-weight: $fontBold;
+    margin-right: $gutter/3;
+  }
+  .dropdown {
+    position: relative;
+    &:hover {
+      .dropdown_menu {
+        display: block;
+      }
+    }
+    .dropdown_menu {
+      display: none;
+      padding: $gutter/3 0;
+      position: absolute;
+      top: 1.5rem;
+      z-index: 2;
+      li {
+        display: block;
+        padding: $gutter/4 $gutter/1.5;
+        background: lighten($colorBackground, 30%);
+        &:first-of-type {
+          padding-top: $gutter/2;
+        }
+        &:last-of-type {
+          padding-bottom: $gutter/2;
+        }
+      }
+    }
+  }
+}
+
+// Pagination
+.pagination {
+  a, .page.current {
+    display: inline-block;
+    min-width: $gutter;
+    height: $gutter;
+    text-align: center;
+    line-height: ($gutter - $borderWeight*2);
+    text-decoration: none;
+    font-size: 1.125rem;
+    color: $colorBrand;
+    padding: 0 $gutter/4;
+    border: $borderWeight $borderStyle $colorBrand;
+    border-radius: $borderRadius;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &.active, &:hover {
+      color: lighten($colorBrand, 25%);
+      background-color: $colorBrand;
+    }
+  }
+  .page.current {
+    color: lighten($colorBrand, 25%);
+    background-color: $colorBrand;
+  }
+}

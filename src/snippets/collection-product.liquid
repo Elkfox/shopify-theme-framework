@@ -1,0 +1,83 @@
+<!-- /snippets/collection-product.liquid -->
+
+{% unless column_width %}
+ {% assign column_width = 'column l4 m6 s12' %}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+ {% assign on_sale = true %}
+{% endif %}
+{% assign sale_price = product.price | money %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+ {% assign sold_out = false %}
+{% endif %}
+
+<div class="{{ column_width }} product {% if sold_out %} sold_out {% endif %} {% if on_sale %} on_sale {% endif %}"
+     data-product-id="{{ product.id }}"
+     data-product-price="{{ product.price }}"
+     data-product-tags="{% for tag in product.tags %}{{ tag | downcase }}{% unless forloop.last %}, {% endunless %}{% endfor %}">
+
+  {% if padded_collection == true %}
+    <div class="padding-bottom">
+  {% endif %}
+
+  <a href="{{ product.url | within: collection }}">
+    <img srcset="{{ product.featured_image.src | img_url: 'x960' }} 2x" src="{{ product.featured_image.src | img_url: 'x960' }}" alt="{{ product.featured_image.alt | escape }}">
+  </a>
+
+  <p>
+    <a href="{{ product.url | within: collection }}" class="product-title">{{ product.title }}</a><br>
+    {% if on_sale %}
+      {% if product.price_varies %}
+        {{ 'product.on_sale_from_html' | t: price: sale_price }}
+      {% else %}
+        <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
+      {% endif %}
+    {% else %}
+      {% if product.price_varies %}
+        {% assign price = product.price | money %}
+        {{ 'product.priced_from_html' | t: price: price }}
+      {% else %}
+        {{ product.price | money }}
+      {% endif %}
+    {% endif %}
+    {% if on_sale %}
+      <span class="hidden">{{ 'product.original_price' | t }}</span>
+      <s>{{ product.compare_at_price | money }}</s>
+    {% endif %}
+    {% unless add_to_cart %}
+      {% if sold_out %}
+        <br><strong>{{ 'product.sold_out' | t }}</strong>
+      {% endif %}
+    {% endunless %}
+  </p>
+
+  {% if add_to_cart %}
+    <p>
+      <button {% if sold_out %} class="disabled" disabled{% else %}type="submit" name="add" data-quick-add="{{ product.first_available_variant.id }}"{% endif %}>
+        <span id="AddToCartText">{% if sold_out %}{{ 'product.sold_out' | t }}{% else %}{{ 'product.add_to_cart' | t }}{% endif %}</span>
+      </button>
+    </p>
+  {% endif %}
+
+  {% if quick_look %}
+    {% unless slick_quick_look %}
+      {% comment %}Create a truncated description here because it's easier in liquid than JSON if the description has html markup in it.{% endcomment %}
+      {% assign truncated_description = product.description | truncatewords: 25 | json | prepend: ',"truncated_description":' | append: ',"description":"' %}
+      <pre class="hidden" data-product="{{ product.id }}">{{ product | json | replace: ',"description":"', truncated_description }}</pre>
+    {% endunless %}
+    <p>
+      <button data-trigger="popup" data-target="#PopupQuicklook" data-product="{{ product.id }}" data-thumbnails="true" data-autoplay="true" class="s-hide quickLookButton">
+        <span>{{ 'product.quick_look' | t }}</span>
+     </button>
+    </p>
+  {% endif %}
+
+  {% if padded_collection == true %}
+    </div>
+  {% endif %}
+
+</div>

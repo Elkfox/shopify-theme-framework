@@ -1,0 +1,103 @@
+/* Popups ====================================================================*/
+
+/// Basic popup styling
+.popup {
+  position: fixed;
+  z-index: 9996;
+  opacity: 0;
+  visibility: hidden;
+  @include transition();
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    @include transition();
+  }
+  .popup-content {
+    display: inline-block;
+    z-index: 9999;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: scroll; // Optional line for overly tall popups
+    padding: $gutter;
+    background-color: $colorBackground;
+    text-align: initial;
+    cursor: default;
+    white-space: initial;
+    color: $colorForeground;
+    a {
+      color: $colorForeground;
+    }
+  }
+  &.overlay {
+    background: rgba($colorForeground, 0.85);
+    @include overlay();
+    .popup-outside {
+      position: absolute;
+      z-index: 9998;
+      @include overlay();
+    }
+    .popup-inner {
+      -webkit-backface-visibility: hidden;
+      cursor: pointer;
+      z-index: 9997;
+      text-align: center;
+      white-space: nowrap;
+      @include overlay();
+      @include prefixer(transition-delay, 0.3s, webkit moz spec);
+      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include transition();
+    }
+    .popup-content {
+      @include vertical-align();
+    }
+    &.visible {
+      .popup-inner {
+        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+      }
+    }
+  }
+  &.notification {
+    .popup-content {
+      position: fixed;
+      bottom: $gutter;
+      left: $gutter;
+      padding: $gutter/2;
+      @include prefixer(transition-delay, 0.3s, webkit moz spec);
+      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include transition();
+    }
+    &.visible {
+      .popup-content {
+        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+      }
+    }
+  }
+  .popup-close {
+    display: block;
+    position: absolute;
+    top: $gutter/2;
+    right: $gutter/2;
+  }
+}
+
+// Popup Cart
+
+#PopupCart {
+  .popup-content {
+    width: 400px;
+  }
+  p {
+    margin-bottom: $gutter/3;
+  }
+  .cart-item {
+    margin-bottom: $gutter/3;
+  }
+}
+
+// Popup Account
+
+#PopupAccount {
+  .popup-content {
+    width: 400px;
+  }
+}

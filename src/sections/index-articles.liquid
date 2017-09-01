@@ -1,0 +1,102 @@
+<!-- sections/news.liquid -->
+
+{% if section.settings.title != blank %}
+  <header class="container l">
+    <h2 class="h3">{{ section.settings.title | escape }}</h2>
+  </header>
+{% endif %}
+
+{%- assign blog = blogs[section.settings.blog] -%}
+
+<div class="container l">
+  <div class="row">
+
+    {% for article in blog.articles limit: section.settings.post_limit %}
+      <div class="column l4 m12 s12">
+
+        <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+          {{ 'blog.article.published' | t }} {{ article.published_at | date: '%A, %-d %B, %Y' }}
+        </time>
+
+        <div class="rte">
+          {% if article.excerpt.size > 0 %}
+            {{ article.excerpt }}
+          {% else %}
+            <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
+          {% endif %}
+        </div>
+
+        <ul>
+          {% if blog.comments_enabled? %}
+          <li>
+            <a href="{{ article.url }}#comments">
+              {{ 'blog.comments.with_count' | t: count: article.comments_count }}
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+
+        <p><a href="{{ article.url }}">{{ 'blog.article.read_more' | t }}</a></p>
+
+      </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Featured news",
+    "class": "news-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured news articles"
+      },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "select",
+        "id": "post_limit",
+        "label": "Posts",
+        "default": "3",
+        "options": [
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "9",
+            "label": "9"
+          },
+          {
+            "value": "12",
+            "label": "12"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Articles",
+        "category": "Blog",
+        "settings": {
+          "blog": "News",
+          "post_limit": "3"
+        }
+      }
+    ]
+  }
+{% endschema %}

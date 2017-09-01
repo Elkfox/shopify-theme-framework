@@ -1,0 +1,521 @@
+/*==============================================================================
+  ___  _   _    _
+ /   || | | |  | |
+ \__  | | | |  | |  __
+ /    |/  |/_) |/  /  \_/\/
+ \___/|__/| \_/|__/\__/  /\_/
+               |\
+               |/
+  Concrete v0.1
+  https://elkfox.com
+  https://experts.shopify.com/elkfox
+  Copyright 2015 Shopify Inc. & Elkfox Co Pty Ltd
+==============================================================================*/
+
+window.concrete = window.concrete || {};
+
+// perhaps turn into an assign in function?
+concrete.strings = {
+  soldOut: "{{ 'product.sold_out' | t }}",
+  addToCart: "{{ 'product.add_to_cart' | t }}",
+  unavailable: "{{ 'product.unavailable' | t }}"
+};
+
+/*================ Concrete ================*/
+// =require concrete/cache.js
+// =require concrete/url-params.js
+concrete.Currency = (function() {
+
+  var moneyFormat = {% raw %}'${{amount}}'{% endraw %};
+
+  function formatMoney(cents, format) {
+    if (typeof cents === 'string') {
+      cents = cents.replace('.', '');
+    }
+    var value = '',
+    placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
+    formatString = (format || moneyFormat);
+    function formatWithDelimiters(number, precision, thousands, decimal) {
+      precision = precision || 2;
+      thousands = thousands || ',';
+      decimal = decimal || '.';
+
+      if (isNaN(number) || number == null) {
+        return 0;
+      }
+
+      number = (number/100.0).toFixed(precision);
+
+      var parts = number.split('.'),
+      dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+      cents = parts[1] ? (decimal + parts[1]) : '';
+
+      return dollars + cents;
+
+    }
+
+    switch(formatString.match(placeholderRegex)[1]) {
+      case 'amount':
+        value = formatWithDelimiters(cents, 2);
+        break;
+      case 'amount_no_decimals':
+        value = formatWithDelimiters(cents, 0);
+        break;
+      case 'amount_with_comma_separator':
+        value = formatWithDelimiters(cents, 1, '.', ',');
+        break;
+      case 'amount_no_decimals_with_comma_separator':
+        value = formatWithDelimiters(cents, 0, '.', ',');
+        break;
+    }
+    return formatString.replace(placeholderRegex, value);
+}
+
+  return {formatMoney: formatMoney};
+
+})();
+
+/**
+ *
+ * From Shopifys "Slate" theme.
+ * With a few modifications here and there.
+ *
+ */
+concrete.Sections = function Sections() {
+  this.constructors = {};
+  this.instances = [];
+
+  $(document)
+  .on('shopify:section:load', this._onSectionLoad.bind(this))
+  .on('shopify:section:unload', this._onSectionUnload.bind(this))
+  .on('shopify:section:select', this._onSelect.bind(this))
+  .on('shopify:section:deselect', this._onDeselect.bind(this))
+  .on('shopify:block:select', this._onBlockSelect.bind(this))
+  .on('shopify:block:deslect', this._onBlockDeselect.bind(this));
+};
+
+concrete.Sections.prototype = _.assign({}, concrete.Sections.prototype, {
+  _createInstance: function(container, constructor) {
+    var $container = $(container);
+    var id = $container.attr('data-section-id');
+    var type = $container.attr('data-section-type');
+
+    constructor = constructor || this.constructors[type];
+
+    if (typeof(constructor) === 'undefined') {
+      return;
+    }
+
+    var instance = _.assign(new constructor(container), {
+      id: id,
+      type: type,
+      container: container
+    });
+
+    this.instances.push(instance);
+  },
+
+  _onSectionLoad: function(evt) {
+    var container = $('[data-section-type]', evt.target)[0];
+    if (container) {
+      this._createInstance(container);
+    }
+  },
+
+  _onSectionUnload: function(evt) {
+    this.instances = this.instances.filter( function(instance) {
+      var isEventInstance = (instance.id === evt.detail.sectionId);
+      if (isEventInstance) {
+        if (typeof(instance.onUnload) === 'function') {
+          instance.onUnload(evt);
+        }
+      }
+
+      return !isEventInstance;
+    });
+  },
+
+  _onSelect: function(evt) {
+    var instance = this.instances.filter(function(instance) {
+      return instance.id === evt.detail.sectionId;
+    })[0];
+
+    if (typeof(instance) !== 'undefined' && typeof(instance.onSelect) === 'function') {
+      instance.onSelect(evt);
+    }
+  },
+
+  _onDeselect: function(evt) {
+    var instance = this.instances.filter(function(instance) {
+      return instance.id === evt.detail.sectionId;
+    })[0];
+
+    if (typeof(instance) !== 'undefined' && typeof(instance.onDeselect) === 'function') {
+      instance.onDeselect(evt);
+    }
+  },
+
+
+  _onBlockSelect: function(evt) {
+    var instance = this.instances.filter(function(instance) {
+      return instance.id === evt.detail.sectionId;
+    });
+
+    if (typeof(instance) !== 'undefined' && typeof(instance.onBlockSelect) === 'function') {
+      instance.onBlockSelect(evt);
+    }
+  },
+
+  _onBlockDeselect: function(evt) {
+    var instance = this.instances.filter(function(instance) {
+      return instance.id === evt.detail.sectionId;
+    })[0];
+
+    if (typeof(instance) !== 'undefined' && typeof(instance.onBlockDeselect) === 'function') {
+      instance.onBlockDeselect(evt);
+    }
+  },
+  register: function(type, constructor) {
+    this.constructors[type] = constructor;
+
+    $('[data-section-type=' + type + ']').each(function(idx, container) {
+      this._createInstance(container, constructor);
+    }.bind(this));
+  }
+});
+
+//This is used to preload images and preserve image sizes on the product pages.
+concrete.Images = (function() {
+
+  function preload(images, size) {
+    if (typeof images === 'string') {
+      images = [images];
+    }
+    for (var i = 0; i <= images.length-1; i++) {
+      this.imageLoad(this.getImageUrl(images[i], size));
+    }
+  }
+
+  function imageLoad(url) {
+    new Image().src = url;
+  }
+
+  function getImageUrl(src, size) {
+    if (size === null) {
+      return src;
+    }
+
+    if (size === 'master') {
+      return this.removeProtocol(src);
+    }
+
+    var match = src.match(/\.(jpg|jpeg|gif|png|tiff|tif|bmp|bitmap)(\?v=\d+)$/i);
+
+    if (match !== null) {
+      var prefix = src.split(match[0]);
+      var suffix = match[0];
+
+      return this.removeProtocol(prefix[0] + "_" + size + suffix);
+    }
+
+    return null;
+
+  }
+
+  function imageSize(src) {
+    var match = src.match(/.+_((?:pico|icon|thumb|small|compact|medium|large|grande)|\d{1,4}x\d{0,4}|x\d{1,4})[_\.@]/);
+
+    if (match !== null) {
+      return match[1];
+    } else {
+      return null;
+    }
+  }
+
+  function switchImage(image, element, callback) {
+    var size = imageSize(element.src);
+    var imageUrl = getImageUrl(image.src, size);
+
+    if (typeof callback === 'function') {
+      callback(imageUrl, size, element);
+    } else {
+      element.src = imageUrl;
+    }
+  }
+
+  function removeProtocol(url) {
+    return url.replace(/http(s)?:/, '');
+  }
+
+  return {
+    preload: preload,
+    getImageUrl: getImageUrl,
+    imageSize: imageSize,
+    imageLoad: imageLoad,
+    switchImage: switchImage,
+    removeProtocol: removeProtocol,
+  };
+
+})();
+
+concrete.Variants = (function() {
+
+  function Variants(options) {
+    this.$container = options.$container;
+    this.product = options.product;
+    this.singleOptionSelector = options.singleOptionSelector;
+    this.originalSelectorId = options.originalSelectorId;
+    this.enableHistoryState = options.enableHistoryState;
+    this.currentVariant = this._getVariantFromOptions();
+    $(this.singleOptionSelector, this.$container).on('change', this._onSelectChange.bind(this));
+  }
+
+  Variants.prototype = _.assign({}, Variants.prototype, {
+
+    _getCurrentOptions: function() {
+      var currentOptions = _.map(jQuery(this.singleOptionSelector, this.$container), function(el) {
+        var $element = $(el);
+        var type = $element.attr('type');
+        var currentOption = {};
+        if (type === 'radio' || type === 'checkbox') {
+          if ($element[0].checked) {
+            currentOption.value = $element.val();
+            currentOption.index = $element.attr('data-index');
+
+            return currentOption;
+          } else {
+            return false;
+          }
+        } else {
+          currentOption.value = $element.val();
+          currentOption.index = $element.data('index');
+          return currentOption;
+        }
+      });
+
+      currentOptions = _.compact(currentOptions);
+      (currentOptions)
+      return currentOptions;
+    },
+
+    _getVariantFromOptions: function() {
+      var selectedValues = this._getCurrentOptions();
+      console.log(selectedValues);
+      var variants = this.product.variants;
+      var found = variants.filter(function(variant) {
+        return selectedValues.every(function(values) {
+          return _.isEqual(variant[values.index], values.value);
+        });
+      });
+      return found[0];
+    },
+
+    _onSelectChange: function() {
+      var variant = this._getVariantFromOptions();
+      console.log(variant);
+      this.$container.trigger({
+        type: 'variantChange',
+        variant:variant
+      });
+
+      if (!variant) {
+        return;
+      }
+
+      this.currentVariant = variant;
+      this._updateMasterSelect(variant);
+      this._updateImages(variant);
+      this._updatePrice(variant);
+      this._updateSKU(variant);
+
+
+      if (this.enableHistoryState) {
+        this._updateHistoryState(variant);
+      }
+    },
+
+    _updateImages: function(variant) {
+      var variantImage = variant.featured_image || {};
+      var currentVariantImage = this.currentVariant.featured_image || {};
+
+      if (!variant.featured_image || variantImage.src === currentVariantImage.src) {
+        return;
+      }
+
+      this.$container.trigger({
+        type: 'variantImageChange',
+        variant: variant
+      });
+    },
+
+    _updatePrice: function(variant) {
+      console.log(variant);
+      if (variant.price === this.currentVariant.price && variant.compare_at_price === this.currentVariant.compare_at_price) {
+        return;
+      }
+
+      this.$container.trigger({
+        type: 'variantPriceChange',
+        variant: variant
+      });
+    },
+
+    _updateSKU: function(variant) {
+      if (variant.sku === this.currentVariant.sku) {
+        return;
+      }
+
+      this.$container.trigger({
+        type: 'variantSKUChange',
+        variant: variant
+      });
+    },
+
+    _updateHistoryState: function(variant) {
+      if (!history.replaceState || !variant) {
+        return;
+      }
+
+      var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname + "?variant=" + variant.id;
+      window.history.replaceState({path: newurl}, '', newurl);
+    },
+
+    _updateMasterSelect: function(variant) {
+      $(this.originalSelectorId, this.$container).val(variant.id);
+    }
+  });
+
+  return Variants;
+
+})();
+
+concrete.Product = (function() {
+
+  function Product(container) {
+    var $container = this.$container = $(container);
+    console.log(this.$container)
+    //var sectionId = $container.attr('data-section-id');
+    this.settings = {
+      enableHistoryState: $container.data('enable-history-state') || false,
+    };
+
+    this.selectors = {
+      addToCart: '#AddToCart',
+      addToCartText: '#AddToCartText',
+      comparePrice: '#ComparePrice',
+      originalPrice: '#ProductPrice',
+      onSale: '#OnSale',
+      featuredImage: '#ProductPhotoImg',
+      featuredImageContainer: '#ProductPhoto',
+      originalSelectorId: '#productSelect',
+      singleOptionSelector: '.single-option-selector',
+      slickSliderSelector: '.product_slideshow',
+      variantId: '[name=id]',
+    };
+
+    if (!$('#ProductJson').html()) {
+      return;
+    }
+    this.productSingleObject = JSON.parse(document.getElementById('ProductJson').innerHTML);
+    this._stringOverrides();
+    this._initVariants();
+  }
+
+
+  Product.prototype = _.assignIn({}, Product.prototype, {
+
+    _stringOverrides: function() {
+      concrete.productStrings = concrete.productStrings || {};
+      _.extend(concrete.strings, concrete.productStrings);
+    },
+
+    _initVariants: function() {
+      var options = {
+        $container: this.$container,
+        enableHistoryState: this.settings.enableHistoryState,
+        singleOptionSelector: this.selectors.singleOptionSelector,
+        product: this.productSingleObject,
+      };
+
+      this.variants = new concrete.Variants(options);
+      this.$container.on('variantChange', this._updateAddToCart.bind(this));
+      this.$container.on('variantChange', this._updateVariantId.bind(this));
+      this.$container.on('variantChange', this._updatePrices.bind(this));
+    },
+
+    _updateAddToCart: function(evt) {
+      var variant = evt.variant;
+      $(this.selectors.productPrices).removeClass('hidden');
+
+      if (variant) {
+        if (variant.available) {
+          $(this.selectors.addToCart).prop('disabled', false);
+          $(this.selectors.addToCartText).text(concrete.strings.addToCart);
+        } else {
+          $(this.selectors.addToCart).prop('disabled', true);
+          $(this.selectors.addToCartText).text(concrete.strings.soldOut);
+        }
+      } else {
+        $(this.selectors.addToCart).prop('disabled', true);
+        $(this.selectors.addToCartText).text(concrete.strings.unavailable);
+        $(this.selectors.productPrices).addClass('hidden');
+      }
+    },
+
+    _updatePrices: function(evt) {
+      var variant = evt.variant;
+      console.log(variant)
+      $(this.selectors.originalPrice).html(concrete.Currency.formatMoney(variant.price));
+      if (variant.price < variant.compare_at_price) {
+        $(this.selectors.onSale).removeClass('hidden')
+        $(this.selectors.comparePrice).html(concrete.Currency.formatMoney(variant.compare_at_price, concrete.moneyFormat))
+      } else {
+        $(this.selectors.onSale).addClass('hidden');
+      }
+    },
+
+    _updateVariantId: function(evt) {
+      var variant = evt.variant;
+      if (variant)
+        $(this.selectors.variantId).val(variant.id);
+    },
+  });
+
+  return Product;
+})();
+
+/**
+ *  This is an example of a new sections javascript. When you call: sections.register('empty-section', EmptySection)
+ * the function EmptySection() will fire with a container set to $('[data-section-type=empty-section]')
+ * This is also fired when the shopify:section:onload event fires.
+ * You can edit the individual events to modify what happens in the theme editor yourself; but be aware that EmptySection() is also fired on page load on the live site.
+ * Any functions unique to your section should do inside the EmptySection.prototype object and the function name should be preceeded with an _.
+ * Format: _myFunction: function(arguments) { //Function code }.
+ * Settings can be passed to this.settings by adding data attributes to your sections parent div and selecting them inside this.settings.
+ **/
+concrete.EmptySection = (function() {
+  function EmptySection(container) {
+    var $container = $(container);
+    var sectionId = $container.data('section-id');
+    this.settings = {};
+    this.selectors = {};
+  }
+
+  EmptySection.prototype = _.assignIn({}, EmptySection.prototype, {
+    onSectionUnload: function(evt) { },
+    onSectionSelect: function(evt) { },
+    onSectionDeselect: function(evt) { },
+    onBlockSelect: function(evt) { },
+    onBlockDeselect: function(evt) { },
+  });
+
+  return EmptySection;
+})();
+
+
+
+// Initialize on document ready
+$(document).ready(function() {
+  var sections = new concrete.Sections();
+  sections.register('product', concrete.Product);
+})
