@@ -20,5 +20,3 @@ Then you can upload to the [Themes section of your Online Store](https://www.sho
 
 Coming soon...
 
-##### Thanks to:
-@bradfordbradford
