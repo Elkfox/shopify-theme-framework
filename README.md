@@ -12,9 +12,13 @@ To get started with Concrete, you can download the zip file from the [upload dir
 
 Then you can upload to the [Themes section of your Online Store](https://www.shopify.com/admin/themes)
 
-#### Using Shopify Theme Kit
+#### Using [Shopify Theme Kit](https://shopify.github.io/themekit/) 
 
 `theme bootstrap --password=[api-password] --store=[your-store.myshopify.com] --url=https://github.com/Elkfox/Concrete/raw/master/upload/Concrete.zip`
+
+#### Using [Shopify Slate](https://shopify.github.io/slate/)
+
+Coming soon...
 
 ##### Thanks to:
 @bradfordbradford
