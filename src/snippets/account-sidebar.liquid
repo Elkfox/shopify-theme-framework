@@ -1,0 +1,13 @@
+<!-- /snippets/account-sidebar.liquid -->
+
+<h3 class="h4">{{ customer.name }}</h3>
+<p>
+  <a href="/account" title="{{ 'account.orders.title' | t: name: '' }}">{{ 'account.orders.title' | t: name: '' }} ({{ customer.orders_count }})</a>
+  <br>
+  <a href="/account/addresses" title="{{ 'account.address.manage_addresses' | t }}">
+    {{ 'account.address.manage_addresses' | t }} ({{ customer.addresses_count }})
+  </a>
+  <br>
+  <br>
+  <a href="/account/logout" title="{{ 'account.logout' | t }}">{{ 'account.logout' | t }}</a>
+</p>

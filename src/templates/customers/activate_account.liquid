@@ -1,29 +1,32 @@
-<h1>{{ 'customer.activate_account.title' | t }}</h1>
-<p>{{ 'customer.activate_account.subtext' | t }}</p>
+<!-- /templates/customers/activate_account.liquid -->
 
-{% form 'activate_customer_password' %}
-  {{ form.errors | default_errors }}
+<div class="container s">
 
-  <p>
-    <label for="CustomerPassword" class="label-hidden">
-      {{ 'customer.activate_account.password' | t }}
-    </label>
-    <input type="password"
-      name="customer[password]"
-      id="CustomerPassword"
-      placeholder="{{ 'customer.activate_account.password' | t }}">
-  </p>
+  <h1>{{ 'account.activate.title' | t }}</h1>
 
-  <p>
-    <label for="CustomerPasswordConfirmation" class="label-hidden">
-      {{ 'customer.activate_account.password_confirm' | t }}
-    </label>
-    <input type="password"
-      name="customer[password_confirmation]"
-      id="CustomerPasswordConfirmation"
-      placeholder="{{ 'customer.activate_account.password_confirm' | t }}">
-  </p>
+  {% comment %}
+    This form must use 'activate_customer_password'
+  {% endcomment %}
+  <div id="ActivateAccountForm">
+    {% form 'activate_customer_password' %}
 
-  <input type="submit" class="btn" value="{{ 'customer.activate_account.submit' | t }}">
-  <input type="submit" class="btn btn--secondary" name="decline" value="{{ 'customer.activate_account.cancel' | t }}">
-{% endform %}
+      {{ form.errors | default_errors }}
+
+      <label for="CustomerPassword">{{ 'account.password' | t }}</label>
+      <input type="password" value="" name="customer[password]" id="CustomerPassword" placeholder="{{ 'account.password' | t }}">
+
+      <label for="CustomerPasswordConfirmation">{{ 'account.password_confirmation' | t }}</label>
+      <input type="password" value="" name="customer[password_confirmation]" id="CustomerPasswordConfirmation" placeholder="{{ 'account.password_confirmation' | t }}">
+
+      <div class="row no-margin">
+        <div class="column l6">
+          <input type="submit" name="decline" value="{{ 'form.cancel' | t }}">
+        </div>
+        <div class="column l6">
+          <input type="submit" value="{{ 'form.submit' | t }}">
+        </div>
+      </div>
+    {% endform %}
+  </div>
+
+</div>

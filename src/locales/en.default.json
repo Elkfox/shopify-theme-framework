@@ -73,6 +73,7 @@
       "title": "Addresses",
       "default": "Default Address",
       "add": "Add a new address",
+      "none": "No addresses",
       "update": "Update",
       "edit": "Edit Address",
       "set_default": "Set as default address",
