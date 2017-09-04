@@ -1,6 +1,9 @@
 {
-  "name": "slate-concrete",
-  "version": "0.0.1",
+  "name": "Concrete",
+  "description": "Concrete Shopify Theme Framework - A lightweight framework for building Shopify themes",
+  "homepage": "https://github.com/Elkfox/Concrete/",
+  "license" : "MIT",
+  "version": "2",
   "devDependencies": {
     "@shopify/slate-tools": "0.12.1"
   }

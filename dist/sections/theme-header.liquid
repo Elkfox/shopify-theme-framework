@@ -46,9 +46,9 @@
       </div>
       <div class="column l4 m4 s12 l-right m-right s-middle">
         {% if customer %}
-          <a href="/account" data-trigger="popup" data-target="#PopupAccount">{{ 'account.title' | t }}</a>
+          <a href="/account">{{ 'account.title' | t }}</a>
         {% else %}
-          <a href="/account" data-trigger="popup" data-target="#PopupAccount">{{ 'account.login' | t }}</a>
+          <a href="/account">{{ 'account.login' | t }}</a>
         {% endif %}
 
         <a href="/cart" id="CartLink" data-trigger="popup" data-target="#PopupCart.popup" aria-controls="Cart" aria-expanded="false" class="v-middle">
@@ -62,9 +62,7 @@
 
     <div class="row l-table m-table s-hide">
       <div class="column{% if enable_search %} l9 m9 {% else %} l12{% endif %} s12 l-left m-left s-v-middle">
-
         {% include 'theme-nav-main' %}
-
       </div>
       {% if enable_search %}
         <div class="column l3 m3 s12 l-right m-right">
