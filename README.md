@@ -6,9 +6,15 @@ Concrete has recently been rebuilt using [slate](https://shopify.github.io/slate
 
 ### Getting started
 
+#### Manually
+
 To get started with Concrete, you can download the zip file from the [upload directory](https://github.com/Elkfox/Concrete/tree/master/upload) of this repo. 
 
 Then you can upload to the [Themes section of your Online Store](https://www.shopify.com/admin/themes)
+
+#### Using Shopify Theme Kit
+
+`theme bootstrap --password=[api-password] --store=[your-store.myshopify.com] --url=https://github.com/Elkfox/Concrete/raw/master/upload/Concrete.zip`
 
 ##### Thanks to:
 @bradfordbradford
