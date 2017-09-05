@@ -1,0 +1,142 @@
+body {
+  border-top: $borderWeight $borderStyle $borderColor;
+}
+header {
+  position: relative;
+  height: auto;
+  padding: 0 50px;
+
+  .content {
+    z-index: 2;
+    position: relative;
+    padding: 90px 0 40px;
+    width: 100%;
+    top: 50%;
+    h1 {
+      line-height: 1.2;
+      margin-bottom: 0;
+      @include s() {
+        font-size: 3rem;
+      }
+    }
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0;
+      color: $colorOne;
+    }
+    a {
+      color: $colorText;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      vertical-align: middle;
+    }
+    .links {
+      a {
+        font-size: 0.8rem;
+        font-weight: 600;
+        .icon {
+          margin-right: $gutter/5;
+        }
+      }
+    }
+    .button {
+      background: $colorText;
+      padding: 0 $gutter/2;
+      color: $colorBackground;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-block;
+      margin-bottom: $gutter/2.5;
+      height: 46px;
+      line-height: 46px;
+      width: auto;
+      max-width: 100%;
+      border: 0;
+      svg {
+        margin-right: $gutter/5;
+        .fill {
+          fill: $colorBackground;
+        }
+        .stroke {
+          stroke: $colorBackground;
+        }
+      }
+
+    }
+    svg .fill {
+      fill: $colorWhite;
+    }
+    svg.github, svg.shopify, svg.heart {
+      height: 0.9rem;
+      width: 0.9rem;
+    }
+    svg.shopify {
+      margin-left: 0.75rem;
+      @include s() {
+        margin-left: 0;
+      }
+    }
+    svg.elkfox {
+      height: 2rem;
+      width: auto;
+    }
+  }
+}
+
+aside.sidebar {
+  position: relative;
+  padding: 50px;
+  li {
+    margin-bottom: 0;
+  }
+  div.fixed {
+    position: fixed;
+    top: $gutter;
+  }
+  ul.childlinks {
+    margin-bottom: 0px;
+    margin-left: $gutter/4;
+    display: none;
+    &.childView {
+      display: block;
+    }
+    a {
+      font-size: 0.8em;
+    }
+  }
+}
+
+article.documentation {
+  padding: $gutter;
+  h2:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.credit {
+  position: fixed;
+  bottom: 0px;
+  background-color: $colorBackground;
+  bottom: 0px;
+  left: 0px;
+  padding-left: $gutter;
+  z-index: 10;
+  p {
+    margin-bottom: 0;
+  }
+  a {
+    color: $colorText;
+    text-decoration: none;
+    font-weight: $fontBold;
+    font-size: 0.8rem;
+  }
+  .icon svg.elkfox .fill {
+    fill: $colorText;
+  }
+}
+// Overrides
+.icon {
+  line-height: 1;
+}

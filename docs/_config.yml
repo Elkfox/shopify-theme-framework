@@ -1,0 +1,42 @@
+# Meta =======================================================================
+title: Concrete Shopify Theme Framework - A lightweight framework for building Shopify themes
+description: A lightweight framework for building Shopify themes
+# Site =======================================================================
+name: Concrete
+subtitle: Shopify theme boilerplate
+github_url: https://github.com/Elkfox/Concrete
+download_url: https://github.com/Elkfox/Concrete/archive/master.zip
+demo_url: https://concrete-theme.myshopify.com
+# Navigation =================================================================
+nav:
+  - title: About
+    url: '#about'
+  - title: Features
+    url: '#features'
+  - title: Getting Started
+    url: '#getting-started'
+    childlinks:
+      - title: 'Manually'
+        url: '#getting-started-manually'
+      - title: 'Theme Kit'
+        url: '#getting-started-theme-kit'
+      - title: 'Slate'
+        url: '#getting-started-slate'
+  - title: Grid
+    url: '#grid'
+  - title: Helper classes
+    url: '#helper-classes'
+  - title: Sass mixins
+    url: '#sass-mixins'
+# Collections ================================================================
+collections:
+  documentation:
+    title: Documentation
+# Build settings =============================================================
+markdown: kramdown
+theme: minima
+gems:
+  - jekyll-feed
+exclude:
+  - Gemfile
+  - Gemfile.lock

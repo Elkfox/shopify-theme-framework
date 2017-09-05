@@ -1,0 +1,214 @@
+---
+# this ensures Jekyll reads the file to be transformed into CSS later
+# only Main files contain this front matter, not partials.
+---
+
+// Variables ===================================================================
+
+// Palette
+$colorWhite: #fbfbfb;
+$colorLightGray: #f8f8f2;
+$colorGray: #44475a;
+$colorDarkGray: #26204A;
+
+$colorPink: #FF79C6;
+$colorPurple: #bd93f9;
+$colorCyan: #64D9EF;
+$colorBlue: #6272a4;
+$colorYellow: #E7DC64;
+$colorGreen: #50fa7b;
+$colorOrange: #ffb86c;
+$colorRed: #ff5555;
+
+// Variables in use
+$colorOne: $colorYellow;
+$colorTwo: $colorPurple;
+$colorThree: $colorRed;
+$colorFour: $colorGreen;
+$colorFive: $colorBlue;
+$colorSix: $colorCyan;
+$colorSeven: $colorOrange;
+$colorEight: $colorPink;
+
+$colorText: $colorLightGray;
+$colorBackground: $colorDarkGray;
+$colorForeground: $colorLightGray;
+
+// Typography
+$fontLight: 300;
+$fontRegular: 400;
+$fontBold: 600;
+$lineHeight: 1.75;
+
+$bodyFontFamily: 'Oxygen', Helvetica, Arial, sans-serif;
+$headingFontFamily: 'Oxygen', Helvetica, Arial, sans-serif;
+
+// Space & Borders
+$gutter: 50px;
+$borderRadius: 2px;
+$borderWeight: 4px;
+$borderStyle: solid;
+$borderColor: $colorYellow;
+
+// Screen Sizes
+$s: 650px;
+$m: 850px;
+$l: 1050px;
+$xl: 1450px;
+
+// Miscellaneous
+$transition: all .3s ease-out;
+
+// Icons
+$baseIconSize: 32px;
+$iconLinecap: square;
+
+// Mixins ===================================================================
+
+// Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+// Clearfix
+@mixin clearfix() {
+  display: block; // TBC - is this OK? Seems to help
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  *zoom: 1;
+}
+
+// Verically Align
+@mixin vertical-align() {
+  position: relative;
+  top: 50%;
+  -webkit-transform: perspective(1px) translateY(-50%);
+  -ms-transform: perspective(1px) translateY(-50%);
+  transform: perspective(1px) translateY(-50%);
+}
+
+// Transition Property (for legacy support)
+@mixin transition-property() {
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+}
+
+// Transitions
+@mixin transition() {
+  @include prefixer(transition, $transition, webkit moz ms spec);
+}
+
+// Overlays
+@mixin overlay() {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Flex
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin box-orient--vertical() {
+  @include prefixer(box-orient, vertical, webkit moz spec);
+}
+@mixin flex-direction($flex-direction) {
+  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
+}
+
+// Screen Sizes & Types
+@mixin s() {
+  @media (max-width: $s) {
+    @content;
+  }
+}
+@mixin m() {
+  @media (min-width: $s) and (max-width: $l - 1px) {
+    @content;
+  }
+}
+@mixin l() {
+  @media (min-width: $l) and (max-width: $xl - 1px) {
+    @content;
+  }
+}
+@mixin xl() {
+  @media (min-width: $xl) {
+    @content;
+  }
+}
+
+// Table Grids
+@mixin table() {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 0 $gutter;
+  .column {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+    &.middle {
+      vertical-align: middle;
+    }
+    &.top {
+      vertical-align: top;
+    }
+    &.bottom {
+      vertical-align: bottom;
+    }
+    &:first-of-type {
+      padding-left: 0;
+    }
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+}
+
+// Reverse Grids
+@mixin reverse() {
+  direction: rtl;
+  .column {
+    direction: ltr;
+    float: right;
+  }
+}
+
+// Imports ===================================================================
+
+@import "header";
+@import "helpers";
+@import "grid";
+@import "typography";
+@import "form";
+@import "syntax";
+@import "icons";
+@import "additions";

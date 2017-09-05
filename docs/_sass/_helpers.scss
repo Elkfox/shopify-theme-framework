@@ -1,0 +1,29 @@
+// Helpers
+
+.left {
+  text-align: left;
+}
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.right {
+  text-align: right;
+}
+.wide {
+  width: 100%;
+}
+.hidden {
+  display: none;
+}
+.inline {
+  list-style: none;
+  display: inline-block;
+  li {
+    display: inline-block;
+  }
+}
+.clearfix {
+  @include clearfix();
+}
