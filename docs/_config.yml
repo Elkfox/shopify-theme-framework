@@ -39,6 +39,9 @@ nav:
     url: '#helper-classes'
   - title: Sass mixins
     url: '#sass-mixins'
+  - title: 'Cart'
+    url: '#cart'
+    
 # Collections ================================================================
 collections:
   documentation:
