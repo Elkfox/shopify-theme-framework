@@ -24,6 +24,15 @@ nav:
         url: '#getting-started-slate'
   - title: Grid
     url: '#grid'
+    childlinks:
+      - title: 'Full width'
+        url: '#grid-full-width'
+      - title: 'Container'
+        url: '#grid-container'
+      - title: 'Row'
+        url: '#grid-row'
+      - title: 'Column'
+        url: '#grid-column'
   - title: Helper classes
     url: '#helper-classes'
   - title: Sass mixins

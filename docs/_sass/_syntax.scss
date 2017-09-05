@@ -34,7 +34,7 @@
  */
 code.highlighter-rouge {
   font-family: Menlo, monospace;
-  font-weight: 400;
+  font-weight: 900;
   color: $colorEight;
   display: inline;
 }
@@ -43,12 +43,12 @@ code.highlighter-rouge {
   code.language-#{$name}:before {
     content: '>_#{$name}';
     position: absolute;
-    transform: translateY(-200%);
+    @include prefixer(transform,  translateY(-200%), webkit moz ms spec);
     color: $colorEight;
     text-transform: uppercase;
-    font-family: 'Oxygen';
-    font-weight: 600;
-    font-size: 0.813rem;
+    font-family: Menlo, monospace;
+    font-weight: 900;
+    font-size: 0.95rem;
   }
 }
 
@@ -58,9 +58,11 @@ code.highlighter-rouge {
 @include code-language('javascript');
 @include code-language('yaml');
 @include code-language('css');
+@include code-language('scss');
+@include code-language('html');
 
 .highlight {
-  .pre {
+  pre {
     white-space: pre-wrap;
   }
   font-family: Menlo, monospace;

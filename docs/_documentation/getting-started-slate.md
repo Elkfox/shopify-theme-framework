@@ -6,9 +6,9 @@ category: "getting started"
 If you are using [Shopify Slate](https://shopify.github.io/slate/) and wish to work from the build files you can start by cloning this repositiory and installing the dependencies.
 
 {% highlight bash %}
-git clone https://github.com/Elkfox/Concrete.git
-cd Concrete
-npm install
+$ git clone https://github.com/Elkfox/Concrete.git
+$ cd Concrete
+$ npm install
 {% endhighlight %}
 
 Next create a config.yml in the root of your Concrete folder, edit the following api details to match your store.
@@ -26,9 +26,9 @@ Now run either
 
 {% highlight bash %}
 
-slate deploy
+$ slate deploy
 #to deploy just once
 #or
-slate watch
+$ slate watch
 #for continual deployment
 {% endhighlight %}

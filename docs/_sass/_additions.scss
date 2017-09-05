@@ -122,6 +122,12 @@ aside.sidebar {
 
 article.documentation {
   padding: $gutter;
+  @include m() {
+    padding: $gutter/2;
+  }
+  @include s() {
+    padding: $gutter/4;
+  }
   h2:first-of-type {
     margin-top: 0;
   }
@@ -145,6 +151,21 @@ article.documentation {
   }
   .icon svg.elkfox .fill {
     fill: $colorText;
+  }
+}
+
+.demo-grid {
+  background-color: rgba(0,0,0,0.2);
+  border-style: solid;
+  border-width: 1px;
+  border-color: $colorEight;
+  font-family: Menlo, monospace;
+  font-weight: 900;
+  .demo-grid {
+    border-color: $colorOne;
+    .demo-grid {
+      border-color: $colorThree;
+    }
   }
 }
 // Overrides

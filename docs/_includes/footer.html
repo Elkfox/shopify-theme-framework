@@ -17,7 +17,7 @@ $('.anchor').on('scrollSpy:enter', function() {
 });
 $('.anchor').on('scrollSpy:exit', function() {
   var id = $(this).attr('id')
-  $('.sidebar [href="#'+ id +'"]').removeClass('active')
+  $('.sidebar [href="#'+ id +'"]').removeClass('active').parent().siblings('ul.childlinks').slideUp(1000)
 });
 $('.anchor').scrollSpy()
 </script>
