@@ -5,6 +5,18 @@ header {
   position: relative;
   height: auto;
   padding: 0 50px;
+  background-image: url('/assets/header-bg.svg');
+  background-position-y: 100%;
+  background-repeat: no-repeat;
+  background-position-x: 110%;
+  background-size: 50%;
+  @include m() {
+    background-size: 75%;
+
+  }
+  @include s() {
+    background-size: 100%;
+  }
 
   .content {
     z-index: 2;
@@ -127,7 +139,6 @@ article.documentation {
     margin-bottom: 0;
   }
   a {
-    color: $colorText;
     text-decoration: none;
     font-weight: $fontBold;
     font-size: 0.8rem;

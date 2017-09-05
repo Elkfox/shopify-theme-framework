@@ -35,7 +35,7 @@
 code.highlighter-rouge {
   font-family: Menlo, monospace;
   font-weight: 400;
-  color: $colorOne;
+  color: $colorEight;
   display: inline;
 }
 
@@ -43,8 +43,8 @@ code.highlighter-rouge {
   code.language-#{$name}:before {
     content: '>_#{$name}';
     position: absolute;
-    transform: translateY(-100%);
-    color: #e7dc64;
+    transform: translateY(-200%);
+    color: $colorEight;
     text-transform: uppercase;
     font-family: 'Oxygen';
     font-weight: 600;
@@ -60,10 +60,13 @@ code.highlighter-rouge {
 @include code-language('css');
 
 .highlight {
+  .pre {
+    white-space: pre-wrap;
+  }
   font-family: Menlo, monospace;
-  font-weight: 400;
+  font-weight: 800;
   color: $colorLightGray;
-  padding: $gutter/2 0;
+  padding: $gutter 0;
   overflow: scroll;
 
   .hll,

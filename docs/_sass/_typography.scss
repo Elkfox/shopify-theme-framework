@@ -44,8 +44,7 @@ a {
   cursor: pointer;
   @include transition();
   &:hover, &:focus {
-    font-weight: $fontBold;
-    color: darken($colorOne, 5%);
+    color: $colorEight;
   }
 }
 
@@ -92,14 +91,14 @@ aside.sidebar {
     color: $colorOne;
   }
   h4 {
-    font-weight: $fontRegular;
+    font-weight: $fontBold;
     margin-bottom: 0;
     font-size: 1em;
   }
   li {
-    font-weight: $fontRegular;
+    font-weight: $fontBold;
     .active {
-      font-weight: $fontBold;
+      color: $colorEight;
     }
   }
   a {
