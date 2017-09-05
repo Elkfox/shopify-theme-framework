@@ -33,6 +33,8 @@ nav:
         url: '#grid-row'
       - title: 'Column'
         url: '#grid-column'
+  - title: 'Sass variables'
+    url: '#sass-variables'
   - title: Helper classes
     url: '#helper-classes'
   - title: Sass mixins

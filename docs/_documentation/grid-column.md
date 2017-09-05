@@ -20,14 +20,15 @@ The `column` class is used to divide rows into horizontal sections.
 </div>
 {% endhighlight %}
 
-
-<div class="container demo-grid">
-  <div class="row demo-grid">
-    <div class="column demo-grid">
-      column
-    </div>
-    <div class="column demo-grid">
-      column
+<div class="demo-wrapper">
+  <div class="container demo-grid">
+    <div class="row demo-grid">
+      <div class="column demo-grid">
+        column
+      </div>
+      <div class="column demo-grid">
+        column
+      </div>
     </div>
   </div>
 </div>
@@ -48,24 +49,25 @@ By default Grid50 is a twelve column layout. This is easily modified, if you wan
 </div>
 {% endhighlight %}
 
-<div class="container demo-grid">
-  <div class="row demo-grid">
-    <!-- 4 on large, 2 on medium, 1 on small -->
-    <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
-    <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
-    <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
-    <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
-  </div>
-  <div class="row demo-grid">
-    <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
-    <div class="column l4 m4 s12 demo-grid">column l4 m4 s12 - Grid 50 can automatically clear columns of differing height</div>
-    <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
-    <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
-    <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
-    <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
+<div class="demo-wrapper">
+  <div class="container demo-grid">
+    <div class="row demo-grid">
+      <!-- 4 on large, 2 on medium, 1 on small -->
+      <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
+      <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
+      <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
+      <div class="column l3 m6 s12 demo-grid">column l3 m6 s12</div>
+    </div>
+    <div class="row demo-grid">
+      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
+      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12 - Grid 50 can automatically clear columns of differing height</div>
+      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
+      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
+      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
+      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
+    </div>
   </div>
 </div>
-
 As you can see above Despite the middle column of the top row being of a differing height the columns clear to the left.
 
 By default Concrete is actually desktop first, however many people prefer to work mobile first: Concrete is easily adapted to do this. You can find out how on the styles page.
@@ -83,7 +85,7 @@ By default Concrete is actually desktop first, however many people prefer to wor
 
 <div class="container">
   <div class="row">
-    <!-- Because the large and medium breakpoints have not been defined theses columns will be the width of the contents -->
+    <!-- Because the large and medium breakpoints have not been defined these columns will be the width of the contents on large and medium screen sizes but one quarter of the width on small -->
     <div class="column s3"></div>
     <div class="column s3"></div>
     <div class="column s3"></div>
@@ -92,22 +94,24 @@ By default Concrete is actually desktop first, however many people prefer to wor
 </div>
 {% endhighlight %}
 
-<!-- by default concrete is desktop first -->
-<div class="container demo-grid">
-  <div class="row demo-grid">
-    <!-- 4 on large, 4 on medium, 4 on small -->
-    <div class="column l3 demo-grid">column l3</div>
-    <div class="column l3 demo-grid">column l3</div>
-    <div class="column l3 demo-grid">column l3</div>
-    <div class="column l3 demo-grid">column l3</div>
+<div class="demo-wrapper">
+  <!-- by default concrete is desktop first -->
+  <div class="container demo-grid">
+    <div class="row demo-grid">
+      <!-- 4 on large, 4 on medium, 4 on small -->
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+    </div>
   </div>
-</div>
 
-<div class="container demo-grid">
-  <div class="row demo-grid">
-    <div class="column s3 demo-grid">column s3</div>
-    <div class="column s3 demo-grid">column s3</div>
-    <div class="column s3 demo-grid">column s3</div>
-    <div class="column s3 demo-grid">column s3</div>
+  <div class="container demo-grid">
+    <div class="row demo-grid">
+      <div class="column s3 demo-grid">column s3</div>
+      <div class="column s3 demo-grid">column s3</div>
+      <div class="column s3 demo-grid">column s3</div>
+      <div class="column s3 demo-grid">column s3</div>
+    </div>
   </div>
 </div>

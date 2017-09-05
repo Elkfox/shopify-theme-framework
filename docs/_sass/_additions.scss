@@ -141,6 +141,12 @@ article.documentation {
   left: 0px;
   padding-left: $gutter;
   z-index: 10;
+  @include m() {
+    padding-left: $gutter/2;
+  }
+  @include s() {
+    padding-left: $gutter/4;
+  }
   p {
     margin-bottom: 0;
   }
@@ -153,7 +159,9 @@ article.documentation {
     fill: $colorText;
   }
 }
-
+.demo-wrapper {
+  margin-bottom: $gutter;
+}
 .demo-grid {
   background-color: rgba(0,0,0,0.2);
   border-style: solid;

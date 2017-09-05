@@ -22,10 +22,11 @@ By default the row class has a bottom margin equal to `$gutter` , you will find 
 <!-- This will not have a bottom margin -->
 <div class="row collapse"></div>
 {% endhighlight %}
-
-<div class="container demo-grid">
-  container
-  <div class="row demo-grid">row</div>
-  <div class="row demo-grid">row</div>
-  <div class="row demo-grid">row</div>
+<div class="demo-wrapper">
+  <div class="container demo-grid">
+    container
+    <div class="row demo-grid">row</div>
+    <div class="row demo-grid">row</div>
+    <div class="row demo-grid">row</div>
+  </div>
 </div>

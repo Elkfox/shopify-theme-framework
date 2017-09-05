@@ -146,34 +146,3 @@
     }
   }
 }
-
-@include xl() {
-  .xl-hide { display: none !important; }
-  .xl-left { text-align: left; }
-  .xl-center { text-align: center; }
-  .xl-right { text-align: right; }
-  .l-show, .m-show, .s-show { display: none !important; }
-}
-@include l() {
-  .l-hide { display: none !important; }
-  .l-left { text-align: left; }
-  .l-center { text-align: center; }
-  .l-right { text-align: right; }
-  .xl-show, .m-show, .s-show { display: none !important; }
-}
-@include m() {
-  .m-hide { display: none !important; }
-  .m-left { text-align: left; }
-  .m-center { text-align: center; }
-  .m-right { text-align: right; }
-  .l-show { display: none !important; }
-  .xl-show, .l-show, .s-show { display: none !important; }
-}
-@include s() {
-  .s-hide { display: none !important; }
-  .s-left { text-align: left; }
-  .s-center { text-align: center; }
-  .s-right { text-align: right; }
-  .l-show { display: none !important; }
-  .xl-show, .l-show, .m-show { display: none !important; }
-}

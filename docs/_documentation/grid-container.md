@@ -19,14 +19,16 @@ The `container` class is used to stop elements from touching the edges of the wi
 <div class="container s"></div>
 {% endhighlight %}
 
-<div class="demo-grid">
-Full width
-</div>
+<div class="demo-wrapper">
+  <div class="demo-grid">
+  Full width
+  </div>
 
-<div class="container demo-grid">
-container
-</div>
+  <div class="container demo-grid">
+  container
+  </div>
 
-<div class="container s demo-grid">
-container s
+  <div class="container s demo-grid">
+  container s
+  </div>
 </div>
