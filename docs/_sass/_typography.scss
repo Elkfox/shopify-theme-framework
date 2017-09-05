@@ -114,10 +114,17 @@ aside.sidebar {
     margin-bottom: $gutter / 2;
   }
 }
+.anchor {
+  margin-bottom: $gutter;
+}
 article.documentation {
   h2, h3 {
     font-weight: $fontBold;
     color: $colorOne;
+  }
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: $gutter / 2;
   }
   h3 {
     font-size: 1.5rem;

@@ -35,10 +35,8 @@
 code.highlighter-rouge {
   font-family: Menlo, monospace;
   font-weight: 400;
-  color: $colorLightGray;
-  overflow: scroll;
-  max-width: 100%;
-  display: inline-block;
+  color: $colorOne;
+  display: inline;
 }
 
 @mixin code-language($name) {
