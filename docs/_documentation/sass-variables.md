@@ -7,7 +7,7 @@ Concrete has some sass variables defined that will help to ensure that your them
 
 Note that some of the color variables are defined using liquid, this means that the variables can be easily tweaked from the theme settings.
 
-##### Colour Variables
+##### Colors
 {% highlight scss %}
 {% raw %}  
 // This colour is the main brand color, for example if the website was coca-cola you would set this to red.
@@ -29,4 +29,26 @@ $colorHighlight: {{ settings.color_highlight }};
 $colorAlternate: {{ settings.color_alternate }};
 
 {% endraw %}
+{% endhighlight %}
+
+##### Breakpoints
+Concrete's default breakpoints. These are used to control media queries and container widths.
+{% highlight scss %}
+$s: 650px;
+$m: 850px;
+$l: 1050px;
+$xl: 1450px;
+{% endhighlight %}
+
+##### Gutter
+
+This is where Grid50 gets it's name. Gutter is always set to 50px, when you apply spacing around the site using gutter can vastly save time, if you want a space that is less or more than 50 try using scss arithmetic functions.
+
+{% highlight scss %}
+$gutter: 50px;
+
+.class {
+  padding-left: $gutter/2;
+  margin: ($gutter/3) ($gutter/5) ($gutter*2);
+}
 {% endhighlight %}

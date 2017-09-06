@@ -4,7 +4,7 @@ handle: "helper-classes"
 category: "styles"
 ---
 Concrete has some helper classes to... well, help.
-##### Positioning
+##### Alignment
 
 {% highlight html %}
 <div class="container">
@@ -45,7 +45,7 @@ Concrete has some helper classes to... well, help.
   </div>
 </div>
 
-You can also define different positioning for different screen sizes.
+You can also define different alignment for different screen sizes.
 {% highlight html %}
 <div class="container">
   <div class="row">
@@ -66,6 +66,7 @@ You can also define different positioning for different screen sizes.
 </div>
 {% endhighlight %}
 
+Adjust your screen width to see the alignment change.
 <div class="demo-wrapper">
   <div class="container demo-grid">
     <div class="row demo-grid">

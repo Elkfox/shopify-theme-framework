@@ -41,7 +41,11 @@ nav:
     url: '#sass-mixins'
   - title: 'Cart'
     url: '#cart'
-    
+  - title: Scripts
+    url: '#helper-classes'
+  - title: 'Vendor scripts'
+    url: '#vendor-scripts'
+
 # Collections ================================================================
 collections:
   documentation:
