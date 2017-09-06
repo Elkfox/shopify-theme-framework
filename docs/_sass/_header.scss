@@ -87,8 +87,9 @@ table {
 th {
   font-weight: 800;
   font-size: 1.2rem;
+  text-align: left;
 }
-td {
+td, th {
   padding: 10px;
 }
 form, input, textarea, label, fieldset, legend, select, optgroup, option, button

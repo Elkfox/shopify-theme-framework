@@ -1,0 +1,98 @@
+---
+title:  "Concrete Images"
+handle: "concrete-images"
+category: "javascript modules"
+---
+
+Helpers for working with images in javascript.
+
+| Command | Usage |
+| :------ | :---- |
+| [preload](#preload) | `concrete.Images.preload(images, size)` |
+| [imageLoad](#imageLoad) | `concrete.Images.imageLoad(src)` |
+| [getImageUrl](#getImageUrl) | `concrete.Images.getImageUrl(src, size)` |
+| [imageSize](#imageSize) | `concrete.Images.imageSize(src)` |
+| [switchImage](#switchImage) | `concrete.Images.switchImage(image, element, callback)` |
+| [removeProtocol](#removeprotocol) | `concrete.Images.removeProtocol(path)` |
+
+##### preload
+
+Preload a single image or an array of images at a given size. A common use for preloading is reducing the loading delay when enlarging a thumbnail.
+
+| Parameters         | Type            | Description   |
+| :----------------- | :-------------- | :------------ |
+| `images`           | array or string | Single image URL or list of image URLs |
+| `size`             | string          | Size of image to request |
+
+```
+concrete.Image.preload(['image-url-1.jpg', 'image-url-2.jpg'], '1024x1024');
+```
+
+##### imageLoad
+
+Loads and caches an image in the browsers cache.
+
+| Parameters      | Type            | Description   |
+| :-------------- | :-------------- | :------------ |
+| `src`           | string          | Image URL     |
+
+```
+concrete.Image.getImageUrl('https://cdn.shopify.com/s/files/big-ol-image.jpeg', '250x250');
+
+// Returns string
+'https://cdn.shopify.com/s/files/big-ol-image_250x250.jpeg'
+```
+
+##### getImageUrl
+
+Loads and caches an image in the browsers cache.
+
+| Parameters      | Type            | Description   |
+| :-------------- | :-------------- | :------------ |
+| `src`           | string          | Image URL     |
+
+```
+concrete.Image.getImageUrl('https://cdn.shopify.com/s/files/big-ol-image.jpeg', '250x250');
+
+// Returns string
+'https://cdn.shopify.com/s/files/big-ol-image_250x250.jpeg'
+```
+
+##### imageSize
+
+Get the size of an image based on the URL.
+
+| Parameters      | Type            | Description   |
+| :-------------- | :-------------- | :------------ |
+| `src`           | string          | Image URL     |
+
+```
+concrete.Image.imageSize('https://cdn.shopify.com/s/files/big-ol-image_480x480.jpeg');
+
+// Returns string
+'480x480'
+```
+
+##### switchImage
+
+Replaces one element for another, maintaining the correct size.
+
+| Parameters      | Type            | Description           |
+| :-------------- | :-------------- | :-------------------- |
+| `imageOne`      | object          | Image element         |
+| `imageTwo`      | object          | Image element         |
+| `callback`      | function        | Callback function     |
+
+
+##### removeProtocol
+
+| Parameters      | Type            | Description   |
+| :-------------- | :-------------- | :------------ |
+| `path`          | string          | Image URL     |
+
+```
+concrete.Image.removeProtocol('https://cdn.shopify.com/s/files/big-ol-image_480x480.jpeg')
+
+// Returns string
+'//cdn.shopify.com/s/files/big-ol-image_480x480.jpeg'
+```

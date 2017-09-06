@@ -1,4 +1,4 @@
-//This is used to preload images and preserve image sizes on the product pages.
+// Javascript image helpers
 concrete.Images = (function() {
 
   function preload(images, size) {

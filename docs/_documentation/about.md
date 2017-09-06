@@ -9,7 +9,7 @@ If you're developing a theme using slate then you will be happy to see that all 
 
 ### MIT License
 
-We have put a lot of time and effort into Concrete and we will be continuing to do so. It is available under the MIT license which in short means that you can do whatever you like to it, so long as you maintain the original license.
+We have put a lot of time and effort into Concrete and we will be continuing to do so. It is available under the MIT license which in short means that you can do whatever you like to it, so long as you maintain the original license and **leave all credits and their original location**.
 
 {% highlight plaintext %}
  ___  _   _    _

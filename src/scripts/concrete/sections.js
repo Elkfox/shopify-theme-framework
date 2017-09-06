@@ -13,6 +13,7 @@ concrete.Sections = function Sections() {
   .on('shopify:section:unload', this._onSectionUnload.bind(this))
   .on('shopify:section:select', this._onSelect.bind(this))
   .on('shopify:section:deselect', this._onDeselect.bind(this))
+  .on('shopify:section:reorder', this._onSectionReorder.bind(this))
   .on('shopify:block:select', this._onBlockSelect.bind(this))
   .on('shopify:block:deslect', this._onBlockDeselect.bind(this));
 };
@@ -78,6 +79,13 @@ concrete.Sections.prototype = _.assign({}, concrete.Sections.prototype, {
     }
   },
 
+_onSectionReorder: function(evt) {
+    var instance = slate.utils.findInstance(this.instances, 'id', evt.detail.sectionId);
+
+    if (instance && typeof instance.onSectionReorder === 'function') {
+      instance.onSectionReorder(evt);
+    }
+  },
 
   _onBlockSelect: function(evt) {
     var instance = this.instances.filter(function(instance) {

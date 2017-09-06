@@ -39,10 +39,19 @@ nav:
     url: '#helper-classes'
   - title: Sass mixins
     url: '#sass-mixins'
-  - title: 'Cart'
-    url: '#cart'
-  - title: Scripts
-    url: '#helper-classes'
+  - title: Javascript Modules
+    url: '#javascript-modules'
+    childlinks:
+    - title: 'Cart'
+      url: '#cart'
+    - title: 'Popups'
+      url: '#concrete-popups'
+    - title: 'Product'
+      url: '#concrete-product'
+    - title: 'Variants'
+      url: '#concrete-variants'
+    - title: 'Sections'
+      url: '#concrete-sections'
   - title: 'Vendor scripts'
     url: '#vendor-scripts'
 

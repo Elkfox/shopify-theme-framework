@@ -2,12 +2,12 @@ concrete.Product = (function() {
 
   function Product(container) {
     var $container = this.$container = $(container);
-    console.log(this.$container)
     //var sectionId = $container.attr('data-section-id');
     this.settings = {
       enableHistoryState: $container.data('enable-history-state') || false,
     };
 
+    // Create our selectors
     this.selectors = {
       addToCart: '#AddToCart',
       addToCartText: '#AddToCartText',
@@ -18,10 +18,9 @@ concrete.Product = (function() {
       featuredImageContainer: '#ProductPhoto',
       originalSelectorId: '#productSelect',
       singleOptionSelector: '.single-option-selector',
-      slickSliderSelector: '.product_slideshow',
       variantId: '[name=id]',
     };
-
+    // Find the product json
     if (!$('#ProductJson').html()) {
       return;
     }
@@ -73,7 +72,6 @@ concrete.Product = (function() {
 
     _updatePrices: function(evt) {
       var variant = evt.variant;
-      console.log(variant)
       $(this.selectors.originalPrice).html(concrete.Currency.formatMoney(variant.price));
       if (variant.price < variant.compare_at_price) {
         $(this.selectors.onSale).removeClass('hidden')
@@ -88,7 +86,13 @@ concrete.Product = (function() {
       if (variant)
         $(this.selectors.variantId).val(variant.id);
     },
+
+    onUnload: function() {
+      this.$container.off();
+    }
+
   });
 
   return Product;
+  // intialize self
 })();

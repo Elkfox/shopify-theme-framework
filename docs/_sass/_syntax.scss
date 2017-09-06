@@ -69,7 +69,8 @@ code.highlighter-rouge {
   font-family: Menlo, monospace;
   font-weight: 800;
   color: $colorLightGray;
-  padding: $gutter 0;
+  padding-top: $gutter;
+  margin-bottom: $gutter;
   overflow: auto;
 
   .hll,

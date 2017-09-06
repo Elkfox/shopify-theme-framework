@@ -34,13 +34,11 @@ concrete.Variants = (function() {
       });
 
       currentOptions = _.compact(currentOptions);
-      (currentOptions)
       return currentOptions;
     },
 
     _getVariantFromOptions: function() {
       var selectedValues = this._getCurrentOptions();
-      console.log(selectedValues);
       var variants = this.product.variants;
       var found = variants.filter(function(variant) {
         return selectedValues.every(function(values) {
@@ -52,10 +50,9 @@ concrete.Variants = (function() {
 
     _onSelectChange: function() {
       var variant = this._getVariantFromOptions();
-      console.log(variant);
       this.$container.trigger({
         type: 'variantChange',
-        variant:variant
+        variant: variant
       });
 
       if (!variant) {
@@ -89,7 +86,6 @@ concrete.Variants = (function() {
     },
 
     _updatePrice: function(variant) {
-      console.log(variant);
       if (variant.price === this.currentVariant.price && variant.compare_at_price === this.currentVariant.compare_at_price) {
         return;
       }

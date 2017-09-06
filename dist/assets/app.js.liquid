@@ -95,6 +95,7 @@ concrete.Sections = function Sections() {
   .on('shopify:section:unload', this._onSectionUnload.bind(this))
   .on('shopify:section:select', this._onSelect.bind(this))
   .on('shopify:section:deselect', this._onDeselect.bind(this))
+  .on('shopify:section:reorder', this._onSectionReorder.bind(this))
   .on('shopify:block:select', this._onBlockSelect.bind(this))
   .on('shopify:block:deslect', this._onBlockDeselect.bind(this));
 };
@@ -160,6 +161,13 @@ concrete.Sections.prototype = _.assign({}, concrete.Sections.prototype, {
     }
   },
 
+_onSectionReorder: function(evt) {
+    var instance = slate.utils.findInstance(this.instances, 'id', evt.detail.sectionId);
+
+    if (instance && typeof instance.onSectionReorder === 'function') {
+      instance.onSectionReorder(evt);
+    }
+  },
 
   _onBlockSelect: function(evt) {
     var instance = this.instances.filter(function(instance) {
@@ -189,7 +197,7 @@ concrete.Sections.prototype = _.assign({}, concrete.Sections.prototype, {
   }
 });
 
-//This is used to preload images and preserve image sizes on the product pages.
+// Javascript image helpers
 concrete.Images = (function() {
 
   function preload(images, size) {
@@ -299,13 +307,11 @@ concrete.Variants = (function() {
       });
 
       currentOptions = _.compact(currentOptions);
-      (currentOptions)
       return currentOptions;
     },
 
     _getVariantFromOptions: function() {
       var selectedValues = this._getCurrentOptions();
-      console.log(selectedValues);
       var variants = this.product.variants;
       var found = variants.filter(function(variant) {
         return selectedValues.every(function(values) {
@@ -317,10 +323,9 @@ concrete.Variants = (function() {
 
     _onSelectChange: function() {
       var variant = this._getVariantFromOptions();
-      console.log(variant);
       this.$container.trigger({
         type: 'variantChange',
-        variant:variant
+        variant: variant
       });
 
       if (!variant) {
@@ -354,7 +359,6 @@ concrete.Variants = (function() {
     },
 
     _updatePrice: function(variant) {
-      console.log(variant);
       if (variant.price === this.currentVariant.price && variant.compare_at_price === this.currentVariant.compare_at_price) {
         return;
       }
@@ -398,12 +402,12 @@ concrete.Product = (function() {
 
   function Product(container) {
     var $container = this.$container = $(container);
-    console.log(this.$container)
     //var sectionId = $container.attr('data-section-id');
     this.settings = {
       enableHistoryState: $container.data('enable-history-state') || false,
     };
 
+    // Create our selectors
     this.selectors = {
       addToCart: '#AddToCart',
       addToCartText: '#AddToCartText',
@@ -414,10 +418,9 @@ concrete.Product = (function() {
       featuredImageContainer: '#ProductPhoto',
       originalSelectorId: '#productSelect',
       singleOptionSelector: '.single-option-selector',
-      slickSliderSelector: '.product_slideshow',
       variantId: '[name=id]',
     };
-
+    // Find the product json
     if (!$('#ProductJson').html()) {
       return;
     }
@@ -469,7 +472,6 @@ concrete.Product = (function() {
 
     _updatePrices: function(evt) {
       var variant = evt.variant;
-      console.log(variant)
       $(this.selectors.originalPrice).html(concrete.Currency.formatMoney(variant.price));
       if (variant.price < variant.compare_at_price) {
         $(this.selectors.onSale).removeClass('hidden')
@@ -484,9 +486,15 @@ concrete.Product = (function() {
       if (variant)
         $(this.selectors.variantId).val(variant.id);
     },
+
+    onUnload: function() {
+      this.$container.off();
+    }
+
   });
 
   return Product;
+  // intialize self
 })();
 
 /**
@@ -521,6 +529,7 @@ concrete.EmptySection = (function() {
 
 // Initialize on document ready
 $(document).ready(function() {
+  // Register sections js
   var sections = new concrete.Sections();
   sections.register('product', concrete.Product);
 })

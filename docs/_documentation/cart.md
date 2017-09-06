@@ -1,7 +1,7 @@
 ---
 title:  "Cartfox"
 handle: "cart"
-category: "cart"
+category: "javascript modules"
 ---
 Concrete uses [Cartfox🛒🦊](https://github.com/Elkfox/Cartfox) for all things ajax-y and cart-ish. If you're developing with Slate you can find an un-minified version in `/src/scripts/vendor/concrete.cart.js`. Upon deployment this will be minified into the `vendor.js`.
 

@@ -19,9 +19,9 @@
 // =require vendor/lodash.min.js
 
 /*!
- * concrete.popup.min.js
+ * concrete.popup.js
  */
-// =require vendor/concrete.popup.min.js
+// =require vendor/concrete.popup.js
 
 /*!
  * concrete.cart.min.js
