@@ -1,7 +1,7 @@
 <script src="{{ site.github.url }}/assets/js/smooth-scroll.js"></script>
 <script>smoothScroll.init();</script>
 <script>
-$(window).on('scroll', function() {
+$(window).on('scroll load resize', function() {
   var scroll = $(document).scrollTop()
   var header = $('header').outerHeight()
   if(scroll > header) {

@@ -52,6 +52,8 @@ nav:
       url: '#concrete-variants'
     - title: 'Sections'
       url: '#concrete-sections'
+    - title: 'Images'
+      url: '#concrete-images'
   - title: 'Vendor scripts'
     url: '#vendor-scripts'
 
