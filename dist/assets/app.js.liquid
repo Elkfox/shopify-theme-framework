@@ -245,9 +245,9 @@ concrete.Images = (function() {
     }
   }
 
-  function switchImage(image, element, callback) {
-    var size = imageSize(element.src);
-    var imageUrl = getImageUrl(image.src, size);
+  function switchImage(imageOne, imageTwo, callback) {
+    var size = imageSize(imageTwo.src);
+    var imageUrl = getImageUrl(imageOne.src, size);
 
     if (typeof callback === 'function') {
       callback(imageUrl, size, element);
