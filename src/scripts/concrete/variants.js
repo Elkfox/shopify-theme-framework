@@ -7,6 +7,7 @@ concrete.Variants = (function() {
     this.originalSelectorId = options.originalSelectorId;
     this.enableHistoryState = options.enableHistoryState;
     this.currentVariant = this._getVariantFromOptions();
+
     $(this.singleOptionSelector, this.$container).on('change', this._onSelectChange.bind(this));
   }
 
@@ -59,12 +60,11 @@ concrete.Variants = (function() {
         return;
       }
 
-      this.currentVariant = variant;
       this._updateMasterSelect(variant);
       this._updateImages(variant);
       this._updatePrice(variant);
       this._updateSKU(variant);
-
+      this.currentVariant = variant;
 
       if (this.enableHistoryState) {
         this._updateHistoryState(variant);

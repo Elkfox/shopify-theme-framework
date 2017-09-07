@@ -5,7 +5,7 @@
       <stop stop-color="#EEE" stop-opacity="0" offset="100%"/>
     </linearGradient>
   </defs>
-  <g fill="none" fill-rule="evenodd" opacity=".5">
+  <g fill="none" fill-rule="evenodd" opacity=".3">
     <path stroke="#50E3C2" d="M605.5 86.7V281l47 2.2V73l-47 13.7z"/>
     <path stroke="#50E3C2" d="M652.5 73l.6-.2-.5-.4v.6zm0 207.4v3.3h1l-.6-2-.5-1.3zm-34-79.7l-.8-.3h.2l-.4 1h-.2.2c.3 0 .4.2.5.2h.4c.4-.2.4-.2.3-.8zm-7-2.5h-.3l.3.3v-.3zm-6-102.4h-.5l.4.4v-.4zm0-9v-.4l-.5.5.4-.2zm5.7-2zm0 0L652.5 73v207.4l-.5-1.8-22.6-74.2h-.2l-10.4-3.6h-.2c0-.2-.2-.2-.4-.3l-6.7-2.3V97.8h-.3l-2-.8c-1.6-.6-2.5-1-3.8-1.2v-3.6-.4-5l5.8-2z"/>
     <path stroke="#50E3C2" d="M652.5 74v209l47-8.2V142.5l-47-68.5zM317.5 41.6V244h61V1.2l-61 40.3zM379.5 1.3V239h62V41.5l-62-40.3z"/>

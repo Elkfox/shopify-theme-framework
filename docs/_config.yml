@@ -37,8 +37,10 @@ nav:
     url: '#sass-variables'
   - title: Helper classes
     url: '#helper-classes'
-  - title: Sass mixins
+  - title: 'Sass mixins'
     url: '#sass-mixins'
+  - title: 'Icons'
+    url: '#icons'
   - title: Javascript Modules
     url: '#javascript-modules'
     childlinks:

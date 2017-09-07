@@ -20,7 +20,7 @@ concrete.Images = (function() {
     }
 
     if (size === 'master') {
-      return this.removeProtocol(src);
+      return concrete.Images.removeProtocol(src);
     }
 
     var match = src.match(/\.(jpg|jpeg|gif|png|tiff|tif|bmp|bitmap)(\?v=\d+)$/i);
@@ -29,7 +29,7 @@ concrete.Images = (function() {
       var prefix = src.split(match[0]);
       var suffix = match[0];
 
-      return this.removeProtocol(prefix[0] + "_" + size + suffix);
+      return concrete.Images.removeProtocol(prefix[0] + "_" + size + suffix);
     }
 
     return null;
@@ -46,9 +46,17 @@ concrete.Images = (function() {
     }
   }
 
-  function switchImage(imageOne, imageTwo, callback) {
-    var size = imageSize(imageTwo.src);
-    var imageUrl = getImageUrl(imageOne.src, size);
+  function switchImage(element, image, callback) {
+    var oldSize = imageSize(element.src)
+    var newSize = imageSize(image.src);
+    var newImage = image.src;
+
+    // If the iamge already has the size parameter remove it
+    if (newSize !== null) {
+      newImage = newImage.replace('_'+newSize, '')
+    }
+
+    var imageUrl = getImageUrl(newImage, oldSize);
 
     if (typeof callback === 'function') {
       callback(imageUrl, size, element);

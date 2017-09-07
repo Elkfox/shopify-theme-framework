@@ -23,11 +23,117 @@ concrete.strings = {
   unavailable: "{{ 'product.unavailable' | t }}"
 };
 
+concrete.urlParams = {};
+
 /*================ Concrete ================*/
 // =require concrete/cache.js
-concrete.replaceUrlParam = function (e,r,a) {
-  var n = new RegExp("("+r+"=).*?(&|$)"),c=e;return c=e.search(n)>=0?e.replace(n,"$1"+a+"$2"):c+(c.indexOf("?")>0?"&":"?")+r+"="+a
+// replace urlparameter
+concrete.replaceUrlParam = function(url, paramName, paramValue){
+    if(paramValue == null)
+        paramValue = '';
+    var pattern = new RegExp('\\b('+paramName+'=).*?(&|$)')
+    if(url.search(pattern)>=0){
+        return url.replace(pattern,'$1' + paramValue + '$2');
+    }
+    return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
+}
+
+concrete.getUrlParameters = function(){
+  parameters = {};
+  if (location.search.length) {
+    for (var value, i = 0, pairs = location.search.substr(1).split('&'); i < pairs.length; i++) {
+      value = pairs[i].split('=');
+      if (value.length > 1) {
+        parameters[decodeURIComponent(value[0])] = decodeURIComponent(value[1]);
+      }
+    }
+  }
+  return parameters;
+}
+// Collection template sorting
+concrete.getUrlParameterByName = function(parameter) {
+  var url = decodeURIComponent(window.location.search.substring(1)),
+      urlVariables = url.split('&'),
+      parameterName;
+
+  for (i = 0; i < urlVariables.length; i++) {
+    parameterName = urlVariables[i].split('=');
+    if (parameterName[0] === parameter) {
+      return parameterName[1] === undefined ? true : parameterName[1];
+    }
+  }
 };
+
+concrete.urlParams = concrete.getUrlParameters();
+
+// Javascript helpers for users with visual impairment
+
+concrete.a11y = {
+
+  // For use after scrolling using an anchor link, focus will change to the correct location so that hitting tab does not scroll the user back up.
+  pageLinkFocus: function($element) {
+
+    $element.first()
+      .attr('tabIndex', '-1')
+      .focus()
+      .data('a11y-focus')
+      .one('blur', callback);
+
+    function callback() {
+      $element.first()
+        .removeData('a11y-focus')
+        .removeAttr('tabindex');
+    }
+  },
+  // Detect if the user has visited an anchored url if so update the focus to the correct location
+  focusHash: function() {
+    var hash = window.location.hash;
+
+    // is there a hash in the url? is it an element on the page?
+    if (hash && document.getElementById(hash.slice(1))) {
+      this.pageLinkFocus($(hash));
+    }
+  },
+  // On click of an anchor link fire the page focus function
+  bindInPageLinks: function() {
+    $('a[href*=#]').on('click', function(evt) {
+      this.pageLinkFocus($(evt.currentTarget.hash));
+    }.bind(this));
+  },
+  // Traps the focus within a specific container for example a popup that is open
+  trapFocus: function(options) {
+    var eventName = options.namespace
+      ? 'focusin.' + options.namespace
+      : 'focusin';
+
+    if (!options.$elementToFocus) {
+      options.$elementToFocus = options.$container;
+    }
+
+    options.$container.attr('tabindex', '-1');
+    options.$elementToFocus.focus();
+
+    $(document).on(eventName, function(evt) {
+      if (options.$container[0] !== evt.target && !options.$container.has(evt.target).length) {
+        options.$container.focus();
+      }
+    });
+  },
+
+  // Stop trapping of focus
+  removeTrapFocus: function(options) {
+    var eventName = options.namespace
+      ? 'focusin.' + options.namespace
+      : 'focusin';
+
+    if (options.$container && options.$container.length) {
+      options.$container.removeAttr('tabindex');
+    }
+
+    $(document).off(eventName);
+  }
+
+}
 
 concrete.Currency = (function() {
 
@@ -219,7 +325,7 @@ concrete.Images = (function() {
     }
 
     if (size === 'master') {
-      return this.removeProtocol(src);
+      return concrete.Images.removeProtocol(src);
     }
 
     var match = src.match(/\.(jpg|jpeg|gif|png|tiff|tif|bmp|bitmap)(\?v=\d+)$/i);
@@ -228,7 +334,7 @@ concrete.Images = (function() {
       var prefix = src.split(match[0]);
       var suffix = match[0];
 
-      return this.removeProtocol(prefix[0] + "_" + size + suffix);
+      return concrete.Images.removeProtocol(prefix[0] + "_" + size + suffix);
     }
 
     return null;
@@ -245,9 +351,17 @@ concrete.Images = (function() {
     }
   }
 
-  function switchImage(imageOne, imageTwo, callback) {
-    var size = imageSize(imageTwo.src);
-    var imageUrl = getImageUrl(imageOne.src, size);
+  function switchImage(element, image, callback) {
+    var oldSize = imageSize(element.src)
+    var newSize = imageSize(image.src);
+    var newImage = image.src;
+
+    // If the iamge already has the size parameter remove it
+    if (newSize !== null) {
+      newImage = newImage.replace('_'+newSize, '')
+    }
+
+    var imageUrl = getImageUrl(newImage, oldSize);
 
     if (typeof callback === 'function') {
       callback(imageUrl, size, element);
@@ -271,6 +385,44 @@ concrete.Images = (function() {
 
 })();
 
+concrete.Collection = (function() {
+
+  function Collection(container) {
+    var $container = this.$container = $(container);
+    this.selectors = {
+      sortBy: '#SortBy'
+    }
+
+    $container.on('change', this.selectors.sortBy, this._onSortByChange.bind(this));
+  }
+
+  Collection.prototype = _.assignIn({}, Collection.prototype, {
+
+    _getSortBy: function() {
+      return $(this.selectors.sortBy+' option:selected').val();
+    },
+
+    _onSortByChange: function() {
+
+      var sortBy = this._getSortBy();
+      this.$container.trigger({
+        type: 'sortByChange',
+        sortBy: sortBy
+      });
+
+      concrete.urlParams.sort_by = this.currentSortBy = sortBy;
+      location.search = jQuery.param(concrete.urlParams);
+    },
+
+    onUnload: function() {
+      this.$container.off();
+    }
+
+  });
+  return Collection;
+  // intialize self
+})();
+
 concrete.Variants = (function() {
 
   function Variants(options) {
@@ -280,6 +432,7 @@ concrete.Variants = (function() {
     this.originalSelectorId = options.originalSelectorId;
     this.enableHistoryState = options.enableHistoryState;
     this.currentVariant = this._getVariantFromOptions();
+
     $(this.singleOptionSelector, this.$container).on('change', this._onSelectChange.bind(this));
   }
 
@@ -332,12 +485,11 @@ concrete.Variants = (function() {
         return;
       }
 
-      this.currentVariant = variant;
       this._updateMasterSelect(variant);
       this._updateImages(variant);
       this._updatePrice(variant);
       this._updateSKU(variant);
-
+      this.currentVariant = variant;
 
       if (this.enableHistoryState) {
         this._updateHistoryState(variant);
@@ -532,4 +684,5 @@ $(document).ready(function() {
   // Register sections js
   var sections = new concrete.Sections();
   sections.register('product', concrete.Product);
+  sections.register('collection', concrete.Collection);
 })

@@ -23,25 +23,21 @@
       <div class="column l6 m6 s12">
 
         <div id="ProductPhoto">
-          <section class="product-slideshow">
-            {% for image in product.images %}
-              <div>
-                <img src="{{ image.src | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
-              </div>
-            {% endfor %}
-          </section>
+          <img src="{{ product.featured_image | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
+        </div>
+
           {% if product.images.size > 1 %}
-            <div class="product-nav-slideshow">
+            <div id="ProductThumbs" class="row collapse">
               {% for image in product.images %}
-                <div class="thumb">
+                <div class="column l3 m4 s6">
                   <img src="{{ image.src | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
                 </div>
               {% endfor %}
             </div>
           {% endif %}
-        </div>
 
       </div>
+
       <div class="column l6 m6 s12">
 
         <h1 itemprop="name">{{ product.title }}</h1>
