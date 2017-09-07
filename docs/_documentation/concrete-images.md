@@ -24,9 +24,9 @@ Preload a single image or an array of images at a given size. A common use for p
 | `images`           | array or string | Single image URL or list of image URLs |
 | `size`             | string          | Size of image to request |
 
-```
+{% highlight javascript %}
 concrete.Image.preload(['image-url-1.jpg', 'image-url-2.jpg'], '1024x1024');
-```
+{% endhighlight %}
 
 ##### imageLoad
 
@@ -36,12 +36,12 @@ Loads and caches an image in the browsers cache.
 | :-------------- | :-------------- | :------------ |
 | `src`           | string          | Image URL     |
 
-```
+{% highlight javascript %}
 concrete.Image.getImageUrl('https://cdn.shopify.com/s/files/big-ol-image.jpeg', '250x250');
 
 // Returns string
 'https://cdn.shopify.com/s/files/big-ol-image_250x250.jpeg'
-```
+{% endhighlight %}
 
 ##### getImageUrl
 
@@ -51,12 +51,12 @@ Loads and caches an image in the browsers cache.
 | :-------------- | :-------------- | :------------ |
 | `src`           | string          | Image URL     |
 
-```
+{% highlight javascript %}
 concrete.Image.getImageUrl('https://cdn.shopify.com/s/files/big-ol-image.jpeg', '250x250');
 
 // Returns string
 'https://cdn.shopify.com/s/files/big-ol-image_250x250.jpeg'
-```
+{% endhighlight %}
 
 ##### imageSize
 
@@ -66,12 +66,12 @@ Get the size of an image based on the URL.
 | :-------------- | :-------------- | :------------ |
 | `src`           | string          | Image URL     |
 
-```
+{% highlight javascript %}
 concrete.Image.imageSize('https://cdn.shopify.com/s/files/big-ol-image_480x480.jpeg');
 
 // Returns string
 '480x480'
-```
+{% endhighlight %}
 
 ##### switchImage
 
@@ -90,9 +90,9 @@ Replaces one element for another, maintaining the correct size.
 | :-------------- | :-------------- | :------------ |
 | `path`          | string          | Image URL     |
 
-```
+{% highlight javascript %}
 concrete.Image.removeProtocol('https://cdn.shopify.com/s/files/big-ol-image_480x480.jpeg')
 
 // Returns string
 '//cdn.shopify.com/s/files/big-ol-image_480x480.jpeg'
-```
+{% endhighlight %}
