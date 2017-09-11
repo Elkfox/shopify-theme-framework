@@ -562,6 +562,35 @@ a.button {
   @include clearfix();
 }
 
+.no-margin {
+  margin-top: 0;
+  margin-bottom: 0 !important;
+}
+.margin-top {
+  margin-top: $gutter;
+}
+.margin-bottom {
+  margin-bottom: $gutter;
+}
+.padding-top {
+  padding-top: $gutter;
+}
+.padding-bottom {
+  padding-bottom: $gutter;
+}
+.no-select {
+  @include prefixer(user-select, none, webkit moz ms spec);
+}
+.v-middle {
+  vertical-align: middle;
+}
+.v-top {
+  vertical-align: top;
+}
+.v-bottom {
+  vertical-align: bottom;
+}
+
 /* Grid System ===============================================================*/
 
 .container {
@@ -958,9 +987,6 @@ form#AddToCartForm, form#CartPage, form#contact_form {
     cursor: default;
     white-space: initial;
     color: $colorForeground;
-    a {
-      color: $colorForeground;
-    }
   }
   &.overlay {
     background: rgba($colorForeground, 0.85);

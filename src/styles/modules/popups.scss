@@ -24,9 +24,6 @@
     cursor: default;
     white-space: initial;
     color: $colorForeground;
-    a {
-      color: $colorForeground;
-    }
   }
   &.overlay {
     background: rgba($colorForeground, 0.85);
