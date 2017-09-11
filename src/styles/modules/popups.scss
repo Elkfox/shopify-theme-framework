@@ -17,7 +17,7 @@
     z-index: 9999;
     max-width: 100%;
     max-height: 100%;
-    overflow: scroll; // Optional line for overly tall popups
+    overflow: auto; // Optional line for overly tall popups
     padding: $gutter;
     background-color: $colorBackground;
     text-align: initial;
