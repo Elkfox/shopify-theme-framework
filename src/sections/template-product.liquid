@@ -26,15 +26,15 @@
           <img src="{{ product.featured_image | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
         </div>
 
-          {% if product.images.size > 1 %}
-            <div id="ProductThumbs" class="row collapse">
-              {% for image in product.images %}
-                <div class="column l3 m4 s6">
-                  <img src="{{ image.src | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
-                </div>
-              {% endfor %}
-            </div>
-          {% endif %}
+        {% if product.images.size > 1 %}
+          <div id="ProductThumbs" class="row collapse">
+            {% for image in product.images %}
+              <div class="column l3 m4 s6">
+                <img src="{{ image.src | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
       </div>
 
@@ -59,7 +59,7 @@
                 </select>
               {% endfor %}
             {% endunless %}
-            <select name="id" id="productSelect" class="product-single__variants" data-index="option{{ forloop.index }}" {% if product.options.size == 1 %} style="display: none;" {% endif %}>
+            <select name="id" id="productSelect" class="product-single__variants" data-index="option{{ forloop.index }}" {% unless product.options.size == 1 %} style="display: none;" {% endunless %}>
               {% for variant in product.variants %}
                 {% if variant.available %}
                   <option
