@@ -9,7 +9,7 @@
 $colorWhite: #fbfbfb;
 $colorLightGray: #f8f8f2;
 $colorGray: #44475a;
-$colorDarkGray: #26204A;
+$colorDarkGray: #21212a;
 
 $colorPink: #9d67ff;
 $colorPurple: #E06CFC;
@@ -203,8 +203,14 @@ $iconLinecap: square;
 }
 
 // Front matter dependent
-header {
-  background-image: url('{{ site.github.url }}/assets/header-bg.svg');
+body {
+  background-image: url('{{ site.github.url }}/assets/bg-layer-1.png');
+  background-repeat: repeat-x;
+}
+.body-wrapper {
+  background-image: url('{{ site.github.url }}/assets/bg-layer-2.png');
+  background-repeat: repeat-x;
+  overflow: auto;
 }
 
 

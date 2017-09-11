@@ -390,10 +390,12 @@ concrete.Collection = (function() {
   function Collection(container) {
     var $container = this.$container = $(container);
     this.selectors = {
-      sortBy: '#SortBy'
+      sortBy: '[data-sort]',
+      viewBy: '[data-view]'
     }
 
     $container.on('change', this.selectors.sortBy, this._onSortByChange.bind(this));
+    $container.on('click', this.selectors.viewBy, this._onViewByChange.bind(this));
   }
 
   Collection.prototype = _.assignIn({}, Collection.prototype, {
@@ -411,6 +413,18 @@ concrete.Collection = (function() {
       });
 
       concrete.urlParams.sort_by = this.currentSortBy = sortBy;
+      location.search = jQuery.param(concrete.urlParams);
+    },
+
+    _onViewByChange: function(evt) {
+      var viewBy = evt.target.getAttribute('data-view');
+
+      this.$container.trigger({
+        type: 'viewByChange',
+        sortBy: viewBy
+      });
+
+      concrete.urlParams.view = this.currentViewBy = viewBy;
       location.search = jQuery.param(concrete.urlParams);
     },
 

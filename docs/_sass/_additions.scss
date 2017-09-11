@@ -1,21 +1,11 @@
-body {
-  border-top: $borderWeight $borderStyle $borderColor;
+.parallax {
+  transition: background-position-y 0.5s ease-out;
 }
+
 header {
   position: relative;
   height: auto;
   padding: 0 50px;
-  background-position-y: 100%;
-  background-repeat: no-repeat;
-  background-position-x: 110%;
-  background-size: 50%;
-  @include m() {
-    background-size: 75%;
-
-  }
-  @include s() {
-    background-size: 100%;
-  }
 
   .content {
     z-index: 2;

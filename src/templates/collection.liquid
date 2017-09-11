@@ -13,7 +13,7 @@
       <div class="column l6 m12 s12 right m-left s-left">
         <label for="SortBy">{{ 'collection.sort.title' | t }}</label>
         <div class="select-wrapper">
-          <select name="SortBy" id="SortBy">
+          <select name="SortBy" data-sort>
             {% assign sort_options = 'manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-descending,created-ascending' | split: ',' %}
             {% for option in sort_options %}
               <option value="{{ option }}" {% if collection.sort_by == option %}selected="selected"{% endif %}>{{ 'collection.sort.' | append: option | t }}</option>
@@ -29,9 +29,9 @@
     {% endif %}
   </header>
   <p>
-    <span for="SortBy">{{ 'collection.view.title' | t }}</span>
-    <a title="{{ 'collection.view.grid' | t }}" class="change-view" data-view="grid">{{ 'collection.view.grid' | t }}</a>
-    <a title="{{ 'collection.view.list' | t }}" class="change-view" data-view="list">{{ 'collection.view.list' | t }}</a>
+    <span>{{ 'collection.view.title' | t }}</span>
+    <a title="View by 12 products" class="change-view" data-view="12">12</a>
+    <a title="View by 24 products" class="change-view" data-view="24">24</a>
   </p>
 </div>
 
