@@ -9,7 +9,7 @@
           <a href="{{ link.url }}" class="nav-link {% if link.active %} active{% endif %}">
             {{ link.title }}
           </a>
-          <ul class="dropdown_menu hidden" id="{{ child_list_handle }}">
+          <ul class="dropdown_menu" id="{{ child_list_handle }}">
             {% for childlink in linklists[child_list_handle].links %}
               <li>
                 <a href="{{ childlink.url }}" class="nav-link{% if childlink.active %} active{% endif %}">{{ childlink.title | escape }}</a>
