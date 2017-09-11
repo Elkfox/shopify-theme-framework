@@ -35,3 +35,15 @@
 @import url('modules/social.scss');
 @import url('modules/icon.scss');
 @import url('modules/product.scss');
+
+/* =============================================================================
+   Shopify core helpers
+============================================================================= */
+
+// Shopify capture challenge
+.shopify-challenge__container {
+  text-align: center;
+  form {
+    width: 100%;
+  }
+}
