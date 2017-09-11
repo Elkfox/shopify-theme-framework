@@ -493,7 +493,7 @@ a.button {
   }
 }
 
-// Position Helpers
+// Alignment Helpers
 .left {
   text-align: left;
 }
@@ -507,6 +507,20 @@ a.button {
 }
 .wide {
   width: 100%;
+}
+
+.vertical-align {
+  @include vertical-align();
+}
+
+.v-middle {
+  vertical-align: middle;
+}
+.v-top {
+  vertical-align: top;
+}
+.v-bottom {
+  vertical-align: bottom;
 }
 
 // Visibility helpers
@@ -545,12 +559,15 @@ a.button {
   display: none;
 }
 
+// Colour helpers
+
 .highlight {
   color: $colorHighlight;
 }
 .alternate {
   color: $colorAlternate;
 }
+
 .inline {
   list-style: none;
   display: inline-block;
@@ -561,7 +578,14 @@ a.button {
 .clearfix {
   @include clearfix();
 }
+.no-select {
+  @include prefixer(user-select, none, webkit moz ms spec);
+}
+.overlay {
+  @include overlay();
+}
 
+// Margin and padding helpers
 .no-margin {
   margin-top: 0;
   margin-bottom: 0 !important;
@@ -577,18 +601,6 @@ a.button {
 }
 .padding-bottom {
   padding-bottom: $gutter;
-}
-.no-select {
-  @include prefixer(user-select, none, webkit moz ms spec);
-}
-.v-middle {
-  vertical-align: middle;
-}
-.v-top {
-  vertical-align: top;
-}
-.v-bottom {
-  vertical-align: bottom;
 }
 
 /* Grid System ===============================================================*/
