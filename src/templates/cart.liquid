@@ -65,9 +65,9 @@
             <div class="row table collapse">
               <div class="column l12 m12 s6 v-middle">
                 <div class="quantity-adjust no-margin">
-                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" class="adjust" id="minusOne">&#8211;</a>
+                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" class="adjust" id="minusOne" data-change="-1">&#8211;</a>
                   <input class="quantity cart_quantity" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" pattern="[0-9]*">
-                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" class="adjust" id="plusOne">&#43;</a>
+                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" class="adjust" id="plusOne" data-change="1">&#43;</a>
                 </div>
               </div>
               <div class="column l6 v-middle s-show right">

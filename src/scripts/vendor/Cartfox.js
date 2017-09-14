@@ -403,7 +403,7 @@ var Cart = function () {
       decreaseQuantity: '[data-minus-one]',
       increaseQuantity: '[data-plus-one]',
       itemQuantity: '.item-qty',
-      staticQuantity: '[name=quantity]',
+      staticQuantity: '.quantity',
       staticChangeQuantity: '.adjust',
       addItem: '.addItem',
       removeItem: '.removeItem',

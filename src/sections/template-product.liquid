@@ -59,7 +59,9 @@
                 </select>
               {% endfor %}
             {% endunless %}
-            <select name="id" id="productSelect" class="product-single__variants" data-index="option{{ forloop.index }}" {% unless product.options.size == 1 %} style="display: none;" {% endunless %}>
+
+            {% comment %}Original variant selector, the customer will not see this element.{% endcomment %}
+            <select name="id" id="productSelect" class="product-single__variants" data-index="option{{ forloop.index }}" style="display: none;">
               {% for variant in product.variants %}
                 {% if variant.available %}
                   <option
