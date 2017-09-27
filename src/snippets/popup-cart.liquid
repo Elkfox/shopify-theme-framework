@@ -14,22 +14,37 @@
         {% for item in cart.items %}
           <div class="item">
             <p>
-              <a class="item-title" href={{ item.url }}>{{ item.title }}</a>
+              <a href="{{ item.url }}">{{ item.title }}</a>
             </p>
             <div class="row cart-item">
               <div class="column l6 m6 s6">
-                <strong class="item-price">{{ item.line_price | money_with_currency }}</strong>
-                <p><small><a href="#" class="removeItem" data-item-id="{{item.id}}">Remove</a></small></p>
+                {% if item.total_discount > 0 %}
+                  <p class="no-margin">
+                    <strong>{% if item.line_price != 0 %}{{ item.line_price | money_with_currency  }}{% else %}Free{% endif %}</strong>
+                    <span> </span>
+                    <s class="small">{{ item.original_line_price | money_with_currency }}</s>
+                  </p>
+                  {% for discount in item.discounts %}
+                    <small class="no-margin">{{ discount.title }}</small><br>
+                  {% endfor %}
+                {% else %}
+                  <p class="no-margin">
+                    <strong>{{ item.line_price | money_with_currency }}</strong>
+                  </p>
+                {% endif %}
+                <p><small><a href="#" class="removeItem" data-item-id="{{ item.id }}">Remove</a></small></p>
               </div>
               <div class="column l6 m6 s6 right">
                 <div class="quantity-adjust">
                   <a class="adjust minusOne" data-minus-one>&#8722;</a>
-                  <span class="quantity item-qty" data-item-id="{{item.id}}">{{ item.quantity }}</span>
+                  <span class="quantity item-qty" data-item-id="{{ item.id }}">{{ item.quantity }}</span>
                   <a class="adjust plusOne" data-plus-one>&#43;</a>
                 </div>
               </div>
             </div>
           </div>
+        {% else %}
+          <p>Your cart is empty!</p>
         {% endfor %}
       </div>
       <hr>
@@ -50,11 +65,32 @@
   <script id="CartTemplate" type="text/x-handlebars-template">
     <div class="item">
       <p>
-        <a class="item-title" href="{{lineItem.url}}">{{lineItem.title}}</a>
+        <a href="{{lineItem.url}}">{{lineItem.title}}</a>
       </p>
       <div class="row cart-item">
         <div class="column l6 m6 s6">
-          <strong class="item-price">{{formatMoney lineItem.original_line_price}}</strong>
+          {{#if lineItem.total_discount}}
+            <!-- <s>{{formatMoney lineItem.original_line_price}}</s> -->
+            <p class="no-margin">
+              <strong>
+                {{#if lineItem.line_price}}
+                 {{formatMoney lineItem.line_price}}
+                {{else}}
+                  Free
+                {{/if}}
+              </strong>
+              <span> </span>
+              <s class="small">{{formatMoney lineItem.original_line_price}}</s>
+            </p>
+            {{#each lineItem.discounts}}
+               <small class="no-margin">{{this.title}}</small><br>
+            {{/each}}
+            <!-- <small class="no-margin">{{lineItem.discounts}}</small> -->
+          {{else}}
+            <p class="no-margin">
+              <strong>{{formatMoney lineItem.line_price}}</strong>
+            </p>
+          {{/if}}
           <p><small><a href="#" class="removeItem" data-item-id="{{lineItem.id}}">Remove</a></small></p>
         </div>
         <div class="column l6 m6 s6 right">
