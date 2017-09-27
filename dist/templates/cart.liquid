@@ -77,7 +77,7 @@
                 {% else %}
                   <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
                 {% endif %}<br>
-                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="adjust"><small>{{ 'cart.remove_item' | t }}</small></a>
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><small>{{ 'cart.remove_item' | t }}</small></a>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@
             {% else %}
               <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
             {% endif %}<br>
-            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="adjust"><small>{{ 'cart.remove_item' | t }}</small></a>
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><small>{{ 'cart.remove_item' | t }}</small></a>
           </div>
         </div>
       {% endfor %}
