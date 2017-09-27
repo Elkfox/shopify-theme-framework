@@ -112,8 +112,8 @@ concrete.Variants = (function() {
         return;
       }
 
-      var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname + "?variant=" + variant.id;
-      window.history.replaceState({path: newurl}, '', newurl);
+      // Push the variant attribute to the browser history and url
+      concrete.pushNewUrl(concrete.replaceUrlParam(window.location.href, 'variant', variant.id))
     },
 
     _updateMasterSelect: function(variant) {

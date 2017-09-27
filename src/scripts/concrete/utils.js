@@ -21,6 +21,11 @@ concrete.getUrlParameters = function(){
   }
   return parameters;
 }
+
+concrete.pushNewUrl = function(url) {
+  window.history.replaceState({path: url}, '', url);
+}
+
 // Collection template sorting
 concrete.getUrlParameterByName = function(parameter) {
   var url = decodeURIComponent(window.location.search.substring(1)),
