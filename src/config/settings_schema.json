@@ -1,21 +1,11 @@
 [
   {
     "name": "theme_info",
-    "logo": "https:\/\/cdn.shopify.com\/s\/files\/1\/0070\/7032\/files\/2010_6_23_Shopify-Green_256x256.jpg",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Concrete Framework"
-      },
-      {
-        "type": "paragraph",
-        "content": "v0.1"
-      },
-      {
-        "type": "paragraph",
-        "content": "Theme settings allow designers to provide an easy way for any user to customize the look and feel of their shop without having to delve into HTML or CSS code. Please see our [help page on theme settings](http:\/\/docs.shopify.com\/themes\/theme-templates\/settings) to learn more about how you can make the theme customizable."
-      }
-    ]
+    "theme_name": "Concrete",
+    "theme_author": "Elkfox",
+    "theme_version": "2.0.0",
+    "theme_documentation_url": "https://elkfox.github.io/Concrete/",
+    "theme_support_email": "help@elkfox.com"
   },
   {
     "name": "Colors",
