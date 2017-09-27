@@ -95,11 +95,11 @@
               <a class="adjust" data-change="1">&#43;</a>
             </div>
             {% if sold_out %}
-              <button type="submit" name="add" id="AddToCart" disabled>
+              <button type="submit" name="add" data-add-to-cart disabled>
                 <span id="AddToCartText">{{ 'product.sold_out' | t }}</span>
               </button>
             {% else %}
-              <button type="submit" name="add" id="AddToCart">
+              <button type="submit" name="add" data-add-to-cart>
                 <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
               </button>
             {% endif %}

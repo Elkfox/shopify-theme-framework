@@ -9,7 +9,7 @@ concrete.Product = (function() {
 
     // Create our selectors
     this.selectors = {
-      addToCart: '#AddToCart',
+      addToCart: '[data-add-to-cart]',
       addToCartText: '#AddToCartText',
       comparePrice: '#ComparePrice',
       originalPrice: '#ProductPrice',

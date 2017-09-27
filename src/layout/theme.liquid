@@ -44,7 +44,7 @@ MIT License
     var cart;
     $(document).ready(function() {
       cart = new Cartfox.Cart({{ cart | json }}, {
-        addItem: '#AddToCart',
+        addItem: '[data-add-to-cart]',
         cartItemCount: "#CartItemCount",
         cartTotal: "#CartTotal, .cart-total",
         decreaseQuantity: "[data-minus-one]",

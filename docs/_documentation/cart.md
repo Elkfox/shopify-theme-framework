@@ -11,7 +11,7 @@ As you can see in the `/layout/theme.liquid` Cartfox is initialized here using C
   var cart;
   $(document).ready(function() {
     cart = new Cartfox.Cart({{ cart | json }}, {
-      addItem: '#AddToCart',
+      addItem: '[data-add-to-cart]',
       cartItemCount: "#CartItemCount",
       cartTotal: "#CartTotal, .cart-total",
       decreaseQuantity: "[data-minus-one]",
