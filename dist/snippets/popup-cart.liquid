@@ -10,7 +10,7 @@
   <div class="popup-inner">
     <div class="popup-content left">
       <div class="h4">{{ 'cart.title' | t }}</div>
-      <div class="items">
+      <div class="items" data-item-container>
         {% for item in cart.items %}
           <div class="item">
             <p>
@@ -32,12 +32,12 @@
                     <strong>{{ item.line_price | money_with_currency }}</strong>
                   </p>
                 {% endif %}
-                <p><small><a href="#" class="removeItem" data-item-id="{{ item.id }}">Remove</a></small></p>
+                <p><small><a href="#" data-remove-item data-item-id="{{ item.id }}">Remove</a></small></p>
               </div>
               <div class="column l6 m6 s6 right">
                 <div class="quantity-adjust">
                   <a class="adjust minusOne" data-minus-one>&#8722;</a>
-                  <span class="quantity item-qty" data-item-id="{{ item.id }}">{{ item.quantity }}</span>
+                  <span class="quantity" data-item-quantity data-item-id="{{ item.id }}">{{ item.quantity }}</span>
                   <a class="adjust plusOne" data-plus-one>&#43;</a>
                 </div>
               </div>
@@ -54,7 +54,7 @@
           <a href="/cart" aria-label="{{ 'cart.view_cart' | t }}">{{ 'cart.view_cart' | t }}</a>
         </div>
         <div class="column l6 m6 s6 right">
-          <strong>{{ 'cart.total' | t }} <span id="CartTotal" class="cart-total">{{ cart.total_price | money_with_currency }}</span></strong>
+          <strong>{{ 'cart.total' | t }} <span data-cart-total>{{ cart.total_price | money_with_currency }}</span></strong>
         </div>
       </div>
       <p class="center"><a href="/cart" class="button wide" aria-label="{{ 'cart.checkout' | t }}">{{ 'cart.checkout' | t }}</a></p>
@@ -62,7 +62,7 @@
     </div>
   </div>
   {% raw %}
-  <script id="CartTemplate" type="text/x-handlebars-template">
+  <script data-cart-template type="text/x-handlebars-template">
     <div class="item">
       <p>
         <a href="{{lineItem.url}}">{{lineItem.title}}</a>
@@ -91,12 +91,12 @@
               <strong>{{formatMoney lineItem.line_price}}</strong>
             </p>
           {{/if}}
-          <p><small><a href="#" class="removeItem" data-item-id="{{lineItem.id}}">Remove</a></small></p>
+          <p><small><a href="#" data-remove-item data-item-id="{{lineItem.id}}">Remove</a></small></p>
         </div>
         <div class="column l6 m6 s6 right">
           <div class="quantity-adjust">
             <a class="adjust" data-minus-one>&#8722;</a>
-            <span class="quantity item-qty" data-item-id="{{lineItem.id}}">{{ lineItem.quantity }}</span>
+            <span class="quantity" data-item-quantity data-item-id="{{lineItem.id}}">{{ lineItem.quantity }}</span>
             <a class="adjust" data-plus-one>&#43;</a>
           </div>
         </div>

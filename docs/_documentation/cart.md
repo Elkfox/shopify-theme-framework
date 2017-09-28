@@ -12,14 +12,14 @@ As you can see in the `/layout/theme.liquid` Cartfox is initialized here using C
   $(document).ready(function() {
     cart = new Cartfox.Cart({{ cart | json }}, {
       addItem: '[data-add-to-cart]',
-      cartItemCount: "#CartItemCount",
-      cartTotal: "#CartTotal, .cart-total",
+      cartItemCount: "[data-cart-item-count]",
+      cartTotal: "[data-cart-total]",
       decreaseQuantity: "[data-minus-one]",
       increaseQuantity: "[data-plus-one]",
-      itemQuantity: '.item-qty',
-      removeItem: '.removeItem',
-      emptyTemplate: '#CartTemplate',
-      itemsContainer: '#PopupCart .items'
+      itemQuantity: '[data-item-quantity]',
+      removeItem: '[data-remove-item]',
+      emptyTemplate: '[data-cart-template]',
+      itemsContainer: '[data-item-container]'
     });
   });
 {% endhighlight %}

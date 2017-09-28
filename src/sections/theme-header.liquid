@@ -53,8 +53,8 @@
 
         <a href="/cart" id="CartLink" data-trigger="popup" data-target="#PopupCart.popup" aria-controls="Cart" aria-expanded="false" class="v-middle">
           {{ 'cart.title' | t }}
-          <span id="CartItemCount">{{ cart.item_count }}</span>
-          (<span id="CartTotal">{{ cart.total_price | money_with_currency }}</span>)
+          <span data-cart-item-count>{{ cart.item_count }}</span>
+          (<span data-cart-total>{{ cart.total_price | money_with_currency }}</span>)
         </a>
 
       </div>
