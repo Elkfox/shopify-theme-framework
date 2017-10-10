@@ -1,0 +1,20 @@
+<!-- /snippets/popup-error.liquid -->
+
+{% comment %}
+  For dispaying cart errors when necessary
+{% endcomment %}
+
+<div id="PopupError" class="popup overlay">
+  <div class="popup-inner">
+    <div class="popup-content left">
+
+      <div id="errorMessage"></div>
+
+      <a href="#close" class="popup-close" data-close aria-label="{{ 'common.close' | t }}">{% include 'icon' with 'close' %}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  var errorPopup = new Concrete.Popup('#PopupError');
+</script>

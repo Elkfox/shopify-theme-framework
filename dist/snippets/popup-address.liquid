@@ -1,0 +1,149 @@
+<!-- /snippets/popup-address.liquid -->
+
+{% case address_case %}
+
+  {% when 'add' %}
+
+    <div id="PopupAddress" class="popup overlay">
+      <div class="popup-inner">
+        <div class="popup-content">
+          {% form 'customer_address', customer.new_address %}
+            <h4>{{ 'account.address.add' | t }}</h4>
+
+            {{ form.errors | default_errors }}
+
+            <label class="clearfix" for="AddressFirstNameNew">{{ 'account.first_name' | t }}</label>
+            <input type="text" id="AddressFirstNameNew" class="clearfix" name="address[first_name]" value="{{ form.first_name }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressLastNameNew">{{ 'account.last_name' | t }}</label>
+            <input type="text" id="AddressLastNameNew" class="clearfix" name="address[last_name]" value="{{ form.last_name }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressCompanyNew">{{ 'account.company' | t }}</label>
+            <input type="text" id="AddressCompanyNew" class="clearfix" name="address[company]" value="{{ address.company }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressAddress1New">{{ 'account.address1' | t }}</label>
+            <input type="text" id="AddressAddress1New" class="clearfix" name="address[address1]" value="{{ address.address1 }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressAddress2New">{{ 'account.address2' | t }}</label>
+            <input type="text" id="AddressAddress2New" class="clearfix" name="address[address2]" value="{{ address.address2 }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressCityNew">{{ 'account.city' | t }}</label>
+            <input type="text" id="AddressCityNew" class="clearfix" name="address[city]" value="{{ address.city }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressCountryNew">{{ 'account.country' | t }}</label>
+            <select id="AddressCountryNew" class="clearfix" name="address[country]" data-default="{{ address.country }}">{{ country_option_tags }}</select>
+
+            <div id="AddressProvinceContainerNew" style="display:none">
+              <label class="clearfix" for="AddressProvinceNew">{{ 'account.province' | t }}</label>
+              <select id="AddressProvinceNew" class="clearfix" name="address[province]" data-default="{{ address.province }}"></select>
+            </div>
+
+            <label class="clearfix" for="AddressZipNew">{{ 'account.zip' | t }}</label>
+            <input type="text" id="AddressZipNew" class="clearfix" name="address[zip]" value="{{ address.zip }}" autocapitalize="characters">
+
+            <label class="clearfix" for="AddressPhoneNew">{{ 'account.phone' | t }}</label>
+            <input type="tel" id="AddressPhoneNew" class="clearfix" name="address[phone]" value="{{ address.phone }}">
+
+            <p>
+              {{ form.set_as_default_checkbox }}
+              <label for="address_default_address_new">{{ 'account.address.set_default' | t }}</label>
+            </p>
+
+            <p class="no-margin"><input type="submit" value="{{ 'form.add' | t }}"></p>
+            <p class="no-margin center"><a href="#close" data-close data-target="#PopupAddress">{{ 'form.cancel' | t }}</a></p>
+
+            {% if form.errors %}
+              <script>
+                $(document).ready(function() {
+                  var AddressPopup = new Concrete.Popup('#PopupAddress');
+                  AddressPopup.show();
+                });
+              </script>
+            {% endif %}
+          {% endform %}
+
+          <a href="#close" class="popup-close" data-close data-target="#PopupAddress" aria-label="{{ 'common.close' | t }}">{% include 'icon' with 'close' %}</a>
+        </div>
+      </div>
+    </div>
+
+  {% when 'edit' %}
+
+    <div id="PopupAddress_{{ address.id }}" class="popup overlay edit_address">
+      <div class="popup-inner">
+        <div class="popup-content">
+          {% form 'customer_address', address %}
+            <h4>{{ 'account.address.edit' | t }}</h4>
+
+            {{ form.errors | default_errors }}
+
+            <label class="clearfix" for="AddressFirstName_{{ form.id }}">{{ 'account.first_name' | t }}</label>
+            <input type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressLastName_{{ form.id }}">{{ 'account.last_name' | t }}</label>
+            <input type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressCompany_{{ form.id }}">{{ 'account.company' | t }}</label>
+            <input type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{ address.company }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressAddress1_{{ form.id }}">{{ 'account.address1' | t }}</label>
+            <input type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ address.address1 }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressAddress2_{{ form.id }}">{{ 'account.address2' | t }}</label>
+            <input type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ address.address2 }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressCity_{{ form.id }}">{{ 'account.city' | t }}</label>
+            <input type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ address.city }}" autocapitalize="words">
+
+            <label class="clearfix" for="AddressCountry_{{ form.id }}">{{ 'account.country' | t }}</label>
+            <select id="AddressCountry_{{ form.id }}" name="address[country]" data-default="{{ form.country }}">{{ country_option_tags }}</select>
+
+            <div id="AddressProvinceContainer_{{ form.id }}" style="display:none">
+              <label class="clearfix" for="AddressProvince_{{ form.id }}">{{ 'account.province' | t }}</label>
+              <select id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}"></select>
+            </div>
+
+            <label class="clearfix" for="AddressZip_{{ form.id }}">{{ 'account.zip' | t }}</label>
+            <input type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ address.zip }}" autocapitalize="characters">
+
+            <label class="clearfix" for="AddressPhone_{{ form.id }}">{{ 'account.phone' | t }}</label>
+            <input type="tel" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ address.phone }}">
+
+            <p>
+              {{ form.set_as_default_checkbox }}
+              <label for="address_default_address_{{ form.id }}">{{ 'account.address.set_default' | t }}</label>
+            </p>
+
+            <p class="no-margin"><input type="submit" value="{{ 'account.address.update' | t }}"></p>
+            <p class="no-margin center"><a href="#close" data-close data-target="#PopupAddress_{{ address.id }}">{{ 'form.cancel' | t }}</a></p>
+
+            {% if form.errors %}
+              <script>
+                $(document).ready(function() {
+                  var AddressPopup_{{ address.id }} = new Concrete.Popup('#PopupAddress_{{ address.id }}');
+                  AddressPopup_{{ address.id }}.show();
+                });
+              </script>
+            {% endif %}
+          {% endform %}
+
+          <a href="#close" class="popup-close" data-close data-target="#PopupAddress_{{ address.id }}" aria-label="{{ 'common.close' | t }}">{% include 'icon' with 'close' %}</a>
+        </div>
+      </div>
+    </div>
+
+  {% when 'delete' %}
+    <div id="PopupAddressDelete_{{ address.id }}" class="popup overlay">
+      <div class="popup-inner">
+        <div class="popup-content">
+          <h4>{{ 'account.address.delete' | t }}</h4>
+          <p>{{ 'account.address.confirm_delete' | t }}</p>
+          <p><a href="#" class="button alternate wide" onclick="Shopify.CustomerAddress.destroy({{ address.id }});return false">{{ 'form.delete' | t }}</a></p>
+          <p class="no-margin center"><a href="#close" data-close data-target="#PopupAddressDelete_{{ address.id }}">{{ 'form.cancel' | t }}</a></p>
+
+          <a href="#close" class="popup-close" data-close data-target="#PopupAddressDelete_{{ address.id }}" aria-label="{{ 'common.close' | t }}">{% include 'icon' with 'close' %}</a>
+        </div>
+      </div>
+    </div>
+
+{% endcase %}

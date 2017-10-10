@@ -1,0 +1,137 @@
+
+{% assign sold_out = true %}
+{% assign on_sale = false %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+
+<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+<meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+<div class="padding-top padding-bottom">
+  <div class="container l" itemscope itemtype="http://schema.org/Product" data-section-type="product" data-section-id="{{ section.id }}" data-enable-history-state="true">
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+    <div class="row no-margin">
+      <div class="column l6 m6 s12">
+
+        <div id="ProductPhoto">
+          <img src="{{ product.featured_image | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
+        </div>
+
+        {% if product.images.size > 1 %}
+          <div id="ProductThumbs" class="row collapse">
+            {% for image in product.images %}
+              <div class="column l3 m4 s6">
+                <img src="{{ image.src | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+      </div>
+
+      <div class="column l6 m6 s12">
+
+        <h1 itemprop="name">{{ product.title }}</h1>
+
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+          <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" data-cart-submit>
+            {% unless product.options.size == 1 and product.variants[0].title == 'Default Title' %}
+              {% for option in product.options_with_values %}
+                <label {% if option.name == 'default' %}class="hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index }}">
+                  {{ option.name }}
+                </label>
+                <select class="single-option-selector" id="SingleOptionSelector-{{ forloop.index }}" data-index="option{{ forloop.index }}">
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                  {% endfor %}
+                </select>
+              {% endfor %}
+            {% endunless %}
+
+            {% comment %}Original variant selector, the customer will not see this element.{% endcomment %}
+            <select name="id" id="productSelect" class="product-single__variants" data-index="option{{ forloop.index }}" style="display: none;">
+              {% for variant in product.variants %}
+                {% if variant.available %}
+                  <option
+                    value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+                  </option>
+                {% else %}
+                  <option disabled="disabled">
+                    {{ variant.title }} - {{ 'product.sold_out' | t }}
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+
+            <span class="hidden">{{ 'product.regular_price' | t }}</span>
+            <span id="ProductPrice" class="h2 clearfix" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+              {{ current_variant.price | money }}
+            </span>
+
+            {% if on_sale %}
+              <p id="OnSale">
+                <span class="hidden">{{ 'product.original_price' | t }}</span>
+                <span>{{ 'product.original_price' | t }}</span>
+                <s id="ComparePrice">{{ product.compare_at_price | money }}</s>
+              </p>
+            {% endif %}
+
+            <label for="Quantity" class="clearfix">{{ 'product.quantity' | t }}</label>
+            <div class="quantity-adjust">
+              <a class="adjust" data-change="-1">&#8211;</a>
+               <input type="number" id="Quantity" class="quantity" name="quantity" value="1" min="1" data-cart-quantity="1">
+              <a class="adjust" data-change="1">&#43;</a>
+            </div>
+            {% if sold_out %}
+              <button type="submit" name="add" data-add-to-cart disabled>
+                <span id="AddToCartText">{{ 'product.sold_out' | t }}</span>
+              </button>
+            {% else %}
+              <button type="submit" name="add" data-add-to-cart>
+                <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
+              </button>
+            {% endif %}
+          </form>
+
+        </div>
+
+        <div class="rte" itemprop="description">
+          {{ product.description }}
+        </div>
+
+        <h4 class="margin-top">{{ 'social.share.title' | t }}</h4>
+        {% include 'social-sharing' %}
+
+        {% if collection %}
+          {% if collection.previous_product or collection.next_product %}
+            <p>
+              {% if collection.previous_product %}
+                <span class="left">
+                  {{ 'product.previous_product' | t | link_to: collection.previous_product }}
+                </span>
+              {% endif %}
+              {% if collection.next_product %}
+                <span class="right">
+                  {{ 'product.next_product' | t | link_to: collection.next_product }}
+                </span>
+              {% endif %}
+            </p>
+          {% endif %}
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
