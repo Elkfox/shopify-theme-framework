@@ -3,9 +3,10 @@ title:  "Focus"
 handle: "focus"
 category: "javascript modules"
 ---
-By default Concrete has three popups; cart, address and errors. These are located in the snippets directory and are always prefixed with `popup-`.
 
-Popup visibility is handle by our very own popup module; [Focus](https://github.com/Elkfox/Focus);
+Popup visibility is handle by our very own popup module, [Focus](https://github.com/Elkfox/Focus).
+
+By default Concrete has three popups; cart, address and errors. These are located in the snippets directory and are always prefixed with `popup-`.
 
 Creating a new popup is very easy; here is the basic structure:
 
