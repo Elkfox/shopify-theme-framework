@@ -55,7 +55,7 @@
             {% if form.errors %}
               <script>
                 $(document).ready(function() {
-                  var AddressPopup = new Concrete.Popup('#PopupAddress');
+                  var AddressPopup = new Focus('#PopupAddress');
                   AddressPopup.show();
                 });
               </script>
@@ -120,7 +120,7 @@
             {% if form.errors %}
               <script>
                 $(document).ready(function() {
-                  var AddressPopup_{{ address.id }} = new Concrete.Popup('#PopupAddress_{{ address.id }}');
+                  var AddressPopup_{{ address.id }} = new Focus('#PopupAddress_{{ address.id }}');
                   AddressPopup_{{ address.id }}.show();
                 });
               </script>

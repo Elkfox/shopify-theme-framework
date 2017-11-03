@@ -21,7 +21,7 @@ Creating a new popup is very easy, here is the basic structure:
 </div>
 
 <script>
-  var newPopup = new Concrete.Popup('#PopupNew');
+  var newPopup = new Focus('#PopupNew');
 </script>
 {% endraw %}
 {% endhighlight %}
