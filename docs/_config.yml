@@ -5,7 +5,7 @@ description: A lightweight framework for building Shopify themes
 name: Concrete
 subtitle: Shopify theme boilerplate
 github_url: https://github.com/Elkfox/Concrete
-download_url: https://github.com/Elkfox/Concrete/raw/master/upload/Concrete.zip
+download_url: https://github.com/Elkfox/Concrete/archive/master.zip
 demo_url: https://concrete-theme.myshopify.com
 # Navigation =================================================================
 nav:
