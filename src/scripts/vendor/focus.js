@@ -6,7 +6,7 @@
 \___/|__/| \_/|__/\__/  /\_/
               |\
               |/
-Focus v1.0
+Focus v1.1
 https://github.com/Elkfox/Focus
 Copyright (c) 2017 Elkfox Co Pty Ltd
 https://elkfox.com
@@ -18,7 +18,8 @@ var Focus = function(target, config) {
   this.element = jQuery(target);
   this.config = {
     'visibleClass': 'visible',
-    'innerSelector': '.popup-inner'
+    'innerSelector': '.popup-inner',
+    'autoFocusSelector': '[data-auto-focus]'
   };
   // Merge configs
   if(config) {
@@ -63,6 +64,12 @@ Focus.prototype.show = function() {
     this.element.addClass(this.config.visibleClass);
     this.visible = true;
 
+    // Focus on the an input field
+    if(jQuery(this.target + ' ' + this.config.autoFocusSelector).length) {
+      setTimeout(function(){
+        jQuery(_this.target + ' ' + _this.config.autoFocusSelector).focus();
+      }, 300);
+    }
     // When someone clicks the [data-close] button then we should close the modal.
     this.element.one('click', '[data-close]', function (e) {
       e.preventDefault();
@@ -72,7 +79,6 @@ Focus.prototype.show = function() {
     this.element.one('click', this.config.innerSelector, function (e) {
       if (jQuery(e.target).is(_this.config.innerSelector) || jQuery(e.target).parents(_this.config.target).length === 0) {
         _this.hide();
-        jQuery(_this.config.innerSelector).unbind('click');
       }
     });
     // When someone presses esc hide the popup
