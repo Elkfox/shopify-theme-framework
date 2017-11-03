@@ -6,7 +6,7 @@ category: "javascript modules"
 
 concrete.Variants handles the following
  - Sets up an event listener for each option selector.
- - `_getCurrentOptions` Maps the each option selector into json whether they be a select dropdown or radio buttons.
+ - `_getCurrentOptions` Maps each option selector into JSON whether they be a select dropdown or radio buttons.
  - `_getVariantFromOptions` Returns the variant from each of the currently selected options.
  - `_onSelectChange`: Triggers the jQuery `variantChange` event passing in the current variant as an event parameter. Fires the following passing in the current variant:
    - `_updateMasterSelect(variant)`
@@ -25,7 +25,7 @@ Triggers the `variantImageChange` jQuery event if the current variant has a feat
 If the variant price or compare at price has changed the `variantPriceChange` jQuery event is triggered. This event is passed the current variant as an event parameter.
 
 ###### `_updateSKU(variant)`
-If the SKU has changedthe `variantSKUChange` jQuery event is triggered. This event is passed the current variant as an event parameter.
+If the SKU has changed, the `variantSKUChange` jQuery event is triggered. This event is passed the current variant as an event parameter.
 
 ###### `_updateHistoryState(variant)`
 Updates the url with the direct url of the currently selected variant and pushes it to the history.

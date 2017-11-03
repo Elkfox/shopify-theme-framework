@@ -3,7 +3,7 @@ title:  "Row"
 handle: "grid-row"
 category: "grid"
 ---
-Rows provide spacing below to differentiate `div`isions within a container. They also help align child `column` left edge by applying a negative margin.
+Rows provide spacing below to differentiate `div`isions within a container. They also help align child `column`'s left edge by applying a negative margin.
 
 {% highlight html %}
 <div class="container">
@@ -13,7 +13,7 @@ Rows provide spacing below to differentiate `div`isions within a container. They
 
 
 
-By default the row class has a bottom margin equal to `$gutter` , you will find that in some scenarios this is not desired.
+By default the row class has a bottom margin equal to `$gutter`. You will find that in some scenarios this is not desired.
 
 {% highlight html %}
 <!-- This will have a bottom margin equal to $gutter -->

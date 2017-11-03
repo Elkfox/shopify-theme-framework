@@ -3,7 +3,7 @@ title:  "Vendor scripts"
 handle: "vendor-scripts"
 category: "scripts"
 ---
-Concrete ships with a few javascript libraries. These are minified into the `assets/vendor.js` file, or if you are working in Slate they are in individual files in `src/scripts/vendor/`.
+Concrete ships with a few JavaScript libraries. These are minified into the `assets/vendor.js` file, or if you are working in Slate they are in individual files in `src/scripts/vendor/`.
 
 #### [Modernizr](https://modernizr.com/)
 Modernizr is used to add features to older browsers and different devices. We have included a lightweight custom build of Modernizr that only includes the features that we require. This custom build can be viewed and modified [here](https://modernizr.com/download/?-csstransforms-csstransforms3d-flexbox-placeholder-svg-touchevents-domprefixes-prefixes-setclasses-testallprops-testprop-teststyles).
@@ -25,7 +25,7 @@ Creating composite functions
 We use Lodash in some of concrete functions (`concrete.Sections`, `concrete.Product`, `concrete.Variants`) because it makes things faster (in the browser), and easier to maintain.
 
 #### [Concrete Popups](https://github.com/Elkfox/Concrete-Popups)
-Modals and popups are used so frequently in ecommerce websites that we developed our own flavour because we weren't that impressed with the alternatives. This lives in the vendor scripts because it is a dependency of the framework - although it doesn't need to be if you choose otherwise.
+Modals and popups are used so frequently in e-commerce websites that we developed our own flavour because we weren't that impressed with the alternatives. This lives in the vendor scripts because it is a dependency of the framework - although it doesn't need to be if you choose otherwise.
 
 There is some basic documentation [here](#concrete-popups).
 

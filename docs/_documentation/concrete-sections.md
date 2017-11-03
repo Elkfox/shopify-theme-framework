@@ -4,7 +4,7 @@ handle: "concrete-sections"
 category: "javascript modules"
 ---
 
-With the introduction of Sections came some new challenges. It is important that the merchant has a seamless experience when modifying the theme throughout the theme customiser. Shopify has supplied us with some hava script events that are fired when the merchant interacts with the customiser. You can read more about this [here](https://help.shopify.com/themes/development/theme-editor/sections#understand-the-interaction-between-theme-javascript-and-the-theme-editor).
+With the introduction of Sections came some new challenges. It is important that the merchant has a seamless experience when modifying the theme throughout the theme customiser. Shopify has supplied us with some JavaScript events that are fired when the merchant interacts with the customiser. You can read more about this [here](https://help.shopify.com/themes/development/theme-editor/sections#understand-the-interaction-between-theme-javascript-and-the-theme-editor).
 
 These events are at the time of writing this:
   - `shopify:section:load`

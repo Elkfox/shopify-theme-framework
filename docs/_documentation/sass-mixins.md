@@ -1,12 +1,12 @@
 ---
-title:  "Sass mixins"
+title:  "SCSS mixins"
 handle: "sass-mixins"
 category: "styles"
 ---
-There are some really help mixins to speed up development. If you are developing using Slate these are located in `src/styles/utils/mixins.scss`.
+Concrete has some really helpful mixins to speed up development. If you are developing using Slate, these are located in `src/styles/utils/mixins.scss`.
 
 ###### Prefixer
-Use the prefixer mixin to generate the correct vendor prefixes for the best cross browser support.
+Use the Prefixer mixin to generate the correct vendor prefixes for the best cross browser support.
 {% highlight scss %}
 // Input
 .class {

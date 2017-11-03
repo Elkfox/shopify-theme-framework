@@ -47,7 +47,7 @@ nav:
     - title: 'Cart'
       url: '#cart'
     - title: 'Popups'
-      url: '#concrete-popups'
+      url: '#focus'
     - title: 'Product'
       url: '#concrete-product'
     - title: 'Variants'

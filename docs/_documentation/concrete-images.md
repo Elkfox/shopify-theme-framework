@@ -30,32 +30,30 @@ concrete.Image.preload(['image-url-1.jpg', 'image-url-2.jpg'], '1024x1024');
 
 ##### imageLoad
 
-Loads and caches an image in the browsers cache.
+Loads and caches an image in the browser's cache.
 
 | Parameters      | Type            | Description   |
 | :-------------- | :-------------- | :------------ |
 | `src`           | string          | Image URL     |
 
 {% highlight javascript %}
-concrete.Image.getImageUrl('https://cdn.shopify.com/s/files/big-ol-image.jpeg', '250x250');
-
-// Returns string
-'https://cdn.shopify.com/s/files/big-ol-image_250x250.jpeg'
+concrete.Image.imageLoad('https://cdn.shopify.com/s/files/big-ol-image.jpeg');
 {% endhighlight %}
 
 ##### getImageUrl
 
-Loads and caches an image in the browsers cache.
+Creates a valid image URL with the protocol removed and a specified size.
 
 | Parameters      | Type            | Description   |
 | :-------------- | :-------------- | :------------ |
 | `src`           | string          | Image URL     |
+| `size`          | string          | Required image size     |
 
 {% highlight javascript %}
 concrete.Image.getImageUrl('https://cdn.shopify.com/s/files/big-ol-image.jpeg', '250x250');
 
 // Returns string
-'https://cdn.shopify.com/s/files/big-ol-image_250x250.jpeg'
+'//cdn.shopify.com/s/files/big-ol-image_250x250.jpeg'
 {% endhighlight %}
 
 ##### imageSize

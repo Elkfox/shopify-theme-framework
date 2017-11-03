@@ -72,13 +72,13 @@ Adjust your screen width to see the alignment change.
     <div class="row demo-grid">
       <div class="column l12 xl-left l-center m-right demo-grid">
         xl-left l-center m-right. <br>
-        Because there is no small position defined, the position will default to left
+        Because there is no small position defined, the position will default to left.
       </div>
     </div>
     <div class="row demo-grid">
       <div class="column l12 l-center m-center s-right demo-grid">
           l-center m-center s-right. <br>
-          Because there is no extra large position defined the position will default to left.
+          Because there is no extra large position defined, the position will default to left.
       </div>
     </div>
       <div class="row demo-grid">
@@ -92,7 +92,7 @@ Adjust your screen width to see the alignment change.
 ##### Display methods
 ###### inline
 {% highlight html %}
-<!-- this will display vertically -->
+<!-- This will display vertically -->
 <ul>
   <li>One</li>
   <li>Two</li>
@@ -100,7 +100,7 @@ Adjust your screen width to see the alignment change.
   <li>Four</li>
   <li>Five</li>
 </ul>
-<!-- This will display horizontally and will not have a list style -->
+<!-- This will display horizontally and won't have a list style -->
 <ul class="inline">
   <li>One</li>
   <li>Two</li>
@@ -129,7 +129,7 @@ Adjust your screen width to see the alignment change.
 </div>
 
 ###### Hide
-`hidden` can be used to hide any element, if you wish to hide on a extra large screen sizes you can use `xl-hide`.
+`hidden` can be used to hide any element. If you wish to hide on a extra large screen sizes you can use `xl-hide`.
 
 {% highlight html %}
   <div class="hidden">Always Hidden</div>
@@ -151,7 +151,7 @@ Adjust your screen size to see the elements hide and display
 
 ###### Show
 
-Elements will only be visible on the defined screen width
+Elements will only be visible on the defined screen width.
 {% highlight html %}
   <div class="xl-show">Only visible on extra large screens</div>
   <div class="l-show">Only visible on large screens</div>
@@ -159,7 +159,7 @@ Elements will only be visible on the defined screen width
   <div class="s-show">Only visible on small screens</div>
 {% endhighlight %}
 
-Adjust your screen size to see the elements display and hide
+Adjust your screen size to see the elements display and hide.
 
 <div class="demo-wrapper">
   <div class="xl-show demo-grid">Only visible on extra large screens</div>

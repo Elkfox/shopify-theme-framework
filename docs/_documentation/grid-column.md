@@ -33,9 +33,9 @@ The `column` class is used to divide rows into horizontal sections.
   </div>
 </div>
 
-As you can see the above columns aren't filling the row, they have no default width.
+As you can see the above columns aren't filling the row, because they have no default width.
 
-By default Grid50 is a twelve column layout. This is easily modified, if you want to find out more about this visit the or if you wish to add a 5 column layout [Grid50 documentation](http://grid50.com).
+By default Grid50 is a twelve column layout. This is easily modified: if you want to find out more about this visit the or if you wish to add a 5 column layout [Grid50 documentation](http://grid50.com).
 
 {% highlight html %}
 <div class="container">
@@ -60,7 +60,7 @@ By default Grid50 is a twelve column layout. This is easily modified, if you wan
     </div>
     <div class="row demo-grid">
       <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
-      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12 - Grid 50 can automatically clear columns of differing height</div>
+      <div class="column l4 m4 s12 demo-grid">column l4 m4 s12 - Grid50 can automatically clear columns of differing height</div>
       <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
       <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
       <div class="column l4 m4 s12 demo-grid">column l4 m4 s12</div>
@@ -68,7 +68,7 @@ By default Grid50 is a twelve column layout. This is easily modified, if you wan
     </div>
   </div>
 </div>
-As you can see above Despite the middle column of the top row being of a differing height the columns clear to the left.
+As you can see above despite the middle column of the top row being of a differing height the columns clear to the left.
 
 By default Concrete is actually desktop first, however many people prefer to work mobile first: Concrete is easily adapted to do this. You can find out how on the styles page.
 {% highlight html %}
@@ -85,7 +85,7 @@ By default Concrete is actually desktop first, however many people prefer to wor
 
 <div class="container">
   <div class="row">
-    <!-- Because the large and medium breakpoints have not been defined these columns will be the width of the contents on large and medium screen sizes but one quarter of the width on small -->
+    <!-- Because the large and medium breakpoints have not been defined, these columns will be the width of the contents on large and medium screen sizes but one quarter of the width on small -->
     <div class="column s3"></div>
     <div class="column s3"></div>
     <div class="column s3"></div>

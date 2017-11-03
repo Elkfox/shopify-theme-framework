@@ -3,7 +3,7 @@ title:  "Getting started with Shopify Slate"
 handle: "getting-started-slate"
 category: "getting started"
 ---
-If you are using [Shopify Slate](https://shopify.github.io/slate/) and wish to work from the build files you can start by cloning this repositiory and installing the dependencies.
+If you are using [Shopify Slate](https://shopify.github.io/slate/) and wish to work from the build files you can start by cloning this repository and installing the dependencies.
 
 {% highlight bash %}
 $ git clone https://github.com/Elkfox/Concrete.git
