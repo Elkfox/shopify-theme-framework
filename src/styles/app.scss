@@ -22,11 +22,10 @@
 /* Global ====================================================================*/
 @import url('global/concrete-reset.scss');
 @import url('global/global.scss');
-@import url('global/helpers.scss');
 @import url('global/grid.scss');
 @import url('global/forms.scss');
 
-/* Modules ==================================================================*/
+/* Modules ===================================================================*/
 @import url('modules/header.scss');
 @import url('modules/navigation.scss');
 @import url('modules/footer.scss');
@@ -36,6 +35,9 @@
 @import url('modules/social.scss');
 @import url('modules/icon.scss');
 @import url('modules/product.scss');
+
+/* Helpers ===================================================================*/
+@import url('global/helpers.scss');
 
 /* =============================================================================
    Shopify core helpers
