@@ -90,9 +90,9 @@ Focus.prototype.show = function() {
         _this.hide();
       }
     });
-    return jQuery(document).trigger('concrete:popup:open', [this.target]);
+    return jQuery(document).trigger('focus:open', [this.target]);
   }
-  return jQuery(document).trigger('concrete:popup:error', { error: 'Popup already open' });
+  return jQuery(document).trigger('focus:error', { error: 'Popup already open' });
 }
 Focus.prototype.hide = function() {
   if (this.visible || this.element.hasClass(this.config.visibleClass)) {
