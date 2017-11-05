@@ -41,21 +41,22 @@ Focus.getTarget = function(element, event) {
     event.preventDefault();
   }
   const selector = this.getSelectorFromElement(element);
-  if (selector) {
-    target = selector;
-  }
+  target = selector ? selector : null;
   return target;
 }
 Focus.getSelectorFromElement = function(element) {
   var selector = jQuery(element).data('target');
   if (!selector || selector === '#') {
-    // Href can be used instead of data target attribute
-    selector = jQuery(element).attr('href') || '';
+    // href can be used as a fallback instead of data target attribute
+    selector = jQuery(element).attr('href') || null;
   }
   return selector
 }
 Focus.eventHandler = function(target, method) {
   var element = Focus.elements[target];
+  if(!element) {
+    var element = new Focus(target);
+  }
   method === 'hide' ? element.hide() : element.toggle();
 }
 Focus.prototype.show = function() {
@@ -103,15 +104,15 @@ Focus.prototype.hide = function() {
   return jQuery(document).trigger('focus:error', { error: 'Focus element is already closed' });
 }
 Focus.prototype.toggle = function() {
-  return this.visible ? this.close() : this.show();
+  return this.visible ? this.hide() : this.show();
 }
-jQuery(document).on('ready', function() {
-  jQuery(document).on('click', '[data-trigger]', function(event) {
+jQuery(document).ready(function(){
+  jQuery(document).on('click', '[data-trigger="popup"]', function(event) {
     var target = Focus.getTarget(jQuery(this), event);
     Focus.eventHandler(target, 'toggle');
   });
   jQuery(document).on('click', '[data-close]', function(event) {
     var target = Focus.getTarget(jQuery(this), event);
-    Focus.eventHandler(target, 'hide');
+    if(target) Focus.eventHandler(target, 'hide');
   });
 });
