@@ -1,6 +1,7 @@
-<!-- /templates/collection.liquid -->
+<!-- /templates/collection.48.liquid -->
 
-{% paginate collection.products by 12 %}
+{% assign view = '48' %}
+{% paginate collection.products by 48 %}
 
 {% assign column_width = 'column l4 m6 s12' %}
 
@@ -22,17 +23,15 @@
         </div>
       </div>
     </div>
+
+    {% include 'collection-view' %}
+
     {% if collection.description != blank %}
       <div class="rte">
         {{ collection.description }}
       </div>
     {% endif %}
   </header>
-  <p>
-    <span>{{ 'collection.view.title' | t }}</span>
-    <a title="View by 12 products" class="change-view" data-view="12">12</a>
-    <a title="View by 24 products" class="change-view" data-view="24">24</a>
-  </p>
 </div>
 
 <div class="container l">

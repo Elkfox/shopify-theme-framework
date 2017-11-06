@@ -30,6 +30,7 @@ concrete.Collection = (function() {
     },
 
     _onViewByChange: function(evt) {
+      evt.preventDefault();
       var viewBy = evt.target.getAttribute('data-view');
 
       this.$container.trigger({

@@ -1,0 +1,14 @@
+<div class="row pagination">
+  <div class="column l12 m12 s12">
+    <p>
+      <span>{{ 'collection.view.title' | t }}</span>
+      {% assign collection_views = '12,24,48' | split: ',' %}
+      {% for collection_view in collection_views %}
+        <a href="collections/{{ collection.handle }}?view={{ collection_view }}"
+           title="View by collection_view products"
+           class="page{% if view == collection_view %} active{% endif %}"
+           data-view="{{ collection_view }}">{{ collection_view }}</a>
+      {% endfor %}
+    </p>
+  </div>
+</div>
