@@ -1,0 +1,15 @@
+<!-- /templates/customers/login.liquid -->
+
+<div class="container l center">
+
+  {% include 'form-login' %}
+
+  {% if shop.checkout.guest_login %}
+    <hr>
+    <h2>{{ 'form.guest_title' | t }}</h2>
+    {% form 'guest_login' %}
+      <input type="submit" value="{{ 'form.continue' | t }}">
+    {% endform %}
+  {% endif %}
+
+</div>

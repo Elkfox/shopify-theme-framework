@@ -1,0 +1,109 @@
+<!-- /templates/customers/addressess.liquid -->
+
+{% assign pagination = 6 %}
+{% paginate customer.addresses by pagination %}
+
+<header class="container l">
+
+  {% include 'theme-breadcrumbs' %}
+
+  <div class="row">
+    <div class="column l12">
+      {% for address in customer.addresses | limit:1 %}
+        <h1>{{ 'account.address.count' | t: count: address }}</h1>
+      {% else %}
+        <h1>{{ 'account.address.title' | t }}</h1>
+      {% endfor %}
+    </div>
+  </div>
+
+</header>
+
+<div class="container l">
+  <div class="row no-margin">
+
+    <div class="column l8 m12 s12">
+
+      {% assign address_case = 'add' %}
+      {% include 'popup-address' %}
+
+      {% for address in customer.addresses %}
+
+        <div class="margin-bottom">
+
+          {% if address == customer.default_address %}
+            <strong class="highlight">{{ 'account.address.default' | t }}</strong>
+          {% endif %}
+
+          <p>
+            <strong>{{ address.first_name | capitalize }} {{ address.last_name | capitalize }}</strong>
+            {% unless address.company == blank %}
+              ({{ address.company }})
+            {% endunless %}
+            <br>
+            {{ address.street }}
+            {{ address.city | capitalize }}<br>
+            {% if address.province_code %}
+              {{ address.province_code | upcase }},
+            {% endif %}
+            {{ address.zip | upcase }},
+            {{ address.country }}<br>
+            {{ address.phone }}
+          </p>
+
+          <p><a href="#PopupAddress_{{ address.id }}" data-target="#PopupAddress_{{ address.id }}" data-trigger="popup">{{ 'form.edit' | t }}</a>
+          <a href="#PopupAddressDelete_{{ address.id }}" data-target="#PopupAddressDelete_{{ address.id }}" data-trigger="popup">{{ 'form.delete' | t }}</a></p>
+
+          {% assign address_case = 'edit' %}
+          {% include 'popup-address' %}
+
+          {% assign address_case = 'delete' %}
+          {% include 'popup-address' %}
+
+        </div>
+
+      {% else %}
+        <p class="margin-bottom">{{ 'account.address.none' | t }}</p>
+      {% endfor %}
+
+      <a href="#PopupAddress" data-target="#PopupAddress" data-trigger="popup" class="button margin-bottom">{{ 'account.address.add' | t }}</a>
+
+    </div>
+
+    <div class="column l4 m12 s12">
+      {% include 'account-sidebar' %}
+    </div>
+
+  </div>
+</div>
+
+{% if paginate.pages > 1 %}
+  <div class="container l">
+    <div class="pagination">
+      {{ paginate | default_pagination }}
+    </div>
+  </div>
+{% endif %}
+
+<script>
+  // Modified contents of customer_area.js (global asset)
+  Shopify.CustomerAddress = {
+    destroy: function(id) {
+      Shopify.postLink('/account/addresses/'+id, {'parameters': {'_method': 'delete'}});
+    }
+  }
+  // Initialize observers on address selectors
+  new Shopify.CountryProvinceSelector('AddressCountryNew', 'AddressProvinceNew', {
+    hideElement: 'AddressProvinceContainerNew'
+  });
+  // Setup province selector on each customer address
+  {% paginate customer.addresses by pagination %}
+    {% for address in customer.addresses %}
+      new Shopify.CountryProvinceSelector('AddressCountry_{{ address.id }}', 'AddressProvince_{{ address.id }}', {
+        hideElement: 'AddressProvinceContainer_{{ address.id }}'}
+      );
+    {% endfor %}
+  {% endpaginate %}
+</script>
+
+{% endpaginate %}

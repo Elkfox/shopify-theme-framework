@@ -1,0 +1,27 @@
+<!-- /templates/list-collections.liquid -->
+
+{% for collection in collections %}
+
+  {% unless collection.handle == 'frontpage' %}
+
+    {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+
+    <div class="container l">
+      <p class="h1 section-header__left">{{ collection_title }}</p>
+      <a href="{{ collection.url }}" title="{{ 'collection.title }}">More {{ collection_title }} &rsaquo;</a>
+    </div>
+
+    <div class="container l">
+      <div class="row">
+        {% for product in collection.products limit:4 %}
+          {% assign column_width = 'column l4 m6 s12' %}
+          {% include 'collection-product' %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% unless forloop.last %}<hr>{% endunless %}
+
+  {% endunless %}
+
+{% endfor %}

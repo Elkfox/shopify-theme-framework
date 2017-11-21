@@ -1,0 +1,28 @@
+<!-- /templates/product.liquid -->
+
+{% section 'template-product' %}
+
+<script>
+// A simple example of image switching using the variantImageChange event and concrete's images tools.
+
+$(document).on('variantImageChange', function(event) {
+  // Lets get the old image
+  var oldSrc = $('#ProductPhoto img').attr('src');
+  // Find out the size of the old image
+  var oldSize = concrete.Images.imageSize(oldSrc);
+  // Lets get the new image at the correct size
+  var newImage = concrete.Images.getImageUrl(event.variant.featured_image.src, oldSize)
+  // Change to the new variants image
+  $('#ProductPhoto img').attr('src', newImage);
+});
+
+// But this is a bit long winded so heres an example just using concrete imageSwitch function
+$(document).on('click', '#ProductThumbs img', function(event) {
+  concrete.Images.switchImage($('#ProductPhoto img')[0], $(this, event.target)[0]);
+})
+
+</script>
+
+<script type="application/json" id="ProductJson">
+ {{ product | json }}
+</script>
