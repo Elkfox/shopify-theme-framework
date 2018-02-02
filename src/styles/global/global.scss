@@ -17,7 +17,6 @@ img {
 }
 
 // Typography
-
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: sans-serif;
@@ -59,16 +58,15 @@ strong, b {
   font-weight: $fontBold;
 }
 
-small {
+small, .small {
   font-size: 0.8rem;
 }
 
-i {
+i, em {
   font-style: italic;
 }
 
 .rte {
-  // TBA
   ul, ol {
     list-style: initial;
     list-style-position: inside;
@@ -101,13 +99,20 @@ input[type="search"],
 textarea {
   max-width: 100%;
   height: $gutter;
-  line-height: ($gutter - $borderWeight*2);
+  line-height: 100%;
   padding: 0 $gutter/2;
   font-size: 1.125rem;
   border: $borderWeight $borderStyle $colorAlternate;
   border-radius: $borderRadius;
-  -webkit-appearance: none;
-  @media only screen and (max-width: $s) {
+  @include prefixer(appearance, none, webkit moz ms spec);
+  &::placeholder, &::-webkit-input-placeholder,  &:-moz-placeholder, &::-moz-placeholder, &:-ms-input-placeholder {
+    line-height: 100%;
+    height: $gutter;
+  }
+  &::-webkit-textfield-decoration-container {
+    display: block;
+  }
+  @include s() {
     width: 100%;
     clear: both;
     margin-bottom: $gutter/3;
@@ -145,9 +150,9 @@ select {
   option {
     // for Firefox
     background-color: $colorBackground;
+    color: $colorForeground;
     border: 0;
     display: block;
-    color: $colorForeground;
   }
   &:hover {
     background-color: darken($colorBrand, 5%);
@@ -187,7 +192,7 @@ a.button {
 .select-wrapper {
   display: inline-block;
   position: relative;
-  @media only screen and (max-width: $s) {
+  @include s() {
     width: 100%;
     clear: both;
     margin-bottom: $gutter/3;
