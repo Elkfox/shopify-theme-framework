@@ -9,6 +9,7 @@
 ###################
 node_modules
 deploy.log
+theme.lock
 
 # optionally track theme kit config files
 config.yml
