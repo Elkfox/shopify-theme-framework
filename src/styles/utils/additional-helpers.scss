@@ -1,0 +1,176 @@
+/* Optional Additional Helpers ================================================*/
+
+// Margin & Padding
+@for $i from 0 through 20 {
+  $space: $spacing*$i;
+  .margin-#{$i}x {
+    margin: $space;
+  }
+  .margin-top-#{$i}x {
+    margin-top: $space;
+  }
+  .margin-bottom-#{$i}x {
+    margin-bottom: $space;
+  }
+  .margin-left-#{$i}x {
+    margin-left: $space;
+  }
+  .margin-right-#{$i}x {
+    margin-right: $space;
+  }
+  .padding-#{$i}x {
+    padding: $space;
+  }
+  .padding-top-#{$i}x {
+    padding-top: $space;
+  }
+  .padding-bottom-#{$i}x {
+    padding-bottom: $space;
+  }
+  .padding-left-#{$i}x {
+    padding-left: $space;
+  }
+  .padding-right-#{$i}x {
+    padding-right: $space;
+  }
+}
+@include xl() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .xl-margin-#{$i}x {
+      margin: $space;
+    }
+    .xl-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .xl-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .xl-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .xl-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .xl-padding-#{$i}x {
+      padding: $space;
+    }
+    .xl-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .xl-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .xl-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .xl-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+@include l() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .l-margin-#{$i}x {
+      margin: $space;
+    }
+    .l-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .l-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .l-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .l-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .l-padding-#{$i}x {
+      padding: $space;
+    }
+    .l-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .l-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .l-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .l-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+@include m() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .m-margin-#{$i}x {
+      margin: $space;
+    }
+    .m-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .m-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .m-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .m-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .m-padding-#{$i}x {
+      padding: $space;
+    }
+    .m-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .m-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .m-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .m-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+@include s() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .s-margin-#{$i}x {
+      margin: $space;
+    }
+    .s-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .s-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .s-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .s-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .s-padding-#{$i}x {
+      padding: $space;
+    }
+    .s-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .s-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .s-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .s-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}

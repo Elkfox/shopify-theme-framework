@@ -89,7 +89,8 @@
   display: table;
   table-layout: fixed;
   width: 100%;
-  margin: 0 0 $gutter;
+  margin-left: 0;
+  margin-right: 0;
   .column {
     float: none;
     display: table-cell;

@@ -39,11 +39,21 @@
 /* Helpers ===================================================================*/
 @import url('global/helpers.scss');
 
+/* Optional extras ===========================================================*/
+// @import url('utils/additional-helpers.scss');
+
 /* =============================================================================
    Shopify core helpers
 ============================================================================= */
 
-// Shopify capture challenge
+// Shopify captcha challenge
 .shopify-challenge__container {
   text-align: center;
+}
+
+// Optionally, hide Shopify theme UI
+.shopify-preview-bar,
+#preview-bar-iframe,
+#admin_bar_iframe {
+  // display: none !important;
 }
