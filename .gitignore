@@ -15,6 +15,7 @@ theme.lock
 config.yml
 
 # optionally untrack the dist for slate projects
+# after adding to the untrack list, run: git rm -r --cached dist/
 # dist/
 
 # Compiled source #
