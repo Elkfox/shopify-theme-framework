@@ -26,12 +26,13 @@ $colorAlternate: {{ settings.color_alternate }};
 
 // Typography
 $fontLight: 300;
-$fontRegular: 400;
+$fontNormal: 400;
 $fontBold: 700;
 $lineHeight: 1.75;
 
 // Space & Borders
-$gutter: 50px;
+$spacing: 10px;
+$gutter: $spacing*5;
 $borderRadius: 2px;
 $borderWeight: 2px;
 $borderStyle: solid;
@@ -42,13 +43,19 @@ $m: 850px;
 $l: 1150px;
 $xl: 1450px;
 
-// Miscellaneous
-$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
-$transition: all .3s ease-out;
+// Logo
+$logoWidth: {{ settings.logo_width | default: '450' | append: 'px' }};
+
+// Transitions
+$transitionProperty: all;
+$transitionSpeed: 250ms;
+$transitionStyle: ease-out;
+$transitionDelay: 300ms;
+$transition: $transitionProperty $transitionSpeed $transitionStyle;
 
 // Icons
 $baseIconSize: 32px;
-$iconLinecap: sqaure;
+$iconLinecap: square;
 
 
 /* Utils =====================================================================*/
@@ -84,19 +91,34 @@ $iconLinecap: sqaure;
   *zoom: 1;
 }
 
-// Screen Sizes & Types
+// Screen Sizes
 @mixin s() {
   @media (max-width: $s) {
     @content;
   }
 }
+@mixin s-m() {
+  @media (max-width: $l - 1px) {
+    @content;
+  }
+}
 @mixin m() {
-  @media (min-width: $s) and (max-width: $l - 1px) {
+  @media (min-width: $s + 1px) and (max-width: $l - 1px) {
+    @content;
+  }
+}
+@mixin m-l() {
+  @media (min-width: $s + 1px) and (max-width: $l) {
     @content;
   }
 }
 @mixin l() {
   @media (min-width: $l) {
+    @content;
+  }
+}
+@mixin m-xl() {
+  @media (min-width: $s + 1px) {
     @content;
   }
 }
@@ -299,7 +321,6 @@ img {
 }
 
 // Typography
-
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: sans-serif;
@@ -317,7 +338,7 @@ h6, .h6 { font-size: 0.875rem; }
 
 p {
   font-size: 1.125rem;
-  font-weight: $fontRegular;
+  font-weight: $fontNormal;
   line-height: $lineHeight;
   margin-bottom: 1.4rem;
 }
@@ -334,23 +355,22 @@ a {
 hr {
   border: 0;
   border-top: $borderWeight $borderStyle $colorAlternate;
-  margin: $gutter/1.5 0;
+  margin: $spacing 0;
 }
 
 strong, b {
   font-weight: $fontBold;
 }
 
-small {
+small, .small {
   font-size: 0.8rem;
 }
 
-i {
+i, em {
   font-style: italic;
 }
 
 .rte {
-  // TBA
   ul, ol {
     list-style: initial;
     list-style-position: inside;
@@ -383,13 +403,20 @@ input[type="search"],
 textarea {
   max-width: 100%;
   height: $gutter;
-  line-height: ($gutter - $borderWeight*2);
+  line-height: 100%;
   padding: 0 $gutter/2;
   font-size: 1.125rem;
   border: $borderWeight $borderStyle $colorAlternate;
   border-radius: $borderRadius;
-  -webkit-appearance: none;
-  @media only screen and (max-width: $s) {
+  @include prefixer(appearance, none, webkit moz ms spec);
+  &::placeholder, &::-webkit-input-placeholder,  &:-moz-placeholder, &::-moz-placeholder, &:-ms-input-placeholder {
+    line-height: 100%;
+    height: $gutter;
+  }
+  &::-webkit-textfield-decoration-container {
+    display: block;
+  }
+  @include s() {
     width: 100%;
     clear: both;
     margin-bottom: $gutter/3;
@@ -427,9 +454,9 @@ select {
   option {
     // for Firefox
     background-color: $colorBackground;
+    color: $colorForeground;
     border: 0;
     display: block;
-    color: $colorForeground;
   }
   &:hover {
     background-color: darken($colorBrand, 5%);
@@ -469,7 +496,7 @@ a.button {
 .select-wrapper {
   display: inline-block;
   position: relative;
-  @media only screen and (max-width: $s) {
+  @include s() {
     width: 100%;
     clear: both;
     margin-bottom: $gutter/3;
@@ -499,7 +526,8 @@ a.button {
   max-width: 100%;
   width: 100%;
   margin: auto;
-  padding: 0 $gutter;
+  padding-left: $gutter;
+  padding-right: $gutter;
   &.xl {
     width: $xl;
   }
@@ -513,20 +541,23 @@ a.button {
     width: $s;
   }
   @include s() {
-    padding: 0 $gutter/2;
+    padding-left: $gutter/2;
+    padding-right: $gutter/2;
   }
 }
 
 // Rows
-
 .row {
-  margin: 0 (-$gutter/2) $gutter;
+  margin-left: -($gutter/2);
+  margin-right: -($gutter/2);
+
   // Table Grid
   &.table { @include table(); }
   &.xl-table { @include xl() { @include table(); } }
   &.l-table { @include l() { @include table(); } }
   &.m-table { @include m() { @include table(); } }
   &.s-table { @include s() { @include table(); } }
+
   // Standard Grid
   &:after {
     content: "";
@@ -534,9 +565,11 @@ a.button {
     clear: both;
   }
   &.collapse {
-    margin: 0;
+    margin-left: 0;
+    margin-right: 0;
     .column {
-      padding: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 }
@@ -546,7 +579,8 @@ a.button {
 .column {
   float: left;
   min-height: 0.125rem;
-  padding: 0 $gutter/2;
+  padding-left: $gutter/2;
+  padding-right: $gutter/2;
   &.l1 { width: percentage(1/12); }
   &.l2 { width: percentage(2/12); }
   &.l3 { width: percentage(3/12); }
@@ -609,7 +643,6 @@ a.button {
 }
 
 // Flex Grid
-
 .flex {
   @include flex();
   @include box-orient--vertical();
@@ -618,7 +651,8 @@ a.button {
     @include flex();
     @include flex-direction(row);
     .box {
-      margin: 0 $gutter/2 $gutter;
+      margin-left: $gutter/2;
+      margin-right: $gutter/2;
       flex: auto;
       align-self: center;
       &:first-child {
@@ -636,7 +670,8 @@ a.button {
       @include flex-direction(column);
       .box {
         width: 100%;
-        margin: 0 0 $gutter;
+        margin-left: 0;
+        margin-right: 0;
       }
     }
   }
@@ -651,7 +686,7 @@ form#AddToCartForm,
 .edit_address form,
 form#customer_login,
 form#create_customer,
-#RecoverPasswordForm form,
+#PasswordRecoverForm form,
 #PasswordResetForm form,
 form#address_form_new {
   input[type="text"],
@@ -683,7 +718,7 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   padding: $gutter/2 0;
   .logo {
     img {
-      max-width: $logoMaxWidth;
+      width: $logoWidth;
     }
   }
 }
@@ -700,11 +735,11 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   .dropdown {
     position: relative;
     &:hover {
-      .dropdown_menu {
+      .dropdown-menu {
         display: block;
       }
     }
-    .dropdown_menu {
+    .dropdown-menu {
       display: none;
       padding: $gutter/3 0;
       position: absolute;
@@ -975,10 +1010,8 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   }
 }
 
+/* Social ====================================================================*/
 
-.social-sharing {
-  margin-bottom: $gutter;
-}
 .button.share {
   padding: 0 $gutter/4;
   height: $gutter/1.5;
@@ -1033,7 +1066,7 @@ form#AddToCartForm, form#CartPage, form#contact_form {
 
 /* SVG Icons =================================================================*/
 
-// Don't forget to comrpress your icons! https://jakearchibald.github.io/svgomg/
+// Don't forget to compress your icons! https://jakearchibald.github.io/svgomg/
 // All icons must be created at 32px by 32px regardless of size to be scaled to
 
 .icon {
@@ -1072,7 +1105,31 @@ form#AddToCartForm, form#CartPage, form#contact_form {
 
 
 /* Helpers ===================================================================*/
-// Alignment Helpers
+/* Helpers ===================================================================*/
+
+// Width & Height
+.wide {
+  width: 100%;
+}
+.tall {
+  height: 100%;
+}
+
+// Misc.
+.clearfix {
+  @include clearfix();
+}
+.no-select {
+  @include prefixer(user-select, none, webkit moz ms spec);
+}
+.no-line-height {
+  line-height: 1;
+}
+.overlay {
+  @include overlay();
+}
+
+// Horizontal Alignment
 .left {
   text-align: left;
 }
@@ -1084,14 +1141,11 @@ form#AddToCartForm, form#CartPage, form#contact_form {
 .right {
   text-align: right;
 }
-.wide {
-  width: 100%;
-}
 
+// Vertical Alignment
 .vertical-align {
   @include vertical-align();
 }
-
 .v-middle {
   vertical-align: middle;
 }
@@ -1102,51 +1156,38 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   vertical-align: bottom;
 }
 
-// Visibility helpers
-@include xl() {
-  .xl-hide { display: none !important; }
-  .xl-left { text-align: left; }
-  .xl-center { text-align: center; }
-  .xl-right { text-align: right; }
-  .l-show, .m-show, .s-show { display: none !important; }
+// Text Transform
+.t-uppercase {
+  text-transform: uppercase;
 }
-@include l() {
-  .l-hide { display: none !important; }
-  .l-left { text-align: left; }
-  .l-center { text-align: center; }
-  .l-right { text-align: right; }
-  .xl-show, .m-show, .s-show { display: none !important; }
+.t-capitalize {
+  text-transform: capitalize;
 }
-@include m() {
-  .m-hide { display: none !important; }
-  .m-left { text-align: left; }
-  .m-center { text-align: center; }
-  .m-right { text-align: right; }
-  .l-show { display: none !important; }
-  .xl-show, .l-show, .s-show { display: none !important; }
+.t-none {
+  text-transform: none;
 }
-@include s() {
-  .s-hide { display: none !important; }
-  .s-left { text-align: left; }
-  .s-center { text-align: center; }
-  .s-right { text-align: right; }
-  .l-show { display: none !important; }
-  .xl-show, .l-show, .m-show { display: none !important; }
+.t-lowercase {
+  text-transform: lowercase;
 }
 
+// Font Weights
+.w-light {
+  font-weight: $fontLight;
+}
+.w-normal {
+  font-weight: $fontNormal;
+}
+.w-bold {
+  font-weight: $fontBold;
+}
+
+// Display
 .hidden {
   display: none;
 }
-
-// Colour helpers
-
-.highlight {
-  color: $colorHighlight;
+.block {
+  display: block;
 }
-.alternate {
-  color: $colorAlternate;
-}
-
 .inline {
   list-style: none;
   display: inline-block;
@@ -1164,22 +1205,234 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   @include overlay();
 }
 
-// Margin and padding helpers
+// Margin & Padding
 .no-margin {
   margin-top: 0;
   margin-bottom: 0 !important;
 }
-.margin-top {
-  margin-top: $gutter;
+.no-padding {
+  margin-top: 0;
+  margin-bottom: 0 !important;
 }
-.margin-bottom {
-  margin-bottom: $gutter;
+
+@for $i from 0 through 20 {
+  $space: $spacing*$i;
+  .margin-#{$i}x {
+    margin: $space;
+  }
+  .margin-top-#{$i}x {
+    margin-top: $space;
+  }
+  .margin-bottom-#{$i}x {
+    margin-bottom: $space;
+  }
+  .margin-left-#{$i}x {
+    margin-left: $space;
+  }
+  .margin-right-#{$i}x {
+    margin-right: $space;
+  }
+  .padding-#{$i}x {
+    padding: $space;
+  }
+  .padding-top-#{$i}x {
+    padding-top: $space;
+  }
+  .padding-bottom-#{$i}x {
+    padding-bottom: $space;
+  }
+  .padding-left-#{$i}x {
+    padding-left: $space;
+  }
+  .padding-right-#{$i}x {
+    padding-right: $space;
+  }
 }
-.padding-top {
-  padding-top: $gutter;
+@include xl() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .xl-margin-#{$i}x {
+      margin: $space;
+    }
+    .xl-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .xl-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .xl-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .xl-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .xl-padding-#{$i}x {
+      padding: $space;
+    }
+    .xl-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .xl-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .xl-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .xl-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
 }
-.padding-bottom {
-  padding-bottom: $gutter;
+@include l() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .l-margin-#{$i}x {
+      margin: $space;
+    }
+    .l-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .l-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .l-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .l-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .l-padding-#{$i}x {
+      padding: $space;
+    }
+    .l-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .l-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .l-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .l-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+@include m() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .m-margin-#{$i}x {
+      margin: $space;
+    }
+    .m-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .m-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .m-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .m-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .m-padding-#{$i}x {
+      padding: $space;
+    }
+    .m-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .m-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .m-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .m-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+@include s() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .s-margin-#{$i}x {
+      margin: $space;
+    }
+    .s-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .s-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .s-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .s-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .s-padding-#{$i}x {
+      padding: $space;
+    }
+    .s-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .s-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .s-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .s-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+
+// Breakpoint Specific
+@include xl() {
+  .xl-hide { display: none !important; }
+  .xl-left { text-align: left; }
+  .xl-center { text-align: center; }
+  .xl-right { text-align: right; }
+  .xl-v-middle { vertical-align: middle; }
+  .xl-v-top { vertical-align: top; }
+  .xl-v-bottom { vertical-align: bottom; }
+  .xl-show { display: block; }
+  .l-show, .m-show, .s-show { display: none !important; }
+}
+@include l() {
+  .l-hide { display: none !important; }
+  .l-left { text-align: left; }
+  .l-center { text-align: center; }
+  .l-right { text-align: right; }
+  .l-v-middle { vertical-align: middle; }
+  .l-v-top { vertical-align: top; }
+  .l-v-bottom { vertical-align: bottom; }
+  .l-show { display: block; }
+  .xl-show, .m-show, .s-show { display: none !important; }
+}
+@include m() {
+  .m-hide { display: none !important; }
+  .m-left { text-align: left; }
+  .m-center { text-align: center; }
+  .m-right { text-align: right; }
+  .m-v-middle {   vertical-align: middle; }
+  .m-v-top { vertical-align: top; }
+  .m-v-bottom { vertical-align: bottom; }
+  .m-show { display: block; }
+  .xl-show, .l-show, .s-show { display: none !important; }
+}
+@include s() {
+  .s-hide { display: none !important; }
+  .s-left { text-align: left; }
+  .s-center { text-align: center; }
+  .s-right { text-align: right; }
+  .s-v-middle { vertical-align: middle; }
+  .s-v-top { vertical-align: top; }
+  .s-v-bottom { vertical-align: bottom; }
+  .s-show { display: block; }
+  .xl-show, .l-show, .m-show { display: none !important; }
 }
 
 

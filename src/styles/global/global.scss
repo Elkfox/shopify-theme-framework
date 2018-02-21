@@ -34,7 +34,7 @@ h6, .h6 { font-size: 0.875rem; }
 
 p {
   font-size: 1.125rem;
-  font-weight: $fontRegular;
+  font-weight: $fontNormal;
   line-height: $lineHeight;
   margin-bottom: 1.4rem;
 }
@@ -51,7 +51,7 @@ a {
 hr {
   border: 0;
   border-top: $borderWeight $borderStyle $colorAlternate;
-  margin: $gutter/1.5 0;
+  margin: $spacing 0;
 }
 
 strong, b {

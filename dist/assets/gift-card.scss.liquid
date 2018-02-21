@@ -24,7 +24,7 @@ $colorAlternate: {{ settings.color_alternate }};
 
 // Typography
 $fontLight: 300;
-$fontRegular: 400;
+$fontNormal: 400;
 $fontBold: 700;
 $lineHeight: 1.75;
 
@@ -41,9 +41,8 @@ $l: 1150px;
 $xl: 1450px;
 
 // Miscellaneous
-$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
+$logoWidth: {{ settings.logo_width | default: '450' | append: 'px' }};
 $transition: all .3s ease-out;
-
 
 /* Main Styling  =============================================================*/
 

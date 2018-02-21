@@ -1,0 +1,25 @@
+<!-- /snippets/theme-logo.liquid -->
+
+{% assign logo = settings.logo %}
+{% assign logo_width = settings.logo_width | append: 'x' %}
+
+{% if template == 'index' or template == 'password' %}
+  <h1 class="logo" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+{% else %}
+  <div class="h1 logo" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+{% endif %}
+  <meta itemprop="name" content="{{ shop.name }}">
+  {% if logo != nil %}
+    <a href="/" itemprop="url" title="{{ shop.name }}" class="logo-image">
+      <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+        <img src="{{ logo | img_url: logo_width, scale: 2 }}" alt="{{ shop.name }}" title="{{ shop.name }}" itemprop="image">
+      </span>
+    </a>
+  {% else %}
+    <a href="/" itemprop="url" title="{{ shop.name }}">{{ shop.name }}</a>
+  {% endif %}
+{% if template == 'index' or template == 'password' %}
+  </h1>
+{% else %}
+  </div>
+{% endif %}

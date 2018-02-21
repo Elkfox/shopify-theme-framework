@@ -10,11 +10,11 @@
   .dropdown {
     position: relative;
     &:hover {
-      .dropdown_menu {
+      .dropdown-menu {
         display: block;
       }
     }
-    .dropdown_menu {
+    .dropdown-menu {
       display: none;
       padding: $gutter/3 0;
       position: absolute;

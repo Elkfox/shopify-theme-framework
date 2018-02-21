@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Concrete",
     "theme_author": "Elkfox",
-    "theme_version": "2.0.0",
+    "theme_version": "2.0.1",
     "theme_documentation_url": "https://elkfox.github.io/Concrete/",
     "theme_support_email": "help@elkfox.com"
   },
@@ -47,98 +47,35 @@
     ]
   },
   {
-    "name": "Header",
+    "name": "Logo & favicon",
     "settings": [
       {
         "type": "header",
         "content": "Logo"
       },
       {
-        "type": "checkbox",
-        "id": "logo_use_image",
-        "label": "Use custom logo"
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
       },
       {
-        "type": "image",
-        "id": "logo.png",
-        "label": "Custom logo",
-        "max-width": 450,
-        "max-height": 200,
-        "info": "450 x 200px .png"
-      },
-      {
-        "type": "text",
-        "id": "logo_max_width",
-        "label": "Max logo width",
-        "default": "450",
-        "info": "Defined in pixels. Do not add the 'px' unit."
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 10,
+        "max": 1000,
+        "step": 10,
+        "default": 200,
+        "unit": "px"
       },
       {
         "type": "header",
         "content": "Favicon"
       },
       {
-        "type": "checkbox",
-        "id": "favicon_enable",
-        "label": "Use custom icon"
-      },
-      {
-        "type": "image",
-        "id": "favicon.png",
-        "label": "Icon",
-        "max-width": 32,
-        "max-height": 32,
-        "info": "32 x 32px .png required"
-      }
-    ]
-  },
-  {
-    "name": "Footer",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "enable_footer_social",
-        "label": "Show social media icons"
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_footer_subscribe",
-        "label": "Show a subscribe form"
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_gateway_icons",
-        "label": "Show payment gateway icons"
-      }
-    ]
-  },
-  {
-    "name": "Cart page",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "cart_notes_enable",
-        "label": "Enable cart notes"
-      },
-      {
-        "type": "checkbox",
-        "id": "cart_vendor_enable",
-        "label": "Show product vendor"
-      },
-      {
-        "type": "select",
-        "id": "ajax_cart_method",
-        "label": "Cart type",
-        "options": [
-          {
-            "value": "drawer",
-            "label": "Drawer"
-          },
-          {
-            "value": "page",
-            "label": "Page"
-          }
-        ]
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image"
       }
     ]
   },
@@ -152,51 +89,47 @@
       {
         "type": "text",
         "id": "social_twitter_link",
-        "label": "Twitter URL",
-        "default": "http:\/\/twitter.com\/shopify",
-        "info": "https:\/\/twitter.com\/shopify"
+        "label": "Twitter"
       },
       {
         "type": "text",
         "id": "social_instagram_link",
-        "label": "Instagram URL",
-        "default": "http:\/\/instagram.com\/shopify",
-        "info": "http:\/\/instagram.com\/shopify"
+        "label": "Instagram"
       },
       {
         "type": "text",
         "id": "social_facebook_link",
-        "label": "Facebook link",
-        "default": "http:\/\/facebook.com\/shopify"
+        "label": "Facebook"
       },
       {
         "type": "text",
         "id": "social_pinterest_link",
-        "label": "Pinterest link",
-        "default": "http:\/\/pinterest.com\/shopify"
+        "label": "Pinterest"
       },
       {
         "type": "text",
         "id": "social_fancy_link",
-        "label": "Fancy link",
-        "default": "http:\/\/fancy.com\/shopify"
+        "label": "Fancy"
       },
       {
         "type": "text",
         "id": "social_google_plus_link",
-        "label": "Google+ link"
+        "label": "Google+"
       },
       {
         "type": "text",
         "id": "social_youtube_link",
-        "label": "YouTube link",
-        "default": "http:\/\/youtube.com\/shopify"
+        "label": "YouTube"
       },
       {
         "type": "text",
         "id": "social_vimeo_link",
-        "label": "Vimeo link",
-        "default": "http:\/\/vimeo.com\/shopify"
+        "label": "Vimeo"
+      },
+      {
+        "type": "text",
+        "id": "social_medium_link",
+        "label": "Medium"
       },
       {
         "type": "header",

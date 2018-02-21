@@ -30,19 +30,34 @@
   *zoom: 1;
 }
 
-// Screen Sizes & Types
+// Screen Sizes
 @mixin s() {
   @media (max-width: $s) {
     @content;
   }
 }
+@mixin s-m() {
+  @media (max-width: $l - 1px) {
+    @content;
+  }
+}
 @mixin m() {
-  @media (min-width: $s) and (max-width: $l - 1px) {
+  @media (min-width: $s + 1px) and (max-width: $l - 1px) {
+    @content;
+  }
+}
+@mixin m-l() {
+  @media (min-width: $s + 1px) and (max-width: $l) {
     @content;
   }
 }
 @mixin l() {
   @media (min-width: $l) {
+    @content;
+  }
+}
+@mixin m-xl() {
+  @media (min-width: $s + 1px) {
     @content;
   }
 }

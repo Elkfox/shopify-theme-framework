@@ -30,11 +30,7 @@ MIT License
   <title>{{ 'gift_cards.title_html' | t: value: formatted_initial_value_stripped, shop: shop.name }}</title>
   <meta name="description" content="{{ 'gift_cards.subtext' | t }}">
   <link rel="canonical" href="{{ canonical_url }}">
-  {% if settings.favicon_enable %}
-    <link rel="shortcut icon"
-          href="{{ 'favicon.png' | asset_url }}"
-          type="image/png" />
-  {% endif %}
+  {% include 'meta-favorites' %}
 
   {{ 'gift-card.scss.css' | asset_url | stylesheet_tag }}
 

@@ -1,7 +1,5 @@
 <!-- /snippets/theme-header.liquid -->
 
-{% assign logo = section.settings.logo %}
-{% assign logo_width = section.settings.logo_width %}
 {% assign enable_search = section.settings.enable_search %}
 {% assign include_results = '' %}
 {% if section.settings.include_products %}
@@ -15,35 +13,14 @@
 {% endif %}
 {% assign include_results = include_results | append: '[last]' | remove: ',[last]' | remove: '[last]' %}
 
-
 <header class="theme-header" role="banner">
   <div class="container">
 
     <div class="row l-table m-table">
       <div class="column l8 m8 s12 l-left m-left s-middle">
-
-        {% if template == 'index' %}
-          <h1 class="logo" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        {% else %}
-          <div class="h1 logo" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        {% endif %}
-          <meta itemprop="name" content="{{ shop.name }}">
-          {% if logo != nil %}
-            <a href="/" itemprop="url" title="{{ shop.name }}" class="logo-image">
-              <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                <img src="{{ logo | img_url: logo_width, scale: 2 }}" alt="{{ shop.name }}" title="{{ shop.name }}" itemprop="image" width="{{ logo_width | replace: 'x', 'px' }}">
-              </span>
-            </a>
-          {% else %}
-            <a href="/" itemprop="url" title="{{ shop.name }}">{{ shop.name }}</a>
-          {% endif %}
-        {% if template == 'index' %}
-          </h1>
-        {% else %}
-          </div>
-        {% endif %}
-
+        {% include 'theme-logo' %}
       </div>
+
       <div class="column l4 m4 s12 l-right m-right s-middle">
         {% if customer %}
           <a href="/account">{{ 'account.title' | t }}</a>
@@ -57,6 +34,11 @@
           (<span data-cart-total>{{ cart.total_price | money_with_currency }}</span>)
         </a>
 
+        <div class="s-show margin-top-2x">
+          <a href="#NavToggled" data-trigger="popup" data-target="#NavToggled">
+            {{ 'common.menu' | t }}
+          </a>
+        </div>
       </div>
     </div>
 
@@ -80,27 +62,6 @@
   {
     "name": "Header",
     "settings": [
-      {
-        "type": "header",
-        "content": "Logo"
-      },
-      {
-        "type": "checkbox",
-        "id": "logo_use_image",
-        "label": "Use custom logo"
-      },
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo image"
-      },
-      {
-        "type": "text",
-        "id": "logo_width",
-        "label": "Logo width",
-        "default": "100",
-        "info": "This should be 50% of the width of the image you uploaded. Defined in pixels. Do not add the 'px' unit."
-      },
       {
         "type": "header",
         "content": "Search"

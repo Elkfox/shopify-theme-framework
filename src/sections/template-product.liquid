@@ -14,12 +14,12 @@
 <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
 <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-<div class="padding-top padding-bottom">
+<div class="padding-top-5x padding-bottom-5x">
   <div class="container l" itemscope itemtype="http://schema.org/Product" data-section-type="product" data-section-id="{{ section.id }}" data-enable-history-state="true">
     <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-    <div class="row no-margin">
+    <div class="row">
       <div class="column l6 m6 s12">
 
         <div id="ProductPhoto">
@@ -111,7 +111,7 @@
           {{ product.description }}
         </div>
 
-        <h4 class="margin-top">{{ 'social.share.title' | t }}</h4>
+        <h4 class="margin-top-5x">{{ 'social.share.title' | t }}</h4>
         {% include 'social-sharing' %}
 
         {% if collection %}

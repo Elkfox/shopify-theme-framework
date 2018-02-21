@@ -9,7 +9,12 @@
 ###################
 node_modules
 deploy.log
+
+# optionally track theme kit config files
 config.yml
+
+# optionally untrack the dist for slate projects
+# dist/
 
 # Compiled source #
 ###################

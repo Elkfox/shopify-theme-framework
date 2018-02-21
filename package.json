@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/Elkfox/Concrete.git"
   },
-  "license" : "MIT",
+  "license": "MIT",
   "version": "v2.0.1",
   "devDependencies": {
     "@shopify/slate-tools": "0.12.1"

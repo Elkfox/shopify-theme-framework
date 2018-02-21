@@ -3,6 +3,10 @@
     "menu": "Menu",
     "tags": "Tags",
     "close": "Close",
+    "meta": {
+      "page": "Page {{ page }}",
+      "tags": "Tagged with {{ tags }}"
+    },
     "pagination": {
       "loadmore": "Load More",
       "loading": "Loading...",
@@ -76,6 +80,7 @@
       "none": "No addresses",
       "update": "Update",
       "edit": "Edit Address",
+      "delete": "Delete Address",
       "set_default": "Set as default address",
       "manage_addresses": "Manage Addresses",
       "confirm_delete": "Are you absolutely sure you wish to delete this address?",
@@ -91,6 +96,9 @@
       "create_account": "Create an Account",
       "message": "Enter your email to request a password reset",
       "success": "Please check your email for a link to update your password"
+    },
+    "activate": {
+      "title": "Activate Account"
     }
   },
   "form": {
@@ -215,7 +223,8 @@
   "social": {
     "facebook": "Facebook",
     "fancy": "Fancy",
-    "google": "Google+",
+    "google_plus": "Google+",
+    "medium": "Medium",
     "instagram": "Instagram",
     "pinterest": "Pinterest",
     "twitter": "Twitter",

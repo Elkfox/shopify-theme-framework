@@ -1,4 +1,28 @@
-// Alignment Helpers
+/* Helpers ===================================================================*/
+
+// Width & Height
+.wide {
+  width: 100%;
+}
+.tall {
+  height: 100%;
+}
+
+// Misc.
+.clearfix {
+  @include clearfix();
+}
+.no-select {
+  @include prefixer(user-select, none, webkit moz ms spec);
+}
+.no-line-height {
+  line-height: 1;
+}
+.overlay {
+  @include overlay();
+}
+
+// Horizontal Alignment
 .left {
   text-align: left;
 }
@@ -10,14 +34,11 @@
 .right {
   text-align: right;
 }
-.wide {
-  width: 100%;
-}
 
+// Vertical Alignment
 .vertical-align {
   @include vertical-align();
 }
-
 .v-middle {
   vertical-align: middle;
 }
@@ -28,51 +49,38 @@
   vertical-align: bottom;
 }
 
-// Visibility helpers
-@include xl() {
-  .xl-hide { display: none !important; }
-  .xl-left { text-align: left; }
-  .xl-center { text-align: center; }
-  .xl-right { text-align: right; }
-  .l-show, .m-show, .s-show { display: none !important; }
+// Text Transform
+.t-uppercase {
+  text-transform: uppercase;
 }
-@include l() {
-  .l-hide { display: none !important; }
-  .l-left { text-align: left; }
-  .l-center { text-align: center; }
-  .l-right { text-align: right; }
-  .xl-show, .m-show, .s-show { display: none !important; }
+.t-capitalize {
+  text-transform: capitalize;
 }
-@include m() {
-  .m-hide { display: none !important; }
-  .m-left { text-align: left; }
-  .m-center { text-align: center; }
-  .m-right { text-align: right; }
-  .l-show { display: none !important; }
-  .xl-show, .l-show, .s-show { display: none !important; }
+.t-none {
+  text-transform: none;
 }
-@include s() {
-  .s-hide { display: none !important; }
-  .s-left { text-align: left; }
-  .s-center { text-align: center; }
-  .s-right { text-align: right; }
-  .l-show { display: none !important; }
-  .xl-show, .l-show, .m-show { display: none !important; }
+.t-lowercase {
+  text-transform: lowercase;
 }
 
+// Font Weights
+.w-light {
+  font-weight: $fontLight;
+}
+.w-normal {
+  font-weight: $fontNormal;
+}
+.w-bold {
+  font-weight: $fontBold;
+}
+
+// Display
 .hidden {
   display: none;
 }
-
-// Colour helpers
-
-.highlight {
-  color: $colorHighlight;
+.block {
+  display: block;
 }
-.alternate {
-  color: $colorAlternate;
-}
-
 .inline {
   list-style: none;
   display: inline-block;
@@ -90,20 +98,232 @@
   @include overlay();
 }
 
-// Margin and padding helpers
+// Margin & Padding
 .no-margin {
   margin-top: 0;
   margin-bottom: 0 !important;
 }
-.margin-top {
-  margin-top: $gutter;
+.no-padding {
+  margin-top: 0;
+  margin-bottom: 0 !important;
 }
-.margin-bottom {
-  margin-bottom: $gutter;
+
+@for $i from 0 through 20 {
+  $space: $spacing*$i;
+  .margin-#{$i}x {
+    margin: $space;
+  }
+  .margin-top-#{$i}x {
+    margin-top: $space;
+  }
+  .margin-bottom-#{$i}x {
+    margin-bottom: $space;
+  }
+  .margin-left-#{$i}x {
+    margin-left: $space;
+  }
+  .margin-right-#{$i}x {
+    margin-right: $space;
+  }
+  .padding-#{$i}x {
+    padding: $space;
+  }
+  .padding-top-#{$i}x {
+    padding-top: $space;
+  }
+  .padding-bottom-#{$i}x {
+    padding-bottom: $space;
+  }
+  .padding-left-#{$i}x {
+    padding-left: $space;
+  }
+  .padding-right-#{$i}x {
+    padding-right: $space;
+  }
 }
-.padding-top {
-  padding-top: $gutter;
+@include xl() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .xl-margin-#{$i}x {
+      margin: $space;
+    }
+    .xl-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .xl-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .xl-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .xl-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .xl-padding-#{$i}x {
+      padding: $space;
+    }
+    .xl-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .xl-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .xl-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .xl-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
 }
-.padding-bottom {
-  padding-bottom: $gutter;
+@include l() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .l-margin-#{$i}x {
+      margin: $space;
+    }
+    .l-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .l-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .l-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .l-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .l-padding-#{$i}x {
+      padding: $space;
+    }
+    .l-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .l-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .l-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .l-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+@include m() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .m-margin-#{$i}x {
+      margin: $space;
+    }
+    .m-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .m-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .m-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .m-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .m-padding-#{$i}x {
+      padding: $space;
+    }
+    .m-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .m-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .m-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .m-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+@include s() {
+  @for $i from 0 through 20 {
+    $space: $spacing*$i;
+    .s-margin-#{$i}x {
+      margin: $space;
+    }
+    .s-margin-top-#{$i}x {
+      margin-top: $space;
+    }
+    .s-margin-bottom-#{$i}x {
+      margin-bottom: $space;
+    }
+    .s-margin-left-#{$i}x {
+      margin-left: $space;
+    }
+    .s-margin-right-#{$i}x {
+      margin-right: $space;
+    }
+    .s-padding-#{$i}x {
+      padding: $space;
+    }
+    .s-padding-top-#{$i}x {
+      padding-top: $space;
+    }
+    .s-padding-bottom-#{$i}x {
+      padding-bottom: $space;
+    }
+    .s-padding-left-#{$i}x {
+      padding-left: $space;
+    }
+    .s-padding-right-#{$i}x {
+      padding-right: $space;
+    }
+  }
+}
+
+// Breakpoint Specific
+@include xl() {
+  .xl-hide { display: none !important; }
+  .xl-left { text-align: left; }
+  .xl-center { text-align: center; }
+  .xl-right { text-align: right; }
+  .xl-v-middle { vertical-align: middle; }
+  .xl-v-top { vertical-align: top; }
+  .xl-v-bottom { vertical-align: bottom; }
+  .xl-show { display: block; }
+  .l-show, .m-show, .s-show { display: none !important; }
+}
+@include l() {
+  .l-hide { display: none !important; }
+  .l-left { text-align: left; }
+  .l-center { text-align: center; }
+  .l-right { text-align: right; }
+  .l-v-middle { vertical-align: middle; }
+  .l-v-top { vertical-align: top; }
+  .l-v-bottom { vertical-align: bottom; }
+  .l-show { display: block; }
+  .xl-show, .m-show, .s-show { display: none !important; }
+}
+@include m() {
+  .m-hide { display: none !important; }
+  .m-left { text-align: left; }
+  .m-center { text-align: center; }
+  .m-right { text-align: right; }
+  .m-v-middle {   vertical-align: middle; }
+  .m-v-top { vertical-align: top; }
+  .m-v-bottom { vertical-align: bottom; }
+  .m-show { display: block; }
+  .xl-show, .l-show, .s-show { display: none !important; }
+}
+@include s() {
+  .s-hide { display: none !important; }
+  .s-left { text-align: left; }
+  .s-center { text-align: center; }
+  .s-right { text-align: right; }
+  .s-v-middle { vertical-align: middle; }
+  .s-v-top { vertical-align: top; }
+  .s-v-bottom { vertical-align: bottom; }
+  .s-show { display: block; }
+  .xl-show, .l-show, .m-show { display: none !important; }
 }

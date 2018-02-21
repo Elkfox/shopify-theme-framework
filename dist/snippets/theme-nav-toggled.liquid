@@ -6,14 +6,14 @@
       {% for link in linklists.main-menu.links %}
         {% assign child_list_handle = link.title | handleize %}
         {% if linklists[child_list_handle].links != blank %}
-          <li class="dropdown" aria-haspopup="true" data-id="{{ child_list_handle}}">
-            <a href="{{ link.url }}" class="nav-link {% if link.active %} active{% endif %}">
+          <li class="dropdown" aria-haspopup="true" data-id="{{ child_list_handle }}">
+            <a href="{{ link.url }}" class="nav-link{% if link.active %} active{% endif %}">
               {{ link.title }}
             </a>
-            <ul class="dropdown_menu hidden" id="{{ child_list_handle }}">
+            <ul class="dropdown-menu" id="{{ child_list_handle }}">
               {% for childlink in linklists[child_list_handle].links %}
                 <li>
-                  <a href="{{ childlink.url }}" class="nav-link{% if childlink.active %} active{% endif %}">{{ childlink.title | escape }}</a>
+                  <a href="{{ childlink.url }}" class="nav-link{% if childlink.active %} active{% endif %}">{{ childlink.title }}</a>
                 </li>
               {% endfor %}
             </ul>
@@ -25,6 +25,6 @@
         {% endif %}
       {% endfor %}
     </ul>
-    <a href="#close" class="nav-toggled-close" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+    <a href="#close" class="nav-toggled-close" data-close aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
   </div>
 </nav>

@@ -10,12 +10,13 @@ $colorAlternate: {{ settings.color_alternate }};
 
 // Typography
 $fontLight: 300;
-$fontRegular: 400;
+$fontNormal: 400;
 $fontBold: 700;
 $lineHeight: 1.75;
 
 // Space & Borders
-$gutter: 50px;
+$spacing: 10px;
+$gutter: $spacing*5;
 $borderRadius: 2px;
 $borderWeight: 2px;
 $borderStyle: solid;
@@ -26,10 +27,16 @@ $m: 850px;
 $l: 1150px;
 $xl: 1450px;
 
-// Miscellaneous
-$logoMaxWidth: {{ settings.logo_max_width | default: '450' | remove: 'px' }}px;
-$transition: all .3s ease-out;
+// Logo
+$logoWidth: {{ settings.logo_width | default: '450' | append: 'px' }};
+
+// Transitions
+$transitionProperty: all;
+$transitionSpeed: 250ms;
+$transitionStyle: ease-out;
+$transitionDelay: 300ms;
+$transition: $transitionProperty $transitionSpeed $transitionStyle;
 
 // Icons
 $baseIconSize: 32px;
-$iconLinecap: sqaure;
+$iconLinecap: square;

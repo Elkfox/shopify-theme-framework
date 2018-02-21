@@ -1,7 +1,9 @@
 <!-- /snippets/social-meta-tags.liquid -->
+
 {% comment %}
   Open graph tags
 {% endcomment %}
+
 {% if template == 'index' %}
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ page_title }}">
@@ -27,9 +29,9 @@
 {% else %}
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ page_title | escape }}">
-  {% if settings.logo_use_image %}
+  {% if settings.logo != blank %}
     <meta property="og:image" content="http:{{ 'logo.png' | asset_url }}">
-    <meta property="og:image:secure_url" content="https:{{ 'logo.png' | asset_url }}">
+    <meta property="og:image:secure_url" content="https:{{ settings.logo | img_url: '800x800' }}">
   {% endif %}
 {% endif %}
 <meta property="og:url" content="{{ canonical_url }}">

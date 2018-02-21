@@ -20,7 +20,7 @@
 </header>
 
 <div class="container l">
-  <div class="row no-margin">
+  <div class="row">
 
     <div class="column l8 m12 s12">
 
@@ -29,7 +29,7 @@
 
       {% for address in customer.addresses %}
 
-        <div class="margin-bottom">
+        <div class="margin-bottom-5x">
 
           {% if address == customer.default_address %}
             <strong class="highlight">{{ 'account.address.default' | t }}</strong>
@@ -63,10 +63,10 @@
         </div>
 
       {% else %}
-        <p class="margin-bottom">{{ 'account.address.none' | t }}</p>
+        <p class="margin-bottom-5x">{{ 'account.address.none' | t }}</p>
       {% endfor %}
 
-      <a href="#PopupAddress" data-target="#PopupAddress" data-trigger="popup" class="button margin-bottom">{{ 'account.address.add' | t }}</a>
+      <a href="#PopupAddress" data-target="#PopupAddress" data-trigger="popup" class="button margin-bottom-5x">{{ 'account.address.add' | t }}</a>
 
     </div>
 

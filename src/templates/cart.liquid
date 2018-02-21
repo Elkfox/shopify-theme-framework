@@ -1,5 +1,7 @@
 <!-- templates/cart.liquid -->
 
+{% assign enable_cart_notes = false %}
+
 {% if cart.item_count > 0 %}
 
   <div class="container l">
@@ -95,9 +97,9 @@
     </div>
 
     <div class="container l">
-      <div class="row no-margin">
+      <div class="row">
         <div class="column l6 m6 s12">
-          {% if settings.cart_notes_enable %}
+          {% if enable_cart_notes %}
             <label for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
             <textarea class="wide" name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
           {% endif %}
