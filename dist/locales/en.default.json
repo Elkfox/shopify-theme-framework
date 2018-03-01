@@ -3,6 +3,7 @@
     "menu": "Menu",
     "tags": "Tags",
     "close": "Close",
+    "icon": "Icon",
     "meta": {
       "page": "Page {{ page }}",
       "tags": "Tagged with {{ tags }}"
