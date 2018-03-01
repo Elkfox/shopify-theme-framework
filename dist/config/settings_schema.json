@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Concrete",
     "theme_author": "Elkfox",
-    "theme_version": "2.0.1",
+    "theme_version": "2.0.2",
     "theme_documentation_url": "https://elkfox.github.io/Concrete/",
     "theme_support_email": "help@elkfox.com"
   },
@@ -76,6 +76,29 @@
         "type": "image_picker",
         "id": "favicon",
         "label": "Favicon image"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "include_products",
+        "label": "Include product results",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "include_articles",
+        "label": "Include article results",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "include_pages",
+        "label": "Include page results",
+        "default": true
       }
     ]
   },

@@ -1,17 +1,6 @@
 <!-- /snippets/theme-header.liquid -->
 
 {% assign enable_search = section.settings.enable_search %}
-{% assign include_results = '' %}
-{% if section.settings.include_products %}
-  {% assign include_results = '' | append: 'product,' %}
-{% endif %}
-{% if section.settings.include_articles  %}
-  {% assign include_results = '' | append: 'articles,' %}
-{% endif %}
-{% if section.settings.include_pages %}
-  {% assign include_results = '' | append: 'pages,' %}
-{% endif %}
-{% assign include_results = include_results | append: '[last]' | remove: ',[last]' | remove: '[last]' %}
 
 <header class="theme-header" role="banner">
   <div class="container">
@@ -64,30 +53,12 @@
     "settings": [
       {
         "type": "header",
-        "content": "Search"
+        "content": "Header"
       },
       {
         "type": "checkbox",
         "id": "enable_search",
         "label": "Enable search",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "include_products",
-        "label": "Include product results",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "include_articles",
-        "label": "Include article results",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "include_pages",
-        "label": "Include page results",
         "default": true
       }
     ]

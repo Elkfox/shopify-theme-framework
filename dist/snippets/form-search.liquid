@@ -1,7 +1,19 @@
 <!-- /snippets/form-search.liquid -->
 
+{% assign include_results = '' %}
+{% if section.settings.include_products %}
+  {% assign include_results = '' | append: 'product,' %}
+{% endif %}
+{% if section.settings.include_articles  %}
+  {% assign include_results = '' | append: 'articles,' %}
+{% endif %}
+{% if section.settings.include_pages %}
+  {% assign include_results = '' | append: 'pages,' %}
+{% endif %}
+{% assign include_results = include_results | append: '[last]' | remove: ',[last]' | remove: '[last]' %}
+
 <form action="/search" method="get" role="search">
-  {% if include_results %}
+  {% if include_results != '' %}
     <input type="hidden" name="type" value="{{ include_results }}">
   {% endif %}
   <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.title' | t }}" aria-label="{{ 'search.title' | t }}">

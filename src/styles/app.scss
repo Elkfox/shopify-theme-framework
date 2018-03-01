@@ -25,16 +25,23 @@
 @import url('global/grid.scss');
 @import url('global/forms.scss');
 
+/* Templates ==================================================================*/
+@import url('templates/collection.scss');
+@import url('templates/product.scss');
+@import url('templates/cart.scss');
+
+/* Sections ==================================================================*/
+// Section specific styles here
+
 /* Modules ===================================================================*/
 @import url('modules/header.scss');
+@import url('modules/logo.scss');
 @import url('modules/navigation.scss');
 @import url('modules/footer.scss');
-@import url('modules/cart.scss');
 @import url('modules/drawer.scss');
 @import url('modules/popups.scss');
 @import url('modules/social.scss');
 @import url('modules/icon.scss');
-@import url('modules/product.scss');
 
 /* Helpers ===================================================================*/
 @import url('global/helpers.scss');
