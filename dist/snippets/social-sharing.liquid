@@ -1,6 +1,7 @@
 <!-- snippets/social-sharing.liquid -->
 
 {% assign sharing_on = false %}
+{% assign icons = false %}
 
 {% if template contains 'product' and settings.social_sharing_products %}
   {% assign sharing_on = true %}
@@ -21,56 +22,54 @@
 {% if sharing_on %}
   <div class="social-sharing" data-permalink="{{ permalinkURL }}">
     {% if settings.share_facebook %}
-      <a target="_blank"
-         rel="nofollow"
-         href="//www.facebook.com/sharer.php?u={{ permalinkURL }}"
-         class="button share facebook"
-         data-social="facebook">
-        {{ 'social.share.facebook' | t }}
+      <a target="_blank" rel="nofollow" href="//www.facebook.com/sharer.php?u={{ permalinkURL }}" class="button share facebook" data-social="facebook">
+        {% if icons %}
+          {% include 'icon' with 'facebook' %}
+        {% else %}
+          {{ 'social.share.facebook' | t }}
+        {% endif %}
       </a>
     {% endif %}
 
     {% if settings.share_twitter %}
-      <a target="_blank"
-         rel="nofollow"
-         href="//twitter.com/share?url={{ permalinkURL }}&amp;text={{ shareTitle | url_param_escape }}"
-         class="button share twitter"
-         data-social="twitter">
-        {{ 'social.share.twitter' | t }}
+      <a target="_blank" rel="nofollow" href="//twitter.com/share?url={{ permalinkURL }}&amp;text={{ shareTitle | url_param_escape }}" class="button share twitter" data-social="twitter">
+        {% if icons %}
+          {% include 'icon' with 'twitter' %}
+        {% else %}
+          {{ 'social.share.twitter' | t }}
+        {% endif %}
       </a>
     {% endif %}
 
     {% if template contains 'product' %}
-
       {% if settings.share_pinterest %}
-        <a target="_blank"
-           rel="nofollow"
-           href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ product.featured_image | img_url: '1024x1024' }}&amp;description={{ shareTitle | url_param_escape }}"
-           class="button share pinterest"
-           data-social="pinterest">
-          {{ 'social.share.pinterest' | t }}
+        <a target="_blank" rel="nofollow" href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ product.featured_image | img_url: '1024x1024' }}&amp;description={{ shareTitle | url_param_escape }}" class="button share pinterest" data-social="pinterest">
+          {% if icons %}
+            {% include 'icon' with 'pinterest' %}
+          {% else %}
+            {{ 'social.share.pinterest' | t }}
+          {% endif %}
         </a>
       {% endif %}
 
       {% if settings.share_fancy %}
-        <a target="_blank"
-           rel="nofollow"
-           href="http://www.thefancy.com/fancyit?ItemURL={{ permalinkURL }}&amp;Title={{ shareTitle | url_param_escape }}&amp;Category=Other&amp;ImageURL={{ product.featured_image | img_url: '1024x1024' }}"
-           class="button share fancy"
-           data-social="fancy">
-          {{ 'social.share.fancy' | t }}
+        <a target="_blank" rel="nofollow" href="http://www.thefancy.com/fancyit?ItemURL={{ permalinkURL }}&amp;Title={{ shareTitle | url_param_escape }}&amp;Category=Other&amp;ImageURL={{ product.featured_image | img_url: '1024x1024' }}" class="button share fancy" data-social="fancy">
+          {% if icons %}
+            {% include 'icon' with 'fancy' %}
+          {% else %}
+            {{ 'social.share.fancy' | t }}
+          {% endif %}
         </a>
       {% endif %}
-
     {% endif %}
 
-    {% if settings.share_google %}
-      <a target="_blank"
-         rel="nofollow"
-         href="//plus.google.com/share?url={{ permalinkURL }}"
-         class="button share google"
-         data-social="google">
-        {{ 'social.share.google' | t }}
+    {% if settings.share_google_plus %}
+      <a target="_blank" rel="nofollow" href="//plus.google.com/share?url={{ permalinkURL }}" class="button share google" data-social="google">
+        {% if icons %}
+          {% include 'icon' with 'google_plus' %}
+        {% else %}
+          {{ 'social.share.google_plus' | t }}
+        {% endif %}
       </a>
     {% endif %}
   </div>

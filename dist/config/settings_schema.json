@@ -202,7 +202,7 @@
       },
       {
         "type": "checkbox",
-        "id": "share_google",
+        "id": "share_google_plus",
         "label": "+1 on Google Plus",
         "default": true
       }
