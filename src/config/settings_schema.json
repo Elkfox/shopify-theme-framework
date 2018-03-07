@@ -161,13 +161,19 @@
       {
         "type": "checkbox",
         "id": "social_sharing_products",
-        "label": "Enable sharing for products",
+        "label": "Display sharing on products",
         "default": true
       },
       {
         "type": "checkbox",
         "id": "social_sharing_blog",
-        "label": "Enable sharing for blog articles",
+        "label": "Display sharing on blog articles",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_password",
+        "label": "Display sharing on password page",
         "default": true
       },
       {

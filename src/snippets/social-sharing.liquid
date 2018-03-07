@@ -1,22 +1,25 @@
 <!-- snippets/social-sharing.liquid -->
 
 {% assign sharing_on = false %}
+
 {% if template contains 'product' and settings.social_sharing_products %}
   {% assign sharing_on = true %}
   {% capture permalinkURL %}{{ shop.url }}{{ product.url }}{% endcapture %}
   {% capture shareTitle %}{{ product.title }}{% endcapture %}
-{% endif %}
-{% if settings.social_sharing_blog %}
-  {% if template contains 'article' or template contains 'blog' or template == 'password' %}
+{% elsif template contains 'article' or template contains 'blog' %}
+  {% if settings.social_sharing_blog %}
     {% assign sharing_on = true %}
     {% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
     {% capture shareTitle %}{{ article.title }}{% endcapture %}
   {% endif %}
+{% elsif template == 'password' and settings.social_sharing_password %}
+  {% assign sharing_on = true %}
+  {% capture permalinkURL %}{{ shop.url }}{% endcapture %}
+  {% capture shareTitle %}{{ shop.name }}{% endcapture %}
 {% endif %}
+
 {% if sharing_on %}
-
   <div class="social-sharing" data-permalink="{{ permalinkURL }}">
-
     {% if settings.share_facebook %}
       <a target="_blank"
          rel="nofollow"
@@ -70,7 +73,5 @@
         {{ 'social.share.google' | t }}
       </a>
     {% endif %}
-
   </div>
-
 {% endif %}
