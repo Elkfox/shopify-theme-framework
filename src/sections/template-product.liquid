@@ -3,11 +3,11 @@
 {% assign on_sale = false %}
 {% assign current_variant = product.selected_or_first_available_variant %}
 
-{% if product.compare_at_price > product.price %}
+{% if current_variant.compare_at_price > current_variant.price %}
   {% assign on_sale = true %}
 {% endif %}
 
-{% if product.available %}
+{% if current_variant.available %}
   {% assign sold_out = false %}
 {% endif %}
 
