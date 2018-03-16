@@ -1,0 +1,25 @@
+<!-- /snippets/popup-account.liquid -->
+
+<div id="PopupAccount" class="popup overlay">
+  <div class="popup-inner">
+    <div class="popup-content">
+      <h3 class="h4">{{ customer.name }}</h3>
+      <ul>
+        <li>
+          <p><a href="/account" title="{{ 'account.orders.title' | t: name: '' }}">{{ 'account.orders.title' | t: name: '' }} ({{ customer.orders_count }})</a>
+        </li>
+        <li>
+          <p><a href="/account/addresses" title="{{ 'account.address.title' | t }}">{{ 'account.address.title' | t }} ({{ customer.addresses_count }})</a></p>
+        </li>
+        <li>
+          <p><a href="/account/logout" title="{{ 'account.general.logout' | t }}">{{ 'account.general.logout' | t }}</a></p>
+        </li>
+      </ul>
+      <a href="#close" class="popup-close" data-close aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  var accountPopup = new Focus('#PopupAccount');
+</script>

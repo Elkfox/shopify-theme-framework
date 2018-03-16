@@ -5,6 +5,8 @@
   Or manually add type=product or type=page to the search URL as a parameter
 {% endcomment %}
 
+{% assign search_show_button = true %}
+
 {% paginate search.results by 10 %}
 
   <div class="container l">
@@ -12,19 +14,22 @@
     {% include 'theme-breadcrumbs' %}
 
     {% if search.performed %}
-      {% if search.results_count == 0 %}
-        <h1 class="h3">{{ 'search.no_results_html' | t: terms: search.terms }}</h1>
-      {% else %}
+      {% if search.results_count > 0 %}
         <h1 class="h3">{{ 'search.results_for_html' | t: terms: search.terms }}</h1>
+      {% else %}
+        <h1 class="h3">{{ 'search.no_results_html' | t: terms: search.terms }}</h1>
       {% endif %}
     {% else %}
       <h1>{{ 'search.title' | t }}</h1>
-      {% include 'form-search' %}
     {% endif %}
+
+    {% include 'form-search' %}
 
     {% if search.performed %}
 
-      <hr class="hr">
+      {% if search.results_count > 0 %}
+        <hr class="hr">
+      {% endif %}
 
       {% for item in search.results %}
 
@@ -57,7 +62,7 @@
 
             {% if item.price %}
               {% comment %}
-                If it has a fprice, it is definitely a product
+                If it has a price, it is definitely a product
               {% endcomment %}
               {% assign on_sale = false %}
               {% if item.compare_at_price > item.price %}
@@ -73,7 +78,7 @@
                     {% assign sale_price = item.price | money %}
                     {{ 'product.on_sale_from_html' | t: price: sale_price }}
                   {% else %}
-                    <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
+                    <b>{{ 'product.on_sale_html' | t: price: sale_price }}</b>
                     {{ item.price | money }}
                   {% endif %}
                 {% else %}
@@ -85,7 +90,7 @@
                   {% endif %}
                 {% endif %}
                 {% if sold_out %}
-                  <br><strong>{{ 'product.sold_out' | t }}</strong>
+                  <br><b>{{ 'product.sold_out' | t }}</b>
                 {% endif %}
                 {% if on_sale %}
                   <span class="hidden">{{ 'product.original_price' | t }}</span>
@@ -105,12 +110,7 @@
 
       {% endfor %}
 
-      {% if paginate.pages > 1 %}
-        <hr>
-        <div class="pagination">
-          {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
-        </div>
-      {% endif %}
+      {% include 'theme-pagination' with 'hr' %}
 
     {% endif %}
 

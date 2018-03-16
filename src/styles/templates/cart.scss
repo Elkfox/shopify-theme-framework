@@ -2,7 +2,7 @@
 
 .quantity-adjust {
   margin-bottom: $gutter/2;
-  @include prefixer(user-select, none, webkit moz ms o spec);
+  @include prefixer(user-select, none, $prefixes);
   .adjust {
     display: inline-block;
     height: $gutter/1.5;

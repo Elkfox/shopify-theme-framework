@@ -1,0 +1,17 @@
+<!-- snippets/form-reset.liquid -->
+
+<div id="PasswordResetForm">
+  {% form 'reset_customer_password' %}
+
+    {{ form.errors | default_errors }}
+
+    <label for="ResetPassword">{{ 'form.password' | t }}</label>
+    <input type="password" value="" name="customer[password]" id="ResetPassword"{% if form.errors contains 'password' %} class="error"{% endif %} autofocus>
+
+    <label for="PasswordConfirmation">{{ 'form.password_confirm' | t }}</label>
+    <input type="password" value="" name="customer[password_confirmation]" id="PasswordConfirmation"{% if form.errors contains 'password_confirmation' %} class="error"{% endif %}>
+
+    <button type="submit">{{ 'account.reset.submit' | t }}</button>
+
+  {% endform %}
+</div>

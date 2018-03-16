@@ -1,4 +1,4 @@
-<!-- sections/template-password.liquid -->
+<!-- sections/template-product.liquid -->
 
 {% assign sold_out = true %}
 {% assign on_sale = false %}
@@ -53,11 +53,13 @@
                 <label {% if option.name == 'default' %}class="hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index }}">
                   {{ option.name }}
                 </label>
-                <select class="single-option-selector" id="SingleOptionSelector-{{ forloop.index }}" data-index="option{{ forloop.index }}">
-                  {% for value in option.values %}
-                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
-                  {% endfor %}
-                </select>
+                <div class="select-wrapper">
+                  <select class="single-option-selector" id="SingleOptionSelector-{{ forloop.index }}" data-index="option{{ forloop.index }}">
+                    {% for value in option.values %}
+                      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
               {% endfor %}
             {% endunless %}
 
@@ -120,12 +122,12 @@
             <p>
               {% if collection.previous_product %}
                 <span class="left">
-                  {{ 'product.previous_product' | t | link_to: collection.previous_product }}
+                  {{ 'common.pagination.previous' | t | link_to: collection.previous_product }}
                 </span>
               {% endif %}
               {% if collection.next_product %}
                 <span class="right">
-                  {{ 'product.next_product' | t | link_to: collection.next_product }}
+                  {{ 'common.pagination.next' | t | link_to: collection.next_product }}
                 </span>
               {% endif %}
             </p>

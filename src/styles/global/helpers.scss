@@ -13,7 +13,7 @@
   @include clearfix();
 }
 .no-select {
-  @include prefixer(user-select, none, webkit moz ms spec);
+  @include prefixer(user-select, none, $prefixes);
 }
 .no-line-height {
   line-height: 1;
@@ -92,7 +92,7 @@
   @include clearfix();
 }
 .no-select {
-  @include prefixer(user-select, none, webkit moz ms spec);
+  @include prefixer(user-select, none, $prefixes);
 }
 .overlay {
   @include overlay();

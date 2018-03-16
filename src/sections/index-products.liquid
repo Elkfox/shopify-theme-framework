@@ -1,28 +1,21 @@
 <!-- sections/products.liquid -->
 
-<div class="container l">
-  {% if section.settings.title != blank %}
-    <h2 class="h3">{{ section.settings.title | escape }}</h2>
-  {% endif %}
-</div>
-
 {%- assign collection = collections[section.settings.collection] -%}
-
+{% assign title = section.settings.title %}
+{% assign product_limit = section.settings.product_limit %}
 {% assign column_width = 'column l4 m6 s12' %}
 
-<div class="container l">
+<section class="container l">
+  {% if title != blank %}
+    <h2 class="h3">{{ title | escape }}</h2>
+  {% endif %}
+
   <div class="row">
     {% for product in collection.products limit: product_limit %}
       {% include 'collection-product' %}
-    {% else %}
-      {% unless emptyState %}
-        {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
-        {% assign emptyState = true %}
-      {% endunless %}
-      {% include 'onboarding-featured-products' %}
     {% endfor %}
   </div>
-</div>
+</section>
 
 {% schema %}
   {

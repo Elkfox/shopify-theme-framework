@@ -1,0 +1,12 @@
+<!-- /snippets/collection-sort.liquid -->
+
+{% assign sort_options = 'manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-descending,created-ascending' | split: ',' %}
+
+<label for="SortBy">{{ 'collection.sort.title' | t }}</label>
+<div class="select-wrapper">
+  <select name="SortBy" data-sort>
+    {% for option in sort_options %}
+      <option value="{{ option }}"{% if collection.sort_by == option %} selected="selected"{% endif %}>{{ 'collection.sort.' | append: option | t }}</option>
+    {% endfor %}
+  </select>
+</div>

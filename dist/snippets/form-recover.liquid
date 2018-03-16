@@ -1,0 +1,19 @@
+<!-- /snippets/form-recover.liquid -->
+
+<div id="PasswordRecoverForm">
+  {% form 'recover_customer_password' %}
+
+    {{ form.errors | default_errors }}
+
+    {% if form.posted_successfully? == false %}
+      <p class="note">{{ 'account.recover.success' | t }}</p>
+    {% else %}
+      <h4>{{ 'account.recover.message' | t }}</h4>
+
+      <label for="RecoverEmail">{{ 'form.email' | t }}</label>
+      <input type="email" value="" name="email" id="RecoverEmail" autocorrect="off" autocapitalize="off" autofocus>
+
+      <button type="submit" class="wide">{{ 'account.recover.submit' | t }}</button>
+    {% endif %}
+  {% endform %}
+</div>

@@ -1,14 +1,18 @@
 /* Forms =====================================================================*/
 
+form {
+  max-width: 100%;
+}
+
+// Basic form element spacing
 form#AddToCartForm,
-#ContactForm,
-#CommentForm form,
-#AddAddress form,
-.edit_address form,
+#ContactForm form,
+.popup form,
 form#customer_login,
 form#create_customer,
 #PasswordRecoverForm form,
 #PasswordResetForm form,
+#ActivateAccountForm form,
 form#address_form_new {
   input[type="text"],
   input[type="email"],
@@ -16,17 +20,50 @@ form#address_form_new {
   input[type="tel"],
   input[type="password"],
   textarea,
-  select,
+  .select-wrapper,
+  .province-wrapper,
   button, .button {
     width: 100%;
-    margin-bottom: $gutter/2;
-  }
-  label, input[type="checkbox"] {
-    margin-bottom: $gutter/5;
+    @include clearfix();
+    &:not(:last-child) {
+      margin-bottom: $spacing*2;
+    }
   }
 }
 
-form#AddToCartForm, form#CartPage, form#contact_form {
+// Wide forms
+form#AddToCartForm,
+form#contact_form,
+.popup form,
+form#customer_login,
+form#create_customer,
+#PasswordRecoverForm form,
+#PasswordResetForm form,
+#ActivateAccountForm form,
+form#CartPage {
   display: block;
   width: 100%;
+}
+
+// Small screen form element spacing
+@include s() {
+  button, .button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  .select-wrapper,
+  .province-wrapper {
+    width: 100%;
+    @include clearfix();
+    &:not(:last-child) {
+      margin-bottom: $spacing*2;
+    }
+  }
 }

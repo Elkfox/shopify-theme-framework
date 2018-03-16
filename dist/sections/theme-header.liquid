@@ -12,9 +12,9 @@
 
       <div class="column l4 m4 s12 l-right m-right s-middle">
         {% if customer %}
-          <a href="/account">{{ 'account.title' | t }}</a>
+          <a href="/account" data-trigger="popup" data-target="#PopupAccount">{{ 'account.general.title' | t }}</a>
         {% else %}
-          <a href="/account">{{ 'account.login' | t }}</a>
+          <a href="/account">{{ 'account.login.title' | t }}</a>
         {% endif %}
 
         <a href="/cart" id="CartLink" data-trigger="popup" data-target="#PopupCart.popup" aria-controls="Cart" aria-expanded="false" class="v-middle">
@@ -46,6 +46,8 @@
 
   </div>
 </header>
+
+{% include 'theme-nav-toggled' %}
 
 {% schema %}
   {

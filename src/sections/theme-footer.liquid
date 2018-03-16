@@ -1,23 +1,29 @@
 <!-- /snippets/theme-footer.liquid -->
 
-{% assign heading = section.settings.heading %}
-{% assign email_placeholder = section.settings.email_placeholder %}
-{% assign button_text = section.settings.button_text %}
-{% assign success = section.settings.success %}
-{% assign show_button = section.settings.show_button %}
+{% assign show_subscribe = section.settings.show_subscribe %}
+{% assign show_social = section.settings.show_social %}
+{% assign show_gateways = section.settings.show_gateways %}
+
+{% assign form_heading = section.settings.form_heading %}
+{% assign form_email_placeholder = section.settings.form_email_placeholder %}
+{% assign form_button_text = section.settings.form_button_text %}
+{% assign form_success = section.settings.form_success %}
+{% assign form_show_button = section.settings.form_show_button %}
 
 <footer class="theme-footer" role="contentinfo">
   <div class="container center">
     <div class="row l-table">
       <div class="column l5 m12 s12 l-left v-middle">
-        {% if section.settings.enable_social %}
+        {% if show_social %}
           {% include 'social-links' %}
         {% endif %}
       </div>
       <div class="column l7 m12 s12 l-right v-middle">
-        {% if section.settings.enable_subscribe %}
-          <h5>{{ heading }}</h5>
-          {% include 'section-subscribe-form' %}
+        {% if show_subscribe %}
+          {% unless form_heading == blank %}
+            <h5>{{ form_heading }}</h5>
+          {% endunless %}
+          {% include 'form-subscribe' %}
         {% endif %}
       </div>
     </div>
@@ -26,7 +32,7 @@
   <div class="container center">
     <div class="row l-table">
       <div class="column l7 m12 s12 l-left v-middle">
-        {% if section.settings.enable_gateway_icons %}
+        {% if show_gateways %}
           {% include 'payment-gateways' %}
         {% endif %}
       </div>
@@ -47,12 +53,12 @@
       },
       {
         "type": "checkbox",
-        "id": "enable_social",
+        "id": "show_social",
         "label": "Show social media icons"
       },
       {
         "type": "checkbox",
-        "id": "enable_gateway_icons",
+        "id": "show_gateways",
         "label": "Show payment gateway icons",
         "info": "Relevant payment icons will appear automatically when configured in [Payment Settings](/admin/settings/payments)"
       },
@@ -62,40 +68,37 @@
       },
       {
         "type": "checkbox",
-        "id": "enable_subscribe",
+        "id": "show_subscribe",
         "label": "Show subscribe form"
       },
       {
+        "type": "checkbox",
+        "id": "form_show_button",
+        "label": "Show submit button"
+      },
+      {
         "type": "text",
-        "id": "heading",
+        "id": "form_heading",
         "label": "Title",
         "placeholder": "Subscribe"
       },
       {
-        "id": "email_placeholder",
         "type": "text",
-        "placeholder": "Email",
-        "label": "Email Placeholder",
-        "default": "Email"
+        "id": "form_email_placeholder",
+        "placeholder": "Email address",
+        "label": "Email placeholder"
       },
       {
-        "id": "show_button",
-        "type": "checkbox",
-        "default": true,
-        "label": "Show button"
+        "type": "text",
+        "id": "form_button_text",
+        "label": "Button",
+        "placeholder": "Subscribe"
       },
       {
-        "id": "success",
-        "type": "text",
-        "placeholder": "Thank you for subscribing",
-        "label": "Confirmation message",
-        "default": "Thank you for subscribing"
-      },
-      {
-        "id": "button_text",
-        "type": "text",
-        "label": "Button Text",
-        "default": "Subscribe"
+        "type": "textarea",
+        "id": "form_success",
+        "placeholder": "Thank you for subscribing!",
+        "label": "Confirmation message"
       }
     ]
   }

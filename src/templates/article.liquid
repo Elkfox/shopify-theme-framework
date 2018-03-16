@@ -12,7 +12,7 @@
 
       <header>
         <h1>{{ article.title }}</h1>
-        {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+        {% capture author %}<b>{{ article.author }}</b>{% endcapture %}
         {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
         <p>
           {{ 'blog.article.author_on_date_html' | t: author: author, date: date }}
@@ -42,12 +42,12 @@
         <div class="row">
           {% if blog.previous_article %}
             <div class="column l6 left">
-              {{ 'blog.article.previous_article' | t | link_to: blog.previous_article }}
+              {{ 'common.pagination.previous' | t | link_to: blog.previous_article }}
             </div>
           {% endif %}
           {% if blog.next_article %}
             <div class="column l6 right">
-              {{ 'blog.article.next_article' | t | link_to: blog.next_article }}
+              {{ 'common.pagination.next' | t | link_to: blog.next_article }}
             </div>
           {% endif %}
         </div>

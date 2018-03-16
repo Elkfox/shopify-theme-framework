@@ -16,6 +16,6 @@
   {% if include_results != '' %}
     <input type="hidden" name="type" value="{{ include_results }}">
   {% endif %}
-  <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.title' | t }}" aria-label="{{ 'search.title' | t }}">
-  <button type="submit" class="hidden">{{ 'form.submit' | t }}</button>
+  <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.title' | t }}" aria-label="{{ 'search.title' | t }}"{% if search_show_button %} autofocus{% endif %}>
+  {% if search_show_button %}<button type="submit">{{ 'search.submit' | t }}</button>{% endif %}
 </form>

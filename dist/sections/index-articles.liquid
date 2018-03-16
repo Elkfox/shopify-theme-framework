@@ -1,50 +1,25 @@
 <!-- sections/news.liquid -->
 
-{% if section.settings.title != blank %}
-  <header class="container l">
-    <h2 class="h3">{{ section.settings.title | escape }}</h2>
-  </header>
-{% endif %}
-
 {%- assign blog = blogs[section.settings.blog] -%}
+{% assign title = section.settings.title %}
+{% assign article_limit = section.settings.article_limit %}
 
 <div class="container l">
-  <div class="row">
+  {% if title != blank %}
+    <header>
+      <h2 class="h3">{{ title }}</h2>
+    </header>
+  {% endif %}
 
-    {% for article in blog.articles limit: section.settings.post_limit %}
-      <div class="column l4 m12 s12">
-
-        <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
-
-        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-          {{ 'blog.article.published' | t }} {{ article.published_at | date: '%A, %-d %B, %Y' }}
-        </time>
-
-        <div class="rte">
-          {% if article.excerpt.size > 0 %}
-            {{ article.excerpt }}
-          {% else %}
-            <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
-          {% endif %}
+  <section>
+    <div class="row">
+      {% for article in blog.articles limit: article_limit %}
+        <div class="column l4 m12 s12">
+          {% include 'blog-article' %}
         </div>
-
-        <ul>
-          {% if blog.comments_enabled? %}
-          <li>
-            <a href="{{ article.url }}#comments">
-              {{ 'blog.comments.with_count' | t: count: article.comments_count }}
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-
-        <p><a href="{{ article.url }}">{{ 'blog.article.read_more' | t }}</a></p>
-
-      </div>
-    {% endfor %}
-
-  </div>
-
+      {% endfor %}
+    </div>
+  </section>
 </div>
 
 {% schema %}
@@ -65,7 +40,7 @@
       },
       {
         "type": "select",
-        "id": "post_limit",
+        "id": "article_limit",
         "label": "Posts",
         "default": "3",
         "options": [
@@ -94,7 +69,7 @@
         "category": "Blog",
         "settings": {
           "blog": "News",
-          "post_limit": "3"
+          "article_limit": "3"
         }
       }
     ]

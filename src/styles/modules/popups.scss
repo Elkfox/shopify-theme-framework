@@ -23,10 +23,10 @@
     text-align: initial;
     cursor: default;
     white-space: initial;
-    color: $colorForeground;
+    color: $colorText;
   }
   &.overlay {
-    background: rgba($colorForeground, 0.85);
+    background: rgba($colorText, 0.85);
     @include overlay();
     .popup-outside {
       position: absolute;
@@ -40,8 +40,8 @@
       text-align: center;
       white-space: nowrap;
       @include overlay();
-      @include prefixer(transition-delay, 0.3s, webkit moz spec);
-      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include prefixer(transition-delay, 0.3s, $prefixes);
+      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
       @include transition();
     }
     .popup-content {
@@ -49,7 +49,7 @@
     }
     &.visible {
       .popup-inner {
-        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+        @include prefixer(transform, translateY(0px), $prefixes);
       }
     }
   }
@@ -59,13 +59,13 @@
       bottom: $gutter;
       left: $gutter;
       padding: $gutter/2;
-      @include prefixer(transition-delay, 0.3s, webkit moz spec);
-      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include prefixer(transition-delay, 0.3s, $prefixes);
+      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
       @include transition();
     }
     &.visible {
       .popup-content {
-        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+        @include prefixer(transform, translateY(0px), $prefixes);
       }
     }
   }

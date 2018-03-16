@@ -78,10 +78,10 @@
   display: flex;
 }
 @mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical, webkit moz spec);
+  @include prefixer(box-orient, vertical, $prefixes);
 }
 @mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
+  @include prefixer(flex-direction, $flex-direction, $prefixes);
 }
 
 // Table Grids
@@ -116,9 +116,7 @@
 @mixin vertical-align() {
   position: relative;
   top: 50%;
-  -webkit-transform: perspective(1px) translateY(-50%);
-  -ms-transform: perspective(1px) translateY(-50%);
-  transform: perspective(1px) translateY(-50%);
+  @include prefixer(transform, perspective(1px) translateY(-50%), $prefixes);
 }
 
 // Transition Property (for legacy support)
@@ -130,7 +128,7 @@
 
 // Transitions
 @mixin transition() {
-  @include prefixer(transition, $transition, webkit moz ms spec);
+  @include prefixer(transition, $transition, $prefixes);
 }
 
 // Overlays
@@ -141,26 +139,4 @@
   bottom: 0;
   width: 100%;
   height: 100%;
-}
-
-// Icons
-@mixin icon {
-  vertical-align: middle;
-  display: inline-block;
-  line-height: 1%; // Makes inline SVGs behave more like text characters
-  svg {
-    // vertical-align: middle;
-    overflow: visible;
-    fill: none;
-    stroke: none;
-    .fill {
-      fill: $colorBrand;
-    }
-    .stroke {
-      stroke: $colorBrand;
-      stroke-width: $borderWeight;
-      stroke-linecap: $iconLinecap;
-      stroke-miterlimit: 10;
-    }
-  }
 }

@@ -1,58 +1,37 @@
 <!-- /templates/customers/account.liquid -->
 
-<header class="container l">
-
-  {% include 'theme-breadcrumbs' %}
-
-  <div class="row">
-    <div class="column l12">
-      <h1>{{ 'account.title' | t }}</h1>
-    </div>
-  </div>
-
-</header>
+{% assign pagination = 20 %}
 
 <div class="container l">
+  <header>
+    {% include 'theme-breadcrumbs' %}
+    <h1>{{ 'account.orders.title' | t }}</h1>
+  </header>
 
-  <div class="row">
+  <section>
+    {% paginate customer.orders by pagination %}
+      {% if customer.orders.size > 0 %}
+        <div class="row table s-hide">
+          <div class="column l2"><label>{{ 'account.order.title' | t }}</label></div>
+          <div class="column l2"><label>{{ 'account.order.date' | t }}</label></div>
+          <div class="column l5"><label>{{ 'account.order.status' | t }}</label></div>
+          <div class="column l3 l-right"><label>{{ 'cart.total' | t }}</label></div>
+        </div>
 
-    <div class="column l9 m12 s12">
-      <h2 class="h4">{{ 'account.orders.title' | t }}</h2>
-      {% paginate customer.orders by 20 %}
-        {% if customer.orders.size != 0 %}
-          <div class="row table s-hide">
-            <div class="column l2">{{ 'account.order.title' | t: name: '' }}</div>
-            <div class="column l2">{{ 'account.order.date' | t }}</div>
-            <div class="column l5">{{ 'account.order.status' | t }}</div>
-            <div class="column l3 l-right">{{ 'account.order.total' | t }}</div>
+        {% for order in customer.orders %}
+          <div class="row l-table m-table">
+            <div class="column l2 s12"><p><b>{{ order.name | link_to: order.customer_url }}</b></p></div>
+            <div class="column l2 s12"><p>{{ order.created_at | date: format: 'simple' }}</p></div>
+            <div class="column l5 s12"><p>{{ order.financial_status_label }} / {{ order.fulfillment_status_label }}</p></div>
+            <div class="column l3 s12 l-right"><p>{{ order.total_price | money }}</p></div>
           </div>
+        {% endfor %}
+      {% else %}
+        <p class="h4">{{ 'account.orders.none' | t }}</p>
+        <a href="/collections/all" class="button">{{ 'account.orders.add' | t }}</a>
+      {% endif %}
 
-          {% for order in customer.orders %}
-            <div class="row l-table m-table">
-              <div class="column l2 s12"><strong>{{ order.name | link_to: order.customer_url }}</strong></div>
-              <div class="column l2 s12">{{ order.created_at | date: format: 'simple' }}</div>
-              <div class="column l5 s12">{{ order.financial_status_label }} / {{ order.fulfillment_status_label }}</div>
-              <div class="column l3 s12 l-right">{{ order.total_price | money }}</div>
-            </div>
-          {% endfor %}
-
-        {% else %}
-          <p>{{ 'account.orders.none' | t }}</p>
-        {% endif %}
-        {% if paginate.pages > 1 %}
-          <div class="container l">
-            <hr>
-            <div class="pagination">
-              {{ paginate | default_pagination | replace: '&laquo; Previous', 'Previous' | replace: 'Next &raquo;', 'Next' }}
-            </div>
-          </div>
-        {% endif %}
-      {% endpaginate %}
-    </div>
-
-    <div class="column l3 m12 s12">
-      {% include 'account-sidebar' %}
-    </div>
-
-  </div>
+      {% include 'theme-pagination' with 'hr' %}
+    {% endpaginate %}
+  </section>
 </div>

@@ -1,28 +1,30 @@
 <!-- snippets/form-login.liquid -->
 
-<div id="LoginForm">
-  {% form 'customer_login' %}
+{% form 'customer_login' %}
 
-    <p>{{ 'account.no_account' | t }} {{ 'account.create_account' | t | customer_register_link }}</p>
+  {{ form.errors | default_errors }}
 
-    {{ form.errors | default_errors }}
+  <label for="CustomerEmail">{{ 'form.email' | t }}</label>
+  <input type="email" name="customer[email]" id="CustomerEmail"{% if form.errors contains 'email' %} class="error"{% endif %} autocorrect="off" autocapitalize="off" autofocus>
 
-    <label for="CustomerEmail" class="clearfix">{{ 'form.email' | t }}</label>
-    <input type="email" name="customer[email]" id="CustomerEmail" class="AutoFocus{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'form.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
-    {% if form.password_needed %}
-      <label for="CustomerPassword" class="clearfix">{{ 'account.password' | t }}</label>
-      <input type="password" value="" name="customer[password]" id="CustomerPassword" {% if form.errors contains 'password' %}class="error"{% endif %} placeholder="{{ 'account.password' | t }}">
-    {% endif %}
+  {% if form.password_needed %}
+    <label for="CustomerPassword">{{ 'form.password' | t }}</label>
+    <input type="password" value="" name="customer[password]" id="CustomerPassword"{% if form.errors contains 'password' %} class="error"{% endif %}>
+  {% endif %}
 
-    <input type="submit" class="wide" value="{{ 'account.sign_in' | t }}">
+  <button type="submit" class="wide">{{ 'account.login.submit' | t }}</button>
 
-    <p>
-      <p><a href="{{ shop.url }}">{{ 'form.cancel' | t }}</a></p>
+  <p>{{ 'account.login.no_account' | t }} {{ 'account.login.register' | t | customer_register_link }}</p>
+  {% if form.password_needed %}
+    <p>{{ 'account.login.forgot' | t }} <a href="/account/login?view=recover">{{ 'account.login.recover' | t }}</a></p>
+  {% endif %}
 
-      {% if form.password_needed %}
-        <br><a href="/account/login?view=recover">{{ 'account.forgot_password' | t }}</a>
-      {% endif %}
-    </p>
+{% endform %}
 
+{% if shop.checkout.guest_login %}
+  <hr>
+  <h2>{{ 'account.login.guest' | t }}</h2>
+  {% form 'guest_login' %}
+    <input type="submit" value="{{ 'form.continue' | t }}">
   {% endform %}
-</div>
+{% endif %}

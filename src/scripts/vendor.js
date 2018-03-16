@@ -4,9 +4,9 @@
 // =require vendor/modernizr.min.js
 
 /*!
- * jquery-2.2.3.min.js
+ * jQuery-3.3.1.js
  */
-// =require vendor/jquery-2.2.3.min.js
+// =require vendor/jQuery-3.3.1.js
 
 /*!
  * handlebars.js

@@ -8,7 +8,7 @@ Feel free to add your own header, but please keep the following:
 \___/|__/| \_/|__/\__/  /\_/
               |\
               |/
-Concrete v2.0.1
+Concrete v2.0.3
 https://github.com/Elkfox/Concrete
 Copyright (c) 2017 Elkfox Co Pty Ltd
 https://elkfox.com
@@ -28,10 +28,13 @@ MIT License
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
   {% include 'meta-social-tags' %}
   {% include 'meta-favorites' %}
+
   <!-- Shopify ============================================================= -->
   {{ content_for_header }}
+
   <!-- CSS ================================================================= -->
   {{ 'app.scss.css' | asset_url | stylesheet_tag }}
+
   <!-- JavaScript =========================================================== -->
   {% if shop.customer_accounts_enabled and template contains 'customers' %}
     {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
@@ -60,13 +63,18 @@ MIT License
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != null %} suffix-{{ template.suffix }}{% endif %}" itemscope itemtype="http://schema.org/WebSite">
   {% section 'theme-header' %}
-  {% include 'theme-nav-toggled' %}
+
   <main id="MainContent" role="main">
     {{ content_for_layout }}
   </main>
+
   {% section 'theme-footer' %}
   {% include 'popup-cart' %}
   {% include 'popup-error' %}
+
+  {% if customer %}
+    {% include 'popup-account' %}
+  {% endif %}
 
   <script type="text/javascript">
     // Cart error handling
@@ -80,7 +88,6 @@ MIT License
         {% endunless %}
       }
     });
-
   </script>
 </body>
 </html>

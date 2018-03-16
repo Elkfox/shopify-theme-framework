@@ -20,7 +20,7 @@
               <div class="column l6 m6 s6">
                 {% if item.total_discount > 0 %}
                   <p class="no-margin">
-                    <strong>{% if item.line_price != 0 %}{{ item.line_price | money_with_currency  }}{% else %}Free{% endif %}</strong>
+                    <b>{% if item.line_price != 0 %}{{ item.line_price | money_with_currency  }}{% else %}Free{% endif %}</b>
                     <span> </span>
                     <s class="small">{{ item.original_line_price | money_with_currency }}</s>
                   </p>
@@ -29,7 +29,7 @@
                   {% endfor %}
                 {% else %}
                   <p class="no-margin">
-                    <strong>{{ item.line_price | money_with_currency }}</strong>
+                    <b>{{ item.line_price | money_with_currency }}</b>
                   </p>
                 {% endif %}
                 <p><small><a href="#" data-remove-item data-item-id="{{ item.id }}">Remove</a></small></p>
@@ -54,7 +54,7 @@
           <a href="/cart" aria-label="{{ 'cart.view_cart' | t }}">{{ 'cart.view_cart' | t }}</a>
         </div>
         <div class="column l6 m6 s6 right">
-          <strong>{{ 'cart.total' | t }} <span data-cart-total>{{ cart.total_price | money_with_currency }}</span></strong>
+          <b>{{ 'cart.total' | t }} <span data-cart-total>{{ cart.total_price | money_with_currency }}</span></b>
         </div>
       </div>
       <p class="center"><a href="/cart" class="button wide" aria-label="{{ 'cart.checkout' | t }}">{{ 'cart.checkout' | t }}</a></p>
@@ -72,13 +72,13 @@
           {{#if lineItem.total_discount}}
             <!-- <s>{{formatMoney lineItem.original_line_price}}</s> -->
             <p class="no-margin">
-              <strong>
+              <b>
                 {{#if lineItem.line_price}}
                  {{formatMoney lineItem.line_price}}
                 {{else}}
                   Free
                 {{/if}}
-              </strong>
+              </b>
               <span> </span>
               <s class="small">{{formatMoney lineItem.original_line_price}}</s>
             </p>
@@ -88,7 +88,7 @@
             <!-- <small class="no-margin">{{lineItem.discounts}}</small> -->
           {{else}}
             <p class="no-margin">
-              <strong>{{formatMoney lineItem.line_price}}</strong>
+              <b>{{formatMoney lineItem.line_price}}</b>
             </p>
           {{/if}}
           <p><small><a href="#" data-remove-item data-item-id="{{lineItem.id}}">Remove</a></small></p>

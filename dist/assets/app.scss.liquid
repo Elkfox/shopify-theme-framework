@@ -18,17 +18,13 @@
 
 // Colors
 $colorBrand: {{ settings.color_brand }};
-$colorText: {{ settings.color_body }};
-$colorForeground: {{ settings.color_body }};
+$colorText: {{ settings.color_text }};
+$colorForeground: {{ settings.color_foreground }};
 $colorBackground: {{ settings.color_background }};
 $colorHighlight: {{ settings.color_highlight }};
 $colorAlternate: {{ settings.color_alternate }};
-
-// Typography
-$fontLight: 300;
-$fontNormal: 400;
-$fontBold: 700;
-$lineHeight: 1.75;
+$colorBorder: $colorAlternate;
+$adjustAmount: 25%;
 
 // Space & Borders
 $spacing: 10px;
@@ -37,14 +33,28 @@ $borderRadius: 2px;
 $borderWeight: 2px;
 $borderStyle: solid;
 
+// Typography
+$fontLight: 300;
+$fontNormal: 400;
+$fontBold: 700;
+$lineHeight: 1.5;
+$lineMargin: $spacing*2;
+
+// Font bases
+$h1: 2.5rem;
+$h2: 2rem;
+$h3: 1.75rem;
+$h4: 1.25rem;
+$h5: 1rem;
+$h6: 0.75rem;
+$p: 1rem;
+$small: 0.625rem;
+
 // Screen Sizes
 $s: 600px;
 $m: 850px;
 $l: 1150px;
 $xl: 1450px;
-
-// Logo
-$logoWidth: {{ settings.logo_width | default: '450' | append: 'px' }};
 
 // Transitions
 $transitionProperty: all;
@@ -53,9 +63,9 @@ $transitionStyle: ease-out;
 $transitionDelay: 300ms;
 $transition: $transitionProperty $transitionSpeed $transitionStyle;
 
-// Icons
-$baseIconSize: 32px;
-$iconLinecap: square;
+// Misc.
+$logoWidth: {{ settings.logo_width | default: '450' | append: 'px' }};
+$prefixes: webkit moz ms spec;
 
 
 /* Utils =====================================================================*/
@@ -139,10 +149,10 @@ $iconLinecap: square;
   display: flex;
 }
 @mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical, webkit moz spec);
+  @include prefixer(box-orient, vertical, $prefixes);
 }
 @mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
+  @include prefixer(flex-direction, $flex-direction, $prefixes);
 }
 
 // Table Grids
@@ -177,9 +187,7 @@ $iconLinecap: square;
 @mixin vertical-align() {
   position: relative;
   top: 50%;
-  -webkit-transform: perspective(1px) translateY(-50%);
-  -ms-transform: perspective(1px) translateY(-50%);
-  transform: perspective(1px) translateY(-50%);
+  @include prefixer(transform, perspective(1px) translateY(-50%), $prefixes);
 }
 
 // Transition Property (for legacy support)
@@ -191,7 +199,7 @@ $iconLinecap: square;
 
 // Transitions
 @mixin transition() {
-  @include prefixer(transition, $transition, webkit moz ms spec);
+  @include prefixer(transition, $transition, $prefixes);
 }
 
 // Overlays
@@ -202,28 +210,6 @@ $iconLinecap: square;
   bottom: 0;
   width: 100%;
   height: 100%;
-}
-
-// Icons
-@mixin icon {
-  vertical-align: middle;
-  display: inline-block;
-  line-height: 1%; // Makes inline SVGs behave more like text characters
-  svg {
-    // vertical-align: middle;
-    overflow: visible;
-    fill: none;
-    stroke: none;
-    .fill {
-      fill: $colorBrand;
-    }
-    .stroke {
-      stroke: $colorBrand;
-      stroke-width: $borderWeight;
-      stroke-linecap: $iconLinecap;
-      stroke-miterlimit: 10;
-    }
-  }
 }
 
 
@@ -306,14 +292,15 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 /* Global ====================================================================*/
 
 html {
-  height: 100%
+  height: 100%;
+  font: 16px/21px sans-serif;
 }
 
 body {
   height: 100%;
-  color: $colorForeground;
+  color: $colorText;
   background-color: $colorBackground;
-  font: 16px/21px sans-serif;
+  font: inherit;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -324,24 +311,24 @@ img {
 // Typography
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
+  display: block;
   font-family: sans-serif;
   font-weight: $fontBold;
   line-height: $lineHeight;
-  display: block;
-  margin-bottom: $gutter/3;
+  margin-bottom: $lineMargin;
 }
-h1, .h1 { font-size: 2.5rem; }
-h2, .h2 { font-size: 2rem; }
-h3, .h3 { font-size: 1.75rem; }
-h4, .h4 { font-size: 1.25rem; }
-h5, .h5 { font-size: 1rem; }
-h6, .h6 { font-size: 0.875rem; }
+h1, .h1 { font-size: $h1; }
+h2, .h2 { font-size: $h2; }
+h3, .h3 { font-size: $h3; }
+h4, .h4 { font-size: $h4; }
+h5, .h5 { font-size: $h5; }
+h6, .h6 { font-size: $h6; }
 
 p {
-  font-size: 1.125rem;
+  font-size: $p;
   font-weight: $fontNormal;
   line-height: $lineHeight;
-  margin-bottom: 1.4rem;
+  margin-bottom: $lineMargin;
 }
 
 a {
@@ -349,164 +336,217 @@ a {
   cursor: pointer;
   @include transition();
   &:hover, &:focus {
-    color: darken($colorBrand, 5%);
+    color: darken($colorBrand, $adjustAmount);
   }
 }
 
 hr {
   border: 0;
-  border-top: $borderWeight $borderStyle $colorAlternate;
-  margin: $spacing 0;
+  border-top: $borderWeight $borderStyle $colorBorder;
+  margin: $lineMargin 0;
 }
 
 strong, b {
   font-weight: $fontBold;
 }
 
-small, .small {
-  font-size: 0.8rem;
+em, i {
+  font-style: italic;
 }
 
-i, em {
-  font-style: italic;
+small, .small {
+  font-size: $small;
 }
 
 .rte {
   ul, ol {
     list-style: initial;
     list-style-position: inside;
-    margin-bottom: $gutter/2;
+    margin-bottom: $lineMargin;
     li {
       list-style: inherit;
       list-style-position: inherit;
-      margin-bottom: $gutter/2;
+      margin-bottom: $lineMargin;
     }
   }
   ol {
     list-style-type: decimal;
   }
+  *:last-child {
+    margin-bottom: 0;
+  }
 }
 
-.breadcrumb {
-  margin-bottom: $gutter;
+.theme-breadcrumbs {
+  margin-bottom: $lineMargin;
 }
 
-// Forms
-form {
-  max-width: 100%;
-}
+// Inputs
 input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="tel"],
 input[type="password"],
 input[type="search"],
-textarea {
+textarea,
+select {
   max-width: 100%;
   height: $gutter;
   line-height: 100%;
-  padding: 0 $gutter/2;
-  font-size: 1.125rem;
-  border: $borderWeight $borderStyle $colorAlternate;
+  padding: 0 $spacing*2;
+  font-size: $h4;
+  font-family: inherit;
+  background-color: $colorBackground;
+  border: $borderWeight $borderStyle $colorBorder;
   border-radius: $borderRadius;
-  @include prefixer(appearance, none, webkit moz ms spec);
-  &::placeholder, &::-webkit-input-placeholder,  &:-moz-placeholder, &::-moz-placeholder, &:-ms-input-placeholder {
+  color: $colorText;
+  @include prefixer(appearance, none, $prefixes);
+  &.error {
+    border-color: $colorHighlight;
+  }
+  // Placeholders
+  &::placeholder,
+  &::-webkit-input-placeholder,
+  &:-moz-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
     line-height: 100%;
     height: $gutter;
   }
+  // Safari placeholders
   &::-webkit-textfield-decoration-container {
     display: block;
   }
-  @include s() {
-    width: 100%;
-    clear: both;
-    margin-bottom: $gutter/3;
+  // Webkit autofill styling
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    border: $borderWeight $borderStyle $colorBorder;
+    border-radius: $borderRadius;
+    -webkit-text-fill-color: $colorText;
+    -webkit-box-shadow: 0 0 0px 1000px lighten($colorHighlight, $adjustAmount) inset;
+    transition: background-color 5000s ease-in-out 0s;
   }
-  &.error {
-    border-color: $colorHighlight;
+  // Select dropdown options for Firefox
+  option {
+    display: block;
+    background-color: $colorBackground;
+    color: $colorText;
+    border: 0;
   }
 }
 textarea {
   height: initial;
+  resize: horizontal;
   line-height: $lineHeight;
   padding: $gutter/2;
-  font-family: inherit; // for Firefox
+  font-family: inherit; // For Firefox
 }
+
+// Labels
 label {
-  line-height: inherit;
+  display: block;
+  font-size: $h5;
+  font-weight: $fontBold;
+  line-height: $lineHeight;
+  margin-bottom: $lineMargin/2;
+  @include clearfix();
 }
+
+// Checkboxes
+input[type="checkbox"] {
+  display: none;
+  & + label {
+    &:before {
+      content: '';
+      display: inline-block;
+      width: $spacing*2;
+      height: $spacing*2;
+      line-height: ($spacing*2) - ($borderWeight*2);
+      margin-right: $spacing;
+      border: $borderWeight $borderStyle $colorBorder;
+      border-radius: 100%;
+      background-color: transparent;
+      color: $colorBackground;
+      font-size: $small;
+      text-align: center;
+      vertical-align: top;
+      @include transition();
+    }
+  }
+  &:checked {
+    & + label {
+      &:before {
+        content: '\2714';
+        border-color: $colorBrand;
+        background-color: $colorBrand;
+      }
+    }
+  }
+}
+
+// Buttons
 button, .button,
 input[type="button"],
 input[type="submit"],
-input[type="reset"],
-select {
+input[type="reset"] {
   max-width: 100%;
   height: $gutter;
   line-height: ($gutter - $borderWeight*2);
-  padding: 0 $gutter/1.5;
-  font-size: 1.125rem;
-  color: lighten($colorBrand, 25%);
+  padding: 0 $spacing*2;
+  font-size: $h4;
+  font-family: inherit;
   background-color: $colorBrand;
   border: $borderWeight $borderStyle $colorBrand;
   border-radius: $borderRadius;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  color: $colorBackground;
+  text-align: center;
+  cursor: pointer;
+  @include prefixer(appearance, none, $prefixes);
   @include transition();
-  option {
-    // for Firefox
-    background-color: $colorBackground;
-    color: $colorForeground;
-    border: 0;
-    display: block;
-  }
   &:hover {
-    background-color: darken($colorBrand, 5%);
-    border-color: darken($colorBrand, 5%);
-    color: lighten($colorBrand, 35%);
-    cursor: pointer;
-  }
-  &.alternate {
-    color: lighten($colorAlternate, 25%);
-    background-color: $colorAlternate;
-    border: $borderWeight $borderStyle $colorAlternate;
-    &:hover {
-      background-color: darken($colorAlternate, 5%);
-      border-color: darken($colorAlternate, 5%);
-      color: lighten($colorAlternate, 35%);
-    }
+    background-color: darken($colorBrand, $adjustAmount);
+    border-color: darken($colorBrand, $adjustAmount);
+    color: $colorBackground;
   }
   &:disabled, &.disabled {
     cursor: default;
-    background-color: lighten($colorAlternate, 30%);
-    border-color: lighten($colorAlternate, 30%);
-    color: lighten($colorAlternate, 0%);
+    background-color: lighten($colorAlternate, $adjustAmount);
+    border-color: lighten($colorAlternate, $adjustAmount);
+    color: $colorText;
     &:hover {
-      @extend .disabled
+      @extend .disabled;
     }
-  }
-  @include s() {
-    width: 100%;
-    clear: both;
-    margin-bottom: $gutter/3;
   }
 }
 a.button {
   display: inline-block;
   text-decoration: none;
 }
+
 .select-wrapper {
   display: inline-block;
   position: relative;
-  @include s() {
+  &:after {
+    content: '\2304';
+    position: absolute;
+    right: $spacing*2;
+    top: 0;
+    bottom: 0;
+    line-height: 100%;
+    font-size: $h1;
+    color: $colorText;
+  }
+  select {
     width: 100%;
-    clear: both;
-    margin-bottom: $gutter/3;
+    padding-right: $spacing*5;
   }
 }
+
 .errors, .note {
   padding: $gutter/3.5;
   margin: $gutter/2 auto;
-  color: lighten($colorHighlight, 50%);
+  color: $colorBackground;
   background-color: $colorHighlight;
   border: $borderWeight $borderStyle $colorHighlight;
   border-radius: $borderRadius;
@@ -517,7 +557,7 @@ a.button {
     }
   }
   a {
-    color: lighten($colorHighlight, 50%);
+    color: $colorBackground;
   }
 }
 
@@ -680,15 +720,19 @@ a.button {
 
 /* Forms =====================================================================*/
 
+form {
+  max-width: 100%;
+}
+
+// Basic form element spacing
 form#AddToCartForm,
-#ContactForm,
-#CommentForm form,
-#AddAddress form,
-.edit_address form,
+#ContactForm form,
+.popup form,
 form#customer_login,
 form#create_customer,
 #PasswordRecoverForm form,
 #PasswordResetForm form,
+#ActivateAccountForm form,
 form#address_form_new {
   input[type="text"],
   input[type="email"],
@@ -696,19 +740,52 @@ form#address_form_new {
   input[type="tel"],
   input[type="password"],
   textarea,
-  select,
+  .select-wrapper,
+  .province-wrapper,
   button, .button {
     width: 100%;
-    margin-bottom: $gutter/2;
-  }
-  label, input[type="checkbox"] {
-    margin-bottom: $gutter/5;
+    @include clearfix();
+    &:not(:last-child) {
+      margin-bottom: $spacing*2;
+    }
   }
 }
 
-form#AddToCartForm, form#CartPage, form#contact_form {
+// Wide forms
+form#AddToCartForm,
+form#contact_form,
+.popup form,
+form#customer_login,
+form#create_customer,
+#PasswordRecoverForm form,
+#PasswordResetForm form,
+#ActivateAccountForm form,
+form#CartPage {
   display: block;
   width: 100%;
+}
+
+// Small screen form element spacing
+@include s() {
+  button, .button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  .select-wrapper,
+  .province-wrapper {
+    width: 100%;
+    @include clearfix();
+    &:not(:last-child) {
+      margin-bottom: $spacing*2;
+    }
+  }
 }
 
 
@@ -729,7 +806,7 @@ form#AddToCartForm, form#CartPage, form#contact_form {
 
 .quantity-adjust {
   margin-bottom: $gutter/2;
-  @include prefixer(user-select, none, webkit moz ms o spec);
+  @include prefixer(user-select, none, $prefixes);
   .adjust {
     display: inline-block;
     height: $gutter/1.5;
@@ -888,35 +965,35 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   height: 100%;
   padding: $gutter;
   @include transition-property(); // For legacy support
-  @include prefixer(transition-duration, 0.3s, webkit moz spec);
-  @include prefixer(transition-delay, 0.3s, webkit moz spec);
+  @include prefixer(transition-duration, 0.3s, $prefixes);
+  @include prefixer(transition-delay, 0.3s, $prefixes);
   &.from-left {
     top: 0;
     left: 0;
-    @include prefixer(transform, translate3d(-100%, 0, 0), webkit moz ms o spec);
+    @include prefixer(transform, translate3d(-100%, 0, 0), $prefixes);
     max-width: 350px;
   }
   &.from-right {
     top: 0;
     right: 0;
-    @include prefixer(transform, translate3d(100%, 0, 0), webkit moz ms o spec);
+    @include prefixer(transform, translate3d(100%, 0, 0), $prefixes);
   }
   &.from-bottom {
     bottom: 0;
-    @include prefixer(transform, translate3d(0, 100%, 0), webkit moz ms o spec);
+    @include prefixer(transform, translate3d(0, 100%, 0), $prefixes);
   }
   &.from-top {
     bottom: 0;
-    @include prefixer(transform, translate3d(0, -100%, 0), webkit moz ms o spec);
+    @include prefixer(transform, translate3d(0, -100%, 0), $prefixes);
   }
   &.visible {
-    @include prefixer(transform, translate3d(0, 0, 0), webkit moz ms o spec);
+    @include prefixer(transform, translate3d(0, 0, 0), $prefixes);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
   }
 
   // Demo styling
-  background-color: $colorForeground;
+  background-color: $colorText;
   color: $colorBackground;
   a {
     color: $colorBackground;
@@ -955,10 +1032,10 @@ form#AddToCartForm, form#CartPage, form#contact_form {
     text-align: initial;
     cursor: default;
     white-space: initial;
-    color: $colorForeground;
+    color: $colorText;
   }
   &.overlay {
-    background: rgba($colorForeground, 0.85);
+    background: rgba($colorText, 0.85);
     @include overlay();
     .popup-outside {
       position: absolute;
@@ -972,8 +1049,8 @@ form#AddToCartForm, form#CartPage, form#contact_form {
       text-align: center;
       white-space: nowrap;
       @include overlay();
-      @include prefixer(transition-delay, 0.3s, webkit moz spec);
-      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include prefixer(transition-delay, 0.3s, $prefixes);
+      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
       @include transition();
     }
     .popup-content {
@@ -981,7 +1058,7 @@ form#AddToCartForm, form#CartPage, form#contact_form {
     }
     &.visible {
       .popup-inner {
-        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+        @include prefixer(transform, translateY(0px), $prefixes);
       }
     }
   }
@@ -991,13 +1068,13 @@ form#AddToCartForm, form#CartPage, form#contact_form {
       bottom: $gutter;
       left: $gutter;
       padding: $gutter/2;
-      @include prefixer(transition-delay, 0.3s, webkit moz spec);
-      @include prefixer(transform, translateY(-$gutter/2), webkit moz ms spec);
+      @include prefixer(transition-delay, 0.3s, $prefixes);
+      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
       @include transition();
     }
     &.visible {
       .popup-content {
-        @include prefixer(transform, translateY(0px), webkit moz ms spec);
+        @include prefixer(transform, translateY(0px), $prefixes);
       }
     }
   }
@@ -1091,29 +1168,21 @@ form#AddToCartForm, form#CartPage, form#contact_form {
 // All icons must be created at 32px by 32px regardless of size to be scaled to
 
 .icon {
-  @include icon();
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1%; // Makes inline SVGs behave more like text characters
   svg {
-    height: $baseIconSize;
-    width: $baseIconSize;
-  }
-}
-.icon-small .icon {
-  @include icon();
-  svg {
-    height: $baseIconSize/2;
-    width: $baseIconSize/2;
-    .stroke {
-      stroke-width: $borderWeight*2;
+    overflow: visible;
+    fill: none;
+    stroke: none;
+    .fill {
+      fill: $colorBrand;
     }
-  }
-}
-.icon-large .icon {
-  @include icon();
-  svg {
-    height: $baseIconSize*2;
-    width: $baseIconSize*2;
     .stroke {
-      stroke-width: $borderWeight/2;
+      stroke: $colorBrand;
+      stroke-width: $borderWeight;
+      stroke-linecap: square;
+      stroke-miterlimit: 10;
     }
   }
 }
@@ -1135,7 +1204,7 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   @include clearfix();
 }
 .no-select {
-  @include prefixer(user-select, none, webkit moz ms spec);
+  @include prefixer(user-select, none, $prefixes);
 }
 .no-line-height {
   line-height: 1;
@@ -1214,7 +1283,7 @@ form#AddToCartForm, form#CartPage, form#contact_form {
   @include clearfix();
 }
 .no-select {
-  @include prefixer(user-select, none, webkit moz ms spec);
+  @include prefixer(user-select, none, $prefixes);
 }
 .overlay {
   @include overlay();

@@ -1,6 +1,6 @@
 <!-- templates/cart.liquid -->
 
-{% assign enable_cart_notes = false %}
+{% assign show_notes = false %}
 
 {% if cart.item_count > 0 %}
 
@@ -77,9 +77,9 @@
                   <s>{{ item.original_line_price | money_with_currency }}</s>
                   <p class="no-margin">{{ item.message }}</p>
                 {% else %}
-                  <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
+                  <p class="no-margin"><b>{{ item.line_price | money_with_currency }}</b></p>
                 {% endif %}<br>
-                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><small>{{ 'cart.remove_item' | t }}</small></a>
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><small>{{ 'cart.remove' | t }}</small></a>
               </div>
             </div>
           </div>
@@ -88,9 +88,9 @@
               <s>{{ item.original_line_price | money_with_currency }}</s>
               <p class="no-margin">{{ item.message }}</p>
             {% else %}
-              <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
+              <p class="no-margin"><b>{{ item.line_price | money_with_currency }}</b></p>
             {% endif %}<br>
-            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><small>{{ 'cart.remove_item' | t }}</small></a>
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><small>{{ 'cart.remove' | t }}</small></a>
           </div>
         </div>
       {% endfor %}
@@ -99,8 +99,8 @@
     <div class="container l">
       <div class="row">
         <div class="column l6 m6 s12">
-          {% if enable_cart_notes %}
-            <label for="CartSpecialInstructions">{{ 'cart.note' | t }}</label>
+          {% if show_notes %}
+            <label for="CartSpecialInstructions">{{ 'cart.notes' | t }}</label>
             <textarea class="wide" name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
           {% endif %}
         </div>
@@ -114,11 +114,11 @@
           {% if cart.total_discount > 0 %}
             <h3><s>{{ cart.original_total_price | money_with_currency }}</s></h3>
             <p>
-              {{ 'cart.savings' | t }} <span><em>{{ cart.total_discounts | money_with_currency }}</em></span>
+              {{ 'cart.savings' | t }} <span><i>{{ cart.total_discounts | money_with_currency }}</i></span>
             </p>
           {% endif %}
 
-          <p><em>{{ 'cart.shipping_at_checkout' | t }}</em></p>
+          <p><i>{{ 'cart.shipping_at_checkout' | t }}</i></p>
 
           <button type="submit" name="update">{{ 'cart.update' | t }}</button>
           <button type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>

@@ -1,0 +1,10 @@
+<!-- /snippets/theme-pagination.liquid -->
+
+{% if paginate.pages > 1 %}
+  {% if theme-pagination == 'hr' %}
+    <hr>
+  {% endif %}
+  <div class="pagination">
+    {{ paginate | default_pagination }}
+  </div>
+{% endif %}

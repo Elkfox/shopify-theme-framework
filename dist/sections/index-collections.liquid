@@ -33,9 +33,8 @@
 
           <p>
             <a href="{{ collection.url }}" title="{{ 'collection.title' }}">{{ collection.title }}</a><br>
-            {{ 'collection.items_with_count' | t: count: collection.all_products_count }}
+            {{ 'collection.with_count' | t: count: collection.all_products_count }}
           </p>
-
         </div>
       {% endfor %}
 

@@ -1,0 +1,27 @@
+<!-- snippets/form-activate.liquid -->
+
+{% comment %}
+  This form must use 'activate_customer_password'
+{% endcomment %}
+
+<div id="ActivateAccountForm">
+  {% form 'activate_customer_password' %}
+
+    {{ form.errors | default_errors }}
+
+    <label for="CustomerPassword">{{ 'form.password' | t }}</label>
+    <input type="password" value="" name="customer[password]" id="CustomerPassword">
+
+    <label for="CustomerPasswordConfirmation">{{ 'form.password_confirm' | t }}</label>
+    <input type="password" value="" name="customer[password_confirmation]" id="CustomerPasswordConfirmation">
+
+    <div class="row">
+      <div class="column l6 s12 s-hide">
+        <button type="submit" name="decline" class="wide">{{ 'account.activate.decline' | t }}</button>
+      </div>
+      <div class="column l6 s12">
+        <button type="submit" class="wide">{{ 'account.activate.submit' | t }}</button>
+      </div>
+    </div>
+  {% endform %}
+</div>

@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Concrete",
     "theme_author": "Elkfox",
-    "theme_version": "2.0.2",
+    "theme_version": "2.0.3",
     "theme_documentation_url": "https://elkfox.github.io/Concrete/",
     "theme_support_email": "help@elkfox.com"
   },
@@ -22,9 +22,15 @@
       },
       {
         "type": "color",
-        "id": "color_body",
+        "id": "color_text",
         "label": "Main Text Color",
-        "default": "#333333"
+        "default": "#333"
+      },
+      {
+        "type": "color",
+        "id": "color_foreground",
+        "label": "Foreground Color",
+        "default": "#333"
       },
       {
         "type": "color",
