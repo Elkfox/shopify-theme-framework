@@ -37,6 +37,7 @@ $borderStyle: solid;
 $fontLight: 300;
 $fontNormal: 400;
 $fontBold: 700;
+$fontFamily: sans-serif;
 $lineHeight: 1.5;
 $lineMargin: $spacing*2;
 
@@ -293,7 +294,7 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 
 html {
   height: 100%;
-  font: 16px/21px sans-serif;
+  font: 16px/21px $fontFamily;
 }
 
 body {
@@ -312,7 +313,7 @@ img {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   display: block;
-  font-family: sans-serif;
+  font-family: inherit;
   font-weight: $fontBold;
   line-height: $lineHeight;
   margin-bottom: $lineMargin;
@@ -1279,14 +1280,16 @@ form#CartPage {
     display: inline-block;
   }
 }
-.clearfix {
-  @include clearfix();
+
+// Positioning
+.relative {
+  position: relative;
 }
-.no-select {
-  @include prefixer(user-select, none, $prefixes);
+.absolute {
+  position: absolute;
 }
-.overlay {
-  @include overlay();
+.fixed {
+  position: fixed;
 }
 
 // Margin & Padding

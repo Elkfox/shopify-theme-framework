@@ -88,14 +88,16 @@
     display: inline-block;
   }
 }
-.clearfix {
-  @include clearfix();
+
+// Positioning
+.relative {
+  position: relative;
 }
-.no-select {
-  @include prefixer(user-select, none, $prefixes);
+.absolute {
+  position: absolute;
 }
-.overlay {
-  @include overlay();
+.fixed {
+  position: fixed;
 }
 
 // Margin & Padding
