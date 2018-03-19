@@ -402,6 +402,7 @@ select {
   border-radius: $borderRadius;
   color: $colorText;
   @include prefixer(appearance, none, $prefixes);
+  @include transition();
   &.error {
     border-color: $colorHighlight;
   }
@@ -425,8 +426,7 @@ select {
     border: $borderWeight $borderStyle $colorBorder;
     border-radius: $borderRadius;
     -webkit-text-fill-color: $colorText;
-    -webkit-box-shadow: 0 0 0px 1000px lighten($colorHighlight, $adjustAmount) inset;
-    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0px $gutter*100 rgba($colorHighlight, 0.35) inset;
   }
   // Select dropdown options for Firefox
   option {
