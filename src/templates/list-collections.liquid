@@ -1,5 +1,7 @@
 <!-- /templates/list-collections.liquid -->
 
+{% assign column_width = 'column l4 m6 s12' %}
+
 {% for collection in collections %}
 
   {% unless collection.handle == 'frontpage' %}
@@ -13,8 +15,7 @@
 
     <div class="container l">
       <div class="row">
-        {% for product in collection.products limit:4 %}
-          {% assign column_width = 'column l4 m6 s12' %}
+        {% for product in collection.products limit: 4 %}
           {% include 'collection-product' %}
         {% endfor %}
       </div>

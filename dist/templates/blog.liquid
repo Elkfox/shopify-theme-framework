@@ -1,8 +1,10 @@
 <!-- /templates/blog.liquid -->
 
+{% assign column_width = 'column l12' %}
+
 {% paginate blog.articles by 6 %}
 
-  <div class="container l">
+  <section class="container l">
     <div class="row">
 
       <div class="column l8 m12 s12">
@@ -12,10 +14,11 @@
           <h1>{{ blog.title }}</h1>
         {% endif %}
 
-        {% for article in blog.articles %}
-          {% include 'blog-article' %}
-          {% unless forloop.last %}<hr>{% endunless %}
-        {% endfor %}
+        <div class="row">
+          {% for article in blog.articles %}
+            {% include 'blog-article' %}
+          {% endfor %}
+        </div>
 
         {% include 'theme-pagination' with 'hr' %}
       </div>
@@ -25,6 +28,6 @@
       </div>
 
     </div>
-  </div>
+  </section>
 
 {% endpaginate %}

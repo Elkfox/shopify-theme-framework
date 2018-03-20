@@ -3,24 +3,21 @@
 {%- assign blog = blogs[section.settings.blog] -%}
 {% assign title = section.settings.title %}
 {% assign article_limit = section.settings.article_limit %}
+{% assign column_width = 'column l4 m4 s12' %}
 
-<div class="container l">
+<section class="container l">
   {% if title != blank %}
     <header>
-      <h2 class="h3">{{ title }}</h2>
+      <h2>{{ title }}</h2>
     </header>
   {% endif %}
 
-  <section>
-    <div class="row">
-      {% for article in blog.articles limit: article_limit %}
-        <div class="column l4 m12 s12">
-          {% include 'blog-article' %}
-        </div>
-      {% endfor %}
-    </div>
-  </section>
-</div>
+  <div class="row">
+    {% for article in blog.articles limit: article_limit %}
+      {% include 'blog-article' %}
+    {% endfor %}
+  </div>
+</section>
 
 {% schema %}
   {

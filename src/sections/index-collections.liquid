@@ -1,26 +1,21 @@
 <!-- sections/index-collections.liquid -->
 
-{% if section.settings.title != blank %}
-  <div class="container l">
-    <h2 class="h3">{{ section.settings.title | escape }}</h2>
-  </div>
-{% endif %}
+{% assign title = section.settings.title %}
+{% assign column_width = 'column l4 m6 s12' %}
 
-{% assign collection_item_width = 'column l4 m6 s12' %}
+<section class="container l">
+  {% if title != blank %}
+    <header>
+      <h2>{{ title }}</h2>
+    </header>
+  {% endif %}
 
-<div class="container l">
-
-  {% if section.blocks.size == 0 %}
-    {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
-    {% include 'onboarding-featured-collections' %}
-  {% else %}
-
+  {% if section.blocks.size > 0 %}
     <div class="row">
 
       {% for block in section.blocks limit: section.blocks.size %}
-        <div class="{{ collection_item_width }} text-center" {{ block.shopify_attributes }}>
+        <div class="{{ column_width }}" {{ block.shopify_attributes }}>
           {%- assign collection = collections[block.settings.collection] -%}
-
           {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
 
           <a href="{{ collection.url }}" title="{{ 'collection.title' }}">
@@ -39,10 +34,8 @@
       {% endfor %}
 
     </div>
-
   {% endif %}
-
-</div>
+</section>
 
 {% schema %}
   {

@@ -1,10 +1,7 @@
 <!-- /snippets/template-collection.liquid -->
 
 {% assign column_width = 'column l4 m6 s12' %}
-
-{% unless pagination %}
-  {% assign pagination = 50 %}
-{% endunless %}
+{% assign pagination = pagination | default: 50 %}
 
 {% paginate collection.products by pagination %}
 

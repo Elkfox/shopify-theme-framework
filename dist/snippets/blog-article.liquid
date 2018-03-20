@@ -1,6 +1,8 @@
 <!-- /snippets/blog-article.liquid -->
 
-<article class="blog-article">
+{% assign column_width = column_width | default: 'column l4 m6 s12' %}
+
+<article class="blog-article {{ column_width }}">
   <h2 class="h3"><a href="{{ article.url }}">{{ article.title }}</a></h2>
 
   {% if article.image %}

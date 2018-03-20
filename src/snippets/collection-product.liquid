@@ -4,9 +4,7 @@
 {% assign on_sale = false %}
 {% assign sale_price = product.price | money %}
 
-{% unless column_width %}
-  {% assign column_width = 'column l4 m6 s12' %}
-{% endunless %}
+{% assign column_width = column_width | default: 'column l4 m6 s12' %}
 
 {% if product.available %}
   {% assign sold_out = false %}

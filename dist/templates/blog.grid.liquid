@@ -1,8 +1,10 @@
 <!-- /templates/blog.grid.liquid -->
 
+{% assign column_width = 'column l4 m6 s12' %}
+
 {% paginate blog.articles by 12 %}
 
-  <div class="container l">
+  <section class="container l">
     {% if current_tags %}
       <h1>{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h1>
     {% else %}
@@ -11,13 +13,11 @@
 
     <div class="row">
       {% for article in blog.articles %}
-        <div class="column l4 m6 s12">
-          {% include 'blog-article' %}
-        </div>
+        {% include 'blog-article' %}
       {% endfor %}
     </div>
 
     {% include 'theme-pagination' with 'hr' %}
-  </div>
+  </section>
 
 {% endpaginate %}
