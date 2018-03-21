@@ -212,6 +212,7 @@
     "twitter": "Twitter",
     "vimeo": "Vimeo",
     "youtube": "YouTube",
+    "on": "{{ shop }} on {{ social }}",
     "share": {
       "title": "Share",
       "fancy": "Fancy",
@@ -220,6 +221,24 @@
       "pinterest": "Pin it",
       "twitter": "Tweet"
     }
+  },
+  "gateways": {
+    "checkout": "Checkout with {{ gateway }}",
+    "afterpay": "AfterPay",
+    "amazon_payments": "Amazon Payments",
+    "american_express": "American Express",
+    "apple_pay": "Apple Pay",
+    "bitcoin": "Bitcoin",
+    "cirrus": "Cirrus Dining",
+    "diners_club": "Diners Club International",
+    "discover": "Discover",
+    "jcb": "JCB",
+    "maestro": "Maestro",
+    "master": "MasterCard",
+    "paypal": "PayPal",
+    "shopify_pay": "Shopify Pay",
+    "stripe": "Stripe",
+    "visa": "Visa"
   },
   "password": {
     "title": "Opening soon",
