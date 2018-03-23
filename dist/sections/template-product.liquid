@@ -79,7 +79,7 @@
             </select>
 
             <span class="hidden">{{ 'product.regular_price' | t }}</span>
-            <span id="ProductPrice" class="h2 clearfix" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+            <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
               {{ current_variant.price | money }}
             </span>
 
@@ -91,7 +91,7 @@
               </p>
             {% endif %}
 
-            <label for="Quantity" class="clearfix">{{ 'product.quantity' | t }}</label>
+            <label for="Quantity">{{ 'product.quantity' | t }}</label>
             <div class="quantity-adjust">
               <a class="adjust" data-change="-1">&#8211;</a>
                <input type="number" id="Quantity" class="quantity" name="quantity" value="1" min="1" data-cart-quantity="1">

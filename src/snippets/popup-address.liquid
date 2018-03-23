@@ -87,36 +87,36 @@
             {{ form.errors | default_errors }}
 
             <label for="AddressFirstNameNew">{{ 'account.customer.first_name' | t }}</label>
-            <input type="text" id="AddressFirstNameNew" class="clearfix" name="address[first_name]" value="{{ form.first_name }}" autocapitalize="words">
+            <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" autocapitalize="words">
 
             <label for="AddressLastNameNew">{{ 'account.customer.last_name' | t }}</label>
-            <input type="text" id="AddressLastNameNew" class="clearfix" name="address[last_name]" value="{{ form.last_name }}" autocapitalize="words">
+            <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" autocapitalize="words">
 
             <label for="AddressCompanyNew">{{ 'account.customer.company' | t }}</label>
-            <input type="text" id="AddressCompanyNew" class="clearfix" name="address[company]" value="{{ address.company }}" autocapitalize="words">
+            <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ address.company }}" autocapitalize="words">
 
             <label for="AddressAddress1New">{{ 'account.customer.address1' | t }}</label>
-            <input type="text" id="AddressAddress1New" class="clearfix" name="address[address1]" value="{{ address.address1 }}" autocapitalize="words">
+            <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ address.address1 }}" autocapitalize="words">
 
             <label for="AddressAddress2New">{{ 'account.customer.address2' | t }}</label>
-            <input type="text" id="AddressAddress2New" class="clearfix" name="address[address2]" value="{{ address.address2 }}" autocapitalize="words">
+            <input type="text" id="AddressAddress2New" name="address[address2]" value="{{ address.address2 }}" autocapitalize="words">
 
             <label for="AddressCityNew">{{ 'account.customer.city' | t }}</label>
-            <input type="text" id="AddressCityNew" class="clearfix" name="address[city]" value="{{ address.city }}" autocapitalize="words">
+            <input type="text" id="AddressCityNew" name="address[city]" value="{{ address.city }}" autocapitalize="words">
 
             <label for="AddressCountryNew">{{ 'account.customer.country' | t }}</label>
-            <div class="select-wrapper"><select id="AddressCountryNew" class="clearfix" name="address[country]" data-default="{{ address.country }}">{{ country_option_tags }}</select></div>
+            <div class="select-wrapper"><select id="AddressCountryNew" name="address[country]" data-default="{{ address.country }}">{{ country_option_tags }}</select></div>
 
             <div id="AddressProvinceContainerNew" style="display:none" class="province-wrapper">
               <label for="AddressProvinceNew">{{ 'account.customer.province' | t }}</label>
-              <div class="select-wrapper"><select id="AddressProvinceNew" class="clearfix" name="address[province]" data-default="{{ address.province }}"></select></div>
+              <div class="select-wrapper"><select id="AddressProvinceNew" name="address[province]" data-default="{{ address.province }}"></select></div>
             </div>
 
             <label for="AddressZipNew">{{ 'account.customer.zip' | t }}</label>
-            <input type="text" id="AddressZipNew" class="clearfix" name="address[zip]" value="{{ address.zip }}" autocapitalize="characters">
+            <input type="text" id="AddressZipNew" name="address[zip]" value="{{ address.zip }}" autocapitalize="characters">
 
             <label for="AddressPhoneNew">{{ 'account.customer.phone' | t }}</label>
-            <input type="tel" id="AddressPhoneNew" class="clearfix" name="address[phone]" value="{{ address.phone }}">
+            <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ address.phone }}">
 
             <p>
               {{ form.set_as_default_checkbox }}
