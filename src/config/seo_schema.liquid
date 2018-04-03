@@ -1,0 +1,27 @@
+/* For article */
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Article",
+    "name": {{ article.title }},
+    "author": {{ article.author }},
+    "datePublished": {{ article.published_at }},
+    "headline": {{ article.title }},
+    {% if article.image %}
+    "image": {
+      "@type": "ImageObject",
+      "url": {{ article | img_url: 'medium' }}
+    },
+    {% endif %}
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name }},
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://schema.org/"
+      }
+    },
+    "dateModified": "23/03/2012",
+    "mainEntityOfPage": {{ canonical_url | json }}
+  }
+</script>
