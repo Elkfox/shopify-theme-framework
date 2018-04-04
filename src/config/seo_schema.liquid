@@ -57,11 +57,11 @@
           "position": {{ forloop.index }},
           "url": {{ product.url }},
           "name": {{ product.title }},
+          "sku": {{ product.selected_or_first_available_variant.sku | json }},
           "brand": {
             "@type": "Brand",
             "name": {{ product.vendor }}
-          },
-          "sku": {{ product.selected_or_first_available_variant.sku | json }}
+          }
         }
       {% else %}
         {
@@ -69,11 +69,11 @@
           "position": {{ forloop.index }},
           "url": {{ product.url }},
           "name": {{ product.title }},
+          "sku": {{ product.selected_or_first_available_variant.sku | json }},
           "brand": {
             "@type": "Brand",
             "name": {{ product.vendor }}
-          },
-          "sku": {{ product.selected_or_first_available_variant.sku | json }}
+          }
         },
       {% endif %}
     {% endfor %}]
