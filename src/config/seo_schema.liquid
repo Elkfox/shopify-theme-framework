@@ -47,19 +47,36 @@
   {
     "@context": "http://schema.org/",
     "@type": "ItemList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "url": "http://schema.org/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "url": "http://schema.org/list"
-    }],
     "numberOfItems": {{ collection.products_count }},
     "name": {{ collection.title }},
-    "url": {{ collection.url }}
+    "url": {{ collection.url }},
+    "itemListElement": [{% for product in collection.products %}
+      {% if forloop.last == true %}
+        {
+          "@type": "ListItem",
+          "position": {{ forloop.index }},
+          "url": {{ product.url }},
+          "name": {{ product.title }},
+          "brand": {
+            "@type": "Brand",
+            "name": {{ product.vendor }}
+          },
+          "sku": {{ product.selected_or_first_available_variant.sku | json }}
+        }
+      {% else %}
+        {
+          "@type": "ListItem",
+          "position": {{ forloop.index }},
+          "url": {{ product.url }},
+          "name": {{ product.title }},
+          "brand": {
+            "@type": "Brand",
+            "name": {{ product.vendor }}
+          },
+          "sku": {{ product.selected_or_first_available_variant.sku | json }}
+        },
+      {% endif %}
+    {% endfor %}]
   }
 </script>
 
