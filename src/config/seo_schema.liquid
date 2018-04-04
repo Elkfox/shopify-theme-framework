@@ -1,16 +1,19 @@
-/* For article */
+<!-- For article -->
 <script type="application/ld+json">
   {
     "@context": "http://schema.org/",
     "@type": "Article",
     "name": {{ article.title }},
     "author": {{ article.author }},
-    "datePublished": {{ article.published_at }},
+    "datePublished": {{ article.created_at }},
+    "dateModified": {{ article.published_at }},
     "headline": {{ article.title }},
+    "keywords": "{% for tag in article.tags %} {{ tag }},{% endfor %}",
+    "mainEntityOfPage": {{ canonical_url | json }},
     {% if article.image %}
     "image": {
       "@type": "ImageObject",
-      "url": {{ article | img_url: 'medium' }}
+      "url": {{ article.image.src | img_url: 'medium' }}
     },
     {% endif %}
     "publisher": {
@@ -20,8 +23,76 @@
         "@type": "ImageObject",
         "url": "http://schema.org/"
       }
+    }
+  }
+</script>
+
+<!-- For Blog Page -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Blog",
+    "name": {{ blog.title }},
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name }}
     },
-    "dateModified": "23/03/2012",
-    "mainEntityOfPage": {{ canonical_url | json }}
+    "keywords": "{% for tag in blog.all_tags %} {{ tag }},{% endfor %}",
+    "url": {{ blog.url }}
+  }
+</script>
+
+<!-- For Collecion page -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "ItemList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "url": "http://schema.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "http://schema.org/list"
+    }],
+    "numberOfItems": {{ collection.products_count }},
+    "name": {{ collection.title }},
+    "url": {{ collection.url }}
+  }
+</script>
+
+<!-- For Product -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title }},
+    "description": {{ product.description }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor }}
+    },
+    "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    "url": {{ canonical_url | json }},
+    {% if product.featured_image %}
+    "image": {
+      "@type": "ImageObject",
+      "url": {{ product.featured_image | product_img_url: 'medium' }}
+    },
+    {% endif %}
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": {{ shop.currency }},
+      "price": "3",
+      "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
+      "url": {{ canonical_url | json }},
+      "sku": {{ variant.sku | json }},
+      "seller": {
+        "@type": "Organization",
+        "name": {{ shop.name }}
+      }
+    }
   }
 </script>
