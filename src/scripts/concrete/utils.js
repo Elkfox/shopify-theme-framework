@@ -9,6 +9,23 @@ concrete.replaceUrlParam = function(url, paramName, paramValue){
     return url + (url.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
 }
 
+concrete.removeUrlParam = function(url, paramName) {
+  // Use this function incase we are not removing the url of the current page.
+  let value = concrete.getUrlParameterByName(paramName, url);
+  let newUrl = '';
+  if(url.indexOf('?'+paramName+'='+value) > -1) {
+    if (location.search.split('&').length > 1) {
+      newUrl = url.replace(paramName+'=', '').replace(value+'&', '');
+    } else {
+      newUrl = url.replace('?'+paramName+'=', '').replace(value, '');
+    }
+  } else {
+    newUrl = url.replace('&'+paramName+'=', '').replace(value, '');
+  }
+
+  return newUrl;
+}
+
 concrete.getUrlParameters = function(){
   parameters = {};
   if (location.search.length) {
