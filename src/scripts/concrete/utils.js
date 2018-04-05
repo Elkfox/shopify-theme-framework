@@ -39,8 +39,13 @@ concrete.getUrlParameters = function(){
   return parameters;
 }
 
-concrete.pushNewUrl = function(url) {
-  window.history.replaceState({path: url}, '', url);
+concrete.pushNewUrl = function(url, method) {
+  method = method || 'push'
+  if(method == 'push') {
+    window.history.pushState({path: url}, '', url);
+  } else {
+    window.history.replaceState({path: url}, '', url);
+  }
 }
 
 // Collection template sorting
