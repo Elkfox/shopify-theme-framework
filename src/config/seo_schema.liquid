@@ -8,7 +8,15 @@
     "datePublished": {{ article.created_at }},
     "dateModified": {{ article.published_at }},
     "headline": {{ article.title }},
-    "keywords": "{% for tag in article.tags %} {{ tag }},{% endfor %}",
+    "keywords": [
+      {% for tag in article.tags %}
+        {% if forloop.last == true %}
+          "{{ tag }}"
+        {% else %}
+          "{{ tag }}",
+        {% endif %}
+      {% endfor %}
+    ],
     "mainEntityOfPage": {{ canonical_url | json }},
     {% if article.image %}
     "image": {
@@ -37,7 +45,15 @@
       "@type": "Organization",
       "name": {{ shop.name }}
     },
-    "keywords": "{% for tag in blog.all_tags %} {{ tag }},{% endfor %}",
+    "keywords": [
+      {% for tag in blog.all_tags %}
+        {% if forloop.last == true %}
+          "{{ tag }}"
+        {% else %}
+          "{{ tag }}",
+        {% endif %}
+      {% endfor %}
+    ],
     "url": {{ blog.url }}
   }
 </script>
