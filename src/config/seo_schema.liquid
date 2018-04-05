@@ -1,6 +1,6 @@
 {% assign socialmedia_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
 
-<!-- Sitewide -->
+<!-- Sitewide SEO -->
 <script type="application/ld+json">
   {
     "@context": "http://schema.org/",
@@ -41,122 +41,130 @@
 </script>
 
 <!-- For Brick and Mortar Store -->
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org/",
-    "@type": "Store"
-    "name": {{ shop.name }},
-    "description": {{ shop.description }},
-    "url": {{ shop.domain }},
-    "image": "http://schema.org/",
-    "telephone": {{ shop.phone }},
-    "brand": {
-      "@type": "Brand",
-      "name": {{ shop.name }}
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": {{ shop.address.street }},
-      "addressLocality": {{ shop.address.city }},
-      "addressRegion": {{ shop.address.province }},
-      "postalCode": {{ shop.address.zip }},
-      "addressCountry": {{ shop.address.country }}
+{% unless shop.address == blank %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Store"
+      "name": {{ shop.name }},
+      "description": {{ shop.description }},
+      "url": {{ shop.domain }},
+      "image": "http://schema.org/",
+      "telephone": {{ shop.phone }},
+      "brand": {
+        "@type": "Brand",
+        "name": {{ shop.name }}
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ shop.address.street }},
+        "addressLocality": {{ shop.address.city }},
+        "addressRegion": {{ shop.address.province }},
+        "postalCode": {{ shop.address.zip }},
+        "addressCountry": {{ shop.address.country }}
+      }
     }
-  }
-</script>
+  </script>
+{% endunless %}
 
+{% case template %}
 
 <!-- For article -->
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org/",
-    "@type": "Article",
-    "name": {{ article.title }},
-    "author": {{ article.author }},
-    "datePublished": {{ article.created_at }},
-    "dateModified": {{ article.published_at }},
-    "headline": {{ article.title }},
-    "keywords": [
-      {% for tag in article.tags %}
-        {% if forloop.last == true %}
-          "{{ tag }}"
-        {% else %}
-          "{{ tag }}",
+  {% when 'article' %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "Article",
+        "name": {{ article.title }},
+        "author": {{ article.author }},
+        "datePublished": {{ article.created_at }},
+        "dateModified": {{ article.published_at }},
+        "headline": {{ article.title }},
+        "keywords": [
+          {% for tag in article.tags %}
+            {% if forloop.last == true %}
+              "{{ tag }}"
+            {% else %}
+              "{{ tag }}",
+            {% endif %}
+          {% endfor %}
+        ],
+        "mainEntityOfPage": {{ canonical_url | json }},
+        {% if article.image %}
+        "image": {
+          "@type": "ImageObject",
+          "url": {{ article.image.src | img_url: 'medium' }}
+        },
         {% endif %}
-      {% endfor %}
-    ],
-    "mainEntityOfPage": {{ canonical_url | json }},
-    {% if article.image %}
-    "image": {
-      "@type": "ImageObject",
-      "url": {{ article.image.src | img_url: 'medium' }}
-    },
-    {% endif %}
-    "publisher": {
-      "@type": "Organization",
-      "name": {{ shop.name }},
-      "logo": {
-        "@type": "ImageObject",
-        "url": "http://schema.org/"
+        "publisher": {
+          "@type": "Organization",
+          "name": {{ shop.name }},
+          "logo": {
+            "@type": "ImageObject",
+            "url": "http://schema.org/"
+          }
+        }
       }
-    }
-  }
-</script>
+    </script>
 
 <!-- For Blog Page -->
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org/",
-    "@type": "Blog",
-    "name": {{ blog.title }},
-    "publisher": {
-      "@type": "Organization",
-      "name": {{ shop.name }}
-    },
-    "keywords": [
-      {% for tag in blog.all_tags %}
-        {% if forloop.last == true %}
-          "{{ tag }}"
-        {% else %}
-          "{{ tag }}",
-        {% endif %}
-      {% endfor %}
-    ],
-    "url": {{ blog.url }}
-  }
-</script>
+  {% when 'blog' %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "Blog",
+        "name": {{ blog.title }},
+        "publisher": {
+          "@type": "Organization",
+          "name": {{ shop.name }}
+        },
+        "keywords": [
+          {% for tag in blog.all_tags %}
+            {% if forloop.last == true %}
+              "{{ tag }}"
+            {% else %}
+              "{{ tag }}",
+            {% endif %}
+          {% endfor %}
+        ],
+        "url": {{ blog.url }}
+      }
+    </script>
 
 <!-- For Product -->
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org/",
-    "@type": "Product",
-    "name": {{ product.title }},
-    "description": {{ product.description }},
-    "brand": {
-      "@type": "Brand",
-      "name": {{ product.vendor }}
-    },
-    "sku": {{ product.selected_or_first_available_variant.sku | json }},
-    "url": {{ canonical_url | json }},
-    {% if product.featured_image %}
-    "image": {
-      "@type": "ImageObject",
-      "url": {{ product.featured_image | product_img_url: 'medium' }}
-    },
-    {% endif %}
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": {{ shop.currency }},
-      "price": {{ product.price }},
-      "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
-      "url": {{ canonical_url | json }},
-      "sku": {{ variant.sku | json }},
-      "seller": {
-        "@type": "Organization",
-        "name": {{ shop.name }}
+  {% when 'product' %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "Product",
+        "name": {{ product.title }},
+        "description": {{ product.description }},
+        "brand": {
+          "@type": "Brand",
+          "name": {{ product.vendor }}
+        },
+        "sku": {{ product.selected_or_first_available_variant.sku | json }},
+        "url": {{ canonical_url | json }},
+        {% if product.featured_image %}
+        "image": {
+          "@type": "ImageObject",
+          "url": {{ product.featured_image | product_img_url: 'medium' }}
+        },
+        {% endif %}
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": {{ shop.currency }},
+          "price": {{ product.price }},
+          "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
+          "url": {{ canonical_url | json }},
+          "sku": {{ variant.sku | json }},
+          "seller": {
+            "@type": "Organization",
+            "name": {{ shop.name }}
+          }
+        }
+        // add in review markup here - differs with each client
       }
-    }
-    // add in review markup here - differs with each client
-  }
-</script>
+    </script>
+
+{% endcase %}
