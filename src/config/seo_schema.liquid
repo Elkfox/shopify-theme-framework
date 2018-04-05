@@ -1,3 +1,72 @@
+{% assign socialmedia_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
+
+<!-- Sitewide -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Website",
+    "url": {{ shop.url }},
+    "name": {{ shop.name }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://{{ shop.domain }}/search?q={query}",
+      "query-input": "required name=query"
+    }
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Organization",
+    "url": {{ shop.url }},
+    "name": {{ shop.name }},
+    "image": "http://schema.org/",
+    "sameAs":[
+      {% for social in socialmedia_available %}
+        {% capture link %}social_{{ social }}_link{% endcapture %}
+        {% if settings[link] != blank and forloop.last == true %}
+          "{{ settings[link] }}"
+        {% elsif settings[link] != blank and forloop.last == false %}
+          "{{ settings[link] }}",
+        {% endif %}
+      {% endfor %}
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": {{ shop.phone }},
+      "email": {{ shop.email }},
+      "contactType": "customer service"
+    }
+  }
+</script>
+
+<!-- For Brick and Mortar Store -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Store"
+    "name": {{ shop.name }},
+    "description": {{ shop.description }},
+    "url": {{ shop.domain }},
+    "image": "http://schema.org/",
+    "telephone": {{ shop.phone }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ shop.name }}
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ shop.address.street }},
+      "addressLocality": {{ shop.address.city }},
+      "addressRegion": {{ shop.address.province }},
+      "postalCode": {{ shop.address.zip }},
+      "addressCountry": {{ shop.address.country }}
+    },
+    "priceRange": "$$$"
+  }
+</script>
+
+
 <!-- For article -->
 <script type="application/ld+json">
   {
@@ -127,5 +196,6 @@
         "name": {{ shop.name }}
       }
     }
+    // add in review markup here - differs with each client
   }
 </script>
