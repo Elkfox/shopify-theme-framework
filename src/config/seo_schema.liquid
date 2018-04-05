@@ -126,44 +126,6 @@
   }
 </script>
 
-<!-- For Collecion page -->
-<script type="application/ld+json">
-  {
-    "@context": "http://schema.org/",
-    "@type": "ItemList",
-    "numberOfItems": {{ collection.products_count }},
-    "name": {{ collection.title }},
-    "url": {{ collection.url }},
-    "itemListElement": [{% for product in collection.products %}
-      {% if forloop.last == true %}
-        {
-          "@type": "ListItem",
-          "position": {{ forloop.index }},
-          "url": {{ product.url }},
-          "name": {{ product.title }},
-          "sku": {{ product.selected_or_first_available_variant.sku | json }},
-          "brand": {
-            "@type": "Brand",
-            "name": {{ product.vendor }}
-          }
-        }
-      {% else %}
-        {
-          "@type": "ListItem",
-          "position": {{ forloop.index }},
-          "url": {{ product.url }},
-          "name": {{ product.title }},
-          "sku": {{ product.selected_or_first_available_variant.sku | json }},
-          "brand": {
-            "@type": "Brand",
-            "name": {{ product.vendor }}
-          }
-        },
-      {% endif %}
-    {% endfor %}]
-  }
-</script>
-
 <!-- For Product -->
 <script type="application/ld+json">
   {
