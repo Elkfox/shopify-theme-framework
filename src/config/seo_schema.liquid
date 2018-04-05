@@ -61,8 +61,7 @@
       "addressRegion": {{ shop.address.province }},
       "postalCode": {{ shop.address.zip }},
       "addressCountry": {{ shop.address.country }}
-    },
-    "priceRange": "$$$"
+    }
   }
 </script>
 
@@ -187,7 +186,7 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": {{ shop.currency }},
-      "price": "3",
+      "price": {{ product.price }},
       "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
       "url": {{ canonical_url | json }},
       "sku": {{ variant.sku | json }},
