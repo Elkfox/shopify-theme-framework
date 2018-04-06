@@ -76,7 +76,10 @@
         "@context": "http://schema.org/",
         "@type": "Article",
         "name": {{ article.title }},
-        "author": {{ article.author }},
+        "author": {
+          "@type": "Person",
+          "name": {{ article.author | json }}
+        },
         "datePublished": {{ article.created_at | date: '%Y-%m-%d' }},
         "dateModified": {{ article.published_at | date: '%Y-%m-%d' }},
         "headline": {{ article.title }},
