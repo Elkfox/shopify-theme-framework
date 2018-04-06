@@ -1,3 +1,4 @@
+const jsonld = require('jsonld');
 // replace urlparameter
 concrete.replaceUrlParam = function(url, paramName, paramValue){
     if(paramValue == null)

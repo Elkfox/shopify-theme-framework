@@ -10,5 +10,8 @@
   "version": "v2.0.1",
   "devDependencies": {
     "@shopify/slate-tools": "0.12.1"
+  },
+  "dependencies": {
+    "jsonld": "^1.0.1"
   }
 }
