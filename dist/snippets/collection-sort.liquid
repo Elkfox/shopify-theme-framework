@@ -6,7 +6,7 @@
 <div class="select-wrapper">
   <select name="SortBy" data-sort>
     {% for option in sort_options %}
-      <option value="{{ option }}"{% if collection.sort_by == option %} selected="selected"{% endif %}>{{ 'collection.sort.' | append: option | t }}</option>
+      <option value="{{ option }}"{% if collection.sort_by == blank and collection.default_sort_by == option %} selected="selected"{% elsif collection.sort_by == option %} selected="selected"{% endif %}>{{ 'collection.sort.' | append: option | t }}</option>
     {% endfor %}
   </select>
 </div>
