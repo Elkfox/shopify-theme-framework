@@ -77,9 +77,12 @@
         "@type": "Article",
         "name": {{ article.title }},
         "author": {{ article.author }},
-        "datePublished": {{ article.created_at }},
-        "dateModified": {{ article.published_at }},
+        "datePublished": {{ article.created_at | date: '%Y-%m-%d' }},
+        "dateModified": {{ article.published_at | date: '%Y-%m-%d' }},
         "headline": {{ article.title }},
+        "description": {{ article.exerpt_or_content | strip_html | json }},
+        "articleBody": {{ article.content | strip_html | json }},
+        "mainEntityOfPage": {{ canonical_url | json }},
         "keywords": [
           {% for tag in article.tags %}
             {% if forloop.last == true %}
@@ -89,13 +92,34 @@
             {% endif %}
           {% endfor %}
         ],
-        "mainEntityOfPage": {{ canonical_url | json }},
+        // if there isn't an article.image, search for image inside the article.content. If nothing, show "no image" image
         {% if article.image %}
-        "image": {
-          "@type": "ImageObject",
-          "url": {{ article.image.src | img_url: 'medium' }}
-        },
+          "image": {
+            "@type": "ImageObject",
+            "url": {{ article.image.src | img_url: 'medium' }}
+        {% else %}
+          {% assign article_content_img = article.content | escape %}
+          {% if article_content_img contains '&lt;img' %}
+            {% assign article_content_img = article_content_img | split: 'src=&quot;' %}
+            {% assign article_content_img = article_content_img[1] | split: '&quot;' %}
+            {% assign article_content_img = article_content_img[0] | remove: '//cdn' %}
+            {% assign article_content_img = article_content_img | remove: 'http:http://';; %}
+            {% assign article_content_img = article_content_img | remove: 'https:' %}
+            {% assign article_content_img = article_content_img | prepend: 'https://cdn' %}
+            {% capture replacement %}_1024x1024.{% endcapture %}
+            {% assign sizes = 'pico icon thumb small compact medium large grande 1024x1024 2048x2048' | split:' ' %}
+              {% for size in sizes %}
+                {% capture search %}_{{size}}.{% endcapture %}
+                {% assign article_content_img = article_content_img | replace:search,replacement %}
+              {% endfor %}
+            "url": "{{ article_content_img }}",
+          {% else %}
+          "url": "https://cdn.shopify.com/s/images/admin/no-image-grande.gif",
+          {% endif %}
         {% endif %}
+          "height": "1024",
+  				"width": "1024"
+        },
         "publisher": {
           "@type": "Organization",
           "name": {{ shop.name }},
@@ -114,6 +138,7 @@
         "@context": "http://schema.org/",
         "@type": "Blog",
         "name": {{ blog.title }},
+        "url": {{ blog.url }},
         "publisher": {
           "@type": "Organization",
           "name": {{ shop.name }}
@@ -126,8 +151,7 @@
               "{{ tag }}",
             {% endif %}
           {% endfor %}
-        ],
-        "url": {{ blog.url }}
+        ]
       }
     </script>
 
@@ -148,7 +172,7 @@
         {% if product.featured_image %}
         "image": {
           "@type": "ImageObject",
-          "url": {{ product.featured_image | product_img_url: 'medium' }}
+          "url": {{ product.featured_image.src | img_url: 'grande' }}
         },
         {% endif %}
         "offers": {
