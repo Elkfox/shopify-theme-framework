@@ -22,7 +22,7 @@
     "@type": "Organization",
     "url": "https://{{ shop.domain }}",
     "name": {{ shop.name | json }},
-    "image": "http://schema.org/",
+    "image": {% if logo != blank %}"https:{{ logo | img_url: logo_width }}"{% endif %},
     "sameAs":[
       {% for social in socialmedia_available %}
         {% capture link %}social_{{ social }}_link{% endcapture %}
@@ -49,7 +49,7 @@
       "@type": "Store",
       "name": {{ shop.name | json }},
       "url": {{ shop.domain | json }},
-      "image": "http://schema.org/",
+      "image": {% if logo != blank %}"https:{{ logo | img_url: logo_width }}"{% endif %},
       "telephone": {{ shop.phone | json }},
       "brand": {
         "@type": "Brand",
