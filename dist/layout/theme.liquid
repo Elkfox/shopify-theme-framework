@@ -27,8 +27,9 @@ MIT License
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsonld/0.4.12/jsonld.min.js"></script>
   <title>{% include 'meta-title' %}</title>
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
-
-  {% include 'meta-seo' %}
+  {% include 'meta-social-tags' %}
+  {% include 'meta-favorites' %}
+  {% include 'meta-schema' %}
 
   <!-- Shopify ============================================================= -->
   {{ content_for_header }}
