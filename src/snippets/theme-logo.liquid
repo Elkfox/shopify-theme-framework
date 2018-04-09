@@ -4,19 +4,18 @@
 {% assign logo_width = settings.logo_width | append: 'x' %}
 
 {% if template == 'index' or template == 'password' %}
-  <h1 class="theme-logo no-margin" itemprop="publisher">
+  <h1 class="theme-logo no-margin">
 {% else %}
-  <div class="h1 theme-logo no-margin" itemprop="publisher">
+  <div class="h1 theme-logo no-margin">
 {% endif %}
-  <meta itemprop="name" content="{{ shop.name }}">
   {% if logo != blank %}
-    <a href="/" itemprop="url" title="{{ shop.name }}" class="logo-image block">
-      <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject" class="block">
-        <img src="{{ logo | img_url: logo_width, scale: 2 }}" alt="{{ shop.name }}" title="{{ shop.name }}" itemprop="image" class="block">
+    <a href="/" title="{{ shop.name }}" class="logo-image block">
+      <span class="block">
+        <img src="{{ logo | img_url: logo_width, scale: 2 }}" alt="{{ shop.name }}" title="{{ shop.name }}" class="block">
       </span>
     </a>
   {% else %}
-    <a href="/" itemprop="url" title="{{ shop.name }}">{{ shop.name }}</a>
+    <a href="/" title="{{ shop.name }}">{{ shop.name }}</a>
   {% endif %}
 {% if template == 'index' or template == 'password' %}
   </h1>
