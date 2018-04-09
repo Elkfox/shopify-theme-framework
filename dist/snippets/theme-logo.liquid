@@ -4,9 +4,9 @@
 {% assign logo_width = settings.logo_width | append: 'x' %}
 
 {% if template == 'index' or template == 'password' %}
-  <h1 class="theme-logo no-margin" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+  <h1 class="theme-logo no-margin" itemprop="publisher">
 {% else %}
-  <div class="h1 theme-logo no-margin" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+  <div class="h1 theme-logo no-margin" itemprop="publisher">
 {% endif %}
   <meta itemprop="name" content="{{ shop.name }}">
   {% if logo != blank %}

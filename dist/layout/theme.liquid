@@ -24,10 +24,11 @@ MIT License
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <meta name="theme-color" content="{{ settings.color_primary }}">
   <link rel="canonical" href="{{ canonical_url }}">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsonld/0.4.12/jsonld.min.js"></script>
   <title>{% include 'meta-title' %}</title>
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
-  {% include 'meta-social-tags' %}
-  {% include 'meta-favorites' %}
+
+  {% include 'meta-seo' %}
 
   <!-- Shopify ============================================================= -->
   {{ content_for_header }}
@@ -61,7 +62,7 @@ MIT License
   </script>
 </head>
 
-<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != null %} suffix-{{ template.suffix }}{% endif %}" itemscope itemtype="http://schema.org/WebSite">
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != null %} suffix-{{ template.suffix }}{% endif %}" >
   {% section 'theme-header' %}
 
   <main id="MainContent" role="main">

@@ -1,12 +1,14 @@
 {% assign socialmedia_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
+{% assign logo = settings.logo %}
+{% assign logo_width = settings.logo_width | append: 'x' %}
 
 <!-- Sitewide SEO -->
 <script type="application/ld+json">
   {
     "@context": "http://schema.org/",
     "@type": "Website",
-    "url": {{ shop.url }},
-    "name": {{ shop.name }},
+    "url": "https://{{ shop.domain }}",
+    "name": {{ shop.name | json }},
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://{{ shop.domain }}/search?q={query}",
@@ -18,8 +20,8 @@
   {
     "@context": "http://schema.org/",
     "@type": "Organization",
-    "url": {{ shop.url }},
-    "name": {{ shop.name }},
+    "url": "https://{{ shop.domain }}",
+    "name": {{ shop.name | json }},
     "image": "http://schema.org/",
     "sameAs":[
       {% for social in socialmedia_available %}
@@ -33,8 +35,7 @@
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": {{ shop.phone }},
-      "email": {{ shop.email }},
+      "telephone": {{ shop.phone | json }},
       "contactType": "customer service"
     }
   }
@@ -45,23 +46,22 @@
   <script type="application/ld+json">
     {
       "@context": "http://schema.org/",
-      "@type": "Store"
-      "name": {{ shop.name }},
-      "description": {{ shop.description }},
-      "url": {{ shop.domain }},
+      "@type": "Store",
+      "name": {{ shop.name | json }},
+      "url": {{ shop.domain | json }},
       "image": "http://schema.org/",
-      "telephone": {{ shop.phone }},
+      "telephone": {{ shop.phone | json }},
       "brand": {
         "@type": "Brand",
-        "name": {{ shop.name }}
+        "name": {{ shop.name | json }}
       },
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": {{ shop.address.street }},
-        "addressLocality": {{ shop.address.city }},
-        "addressRegion": {{ shop.address.province }},
-        "postalCode": {{ shop.address.zip }},
-        "addressCountry": {{ shop.address.country }}
+        "streetAddress": {{ shop.address.street | json }},
+        "addressLocality": {{ shop.address.city | json }},
+        "addressRegion": {{ shop.address.province | json }},
+        "postalCode": {{ shop.address.zip | json }},
+        "addressCountry": {{ shop.address.country | json }}
       }
     }
   </script>
@@ -75,14 +75,14 @@
       {
         "@context": "http://schema.org/",
         "@type": "Article",
-        "name": {{ article.title }},
+        "name": {{ article.title | json }},
         "author": {
           "@type": "Person",
           "name": {{ article.author | json }}
         },
-        "datePublished": {{ article.created_at | date: '%Y-%m-%d' }},
-        "dateModified": {{ article.published_at | date: '%Y-%m-%d' }},
-        "headline": {{ article.title }},
+        "datePublished": {{ article.created_at | date: '%Y-%m-%d' | json }},
+        "dateModified": {{ article.published_at | date: '%Y-%m-%d' | json }},
+        "headline": {{ article.title | json }},
         "description": {{ article.exerpt_or_content | strip_html | json }},
         "articleBody": {{ article.content | strip_html | json }},
         "mainEntityOfPage": {{ canonical_url | json }},
@@ -99,7 +99,7 @@
         {% if article.image %}
           "image": {
             "@type": "ImageObject",
-            "url": {{ article.image.src | img_url: 'medium' }}
+            "url": "https:{{ article.image.src | img_url: 'medium' }}",
         {% else %}
           {% assign article_content_img = article.content | escape %}
           {% if article_content_img contains '&lt;img' %}
@@ -117,7 +117,7 @@
               {% endfor %}
             "url": "{{ article_content_img }}",
           {% else %}
-          "url": "https://cdn.shopify.com/s/images/admin/no-image-grande.gif",
+            "url": "https://cdn.shopify.com/s/images/admin/no-image-grande.gif",
           {% endif %}
         {% endif %}
           "height": "1024",
@@ -125,10 +125,12 @@
         },
         "publisher": {
           "@type": "Organization",
-          "name": {{ shop.name }},
+          "name": {{ shop.name | json }},
           "logo": {
             "@type": "ImageObject",
-            "url": "http://schema.org/"
+            {% if logo != blank %}
+            "url": "https:{{ logo | img_url: logo_width }}"
+            {% endif %}
           }
         }
       }
@@ -140,11 +142,11 @@
       {
         "@context": "http://schema.org/",
         "@type": "Blog",
-        "name": {{ blog.title }},
-        "url": {{ blog.url }},
+        "name": {{ blog.title | json }},
+        "url": {{ blog.url | json }},
         "publisher": {
           "@type": "Organization",
-          "name": {{ shop.name }}
+          "name": {{ shop.name | json }}
         },
         "keywords": [
           {% for tag in blog.all_tags %}
@@ -164,30 +166,30 @@
       {
         "@context": "http://schema.org/",
         "@type": "Product",
-        "name": {{ product.title }},
-        "description": {{ product.description }},
+        "name": {{ product.title | json }},
+        "description": {{ product.description | strip_html | json }},
         "brand": {
           "@type": "Brand",
-          "name": {{ product.vendor }}
+          "name": {{ product.vendor | json }}
         },
         "sku": {{ product.selected_or_first_available_variant.sku | json }},
         "url": {{ canonical_url | json }},
         {% if product.featured_image %}
         "image": {
           "@type": "ImageObject",
-          "url": {{ product.featured_image.src | img_url: 'grande' }}
+          "url": {{ product.featured_image.src | img_url: 'grande' | json }}
         },
         {% endif %}
         "offers": {
           "@type": "Offer",
-          "priceCurrency": {{ shop.currency }},
-          "price": {{ product.price }},
+          "priceCurrency": {{ shop.currency | json }},
+          "price": {{ product.price | divided_by: 100.00 | json }},
           "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
           "url": {{ canonical_url | json }},
           "sku": {{ variant.sku | json }},
           "seller": {
             "@type": "Organization",
-            "name": {{ shop.name }}
+            "name": {{ shop.name | json }}
           }
         }
         // add in review markup here - differs with each client

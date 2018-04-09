@@ -3,7 +3,7 @@
 {% assign icons = false %}
 {% assign social_icons_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
 
-<ul class="inline" itemscope itemtype="http://schema.org/Organization">
+<ul class="inline">
   <link itemprop="url" href="{{ shop.url }}">
   {% for social in social_icons_available %}
     {% capture title %}social.{{ social }}{% endcapture %}

@@ -1,0 +1,199 @@
+{% assign socialmedia_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
+{% assign logo = settings.logo %}
+{% assign logo_width = settings.logo_width | append: 'x' %}
+
+<!-- Sitewide SEO -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Website",
+    "url": "https://{{ shop.domain }}",
+    "name": {{ shop.name | json }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://{{ shop.domain }}/search?q={query}",
+      "query-input": "required name=query"
+    }
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Organization",
+    "url": "https://{{ shop.domain }}",
+    "name": {{ shop.name | json }},
+    "image": "http://schema.org/",
+    "sameAs":[
+      {% for social in socialmedia_available %}
+        {% capture link %}social_{{ social }}_link{% endcapture %}
+        {% if settings[link] != blank and forloop.last == true %}
+          "{{ settings[link] }}"
+        {% elsif settings[link] != blank and forloop.last == false %}
+          "{{ settings[link] }}",
+        {% endif %}
+      {% endfor %}
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": {{ shop.phone | json }},
+      "contactType": "customer service"
+    }
+  }
+</script>
+
+<!-- For Brick and Mortar Store -->
+{% unless shop.address == blank %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Store",
+      "name": {{ shop.name | json }},
+      "url": {{ shop.domain | json }},
+      "image": "http://schema.org/",
+      "telephone": {{ shop.phone | json }},
+      "brand": {
+        "@type": "Brand",
+        "name": {{ shop.name | json }}
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ shop.address.street | json }},
+        "addressLocality": {{ shop.address.city | json }},
+        "addressRegion": {{ shop.address.province | json }},
+        "postalCode": {{ shop.address.zip | json }},
+        "addressCountry": {{ shop.address.country | json }}
+      }
+    }
+  </script>
+{% endunless %}
+
+{% case template %}
+
+<!-- For article -->
+  {% when 'article' %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "Article",
+        "name": {{ article.title | json }},
+        "author": {
+          "@type": "Person",
+          "name": {{ article.author | json }}
+        },
+        "datePublished": {{ article.created_at | date: '%Y-%m-%d' | json }},
+        "dateModified": {{ article.published_at | date: '%Y-%m-%d' | json }},
+        "headline": {{ article.title | json }},
+        "description": {{ article.exerpt_or_content | strip_html | json }},
+        "articleBody": {{ article.content | strip_html | json }},
+        "mainEntityOfPage": {{ canonical_url | json }},
+        "keywords": [
+          {% for tag in article.tags %}
+            {% if forloop.last == true %}
+              "{{ tag }}"
+            {% else %}
+              "{{ tag }}",
+            {% endif %}
+          {% endfor %}
+        ],
+        // if there isn't an article.image, search for image inside the article.content. If nothing, show "no image" image
+        {% if article.image %}
+          "image": {
+            "@type": "ImageObject",
+            "url": "https:{{ article.image.src | img_url: 'medium' }}",
+        {% else %}
+          {% assign article_content_img = article.content | escape %}
+          {% if article_content_img contains '&lt;img' %}
+            {% assign article_content_img = article_content_img | split: 'src=&quot;' %}
+            {% assign article_content_img = article_content_img[1] | split: '&quot;' %}
+            {% assign article_content_img = article_content_img[0] | remove: '//cdn' %}
+            {% assign article_content_img = article_content_img | remove: 'http:http://';; %}
+            {% assign article_content_img = article_content_img | remove: 'https:' %}
+            {% assign article_content_img = article_content_img | prepend: 'https://cdn' %}
+            {% capture replacement %}_1024x1024.{% endcapture %}
+            {% assign sizes = 'pico icon thumb small compact medium large grande 1024x1024 2048x2048' | split:' ' %}
+              {% for size in sizes %}
+                {% capture search %}_{{size}}.{% endcapture %}
+                {% assign article_content_img = article_content_img | replace:search,replacement %}
+              {% endfor %}
+            "url": "{{ article_content_img }}",
+          {% else %}
+            "url": "https://cdn.shopify.com/s/images/admin/no-image-grande.gif",
+          {% endif %}
+        {% endif %}
+          "height": "1024",
+  				"width": "1024"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": {{ shop.name | json }},
+          "logo": {
+            "@type": "ImageObject",
+            {% if logo != blank %}
+            "url": "https:{{ logo | img_url: logo_width }}"
+            {% endif %}
+          }
+        }
+      }
+    </script>
+
+<!-- For Blog Page -->
+  {% when 'blog' %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "Blog",
+        "name": {{ blog.title | json }},
+        "url": {{ blog.url | json }},
+        "publisher": {
+          "@type": "Organization",
+          "name": {{ shop.name | json }}
+        },
+        "keywords": [
+          {% for tag in blog.all_tags %}
+            {% if forloop.last == true %}
+              "{{ tag }}"
+            {% else %}
+              "{{ tag }}",
+            {% endif %}
+          {% endfor %}
+        ]
+      }
+    </script>
+
+<!-- For Product -->
+  {% when 'product' %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "description": {{ product.description | strip_html | json }},
+        "brand": {
+          "@type": "Brand",
+          "name": {{ product.vendor | json }}
+        },
+        "sku": {{ product.selected_or_first_available_variant.sku | json }},
+        "url": {{ canonical_url | json }},
+        {% if product.featured_image %}
+        "image": {
+          "@type": "ImageObject",
+          "url": {{ product.featured_image.src | img_url: 'grande' | json }}
+        },
+        {% endif %}
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": {{ shop.currency | json }},
+          "price": {{ product.price | divided_by: 100.00 | json }},
+          "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
+          "url": {{ canonical_url | json }},
+          "sku": {{ variant.sku | json }},
+          "seller": {
+            "@type": "Organization",
+            "name": {{ shop.name | json }}
+          }
+        }
+        // add in review markup here - differs with each client
+      }
+    </script>
+
+{% endcase %}
