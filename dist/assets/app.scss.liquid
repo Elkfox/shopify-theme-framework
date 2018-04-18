@@ -73,7 +73,7 @@ $prefixes: webkit moz ms spec;
 /* Mixins ====================================================================*/
 
 // Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
-@mixin prefixer($property, $value, $prefixes) {
+@mixin prefixer($property, $value, $prefixes:$prefixes) {
   @each $prefix in $prefixes {
     @if $prefix == webkit {
       -webkit-#{$property}: $value;
@@ -93,7 +93,7 @@ $prefixes: webkit moz ms spec;
 
 // Clearfix
 @mixin clearfix() {
-  display: block; // TBC - is this OK? Seems to help
+  display: block;
   &:after {
     content: '';
     display: table;
@@ -150,10 +150,10 @@ $prefixes: webkit moz ms spec;
   display: flex;
 }
 @mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical, $prefixes);
+  @include prefixer(box-orient, vertical);
 }
 @mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction, $prefixes);
+  @include prefixer(flex-direction, $flex-direction);
 }
 
 // Table Grids
@@ -188,7 +188,7 @@ $prefixes: webkit moz ms spec;
 @mixin vertical-align() {
   position: relative;
   top: 50%;
-  @include prefixer(transform, perspective(1px) translateY(-50%), $prefixes);
+  @include prefixer(transform, perspective(1px) translateY(-50%));
 }
 
 // Transition Property (for legacy support)
@@ -200,7 +200,7 @@ $prefixes: webkit moz ms spec;
 
 // Transitions
 @mixin transition() {
-  @include prefixer(transition, $transition, $prefixes);
+  @include prefixer(transition, $transition);
 }
 
 // Overlays
@@ -260,15 +260,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-form, input, textarea, label, fieldset, legend, select, optgroup, option, button
-{
+form, input, textarea, label, fieldset, legend, select, optgroup, option, button {
   background-image: none;
   background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  // line-height: inherit; TBC
-  line-height: 1; // TBC
+  @include prefixer(box-shadow, none);
+  line-height: normal;
   display: inline-block;
   vertical-align: middle;
   border: 0;
@@ -280,14 +276,10 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 *:before {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  @include prefixer(box-sizing, border-box);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-backface-visibility: hidden;
-  // Remove the following line if you have trouble with positioning transforms
-  // -webkit-transform: translateZ(0) scale(1.0, 1.0); TBC
 }
 
 /* Global ====================================================================*/
@@ -393,7 +385,6 @@ textarea,
 select {
   max-width: 100%;
   height: $gutter;
-  line-height: 100%;
   padding: 0 $spacing*2;
   font-size: $h4;
   font-family: inherit;
@@ -401,7 +392,7 @@ select {
   border: $borderWeight $borderStyle $colorBorder;
   border-radius: $borderRadius;
   color: $colorText;
-  @include prefixer(appearance, none, $prefixes);
+  @include prefixer(appearance, none);
   @include transition();
   &.error {
     border-color: $colorHighlight;
@@ -412,8 +403,7 @@ select {
   &:-moz-placeholder,
   &::-moz-placeholder,
   &:-ms-input-placeholder {
-    line-height: 100%;
-    height: $gutter;
+
   }
   // Safari placeholders
   &::-webkit-textfield-decoration-container {
@@ -503,7 +493,7 @@ input[type="reset"] {
   color: $colorBackground;
   text-align: center;
   cursor: pointer;
-  @include prefixer(appearance, none, $prefixes);
+  @include prefixer(appearance, none);
   @include transition();
   &:hover {
     background-color: darken($colorBrand, $adjustAmount);
@@ -807,7 +797,7 @@ form#CartPage {
 
 .quantity-adjust {
   margin-bottom: $gutter/2;
-  @include prefixer(user-select, none, $prefixes);
+  @include prefixer(user-select, none);
   .adjust {
     display: inline-block;
     height: $gutter/1.5;
@@ -966,29 +956,29 @@ form#CartPage {
   height: 100%;
   padding: $gutter;
   @include transition-property(); // For legacy support
-  @include prefixer(transition-duration, 0.3s, $prefixes);
-  @include prefixer(transition-delay, 0.3s, $prefixes);
+  @include prefixer(transition-duration, 0.3s);
+  @include prefixer(transition-delay, 0.3s);
   &.from-left {
     top: 0;
     left: 0;
-    @include prefixer(transform, translate3d(-100%, 0, 0), $prefixes);
+    @include prefixer(transform, translate3d(-100%, 0, 0));
     max-width: 350px;
   }
   &.from-right {
     top: 0;
     right: 0;
-    @include prefixer(transform, translate3d(100%, 0, 0), $prefixes);
+    @include prefixer(transform, translate3d(100%, 0, 0));
   }
   &.from-bottom {
     bottom: 0;
-    @include prefixer(transform, translate3d(0, 100%, 0), $prefixes);
+    @include prefixer(transform, translate3d(0, 100%, 0));
   }
   &.from-top {
     bottom: 0;
-    @include prefixer(transform, translate3d(0, -100%, 0), $prefixes);
+    @include prefixer(transform, translate3d(0, -100%, 0));
   }
   &.visible {
-    @include prefixer(transform, translate3d(0, 0, 0), $prefixes);
+    @include prefixer(transform, translate3d(0, 0, 0));
     overflow: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -1050,8 +1040,8 @@ form#CartPage {
       text-align: center;
       white-space: nowrap;
       @include overlay();
-      @include prefixer(transition-delay, 0.3s, $prefixes);
-      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
+      @include prefixer(transition-delay, 0.3s);
+      @include prefixer(transform, translateY(-$gutter/2));
       @include transition();
     }
     .popup-content {
@@ -1059,7 +1049,7 @@ form#CartPage {
     }
     &.visible {
       .popup-inner {
-        @include prefixer(transform, translateY(0px), $prefixes);
+        @include prefixer(transform, translateY(0px));
       }
     }
   }
@@ -1069,13 +1059,13 @@ form#CartPage {
       bottom: $gutter;
       left: $gutter;
       padding: $gutter/2;
-      @include prefixer(transition-delay, 0.3s, $prefixes);
-      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
+      @include prefixer(transition-delay, 0.3s);
+      @include prefixer(transform, translateY(-$gutter/2));
       @include transition();
     }
     &.visible {
       .popup-content {
-        @include prefixer(transform, translateY(0px), $prefixes);
+        @include prefixer(transform, translateY(0px));
       }
     }
   }
@@ -1205,7 +1195,7 @@ form#CartPage {
   @include clearfix();
 }
 .no-select {
-  @include prefixer(user-select, none, $prefixes);
+  @include prefixer(user-select, none);
 }
 .no-line-height {
   line-height: 1;

@@ -22,7 +22,6 @@
 
     <div class="row">
       <div class="column l6 m6 s12">
-
         <div id="ProductPhoto">
           <img src="{{ product.featured_image | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
         </div>
@@ -36,11 +35,9 @@
             {% endfor %}
           </div>
         {% endif %}
-
       </div>
 
       <div class="column l6 m6 s12">
-
         <h1 itemprop="name">{{ product.title }}</h1>
 
         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -133,7 +130,6 @@
             </p>
           {% endif %}
         {% endif %}
-
       </div>
     </div>
   </div>

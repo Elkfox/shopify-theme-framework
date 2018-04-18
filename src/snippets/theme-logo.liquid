@@ -2,8 +2,15 @@
 
 {% assign logo = settings.logo %}
 {% assign logo_width = settings.logo_width | append: 'x' %}
+{% assign h1 = false %}
 
 {% if template == 'index' or template == 'password' %}
+  {% unless has_logo %}
+    {% assign h1 = true %}
+  {% endunless %}
+{% endif %}
+
+{% if h1 %}
   <h1 class="theme-logo no-margin" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
 {% else %}
   <div class="h1 theme-logo no-margin" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -18,8 +25,10 @@
   {% else %}
     <a href="/" itemprop="url" title="{{ shop.name }}">{{ shop.name }}</a>
   {% endif %}
-{% if template == 'index' or template == 'password' %}
+{% if h1 %}
   </h1>
 {% else %}
   </div>
 {% endif %}
+
+{% assign has_logo = true %}

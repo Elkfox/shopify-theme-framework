@@ -8,29 +8,29 @@
   height: 100%;
   padding: $gutter;
   @include transition-property(); // For legacy support
-  @include prefixer(transition-duration, 0.3s, $prefixes);
-  @include prefixer(transition-delay, 0.3s, $prefixes);
+  @include prefixer(transition-duration, 0.3s);
+  @include prefixer(transition-delay, 0.3s);
   &.from-left {
     top: 0;
     left: 0;
-    @include prefixer(transform, translate3d(-100%, 0, 0), $prefixes);
+    @include prefixer(transform, translate3d(-100%, 0, 0));
     max-width: 350px;
   }
   &.from-right {
     top: 0;
     right: 0;
-    @include prefixer(transform, translate3d(100%, 0, 0), $prefixes);
+    @include prefixer(transform, translate3d(100%, 0, 0));
   }
   &.from-bottom {
     bottom: 0;
-    @include prefixer(transform, translate3d(0, 100%, 0), $prefixes);
+    @include prefixer(transform, translate3d(0, 100%, 0));
   }
   &.from-top {
     bottom: 0;
-    @include prefixer(transform, translate3d(0, -100%, 0), $prefixes);
+    @include prefixer(transform, translate3d(0, -100%, 0));
   }
   &.visible {
-    @include prefixer(transform, translate3d(0, 0, 0), $prefixes);
+    @include prefixer(transform, translate3d(0, 0, 0));
     overflow: auto;
     -webkit-overflow-scrolling: touch;
   }
