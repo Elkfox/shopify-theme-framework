@@ -6,7 +6,7 @@
       <h3 class="h4">{{ customer.name }}</h3>
       <ul>
         <li>
-          <p><a href="/account" title="{{ 'account.orders.title' | t: name: '' }}">{{ 'account.orders.title' | t: name: '' }} ({{ customer.orders_count }})</a>
+          <p><a href="/account" title="{{ 'account.orders.title' | t }}">{{ 'account.orders.title' | t }} ({{ customer.orders_count }})</a>
         </li>
         <li>
           <p><a href="/account/addresses" title="{{ 'account.address.title' | t }}">{{ 'account.address.title' | t }} ({{ customer.addresses_count }})</a></p>
