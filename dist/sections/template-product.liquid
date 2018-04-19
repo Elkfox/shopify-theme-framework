@@ -63,20 +63,22 @@
             {% comment %}
               Original variant selector, the customer will not see this element
             {% endcomment %}
-            <div class="select-wrapper hidden">
-              <select name="id" id="productSelect" data-index="option{{ forloop.index }}">
-                {% for variant in product.variants %}
-                  {% if variant.available %}
-                    <option
-                      value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
-                    </option>
-                  {% else %}
-                    <option disabled="disabled">
-                      {{ variant.title }} - {{ 'product.sold_out' | t }}
-                    </option>
-                  {% endif %}
-                {% endfor %}
-              </select>
+            <div class="hidden">
+              <div class="select-wrapper">
+                <select name="id" id="productSelect" data-index="option{{ forloop.index }}">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <option
+                        value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
             </div>
 
             <span class="hidden">{{ 'product.regular_price' | t }}</span>
