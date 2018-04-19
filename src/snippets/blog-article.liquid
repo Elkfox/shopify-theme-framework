@@ -7,7 +7,7 @@
 
   {% if article.image %}
     <a href="{{ article.url }}">
-      {{ article.image | img_url: '1024x1024' | img_tag: article.title }}
+      <img srcset="{{ article.image | img_url: '512x512', scale: 2 }} 2x" src="{{ article.image | img_url: '512x512' }}" alt="{{ article.title | escape }}">
     </a>
   {% endif %}
 

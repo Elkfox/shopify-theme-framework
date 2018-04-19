@@ -247,6 +247,9 @@ a.button {
   select {
     width: 100%;
     padding-right: $spacing*5;
+    &::-ms-expand {
+      display: none;
+    }
   }
 }
 

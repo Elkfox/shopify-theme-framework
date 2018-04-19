@@ -18,16 +18,16 @@
           {%- assign collection = collections[block.settings.collection] -%}
           {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
 
-          <a href="{{ collection.url }}" title="{{ 'collection.title' }}">
+          <a href="{{ collection.url }}" title="{{ collection.title | escape }}">
             {% if collection.image %}
-              {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
-            {% else %}
-              {{ collection.products.first.featured_image | img_url: 'large' | img_tag: collection_title }}
+              <img srcset="{{ collection.image | img_url: '512x512', scale: 2 }} 2x" src="{{ collection.image | img_url: '512x512' }}" alt="{{ collection.title | escape }}">
+            {% elsif collection.products.first.featured_image %}
+              <img srcset="{{ collection.products.first.featured_image | img_url: '512x512', scale: 2 }} 2x" src="{{ collection.products.first.featured_image | img_url: '512x512' }}"{% if collection.products.first.featured_image.alt %} alt="{{ collection.products.first.featured_image.alt | escape }}"{% endif %}>
             {% endif %}
           </a>
 
           <p>
-            <a href="{{ collection.url }}" title="{{ 'collection.title' }}">{{ collection.title }}</a><br>
+            <a href="{{ collection.url }}" title="{{ collection.title }}">{{ collection.title }}</a><br>
             {{ 'collection.with_count' | t: count: collection.all_products_count }}
           </p>
         </div>

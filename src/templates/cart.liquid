@@ -23,7 +23,7 @@
         <div class="row l-table m-table">
           <div class="column l1 m2 s12 v-top">
             <a href="{{ item.url | within: collections.all }}">
-              <img class="product_image" src="{{ item | img_url: '200x' }}" alt="{{ item.title | escape }}">
+              <img class="product_image" srcset="{{ item.image | img_url: '512x512', scale: 2 }} 2x" src="{{ item.image | img_url: '512x512' }}" alt="{{ item.title | escape }}">
             </a>
           </div>
           <div class="column l4 m3 s12 v-top">
