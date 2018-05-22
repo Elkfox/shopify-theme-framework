@@ -8,15 +8,14 @@
 # Project #
 ###################
 node_modules
+dist
+upload
 deploy.log
-theme.lock
+config/shopify.yml
+npm-debug.log
+.env
+.env.*
 
-# optionally track theme kit config files
-config.yml
-
-# optionally untrack the dist for slate projects
-# after adding to the untrack list, run: git rm -r --cached dist/
-# dist/
 
 # Compiled source #
 ###################
@@ -59,8 +58,11 @@ Thumbs.db
 # Custom #
 ######################
 *.sass-cache*
+.cache/*
 _site
 /.idea
+/.vscode
 secrets.json
 .jekyll-metadata
 .ruby-version
+/Migration
