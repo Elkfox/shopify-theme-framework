@@ -22,6 +22,9 @@
 		"lint": "slate-tools lint",
 		"format": "slate-tools format"
 	},
+	"dependencies": {
+		"slate": "^0.33.6"
+	},
 	"devDependencies": {
 		"@shopify/slate-tools": ">=1.0.0-beta.1"
 	},
