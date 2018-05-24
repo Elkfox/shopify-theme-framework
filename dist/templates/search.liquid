@@ -41,7 +41,7 @@
             {% endcomment %}
             <div class="column l2 m3 s4">
               <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
-                <img srcset="{{ item.featured_image.src | img_url: 'x1400' }} 2x"  src="{{ item.featured_image.src | img_url: 'x700' }}" alt="{{ item.featured_image.alt | escape }}" class="grid__image">
+                <img srcset="{{ item.featured_image | img_url: '1024x1024' }} 2x"  src="{{ item.featured_image | img_url: '512x512' }}" alt="{{ item.featured_image.alt | escape }}">
               </a>
             </div>
           {% endif %}
@@ -52,7 +52,7 @@
             {% endcomment %}
             <div class="column l2 m3 s4">
               <a href="{{ item.url }}" title="{{ item.title | escape }}">
-                <img srcset="{{ item.featured_image.src | img_url: 'x1400' }} 2x" src="{{ item.featured_image.src | img_url: 'x700' }}" alt="{{ item.featured_image.alt | escape }}" class="grid__image">
+                <img srcset="{{ item.featured_image | img_url: '1024x1024' }} 2x" src="{{ item.featured_image | img_url: '512x512' }}" alt="{{ item.featured_image.alt | escape }}">
               </a>
             </div>
           {% endif %}

@@ -12,28 +12,24 @@
   {% assign sold_out = false %}
 {% endif %}
 
-
-
 <div class="padding-top-5x padding-bottom-5x">
   <div class="container l" data-section-type="product" data-section-id="{{ section.id }}" data-enable-history-state="true">
 
     <div class="row">
       <div class="column l6 m6 s12">
-
         <div id="ProductPhoto">
-          <img src="{{ product.featured_image | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
+          <img srcset="{{ product.featured_image | img_url: '1024x1024', scale: 2 }} 2x" src="{{ product.featured_image | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt | escape }}"{% endif %}>
         </div>
 
         {% if product.images.size > 1 %}
           <div id="ProductThumbs" class="row collapse">
             {% for image in product.images %}
               <div class="column l3 m4 s6">
-                <img src="{{ image.src | img_url: '1024x1024' }}"{% if image.alt %} alt="{{ image.alt }}"{% endif %}>
+                <img srcset="{{ product.featured_image | img_url: '512x512', scale: 2 }} 2x" src="{{ image | img_url: '512x512' }}"{% if image.alt %} alt="{{ image.alt | escape }}"{% endif %}>
               </div>
             {% endfor %}
           </div>
         {% endif %}
-
       </div>
 
       <div class="column l6 m6 s12">
@@ -58,20 +54,26 @@
               {% endfor %}
             {% endunless %}
 
-            {% comment %}Original variant selector, the customer will not see this element.{% endcomment %}
-            <select name="id" id="productSelect" class="product-single__variants" data-index="option{{ forloop.index }}" style="display: none;">
-              {% for variant in product.variants %}
-                {% if variant.available %}
-                  <option
-                    value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
-                  </option>
-                {% else %}
-                  <option disabled="disabled">
-                    {{ variant.title }} - {{ 'product.sold_out' | t }}
-                  </option>
-                {% endif %}
-              {% endfor %}
-            </select>
+            {% comment %}
+              Original variant selector, the customer will not see this element
+            {% endcomment %}
+            <div class="hidden">
+              <div class="select-wrapper">
+                <select name="id" id="productSelect" data-index="option{{ forloop.index }}">
+                  {% for variant in product.variants %}
+                    {% if variant.available %}
+                      <option
+                        value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+                      </option>
+                    {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'product.sold_out' | t }}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
 
             <span class="hidden">{{ 'product.regular_price' | t }}</span>
             <span id="ProductPrice" class="h2">
@@ -128,7 +130,6 @@
             </p>
           {% endif %}
         {% endif %}
-
       </div>
     </div>
   </div>

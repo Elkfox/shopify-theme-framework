@@ -101,7 +101,6 @@ textarea,
 select {
   max-width: 100%;
   height: $gutter;
-  line-height: 100%;
   padding: 0 $spacing*2;
   font-size: $h4;
   font-family: inherit;
@@ -109,19 +108,25 @@ select {
   border: $borderWeight $borderStyle $colorBorder;
   border-radius: $borderRadius;
   color: $colorText;
-  @include prefixer(appearance, none, $prefixes);
+  @include prefixer(appearance, none);
   @include transition();
   &.error {
     border-color: $colorHighlight;
   }
-  // Placeholders
+  // Webkit placeholders
   &::placeholder,
-  &::-webkit-input-placeholder,
+  &::-webkit-input-placeholder {
+
+  }
+  // Firefox placeholders
   &:-moz-placeholder,
-  &::-moz-placeholder,
-  &:-ms-input-placeholder {
-    line-height: 100%;
-    height: $gutter;
+  &::-moz-placeholder {
+
+  }
+  // IE & Edge placeholders
+  &:-ms-input-placeholder
+  &::-ms-input-placeholder {
+    
   }
   // Safari placeholders
   &::-webkit-textfield-decoration-container {
@@ -211,7 +216,7 @@ input[type="reset"] {
   color: $colorBackground;
   text-align: center;
   cursor: pointer;
-  @include prefixer(appearance, none, $prefixes);
+  @include prefixer(appearance, none);
   @include transition();
   &:hover {
     background-color: darken($colorBrand, $adjustAmount);
@@ -249,6 +254,9 @@ a.button {
   select {
     width: 100%;
     padding-right: $spacing*5;
+    &::-ms-expand {
+      display: none;
+    }
   }
 }
 

@@ -17,7 +17,7 @@
 <div class="collection-product {{ column_width }}{% if sold_out %} sold_out{% endif %}{% if on_sale %} on_sale{% endif %}">
   {% if product.featured_image %}
     <a href="{{ product.url | within: collection }}">
-      <img srcset="{{ product.featured_image | img_url: 'x960' }} 2x" src="{{ product.featured_image | img_url: 'x960' }}" alt="{{ product.featured_image.alt | escape }}">
+      <img srcset="{{ product.featured_image | img_url: '512x512', scale: 2 }} 2x" src="{{ product.featured_image | img_url: '512x512' }}" alt="{{ product.featured_image.alt | escape }}">
     </a>
   {% endif %}
 

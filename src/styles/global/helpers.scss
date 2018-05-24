@@ -13,7 +13,7 @@
   @include clearfix();
 }
 .no-select {
-  @include prefixer(user-select, none, $prefixes);
+  @include prefixer(user-select, none);
 }
 .no-line-height {
   line-height: 1;

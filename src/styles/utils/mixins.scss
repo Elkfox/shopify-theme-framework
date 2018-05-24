@@ -1,7 +1,7 @@
 /* Mixins ====================================================================*/
 
 // Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
-@mixin prefixer($property, $value, $prefixes) {
+@mixin prefixer($property, $value, $prefixes:$prefixes) {
   @each $prefix in $prefixes {
     @if $prefix == webkit {
       -webkit-#{$property}: $value;
@@ -21,7 +21,7 @@
 
 // Clearfix
 @mixin clearfix() {
-  display: block; // TBC - is this OK? Seems to help
+  display: block;
   &:after {
     content: '';
     display: table;
@@ -78,10 +78,10 @@
   display: flex;
 }
 @mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical, $prefixes);
+  @include prefixer(box-orient, vertical);
 }
 @mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction, $prefixes);
+  @include prefixer(flex-direction, $flex-direction);
 }
 
 // Table Grids
@@ -91,7 +91,7 @@
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  .column {
+  > .column {
     float: none;
     display: table-cell;
     &.middle {
@@ -116,7 +116,7 @@
 @mixin vertical-align() {
   position: relative;
   top: 50%;
-  @include prefixer(transform, perspective(1px) translateY(-50%), $prefixes);
+  @include prefixer(transform, perspective(1px) translateY(-50%));
 }
 
 // Transition Property (for legacy support)
@@ -128,7 +128,7 @@
 
 // Transitions
 @mixin transition() {
-  @include prefixer(transition, $transition, $prefixes);
+  @include prefixer(transition, $transition);
 }
 
 // Overlays

@@ -40,8 +40,8 @@
       text-align: center;
       white-space: nowrap;
       @include overlay();
-      @include prefixer(transition-delay, 0.3s, $prefixes);
-      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
+      @include prefixer(transition-delay, 0.3s);
+      @include prefixer(transform, translateY(-$gutter/2));
       @include transition();
     }
     .popup-content {
@@ -49,7 +49,7 @@
     }
     &.visible {
       .popup-inner {
-        @include prefixer(transform, translateY(0px), $prefixes);
+        @include prefixer(transform, translateY(0px));
       }
     }
   }
@@ -59,13 +59,13 @@
       bottom: $gutter;
       left: $gutter;
       padding: $gutter/2;
-      @include prefixer(transition-delay, 0.3s, $prefixes);
-      @include prefixer(transform, translateY(-$gutter/2), $prefixes);
+      @include prefixer(transition-delay, 0.3s);
+      @include prefixer(transform, translateY(-$gutter/2));
       @include transition();
     }
     &.visible {
       .popup-content {
-        @include prefixer(transform, translateY(0px), $prefixes);
+        @include prefixer(transform, translateY(0px));
       }
     }
   }

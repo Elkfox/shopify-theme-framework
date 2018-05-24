@@ -43,15 +43,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-form, input, textarea, label, fieldset, legend, select, optgroup, option, button
-{
+form, input, textarea, label, fieldset, legend, select, optgroup, option, button {
   background-image: none;
   background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  // line-height: inherit; TBC
-  line-height: 1; // TBC
+  @include prefixer(box-shadow, none);
+  line-height: normal;
   display: inline-block;
   vertical-align: middle;
   border: 0;
@@ -63,12 +59,8 @@ form, input, textarea, label, fieldset, legend, select, optgroup, option, button
 *:before {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  @include prefixer(box-sizing, border-box);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-backface-visibility: hidden;
-  // Remove the following line if you have trouble with positioning transforms
-  // -webkit-transform: translateZ(0) scale(1.0, 1.0); TBC
 }
