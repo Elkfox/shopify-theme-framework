@@ -16,6 +16,7 @@
 {% assign social_networks_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
 {%- capture social_links -%}
   {%- for network in social_networks_available -%}
+    {%- assign network = network | prepend: 'social_' | append: '_link' -%}
     {%- if settings[network] != blank -%}
       "{{ settings[network] }}",
     {%- endif -%}

@@ -47,47 +47,47 @@
       },
       {
         "type": "text",
-        "id": "twitter",
+        "id": "social_twitter_link",
         "label": "Twitter"
       },
       {
         "type": "text",
-        "id": "instagram",
+        "id": "social_instagram_link",
         "label": "Instagram"
       },
       {
         "type": "text",
-        "id": "facebook",
+        "id": "social_facebook_link",
         "label": "Facebook"
       },
       {
         "type": "text",
-        "id": "pinterest",
+        "id": "social_pinterest_link",
         "label": "Pinterest"
       },
       {
         "type": "text",
-        "id": "fancy",
+        "id": "social_fancy_link",
         "label": "Fancy"
       },
       {
         "type": "text",
-        "id": "google_plus",
+        "id": "social_google_plus_link",
         "label": "Google+"
       },
       {
         "type": "text",
-        "id": "youtube",
+        "id": "social_youtube_link",
         "label": "YouTube"
       },
       {
         "type": "text",
-        "id": "vimeo",
+        "id": "social_vimeo_link",
         "label": "Vimeo"
       },
       {
         "type": "text",
-        "id": "medium",
+        "id": "social_medium_link",
         "label": "Medium"
       },
       {
@@ -104,12 +104,6 @@
         "type": "checkbox",
         "id": "social_sharing_blog",
         "label": "Display sharing on blog articles",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "social_sharing_password",
-        "label": "Display sharing on password page",
         "default": true
       },
       {
