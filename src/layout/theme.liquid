@@ -1,23 +1,33 @@
 <!doctype html>
+<!-- ===========================================================================
+Feel free to add your own header, but please keep the following:
+ ___  _   _    _
+/   || | | |  | |
+\__  | | | |  | |  __
+/    |/  |/_) |/  /  \_/\/
+\___/|__/| \_/|__/\__/  /\_/
+              |\
+              |/
+Concrete v2.0.4
+https://github.com/Elkfox/Concrete
+Copyright (c) 2017 Elkfox Co Pty Ltd
+https://elkfox.com
+MIT License
+============================================================================ -->
 <html lang="{{ shop.locale }}">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="">
-  <link rel="canonical" href="{{ canonical_url }}">
-
-  <title>{{ shop.name }}</title>
-
-  <meta name="description" content="">
-
-  {% include 'style-tags' %}
-  {% include 'script-tags', layout: 'theme' %}
-
-  {{ content_for_header }}
-</head>
-
-<body>
-  {{ content_for_layout }}
-</body>
+  <head>
+    {% include 'meta-general' %}
+    {% include 'meta-social' %}
+    {% include 'meta-schema' %}
+    {% include 'style-tags' %}
+    {% include 'script-tags', layout: 'theme' %}
+    {{ content_for_header }}
+  </head>
+  <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}{% if template.suffix != null %} suffix-{{ template.suffix | handle }}{% endif %}">
+    {% section 'theme-header' %}
+    <main role="main" id="MainContent">
+      {{ content_for_layout }}
+    </main>
+    {% section 'theme-footer' %}
+  </body>
 </html>

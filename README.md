@@ -12,3 +12,7 @@ https://concrete-theme.myshopify.com
 
 * [Grid 50](https://github.com/Elkfox/grid50)
 * [Concrete](https://github.com/Elkfox/Concrete/tree/master/src)
+
+#### Some basic rules
+
+* Variable assignments should be placed at the top of the file where possible

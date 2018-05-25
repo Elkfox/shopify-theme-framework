@@ -1,0 +1,230 @@
+<!-- snippets/meta-schema.liquid -->
+
+{% comment %}
+  The "bricks and mortar" markup needs to be
+  customized and tested before being enabled
+
+  The review content in the product markup should
+  be added where product reviews are available
+{% endcomment %}
+
+{% assign bricks_and_mortar = false %}
+
+{% assign logo = settings.logo %}
+{% assign logo_width = settings.logo_width | append: 'x' %}
+
+{% assign social_networks_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
+{%- capture social_links -%}
+  {%- for network in social_networks_available -%}
+    {%- if settings[network] != blank -%}
+      "{{ settings[network] }}",
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{% assign social_links = social_links | split:',' %}
+
+{% comment %}
+  Global objects
+{% endcomment %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Website",
+    "url": "https://{{ shop.domain }}",
+    "name": {{ shop.name | json }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://{{ shop.domain }}/search?q={query}",
+      "query-input": "required name=query"
+    }
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Organization",
+    "url": "{{ shop.url }}{{ page.url }}",
+    "name": {{ shop.name | json }},
+    {%- if logo != blank -%}
+      "image": "https:{{ logo | img_url: logo_width }}",
+    {%- endif -%}
+    "sameAs": [
+      {%- for link in social_links -%}
+        {{ link }}{% if forloop.last == false %},{% endif %}
+      {%- endfor -%}
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": {{ shop.phone | json }},
+      "contactType": "customer service"
+    }
+  }
+</script>
+
+{% comment %}
+  Brick & mortar stores
+{% endcomment %}
+{% unless shop.address == blank or bricks_and_mortar == false %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Store",
+      "name": {{ shop.name | json }},
+      "url": {{ shop.domain | json }},
+      {%- if logo != blank -%}
+        "image": "https:{{ logo | img_url: logo_width }}",
+      {%- endif -%}
+      "telephone": {{ shop.phone | json }},
+      "brand": {
+        "@type": "Brand",
+        "name": {{ shop.name | json }}
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ shop.address.street | json }},
+        "addressLocality": {{ shop.address.city | json }},
+        "addressRegion": {{ shop.address.province | json }},
+        "postalCode": {{ shop.address.zip | json }},
+        "addressCountry": {{ shop.address.country | json }}
+      }
+    }
+  </script>
+{% endunless %}
+
+{% comment %}
+  Template specific objects
+{% endcomment %}
+{% case template %}
+{% when 'index' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "url": "{{ shop.url }}{{ page.url }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+{% when 'article' %}
+  {% if article.image %}
+    {% assign article_image = article.image.src | img_url: '1024x' %}
+  {% else %}
+    {% assign article_image = article.content | escape %}
+    {% if article_image contains '&lt;img' %}
+      {% assign article_image = article_image | split: 'src=&quot;' %}
+      {% assign article_image = article_image[1] | split: '&quot;' %}
+      {% assign article_image = article_image[0] | remove: '//cdn' %}
+      {% assign article_image = article_image | remove: 'http:http://';; %}
+      {% assign article_image = article_image | remove: 'https:' %}
+      {% assign article_image = article_image | prepend: 'https://cdn' %}
+      {% capture replacement %}_1024x.{% endcapture %}
+      {% assign sizes = 'pico,icon,thumb,small,compact,medium,large,grande,1024x1024,2048x2048' | split:',' %}
+      {% for size in sizes %}
+        {% capture search %}_{{ size }}.{% endcapture %}
+        {% assign article_image = article_image | replace:search,replacement %}
+      {% endfor %}
+    {% else %}
+      {% assign article_image = "//cdn.shopify.com/s/images/admin/no-image-1024x1024.gif" %}
+    {% endif %}
+  {% endif %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Article",
+      "name": {{ article.title | json }},
+      "author": {
+        "@type": "Person",
+        "name": {{ article.author | json }}
+      },
+      "datePublished": {{ article.created_at | date: '%Y-%m-%d' | json }},
+      "dateModified": {{ article.published_at | date: '%Y-%m-%d' | json }},
+      "headline": {{ article.title | json }},
+      "description": {{ article.exerpt_or_content | strip_html | json }},
+      "articleBody": {{ article.content | strip_html | json }},
+      "mainEntityOfPage": {{ canonical_url | json }},
+      "keywords": [
+        {% for tag in article.tags %}
+          "{{ tag }}"{% unless forloop.last == true %},{% endunless %}
+        {% endfor %}
+      ],
+        "image": {
+          "@type": "ImageObject",
+          "url": "https:{{ article_image }}",
+          "height": "1024",
+  				"width": "1024"
+        },
+        "publisher": {
+        "@type": "Organization",
+        {% if logo != blank %}
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https:{{ logo | img_url: logo_width }}"
+          },
+        {% endif %}
+        "name": {{ shop.name | json }}
+        }
+      }
+  </script>
+{% when 'blog' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Blog",
+      "name": {{ blog.title | json }},
+      "url": {{ blog.url | json }},
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }}
+      },
+      "keywords": [
+        {% for tag in blog.all_tags %}
+          {% if forloop.last == true %}
+            "{{ tag }}"
+          {% else %}
+            "{{ tag }}",
+          {% endif %}
+        {% endfor %}
+      ]
+    }
+  </script>
+{% when 'product' %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "description": {{ product.description | strip_html | json }},
+      "brand": {
+        "@type": "Brand",
+        "name": {{ product.vendor | json }}
+      },
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+      "url": {{ canonical_url | json }},
+      {% if product.featured_image %}
+      "image": {
+        "@type": "ImageObject",
+        "url": {{ product.featured_image.src | img_url: 'grande' | json }}
+      },
+      {% endif %}
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": {{ shop.currency | json }},
+        "price": {{ product.price | divided_by: 100.00 | json }},
+        "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
+        "url": {{ canonical_url | json }},
+        "sku": {{ variant.sku | json }},
+        "seller": {
+          "@type": "Organization",
+          "name": {{ shop.name | json }}
+        }
+      }
+      {% comment %}
+        Review content is expected here, and should be added where possible
+      {% endcomment %}
+    }
+  </script>
+{% endcase %}

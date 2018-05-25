@@ -1,1 +1,8 @@
-{}
+{
+  "common": {
+    "meta": {
+      "page": "Page {{ page }}",
+      "tags": "Tagged with {{ tags }}"
+    }
+  }
+}
