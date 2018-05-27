@@ -8,6 +8,52 @@
     "theme_support_url": "https://github.com/Elkfox/Concrete/issues"
   },
   {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_brand",
+        "label": "Brand Color",
+        "default": "#5625DD"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Main Text Color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background Color",
+        "default": "#EFEFEF"
+      },
+      {
+        "type": "color",
+        "id": "color_alternate",
+        "label": "Warning Color",
+        "default": "#F26968"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "default": "open_sans_n4",
+        "label": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "default": "open_sans_n4",
+        "label": "Body text"
+      }
+    ]
+  },
+  {
     "name": "Logo",
     "settings": [
       {
