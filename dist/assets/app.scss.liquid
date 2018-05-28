@@ -397,13 +397,20 @@ select {
   &.error {
     border-color: $colorHighlight;
   }
-  // Placeholders
+  // Webkit placeholders
   &::placeholder,
-  &::-webkit-input-placeholder,
-  &:-moz-placeholder,
-  &::-moz-placeholder,
-  &:-ms-input-placeholder {
+  &::-webkit-input-placeholder {
 
+  }
+  // Firefox placeholders
+  &:-moz-placeholder,
+  &::-moz-placeholder {
+
+  }
+  // IE & Edge placeholders
+  &:-ms-input-placeholder
+  &::-ms-input-placeholder {
+    
   }
   // Safari placeholders
   &::-webkit-textfield-decoration-container {
