@@ -1,0 +1,7 @@
+<!-- /snippets/meta-description.liquid -->
+
+{% if shop.password_message and template == 'password' %}
+  <meta name="description" content="{{ shop.password_message | strip_html | escape }}">
+{% elsif page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+{% endif %}

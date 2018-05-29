@@ -5,5 +5,5 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name="theme-color" content="{{ settings.color_brand }}">
 <link rel="canonical" href="{{ canonical_url }}">
-<title>{{ shop.name }} &ndash; {{ 'password.title' | t }}</title>
-{% if shop.password_message %}<meta name="description" content="{{ shop.password_message | strip_html | escape }}">{% endif %}
+<title>{% include 'meta-title' %}</title>
+{% include 'meta-description' %}
