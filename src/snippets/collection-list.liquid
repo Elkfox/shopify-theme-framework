@@ -1,0 +1,19 @@
+<!-- /snippets/collection-list.liquid -->
+
+{% assign column_width = column_width | default: 'column l4 m6 s12' %}
+{% assign image_size = '512x512' %}
+
+<div class="collection-list {{ column_width }}">
+  <a href="{{ collection.url }}" title="{{ collection.title | escape }}">
+    {% if collection.image %}
+      <img srcset="{{ collection.image | img_url: image_size, scale: 2 }} 2x" src="{{ collection.image | img_url: image_size }}" alt="{{ collection.title | escape }}">
+    {% elsif collection.products.first.featured_image %}
+      <img srcset="{{ collection.products.first.featured_image | img_url: image_size, scale: 2 }} 2x" src="{{ collection.products.first.featured_image | img_url: image_size }}"{% if collection.products.first.featured_image.alt %} alt="{{ collection.products.first.featured_image.alt | escape }}"{% endif %}>
+    {% endif %}
+  </a>
+
+  <p>
+    <a href="{{ collection.url }}" title="{{ collection.title }}">{{ collection.title }}</a><br>
+    {{ 'collection.with_count' | t: count: collection.all_products_count }}
+  </p>
+</div>
