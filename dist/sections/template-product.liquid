@@ -12,13 +12,8 @@
   {% assign sold_out = false %}
 {% endif %}
 
-<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
-<meta itemprop="image" content="{{ product.featured_image | img_url: '1024x1024' }}">
-
 <div class="padding-top-5x padding-bottom-5x">
-  <div class="container l" itemscope itemtype="http://schema.org/Product" data-section-type="product" data-section-id="{{ section.id }}" data-enable-history-state="true">
-    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
-    <meta itemprop="image" content="{{ product.featured_image | img_url: '1024x1024' }}">
+  <div class="container l" data-section-type="product" data-section-id="{{ section.id }}" data-enable-history-state="true">
 
     <div class="row">
       <div class="column l6 m6 s12">
@@ -38,11 +33,10 @@
       </div>
 
       <div class="column l6 m6 s12">
-        <h1 itemprop="name">{{ product.title }}</h1>
 
-        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+        <h1>{{ product.title }}</h1>
+
+        <div>
 
           <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" data-cart-submit>
             {% unless product.options.size == 1 and product.variants[0].title == 'Default Title' %}
@@ -82,7 +76,7 @@
             </div>
 
             <span class="hidden">{{ 'product.regular_price' | t }}</span>
-            <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+            <span id="ProductPrice" class="h2">
               {{ current_variant.price | money }}
             </span>
 
@@ -113,7 +107,7 @@
 
         </div>
 
-        <div class="rte" itemprop="description">
+        <div class="rte">
           {{ product.description }}
         </div>
 
