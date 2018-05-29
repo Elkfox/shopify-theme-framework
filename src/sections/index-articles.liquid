@@ -1,8 +1,8 @@
-<!-- sections/news.liquid -->
+<!-- sections/index-articles.liquid -->
 
-{%- assign blog = blogs[section.settings.blog] -%}
-{% assign title = section.settings.title %}
-{% assign article_limit = section.settings.article_limit %}
+{% assign blog = blogs[section.settings.blog] %}
+{% assign title = section.settings.title | default: blog.title %}
+{% assign limit = section.settings.limit %}
 {% assign column_width = 'column l4 m4 s12' %}
 
 <section class="container l">
@@ -13,7 +13,7 @@
   {% endif %}
 
   <div class="row">
-    {% for article in blog.articles limit: article_limit %}
+    {% for article in blog.articles limit: limit %}
       {% include 'blog-article' %}
     {% endfor %}
   </div>
@@ -21,14 +21,13 @@
 
 {% schema %}
   {
-    "name": "Featured news",
-    "class": "news-section",
+    "name": "Featured articles",
+    "class": "index-section-articles",
     "settings": [
       {
         "type": "text",
         "id": "title",
-        "label": "Heading",
-        "default": "Featured news articles"
+        "label": "Title"
       },
       {
         "id": "blog",
@@ -37,8 +36,8 @@
       },
       {
         "type": "select",
-        "id": "article_limit",
-        "label": "Posts",
+        "id": "limit",
+        "label": "Articles to show",
         "default": "3",
         "options": [
           {
@@ -62,11 +61,11 @@
     ],
     "presets": [
       {
-        "name": "Featured Articles",
-        "category": "Blog",
+        "name": "Featured articles",
+        "category": "Blogs",
         "settings": {
           "blog": "News",
-          "article_limit": "3"
+          "limit": "3"
         }
       }
     ]

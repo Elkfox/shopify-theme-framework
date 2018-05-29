@@ -1,0 +1,9 @@
+<!-- /snippets/meta-theme.liquid -->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="theme-color" content="{{ settings.color_brand }}">
+<link rel="canonical" href="{{ canonical_url }}">
+<title>{{ shop.name }} &ndash; {{ 'password.title' | t }}</title>
+{% if shop.password_message %}<meta name="description" content="{{ shop.password_message | strip_html | escape }}">{% endif %}

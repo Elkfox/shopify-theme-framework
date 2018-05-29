@@ -39,15 +39,14 @@
 
 {% schema %}
   {
-    "name": "Collection list",
-    "class": "collections-section",
-    "max_blocks": 9,
+    "name": "Featured collections",
+    "class": "index-section-collections",
+    "max_blocks": 12,
     "settings": [
       {
         "type": "text",
         "id": "title",
-        "label": "Heading",
-        "default": "Collection list"
+        "label": "Title"
       }
     ],
     "blocks": [
@@ -65,8 +64,8 @@
     ],
     "presets": [
       {
-        "name": "Featured Collections",
-        "category": "Collection",
+        "name": "Featured collections",
+        "category": "Collections",
         "blocks": [
           {
             "type": "featured_collection"

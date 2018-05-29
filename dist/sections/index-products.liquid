@@ -1,8 +1,8 @@
-<!-- sections/products.liquid -->
+<!-- sections/index-products.liquid -->
 
-{%- assign collection = collections[section.settings.collection] -%}
-{% assign title = section.settings.title %}
-{% assign product_limit = section.settings.product_limit %}
+{% assign collection = collections[section.settings.collection] %}
+{% assign title = section.settings.title | default: collection.title %}
+{% assign limit = section.settings.limit %}
 {% assign column_width = 'column l4 m6 s12' %}
 
 <section class="container l">
@@ -13,7 +13,7 @@
   {% endif %}
 
   <div class="row">
-    {% for product in collection.products limit: product_limit %}
+    {% for product in collection.products limit: limit %}
       {% include 'collection-product' %}
     {% endfor %}
   </div>
@@ -21,14 +21,14 @@
 
 {% schema %}
   {
-    "name": "Featured collection",
-    "class": "products-section",
+    "name": "Featured products",
+    "class": "index-section-products",
     "settings": [
       {
         "type": "text",
         "id": "title",
-        "label": "Heading",
-        "default": "Featured collection"
+        "label": "Title",
+        "default": "Featured products"
       },
       {
         "id": "collection",
@@ -37,7 +37,7 @@
       },
       {
         "type": "select",
-        "id": "product_limit",
+        "id": "limit",
         "label": "Products to show",
         "default": "6",
         "options": [
@@ -52,14 +52,18 @@
           {
             "value": "9",
             "label": "9"
+          },
+          {
+            "value": "12",
+            "label": "12"
           }
         ]
       }
     ],
     "presets": [
       {
-        "name": "Featured Products",
-        "category": "Products",
+        "name": "Featured products",
+        "category": "Collections",
         "settings": {
           "collection": "frontpage"
         }
