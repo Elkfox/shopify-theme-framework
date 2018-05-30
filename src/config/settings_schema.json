@@ -54,33 +54,13 @@
     ]
   },
   {
-    "name": "Logo",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo image"
-      },
-      {
-        "type": "range",
-        "id": "logo_width",
-        "label": "Logo width",
-        "min": 10,
-        "max": 1000,
-        "step": 10,
-        "default": 200,
-        "unit": "px"
-      }
-    ]
-  },
-  {
     "name": "Favicon",
     "settings": [
       {
         "type": "image_picker",
         "id": "favicon",
         "label": "Favicon image",
-        "info": "Will be scaled down to 32 x 32px"
+        "info": "For most browsers, your icon will be scaled down to 32 x 32px"
       }
     ]
   },

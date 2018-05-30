@@ -1,19 +1,16 @@
 <!-- snippets/meta-schema.liquid -->
 
-{% comment %}
+{%- comment -%}
   The "bricks and mortar" markup needs to be
   customized and tested before being enabled
 
   The review content in the product markup should
   be added where product reviews are available
-{% endcomment %}
-
-{% assign bricks_and_mortar = false %}
-
-{% assign logo = settings.logo %}
-{% assign logo_width = settings.logo_width | append: 'x' %}
-
-{% assign social_networks_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
+{%- endcomment -%}
+{%- assign bricks_and_mortar = false -%}
+{%- assign logo = settings.logo -%}
+{%- assign logo_width = settings.logo_width | append: 'x' -%}
+{%- assign social_networks_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' -%}
 {%- capture social_links -%}
   {%- for network in social_networks_available -%}
     {%- assign network = network | prepend: 'social_' | append: '_link' -%}
@@ -22,11 +19,10 @@
     {%- endif -%}
   {%- endfor -%}
 {%- endcapture -%}
-{% assign social_links = social_links | split:',' %}
-
-{% comment %}
+{%- assign social_links = social_links | split:',' -%}
+{%- comment -%}
   Global objects
-{% endcomment %}
+{%- endcomment %}
 <script type="application/ld+json">
   {
     "@context": "http://schema.org/",
@@ -51,7 +47,7 @@
     {%- endif -%}
     "sameAs": [
       {%- for link in social_links -%}
-        {{ link }}{% if forloop.last == false %},{% endif %}
+        {{ link }}{%- if forloop.last == false -%},{%- endif -%}
       {%- endfor -%}
     ],
     "contactPoint": {
@@ -61,11 +57,10 @@
     }
   }
 </script>
-
-{% comment %}
+{%- comment -%}
   Brick & mortar stores
-{% endcomment %}
-{% unless shop.address == blank or bricks_and_mortar == false %}
+{%- endcomment %}
+{%- unless shop.address == blank or bricks_and_mortar == false -%}
   <script type="application/ld+json">
     {
       "@context": "http://schema.org/",
@@ -90,13 +85,12 @@
       }
     }
   </script>
-{% endunless %}
-
-{% comment %}
+{%- endunless -%}
+{%- comment -%}
   Template specific objects
-{% endcomment %}
-{% case template %}
-{% when 'index' %}
+{%- endcomment -%}
+{%- case template -%}
+{%- when 'index' -%}
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
@@ -110,28 +104,28 @@
       }
     }
   </script>
-{% when 'article' %}
-  {% if article.image %}
-    {% assign article_image = article.image.src | img_url: '1024x' %}
-  {% else %}
-    {% assign article_image = article.content | escape %}
-    {% if article_image contains '&lt;img' %}
-      {% assign article_image = article_image | split: 'src=&quot;' %}
-      {% assign article_image = article_image[1] | split: '&quot;' %}
-      {% assign article_image = article_image[0] | remove: '//cdn' %}
-      {% assign article_image = article_image | remove: 'http:http://';; %}
-      {% assign article_image = article_image | remove: 'https:' %}
-      {% assign article_image = article_image | prepend: 'https://cdn' %}
-      {% capture replacement %}_1024x.{% endcapture %}
-      {% assign sizes = 'pico,icon,thumb,small,compact,medium,large,grande,1024x1024,2048x2048' | split:',' %}
-      {% for size in sizes %}
-        {% capture search %}_{{ size }}.{% endcapture %}
-        {% assign article_image = article_image | replace:search,replacement %}
-      {% endfor %}
-    {% else %}
-      {% assign article_image = "//cdn.shopify.com/s/images/admin/no-image-1024x1024.gif" %}
-    {% endif %}
-  {% endif %}
+{%- when 'article' -%}
+  {%- if article.image -%}
+    {%- assign article_image = article.image.src | img_url: '1024x' -%}
+  {%- else -%}
+    {%- assign article_image = article.content | escape -%}
+    {%- if article_image contains '&lt;img' -%}
+      {%- assign article_image = article_image | split: 'src=&quot;' -%}
+      {%- assign article_image = article_image[1] | split: '&quot;' -%}
+      {%- assign article_image = article_image[0] | remove: '//cdn' -%}
+      {%- assign article_image = article_image | remove: 'http:http://';; -%}
+      {%- assign article_image = article_image | remove: 'https:' -%}
+      {%- assign article_image = article_image | prepend: 'https://cdn' -%}
+      {%- capture replacement -%}_1024x.{%- endcapture -%}
+      {%- assign sizes = 'pico,icon,thumb,small,compact,medium,large,grande,1024x1024,2048x2048' | split:',' -%}
+      {%- for size in sizes -%}
+        {%- capture search -%}_{{ size }}.{%- endcapture -%}
+        {%- assign article_image = article_image | replace:search,replacement -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign article_image = "//cdn.shopify.com/s/images/admin/no-image-1024x1024.gif" -%}
+    {%- endif -%}
+  {%- endif -%}
   <script type="application/ld+json">
     {
       "@context": "http://schema.org/",
@@ -148,9 +142,9 @@
       "articleBody": {{ article.content | strip_html | json }},
       "mainEntityOfPage": {{ canonical_url | json }},
       "keywords": [
-        {% for tag in article.tags %}
-          "{{ tag }}"{% unless forloop.last == true %},{% endunless %}
-        {% endfor %}
+        {%- for tag in article.tags -%}
+          "{{ tag }}"{%- unless forloop.last == true -%},{%- endunless -%}
+        {%- endfor -%}
       ],
         "image": {
           "@type": "ImageObject",
@@ -160,17 +154,17 @@
         },
         "publisher": {
         "@type": "Organization",
-        {% if logo != blank %}
+        {%- if logo != blank -%}
           "logo": {
             "@type": "ImageObject",
             "url": "https:{{ logo | img_url: logo_width }}"
           },
-        {% endif %}
+        {%- endif -%}
         "name": {{ shop.name | json }}
         }
       }
   </script>
-{% when 'blog' %}
+{%- when 'blog' -%}
   <script type="application/ld+json">
     {
       "@context": "http://schema.org/",
@@ -182,17 +176,17 @@
         "name": {{ shop.name | json }}
       },
       "keywords": [
-        {% for tag in blog.all_tags %}
-          {% if forloop.last == true %}
+        {%- for tag in blog.all_tags -%}
+          {%- if forloop.last == true -%}
             "{{ tag }}"
-          {% else %}
+          {%- else -%}
             "{{ tag }}",
-          {% endif %}
-        {% endfor %}
+          {%- endif -%}
+        {%- endfor -%}
       ]
     }
   </script>
-{% when 'product' %}
+{%- when 'product' -%}
   <script type="application/ld+json">
     {
       "@context": "http://schema.org/",
@@ -205,17 +199,17 @@
       },
       "sku": {{ product.selected_or_first_available_variant.sku | json }},
       "url": {{ canonical_url | json }},
-      {% if product.featured_image %}
+      {%- if product.featured_image -%}
       "image": {
         "@type": "ImageObject",
         "url": {{ product.featured_image.src | img_url: 'grande' | json }}
       },
-      {% endif %}
+      {%- endif -%}
       "offers": {
         "@type": "Offer",
         "priceCurrency": {{ shop.currency | json }},
         "price": {{ product.price | divided_by: 100.00 | json }},
-        "availability": {% if product.available %}"InStock"{% else %}"OutOfStock"{% endif %},
+        "availability": {%- if product.available -%}"InStock"{%- else -%}"OutOfStock"{%- endif -%},
         "url": {{ canonical_url | json }},
         "sku": {{ variant.sku | json }},
         "seller": {
@@ -223,9 +217,9 @@
           "name": {{ shop.name | json }}
         }
       }
-      {% comment %}
+      {%- comment -%}
         Review content is expected here, and should be added where possible
-      {% endcomment %}
+      {%- endcomment -%}
     }
   </script>
-{% endcase %}
+{%- endcase -%}

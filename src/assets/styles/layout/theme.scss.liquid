@@ -7,17 +7,76 @@
 
 
 // START TEMPORARY
-body {
-  font-family: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }}, sans-serif;
-  font-weight: {{ settings.font_body.weight }};
-  background-color: {{ settings.color_background }};
-  color: {{ settings.color_text }};
-}
-a {
-  color: {{ settings.color_brand }};
-}
-h1, h2, h3, h4, h5 {
-  font-family: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }}, sans-serif;
-  font-weight: {{ settings.font_heading.weight }};
-}
+
+  // MIXINS
+
+  // PX to REM - Usage: font-size: rem(37px);
+  @function rem($px, $base: $fontBaseSize) {
+    @return ($px / $base) * 1rem;
+  }
+
+
+  {{ settings.font_heading | font_face }}
+  {{ settings.font_body | font_face }}
+  {%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bolder' -%}
+  {%- assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic' -%}
+  {{ font_body_bold | font_face }}
+  {{ font_body_bold_italic | font_face }}
+
+
+  // Colors
+
+  $colorBrand: {{ settings.color_brand }};
+  $colorText: {{ settings.color_text }};
+  $colorBackground: {{ settings.color_background }};
+  $colorAlternate: {{ settings.color_alternate }};
+
+  // Typography
+
+   $fontBaseSize: 16px;
+   $fontBaseLineHeight: 1.5;
+
+   // Headings
+   $fontHeadingFamily: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+   $fontHeadingWeight: {{ settings.font_heading.weight }};
+
+   $fontHeadingBaseSize: rem(40px); // ????
+
+   // Body
+   $fontBodyFamily: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+   $fontBodyWeight: {{ settings.font_body.weight }};
+
+
+  body {
+    font-size: $fontBaseSize;
+
+    font-family: $fontBodyFamily;
+    font-weight: $fontBodyWeight;
+    line-height: $fontBaseLineHeight;
+
+    background-color: $colorBackground;
+    color: $colorText;
+  }
+  p {
+    font-size: rem(16px);
+  }
+  a {
+    color: $colorBrand;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $fontHeadingFamily;
+    font-weight: $fontHeadingWeight;
+    line-height: $fontBaseLineHeight;
+  }
+  h1 {
+    font-size: rem(34px);
+  }
+  h2 {
+    font-size: rem(28px);
+  }
+
+  img {
+    max-width: 100%;
+  }
+
 // END TEMPORARY
