@@ -6,46 +6,74 @@
  */
 
 
+// @import 'normalize.css/normalize';
+@import '~normalize.css/normalize';
+
+@import url('../global/mixins.scss');
+@import url('../global/grid50-reset.scss');
+@import url('../global/grid50.scss');
+@import url('../global/grid50-helpers.scss');
+@import url('../global/responsive-image.scss');
+
+
+
+// Colors
+$colorBrand: {{ settings.color_brand }};
+$colorText: {{ settings.color_text }};
+$colorBackground: {{ settings.color_background }};
+$colorAlternate: {{ settings.color_alternate }};
+
+// Typography
+
+$lineMargin: $spacing*2;
+
+{{ settings.font_heading | font_face }}
+{{ settings.font_body | font_face }}
+{%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bolder' -%}
+{%- assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic' -%}
+{{ font_body_bold | font_face }}
+{{ font_body_bold_italic | font_face }}
+
+$fontBaseSize: 16px;
+$fontBaseLineHeight: 1.5;
+
+// Headings
+$fontHeadingFamily: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+$fontHeadingWeight: {{ settings.font_heading.weight }};
+
+$fontHeadingBaseSize: rem(40px); // ????
+
+// Body
+$fontBodyFamily: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+$fontBodyWeight: {{ settings.font_body.weight }};
+
+
+
+// EXPERIMENTAL!!!!!!
+//
+// * div {
+//   overflow: auto
+// }
+//
+// html {
+//   background-color: $colorBackground;
+//   box-sizing: border-box;
+// }
+//
+// *,
+// *::before,
+// *::after {
+//   box-sizing: border-box;
+// }
+//
+// body,
+// html {
+//   height: 100%;
+// }
+
+
+
 // START TEMPORARY
-
-  // MIXINS
-
-  // PX to REM - Usage: font-size: rem(37px);
-  @function rem($px, $base: $fontBaseSize) {
-    @return ($px / $base) * 1rem;
-  }
-
-
-  {{ settings.font_heading | font_face }}
-  {{ settings.font_body | font_face }}
-  {%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bolder' -%}
-  {%- assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic' -%}
-  {{ font_body_bold | font_face }}
-  {{ font_body_bold_italic | font_face }}
-
-
-  // Colors
-
-  $colorBrand: {{ settings.color_brand }};
-  $colorText: {{ settings.color_text }};
-  $colorBackground: {{ settings.color_background }};
-  $colorAlternate: {{ settings.color_alternate }};
-
-  // Typography
-
-   $fontBaseSize: 16px;
-   $fontBaseLineHeight: 1.5;
-
-   // Headings
-   $fontHeadingFamily: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
-   $fontHeadingWeight: {{ settings.font_heading.weight }};
-
-   $fontHeadingBaseSize: rem(40px); // ????
-
-   // Body
-   $fontBodyFamily: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
-   $fontBodyWeight: {{ settings.font_body.weight }};
-
 
   body {
     font-size: $fontBaseSize;
@@ -58,25 +86,50 @@
     color: $colorText;
   }
   p {
-    font-size: rem(16px);
+    font-size: 1rem;
   }
   a {
     color: $colorBrand;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: $fontHeadingFamily;
     font-weight: $fontHeadingWeight;
     line-height: $fontBaseLineHeight;
   }
-  h1 {
-    font-size: rem(34px);
+  h1, .h1 {
+    font-size: 2.5rem;
   }
-  h2 {
-    font-size: rem(28px);
+  h2, .h2 {
+    font-size: 2rem;
+  }
+  h3, .h3 {
+    font-size: 1.75rem;
+  }
+  h4, .h4 {
+    font-size: 1.5rem;
+  }
+  h5, .h5 {
+    font-size: 1.25rem;
+  }
+  h6, .h6 {
+    font-size: 1rem;
+  }
+  small {
+    font-size: 0.8rem;
   }
 
   img {
     max-width: 100%;
+  }
+
+
+
+
+  header {
+    .logo {
+      margin: 0;
+    }
   }
 
 // END TEMPORARY

@@ -25,7 +25,7 @@
     - Home page only: only shows on the home page
   {%- endcomment -%}
   {% if section.settings.announcement_bar_enabled %}
-    <div>
+    <div class="container l center">
       {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
         {%- if section.settings.announcement_bar_link != blank -%}
           <a href="{{ section.settings.announcement_bar_link }}">
@@ -34,24 +34,26 @@
         {%- else -%}
           <p>{{ section.settings.announcement_bar_text | escape }}</p>
         {%- endif -%}
+        <hr>
       {%- endif -%}
     </div>
   {% endif %}
 
-  <header role="banner">
+  <header role="banner" class="container l">
 
     {%- comment -%}
       Header logo
     {%- endcomment -%}
     {% if h1 %}
-      <h1>
+      <h1 class="logo">
     {% else %}
-      <div class="h1">
+      <div class="h1 logo">
     {% endif %}
       {% if logo != blank %}
         <a href="/" title="{{ shop.name }}" class="logo-image">
           <img src="{{ section.settings.logo | img_url: logo_width }}"
-               srcset="{{ section.settings.logo | img_url: logo_width }} 1x, {{ section.settings.logo | img_url: logo_width, scale: 2 }} 2x"
+               srcset="{{ section.settings.logo | img_url: logo_width }} 1x,
+                       {{ section.settings.logo | img_url: logo_width, scale: 2 }} 2x"
                alt="{{ section.settings.logo.alt | default: shop.name }}">
         </a>
       {% else %}
@@ -66,16 +68,13 @@
     {%- comment -%}
       Header cart link and item count
     {%- endcomment -%}
-    <a href="/cart">
-      {{ 'cart.title' | t }}
-      ({{ cart.item_count }} {{ 'cart.item_count' | t: count: cart.item_count }})
-    </a>
+    <a href="/cart">{{ 'cart.title' | t }} ({{ cart.item_count }} {{ 'cart.item_count' | t: count: cart.item_count }})</a>
 
     {%- comment -%}
       Header customer account links
     {%- endcomment -%}
     {% if shop.customer_accounts_enabled %}
-      <ul>
+      <ul class="inline">
         {% if customer %}
           <li>
             {%- if customer.first_name != blank %}
@@ -118,8 +117,8 @@
   {%- comment -%}
     Main navigation menu
   {%- endcomment -%}
-  <nav role="navigation">
-    <ul>
+  <nav role="navigation" class="container l">
+    <ul class="inline">
       {% for link in linklists[section.settings.menu].links %}
         {% if link.links != blank %}
           <li>
@@ -147,6 +146,7 @@
       {% endfor %}
     </ul>
   </nav>
+
 </section>
 
 {%- comment -%}

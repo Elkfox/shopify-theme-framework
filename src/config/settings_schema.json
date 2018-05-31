@@ -20,13 +20,13 @@
         "type": "color",
         "id": "color_text",
         "label": "Main Text Color",
-        "default": "#333333"
+        "default": "#444444"
       },
       {
         "type": "color",
         "id": "color_background",
         "label": "Background Color",
-        "default": "#EFEFEF"
+        "default": "#F5F5F5"
       },
       {
         "type": "color",

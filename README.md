@@ -16,3 +16,22 @@ https://concrete-theme.myshopify.com
 #### Some basic rules
 
 * Variable assignments should be placed at the top of the file where possible
+
+
+## TO DO
+
+### Vendor
+
+* Add lazysizes JS
+* Fix normalize.css NPM path
+* Add Grid50 as NPM path
+
+### Layouts
+
+* Basic Header layout
+  * Including search styling?
+* Basic Footer layout
+  * Social icons
+  * Payment icons
+  * Subscribe form
+* Add mandatory home page sections

@@ -3,6 +3,10 @@
     "meta": {
       "page": "Page {{ page }}",
       "tags": "Tagged with {{ tags }}"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
     }
   },
   "customer": {
@@ -22,5 +26,40 @@
   "search": {
     "title": "Search",
     "submit": "Submit"
+  },
+  "collection": {
+    "no_matches": "Sorry, there are no products in this collection",
+    "with_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "view": {
+      "title": "View:",
+      "label": "View as {{ view }} products",
+      "grid": "Grid",
+      "list": "List"
+    },
+    "sort": {
+      "title": "Sort:",
+      "manual": "Featured",
+      "best-selling": "Best selling",
+      "title-ascending": "Alphabetically, A-Z",
+      "title-descending": "Alphabetically, Z-A",
+      "price-ascending": "Price, low to high",
+      "price-descending": "Price, high to low",
+      "created-descending": "Date, new to old",
+      "created-ascending": "Date, old to new"
+    }
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "regular_price": "Regular price",
+    "quantity": "Quantity",
+    "priced_from_html": "From {{ price }}",
+    "on_sale_html": "On sale for {{ price }}",
+    "on_sale_from_html": "On sale from {{ price }}",
+    "on_sale": "On sale",
+    "original_price": "Originaly",
+    "sold_out": "Sold out"
   }
 }

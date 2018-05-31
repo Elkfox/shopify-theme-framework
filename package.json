@@ -4,6 +4,7 @@
 	"description": "Elkfox's theme framework for Shopify themes",
 	"keywords": [
 		"shopify",
+		"elkfox",
 		"theme"
 	],
 	"bugs": "https://github.com/Elkfox/Concrete/issues",
@@ -13,6 +14,18 @@
 		"type": "git",
 		"url": "https://github.com/Elkfox/Concrete.git"
 	},
+	"devDependencies": {
+		"@shopify/slate-tools": ">=1.0.0-beta.1",
+		"stylelint-config-prettier": "^3.0.4",
+		"stylelint-config-shopify": "^5.0.0"
+	},
+	"dependencies": {
+		"jquery": "^3.2.1",
+		"normalize.css": "^7.0.0",
+		"lazysizes": "^4.0.2",
+		"@shopify/theme-images": "^1.0.0-alpha.3",
+		"@shopify/theme-a11y": "^1.0.0-alpha.3"
+	},
 	"scripts": {
 		"start": "slate-tools start",
 		"watch": "slate-tools start --skipFirstDeploy",
@@ -21,12 +34,6 @@
 		"zip": "slate-tools build && slate-tools zip",
 		"lint": "slate-tools lint",
 		"format": "slate-tools format"
-	},
-	"dependencies": {
-		"slate": "^0.33.6"
-	},
-	"devDependencies": {
-		"@shopify/slate-tools": ">=1.0.0-beta.1"
 	},
 	"private": true
 }

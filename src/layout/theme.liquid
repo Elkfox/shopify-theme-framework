@@ -25,9 +25,9 @@ MIT License
 </head>
 <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}{% if template.suffix != null %} suffix-{{ template.suffix | handle }}{% endif %}">
   {% section 'theme-header' %}
-    <main role="main" id="MainContent">
-      {{ content_for_layout }}
-    </main>
+  <main role="main" id="MainContent" class="container l">
+    {{ content_for_layout }}
+  </main>
   {% section 'theme-footer' %}
 </body>
 </html>
