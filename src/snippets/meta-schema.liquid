@@ -186,6 +186,47 @@
       ]
     }
   </script>
+{%- when 'collection' -%}
+  {% paginate collection.products by pagination | default: 12  %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@graph": [
+      {% for product in collection.products -%}
+        {
+          "@type": "Product",
+          "name": {{ product.title | json }},
+          "description": {{ product.description | strip_html | json }},
+          "brand": {
+            "@type": "Brand",
+            "name": {{ product.vendor | json }}
+          },
+          "sku": {{ product.selected_or_first_available_variant.sku | json }},
+          "url": {{ canonical_url | json }},
+          {%- if product.featured_image %}
+          "image": {{ product.featured_image.src | img_url: 'grande' | json }},
+          {%- endif -%}
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": {{ shop.currency | json }},
+            "price": {{ product.price | divided_by: 100.00 | json }},
+            "availability": {%- if product.available -%}"InStock"{%- else -%}"OutOfStock"{%- endif -%},
+            "url": {{ canonical_url | json }},
+            "sku": {{ variant.sku | json }},
+            "seller": {
+              "@type": "Organization",
+              "name": {{ shop.name | json }}
+            }
+          }
+          {%- comment -%}
+            Review content is expected here, and should be added where possible
+          {%- endcomment -%}
+        }
+        {%- unless forloop.last %},{% endunless %}{%- endfor %}
+      ]
+    }
+  </script>
+  {% endpaginate %}
 {%- when 'product' -%}
   <script type="application/ld+json">
     {

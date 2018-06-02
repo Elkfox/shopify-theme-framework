@@ -1,0 +1,143 @@
+<!-- templates/cart.liquid -->
+
+<!-- TO DO - I think this could be much simpler -->
+
+{% assign show_notes = true %}
+
+{% if cart.item_count > 0 %}
+
+  <h1>{{ 'cart.title' | t }}</h1>
+
+  <form id="CartPage" action="/cart" method="post" novalidate>
+    <div class="row l-table m-table s-hide margin-bottom-2x" id="CartHeader">
+      <div class="column l5 m5">{{ 'cart.product' | t }}</div>
+      <div class="column l3 m2">{{ 'cart.price' | t }}</div>
+      <div class="column l2 m3">{{ 'cart.quantity' | t }}</div>
+      <div class="column l2 m2 l-right m-right">{{ 'cart.subtotal' | t }}</div>
+    </div>
+
+    {% for item in cart.items %}
+      <div class="row l-table m-table">
+        <div class="column l5 m3 s12">
+          <p>
+            <a href="{{ item.url }}">
+              {% if item.image != blank %}
+                <div class="margin-right-2x" style="float:left">
+                  {% include 'responsive-image' with
+                    image: item.image,
+                    width: 80,
+                    max_width: 80,
+                    max_height: 80
+                  %}
+                </div>
+              {% endif %}
+
+              <span class="h4">{{ item.product.title }}</span><br>
+              {{ item.variant.title }}
+            </a>
+            {% comment %}
+              Optional, loop through custom product line items if available
+              For more info visit http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+            {% endcomment %}
+            {% assign propertySize = item.properties | size %}
+            {% if propertySize > 0 %}
+              {% for property in item.properties %}
+                {% assign first_character_in_key = property.first | truncate: 1, '' %}
+                {% unless property.last == blank or first_character_in_key == '_' %}
+                  <br>
+                  {{ property.first }}:
+                  {% comment %}
+                    Check if there was an uploaded file associated
+                  {% endcomment %}
+                  {% if property.last contains '/uploads/' %}
+                    <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+                  {% else %}
+                    {{ property.last }}
+                  {% endif %}
+                {% endunless %}
+              {% endfor %}
+            {% endif %}
+          </p>
+        </div>
+        <div class="column l3 m2 s-hide">
+          {{ item.price | money_with_currency }}
+        </div>
+        <div class="column l2 m3 s12">
+          <label for="Quantity" class="visually-hidden">
+            {{ 'product.quantity' | t }}
+          </label>
+          <div class="quantity-adjust">
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}"
+               id="minusOne"
+               class="adjust"
+               data-change="-1">&#8211;</a>
+             <input type="number" id="Quantity" class="quantity" name="quantity" value="1" min="1" data-cart-quantity="1">
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}"
+               id="plusOne"
+               class="adjust"
+               data-change="1">&#43;</a>
+          </div>
+        </div>
+        <div class="column l2 m2 right s-hide">
+          {% if item.total_discount > 0 %}
+            <s>{{ item.original_line_price | money_with_currency }}</s>
+            <p class="no-margin">{{ item.message }}</p>
+          {% else %}
+            <p class="no-margin"><b>{{ item.line_price | money_with_currency }}</b></p>
+          {% endif %}
+
+          <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+            <small>{{ 'cart.remove' | t }}</small>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="row margin-top-4x">
+      <div class="column l6 m6 s12">
+        {% if show_notes %}
+          <label for="CartSpecialInstructions" class="block">
+            {{ 'cart.notes' | t }}
+          </label>
+          <textarea class="wide" name="note" id="CartSpecialInstructions">
+            {{ cart.note }}
+          </textarea>
+        {% endif %}
+      </div>
+
+      <div class="column l6 m6 s12 l-right m-right">
+        <p>
+          <span class="cart-total-heading">{{ 'cart.total' | t }}</span>
+          <span class="h3">{{ cart.total_price | money_with_currency }}</span>
+        </p>
+
+        {% if cart.total_discount > 0 %}
+          <h3><s>{{ cart.original_total_price | money_with_currency }}</s></h3>
+          <p>
+            {{ 'cart.savings' | t }} <span><i>{{ cart.total_discounts | money_with_currency }}</i></span>
+          </p>
+        {% endif %}
+
+        <p class="margin-bottom-1x">
+          <i>{{ 'cart.shipping_at_checkout' | t }}</i>
+        </p>
+
+        <button type="submit" name="update">{{ 'cart.update' | t }}</button>
+        <button type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+
+        {% if additional_checkout_buttons %}
+          <div class="additional-checkout-buttons">
+            {{ content_for_additional_checkout_buttons }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </form>
+
+{% else %}
+
+  <h2>{{ 'cart.title' | t }}</h2>
+  <p class="h4">{{ 'cart.empty' | t }}</p>
+
+{% endif %}

@@ -1,5 +1,5 @@
 /**
-* Styles for Product and Collection templates
+* Styles for the cart template
 *
 * Import additional stylesheets into this sheet using CSS imports:
 * eg. @import url('./global/variables.scss.liquid');
@@ -9,11 +9,10 @@
 
 $inputNumberWidth: $fontBaseSize*3;
 
-// Add to cart form
-#AddToCartForm {
-  width: 100%;
-  margin-bottom: $spacing*2;
+// Quantity adjustment
+.quantity-adjust {
   input[type="number"] {
+    display: inline-block;
     width: $inputNumberWidth;
     text-align: center;
     // Hide the 'spinner' in Webkit browsers
@@ -23,14 +22,8 @@ $inputNumberWidth: $fontBaseSize*3;
       margin: 0;
     }
   }
-  .single-option-selector {
-    width: 100%;
-    margin-bottom: $spacing*2;
-  }
-  .quantity-adjust {
-    a {
-      text-decoration: none;
-      padding: $spacing;
-    }
+  a {
+    text-decoration: none;
+    padding: $spacing;
   }
 }

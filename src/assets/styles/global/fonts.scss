@@ -1,0 +1,16 @@
+{{ settings.font_heading | font_face }}
+{{ settings.font_body | font_face }}
+{%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bolder' -%}
+{%- assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic' -%}
+{{ font_body_bold | font_face }}
+{{ font_body_bold_italic | font_face }}
+
+// Headings
+$fontHeadingFamily: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+$fontHeadingWeight: {{ settings.font_heading.weight }};
+
+$fontHeadingBaseSize: rem(40px); // ????
+
+// Body
+$fontBodyFamily: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+$fontBodyWeight: {{ settings.font_body.weight }};

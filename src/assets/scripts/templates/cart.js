@@ -1,12 +1,12 @@
 /**
-* Product Template Script
+* Cart Template Script
 * ------------------------------------------------------------------------------
-* A file that contains scripts specifically for Product templates
+* A file that contains scripts specifically for the art template
 *
-* @namespace product
+* @namespace cart
 **/
 
-import "../../styles/templates/product.scss.liquid";
+import "../../styles/templates/cart.scss.liquid";
 
 import $ from 'jquery';
 import {imageSize, preload, getSizedImageUrl} from '@shopify/theme-images';

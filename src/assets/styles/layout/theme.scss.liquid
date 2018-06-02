@@ -1,51 +1,30 @@
 /**
- * Insert your styles with Liquid below.
- *
- * Import additional stylesheets into this sheet using CSS imports:
- * @import url('./global/form.scss');
- */
+* Import additional stylesheets into this sheet using CSS imports:
+* @import url('./global/form.scss');
+**/
+
+// TESTING
+$adjustAmount: 10%;
+$colorHighlight: lighten({{ settings.color_alternate }}, $adjustAmount*2);
+
+
+
+
 
 
 // @import 'normalize.css/normalize';
 @import '~normalize.css/normalize';
 
+@import url('../global/variables.scss.liquid');
 @import url('../global/mixins.scss');
-@import url('../global/grid50-reset.scss');
+
+@import url('../global/grid50.reset.scss');
 @import url('../global/grid50.scss');
-@import url('../global/grid50-helpers.scss');
-@import url('../global/responsive-image.scss');
+@import url('../global/grid50.helpers.scss');
+@import url('../global/grid50.forms.scss');
 
-
-
-// Colors
-$colorBrand: {{ settings.color_brand }};
-$colorText: {{ settings.color_text }};
-$colorBackground: {{ settings.color_background }};
-$colorAlternate: {{ settings.color_alternate }};
-
-// Typography
-
-$lineMargin: $spacing*2;
-
-{{ settings.font_heading | font_face }}
-{{ settings.font_body | font_face }}
-{%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bolder' -%}
-{%- assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic' -%}
-{{ font_body_bold | font_face }}
-{{ font_body_bold_italic | font_face }}
-
-$fontBaseSize: 16px;
-$fontBaseLineHeight: 1.5;
-
-// Headings
-$fontHeadingFamily: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
-$fontHeadingWeight: {{ settings.font_heading.weight }};
-
-$fontHeadingBaseSize: rem(40px); // ????
-
-// Body
-$fontBodyFamily: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
-$fontBodyWeight: {{ settings.font_body.weight }};
+@import url('../global/fonts.scss');
+@import url('../global/media.scss');
 
 
 
@@ -53,22 +32,6 @@ $fontBodyWeight: {{ settings.font_body.weight }};
 //
 // * div {
 //   overflow: auto
-// }
-//
-// html {
-//   background-color: $colorBackground;
-//   box-sizing: border-box;
-// }
-//
-// *,
-// *::before,
-// *::after {
-//   box-sizing: border-box;
-// }
-//
-// body,
-// html {
-//   height: 100%;
 // }
 
 
@@ -95,7 +58,8 @@ $fontBodyWeight: {{ settings.font_body.weight }};
   .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: $fontHeadingFamily;
     font-weight: $fontHeadingWeight;
-    line-height: $fontBaseLineHeight;
+    line-height: $fontBaseLineHeight*0.85;
+    margin-bottom: 1rem;
   }
   h1, .h1 {
     font-size: 2.5rem;
@@ -118,11 +82,22 @@ $fontBodyWeight: {{ settings.font_body.weight }};
   small {
     font-size: 0.8rem;
   }
+  b, strong {
+    font-weight: bold;
+  }
+  em, i {
+    font-style: italic;
+  }
 
   img {
     max-width: 100%;
   }
-
+  hr {
+    display: block;
+    height: $borderWeight;
+    border: 0;
+    border-top: $borderWeight $borderStyle $colorBorder;
+  }
 
 
 
@@ -131,5 +106,52 @@ $fontBodyWeight: {{ settings.font_body.weight }};
       margin: 0;
     }
   }
+
+
+  .visually-hidden {
+    @include visually-hidden;
+  }
+
+
+  .rte {
+    p:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+
+
+
+
+/* Navigation =================================================================*/
+
+nav {
+  ul {
+    > li {
+      padding: $spacing/4;
+      position: relative;
+      ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        z-index: 2;
+        // START Demo styles
+        border: $borderWeight $borderStyle $colorBrand;
+        background-color: $colorBackground;
+        padding: $spacing;
+        // END Demo styles
+        li {
+          display: block;
+        }
+      }
+      &:hover {
+        ul {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
 
 // END TEMPORARY

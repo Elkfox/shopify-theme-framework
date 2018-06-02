@@ -1,0 +1,111 @@
+<!-- templates/collection.liquid -->
+
+{%- assign pagination = 6 -%}
+{%- assign column_width = 'column l4 m6 s12' -%}
+{%- assign sort_options = 'manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-descending,created-ascending' | split: ',' -%}
+{%- comment -%}
+  Use the following canonincal_url hack to create dynamic pagination options
+  Mix this with concrete.urls.js to retain other view options
+{%- endcomment -%}
+{%- assign pagination_options = '6,12,24,48' | split: ',' -%}
+{%- if canonical_url contains 'handle=' -%}
+  {%- assign pagination = canonical_url | split: 'handle=' | last | split: '&' | first | plus: 0 -%}
+{%- endif -%}
+{%- if pagination_options != null -%}
+  {%- assign pagination_modifier = pagination | prepend: '&handle=' -%}
+{%- endif -%}
+
+{% paginate collection.products by pagination %}
+
+<div data-section-type="collection">
+  <header class="margin-top-2x margin-bottom-2x">
+    <div class="row">
+      <div class="column l6 m12 s12">
+        <h1>{{ collection.title }}</h1>
+      </div>
+      <div class="column l6 m12 s12 l-right">
+        {% if collection.description != blank %}
+          <div class="rte">
+            {{ collection.description }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column l6 m12 s12">
+        <label>{{ 'collection.view.title' | t }}</label>
+        <ul class="inline">
+          {% for pagination_option in pagination_options %}
+            <li>
+              <a href="{{ collection.handle }}?handle={{ pagination_option }}">
+                {{ pagination_option }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="column l6 m12 s12 l-right">
+        <label for="SortBy">{{ 'collection.sort.title' | t }}</label>
+        <select name="SortBy" data-sort>
+          {% for option in sort_options %}
+            <option value="{{ option }}"{% if collection.sort_by == blank and collection.default_sort_by == option %}
+                    selected="selected"{% elsif collection.sort_by == option %}
+                    selected="selected"{% endif %}>
+              {{ 'collection.sort.' | append: option | t }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <section class="row">
+    {% for product in collection.products %}
+      {% include 'collection-product' %}
+    {% else %}
+      <div class="column l12">
+        <p class="h4">{{ 'collection.no_matches' | t }}</p>
+      </div>
+    {% endfor %}
+  </section>
+
+  {%- comment -%}
+    Custom pagination for the dynamic pagination canonincal_url hack
+    See 'pagination_modifier'
+  {%- endcomment -%}
+  {% if paginate.pages > 1 %}
+    <ul class="inline">
+      {% if paginate.previous %}
+        <li>
+          <a href="{{ paginate.previous.url }}{{ pagination_modifier }}">
+             &laquo; {{ 'common.pagination.previous' | t }}
+          </a>
+        </li>
+      {% endif %}
+      {% for part in paginate.parts %}
+        {% if part.is_link %}
+          <li>
+            <a href="{{ part.url }}{{ pagination_modifier }}" title="">{{ part.title }}</a>
+          </li>
+        {% else %}
+          {% if part.title == paginate.current_page %}
+            <li>{{ part.title }}</li>
+          {% else %}
+            <li>&hellip;</li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% if paginate.next %}
+        <li>
+          <a href="{{ paginate.next.url }}{{ pagination_modifier }}">
+            {{ 'common.pagination.next' | t }} &raquo;
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+</div>
+
+{% endpaginate %}

@@ -1,9 +1,9 @@
 /*
-  This plugin brings your URL states to life
-  Especially useful for collection sorting and alternate views
-
-  Using the canonical_url object, you can use certain params in both liquid and js
-  Params available in canonincal_url: blog, page, collection, handle, type, vendor, q
+* This plugin brings your URL states to life
+* Especially useful for collection sorting and alternate views
+*
+* Using the canonical_url object, you can use certain params in both liquid and js
+* Params available in canonincal_url: blog, page, collection, handle, type, vendor, q
 */
 
 // Replace URL Parameters

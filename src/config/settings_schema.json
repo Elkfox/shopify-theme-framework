@@ -13,25 +13,31 @@
       {
         "type": "color",
         "id": "color_brand",
-        "label": "Brand Color",
+        "label": "Brand color",
         "default": "#5625DD"
       },
       {
         "type": "color",
         "id": "color_text",
-        "label": "Main Text Color",
+        "label": "Main text color",
         "default": "#444444"
       },
       {
         "type": "color",
         "id": "color_background",
-        "label": "Background Color",
+        "label": "Background color",
         "default": "#F5F5F5"
       },
       {
         "type": "color",
+        "id": "color_border",
+        "label": "Border color",
+        "default": "#BBBBBB"
+      },
+      {
+        "type": "color",
         "id": "color_alternate",
-        "label": "Warning Color",
+        "label": "Alert color",
         "default": "#F26968"
       }
     ]

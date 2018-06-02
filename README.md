@@ -20,11 +20,12 @@ https://concrete-theme.myshopify.com
 
 ## TO DO
 
-### Vendor
+### Vendor & Global
 
-* Add lazysizes JS
-* Fix normalize.css NPM path
 * Add Grid50 as NPM path
+* Consider removing .map files on build
+* Mod responsive-images to allow for our custom background image ratio techniques
+* RTE styling
 
 ### Layouts
 

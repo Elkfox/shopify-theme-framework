@@ -11,9 +11,9 @@
   {%- assign on_sale = true -%}
 {%- endif -%}
 
-<div class="collection-product {{ column_width }}{% if sold_out %} sold_out{% endif %}{% if on_sale %} on_sale{% endif %}">
+<div class="{{ column_width }}{% if sold_out %} sold_out{% endif %}{% if on_sale %} on_sale{% endif %} margin-bottom-2x">
   {% if product.featured_image %}
-    <a href="{{ product.url | within: collection }}">
+    <a href="{{ product.url | within: collection }}" class="block">
       {% include 'responsive-image' with
         image: product.featured_image,
         max_width: 700,
@@ -23,7 +23,10 @@
   {% endif %}
 
   <p>
-    <a href="{{ product.url | within: collection }}">{{ product.title }}</a><br>
+    <a href="{{ product.url | within: collection }}">
+      {{ product.title }}
+    </a>
+    <br>
     {% if on_sale %}
       {% if product.price_varies %}
         {{ 'product.on_sale_from_html' | t: price: sale_price }}
@@ -39,14 +42,10 @@
       {% endif %}
     {% endif %}
     {% if on_sale %}
-      <span class="hidden">{{ 'product.original_price' | t }}</span>
+      <span class="hidden">
+        {{ 'product.original_price' | t }}
+      </span>
       <s>{{ product.compare_at_price | money }}</s>
     {% endif %}
-  </p>
-
-  <p>
-    <button {% if sold_out %}class="disabled" disabled{% else %}type="submit" name="add" data-quick-add="{{ product.first_available_variant.id }}"{% endif %}>
-      <span id="AddToCartText">{% if sold_out %}{{ 'product.sold_out' | t }}{% else %}{{ 'product.add_to_cart' | t }}{% endif %}</span>
-    </button>
   </p>
 </div>

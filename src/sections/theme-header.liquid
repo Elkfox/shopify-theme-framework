@@ -39,7 +39,7 @@
     </div>
   {% endif %}
 
-  <header role="banner" class="container l">
+  <header role="banner" class="container l margin-top-2x margin-bottom-2x">
 
     {%- comment -%}
       Header logo
@@ -67,14 +67,17 @@
 
     {%- comment -%}
       Header cart link and item count
+      This href is all on one line to avoid whitespace issues
     {%- endcomment -%}
     <a href="/cart">{{ 'cart.title' | t }} ({{ cart.item_count }} {{ 'cart.item_count' | t: count: cart.item_count }})</a>
+
+    <br>
 
     {%- comment -%}
       Header customer account links
     {%- endcomment -%}
     {% if shop.customer_accounts_enabled %}
-      <ul class="inline">
+      <ul class="inline margin-bottom-2x">
         {% if customer %}
           <li>
             {%- if customer.first_name != blank %}
@@ -92,11 +95,13 @@
       </ul>
     {% endif %}
 
+    <br>
+
     {%- comment -%}
       Header search form
     {%- endcomment -%}
     <form action="/search" method="get" role="search">
-      <label for="Search" class="label-hidden">
+      <label for="Search" class="visually-hidden">
         {{ 'search.title' | t }}
       </label>
 
@@ -106,8 +111,8 @@
         value="{{ search.terms | escape }}"
         placeholder="{{ 'search.title' | t }}">
 
-      <button type="submit" class="btn">
-        {% comment %}{% include 'icon-search' %}{% endcomment %}
+      <button type="submit">
+        {% comment %}{% include 'icon-search' %}{% endcomment %} <!-- TO DO -->
         <span class="icon-fallback-text">{{ 'search.submit' | t }}</span>
       </button>
     </form>
@@ -117,14 +122,14 @@
   {%- comment -%}
     Main navigation menu
   {%- endcomment -%}
-  <nav role="navigation" class="container l">
-    <ul class="inline">
+  <nav role="navigation" class="container l margin-bottom-2x">
+    <ul class="inline padding-bottom-2x">
       {% for link in linklists[section.settings.menu].links %}
         {% if link.links != blank %}
           <li>
             <a href="{{ link.url }}">
               {{ link.title }}
-              {% comment %}{% include 'icon-arrow-down' %}{% endcomment %}
+              {% comment %}{% include 'icon-arrow-down' %}{% endcomment %} <!-- TO DO -->
             </a>
             <ul>
               {% for childlink in link.links %}
@@ -145,6 +150,9 @@
         {% endif %}
       {% endfor %}
     </ul>
+
+    <hr>
+
   </nav>
 
 </section>

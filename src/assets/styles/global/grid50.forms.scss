@@ -1,0 +1,267 @@
+/* Form Variables ============================================================*/
+
+$fontBaseSize: 16px;
+$formFieldHeight: $fontBaseSize*3;
+$colorPlaceholder: $colorBorder;
+
+/* Form Styling ==============================================================*/
+
+// input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+//   text-indent: 0;
+// }
+
+
+// form {
+//   max-width: 100%;
+// }
+
+// Input Styling
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  height: $formFieldHeight;
+  max-width: 100%;
+  border: $borderWeight $borderStyle $colorBorder;
+  border-radius: $borderRadius;
+  padding: 0 $fontBaseSize;
+  text-indent: 0;
+
+  @include prefixer(appearance, none);
+
+  // @include transition();
+
+  &.error {
+    // border-color: $colorHighlight;
+  }
+  // Webkit Placeholders
+  &::placeholder,
+  &::-webkit-input-placeholder,
+  // Firefox Placeholders
+  &:-moz-placeholder,
+  &::-moz-placeholder,
+  // IE & Edge Placeholders
+  &:-ms-input-placeholder,
+  &::-ms-input-placeholder {
+    color: $colorPlaceholder;
+    text-indent: 0;
+  }
+  // Safari Placeholders
+  // &::-webkit-textfield-decoration-container {
+  //   display: block;
+  // }
+
+  // Webkit Autofill
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    border: $borderWeight $borderStyle $colorBorder;
+    border-radius: $borderRadius;
+    -webkit-text-fill-color: $colorText;
+    -webkit-box-shadow: 0 0 0px $gutter*100 rgba($colorHighlight, 0.35) inset;
+  }
+  // Firefox Selector Options
+  option {
+    display: block;
+    background-color: $colorBackground;
+    color: $colorText;
+    border: 0;
+  }
+}
+textarea {
+  height: initial;
+  resize: horizontal;
+  // line-height: $lineHeight;
+  line-height: inherit;
+  // padding: $gutter/2;
+  font-family: inherit; // For Firefox
+}
+
+// Labels
+label {
+  // display: block;
+  // font-size: $h5;
+  // font-weight: $fontBold;
+  // line-height: $lineHeight;
+  // margin-bottom: $lineHeight/2;
+  // @include clearfix(); TBC ?????????
+}
+
+// Checkboxes
+input[type="checkbox"] {
+  // display: none;
+  // & + label {
+  //   &:before {
+  //     content: '';
+  //     display: inline-block;
+  //     width: $spacing*2;
+  //     height: $spacing*2;
+  //     line-height: ($spacing*2) - ($borderWeight*2);
+  //     margin-right: $spacing;
+  //     border: $borderWeight $borderStyle $colorBorder;
+  //     border-radius: 100%;
+  //     background-color: transparent;
+  //     color: $colorBackground;
+  //     font-size: $small;
+  //     text-align: center;
+  //     vertical-align: top;
+  //     @include transition();
+  //   }
+  // }
+  // &:checked {
+  //   & + label {
+  //     &:before {
+  //       content: '\2714';
+  //       border-color: $colorBrand;
+  //       background-color: $colorBrand;
+  //     }
+  //   }
+  // }
+}
+
+// Buttons
+button, .button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  max-width: 100%;
+  height: $formFieldHeight;
+  padding: 0 $fontBaseSize;
+  border: $borderWeight $borderStyle $colorBrand;
+  border-radius: $borderRadius;
+  text-align: center;
+  color: $colorBrand;
+  cursor: pointer;
+
+  @include prefixer(appearance, none);
+  // @include transition();
+
+  &:hover {
+    background-color: darken($colorBrand, $adjustAmount);
+    border-color: darken($colorBrand, $adjustAmount);
+    color: $colorBackground;
+  }
+  &:disabled, &.disabled {
+    cursor: default;
+    background-color: $colorBorder;
+    border-color: $colorBorder;
+    color: darken($colorBorder, $adjustAmount);
+    &:hover {
+      @extend .disabled;
+    }
+  }
+}
+a.button {
+  display: inline-block;
+  text-decoration: none;
+}
+
+// .select-wrapper {
+//   display: inline-block;
+//   position: relative;
+//   &:after {
+//     content: '\2304';
+//     position: absolute;
+//     right: $spacing*2;
+//     top: 0;
+//     bottom: 0;
+//     line-height: 100%;
+//     // font-size: $h1;
+//     color: $colorText;
+//   }
+//   select {
+//     width: 100%;
+//     padding-right: $spacing*5;
+//     &::-ms-expand {
+//       display: none;
+//     }
+//   }
+// }
+
+.errors, .success {
+  padding: $gutter/3.5;
+  margin: $gutter/2 auto;
+  color: $colorBackground;
+  background-color: $colorHighlight;
+  border: $borderWeight $borderStyle $colorHighlight;
+  border-radius: $borderRadius;
+  li {
+    margin-bottom: $gutter/3;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  a {
+    color: $colorBackground;
+  }
+}
+
+// Shopify Form Fixes
+// form#AddToCartForm,
+// #ContactForm form,
+// .popup form,
+// form#customer_login,
+// form#create_customer,
+// #PasswordRecoverForm form,
+// #PasswordResetForm form,
+// #ActivateAccountForm form,
+// form#address_form_new {
+//   input[type="text"],
+//   input[type="email"],
+//   input[type="number"],
+//   input[type="tel"],
+//   input[type="password"],
+//   textarea,
+//   .select-wrapper,
+//   .province-wrapper,
+//   button, .button {
+//     width: 100%;
+//     @include clearfix();
+//     &:not(:last-child) {
+//       margin-bottom: $spacing*2;
+//     }
+//   }
+// }
+//
+// // Wide Forms
+// form#AddToCartForm,
+// form#contact_form,
+// .popup form,
+// form#customer_login,
+// form#create_customer,
+// #PasswordRecoverForm form,
+// #PasswordResetForm form,
+// #ActivateAccountForm form,
+// form#CartPage {
+//   display: block;
+//   width: 100%;
+// }
+
+// Responsive Forms
+@include s() {
+  form,
+  button, .button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  // .select-wrapper,
+  // .province-wrapper
+                       {
+    width: 100%;
+    @include clearfix();
+    &:not(:last-child) {
+      margin-bottom: $spacing*2;
+    }
+  }
+}

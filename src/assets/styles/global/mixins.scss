@@ -1,10 +1,15 @@
 /* Mixin variables ===========================================================*/
+
 $prefixes: webkit moz ms spec;
 
 /* Mixins ====================================================================*/
 
-// Prefixer
-// See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss
+/**
+* Prefixer
+*
+* See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss
+**/
+
 @mixin prefixer($property, $value, $prefixes:$prefixes) {
   @each $prefix in $prefixes {
     @if $prefix == webkit {
@@ -23,8 +28,42 @@ $prefixes: webkit moz ms spec;
   }
 }
 
-// PX to REM conversion
-// Usage: font-size: rem(32px);
-@function rem($px, $base: $fontBaseSize) {
-  @return ($px / $base) * 1rem;
+/**
+* Clearfix
+* Forces an element to self-clear its children
+*
+* Usage:
+* .selector {
+*   @include clearfix;
+* }
+**/
+
+@mixin clearfix() {
+  // display: block;
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  *zoom: 1;
+}
+
+/**
+* Hide element but make it accessible to screen readers
+*
+* Usage:
+* .selector {
+*   @include visually-hidden;
+* }
+**/
+@mixin visually-hidden() {
+  // stylelint-disable-next-line
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
 }

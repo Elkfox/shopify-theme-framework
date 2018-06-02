@@ -1,6 +1,56 @@
 <!-- section/theme-footer.liquid -->
 
-<footer class="container l">
+<!-- TO DO -->
+
+{%- assign footer_linklist = section.settings.footer_linklist -%}
+
+<footer class="container l margin-top-4x padding-bottom-4x">
   <hr>
-  <small>&copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}</small>
+  {%- comment -%}
+    Footer navigation menu
+  {%- endcomment -%}
+  {% if linklists[footer_linklist].links.size > 0 %}
+    <ul class="inline margin-top-2x margin-bottom-2x">
+      {% for link in linklists[footer_linklist].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {%- comment -%}
+    Available payment gateway icons
+  {%- endcomment -%}
+  {% if section.settings.show_payment_icons %}
+    {% unless shop.enabled_payment_types == empty %}
+      <p class="center margin-bottom-2x">
+        Payment gateway icons
+      </p>
+    {% endunless %}
+  {% endif %}
+  {%- comment -%}
+    Footer copyright notice
+  {%- endcomment -%}
+  <p class="center">
+    <small>&copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {{ powered_by_link }}</small>
+  </p>
 </footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      }
+    ]
+  }
+
+{% endschema %}

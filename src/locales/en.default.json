@@ -16,17 +16,6 @@
     "log_in": "Log in",
     "create_account": "Create account"
   },
-  "cart": {
-    "title": "Cart",
-    "item_count": {
-      "one": "item",
-      "other": "items"
-    }
-  },
-  "search": {
-    "title": "Search",
-    "submit": "Submit"
-  },
   "collection": {
     "no_matches": "Sorry, there are no products in this collection",
     "with_count": {
@@ -34,13 +23,13 @@
       "other": "{{ count }} items"
     },
     "view": {
-      "title": "View:",
+      "title": "View",
       "label": "View as {{ view }} products",
       "grid": "Grid",
       "list": "List"
     },
     "sort": {
-      "title": "Sort:",
+      "title": "Sort",
       "manual": "Featured",
       "best-selling": "Best selling",
       "title-ascending": "Alphabetically, A-Z",
@@ -61,5 +50,37 @@
     "on_sale": "On sale",
     "original_price": "Originaly",
     "sold_out": "Sold out"
+  },
+  "cart": {
+    "title": "Cart",
+    "view_cart": "View cart",
+    "product": "Product",
+    "sku": "SKU",
+    "price": "Price",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Checkout",
+    "update": "Update",
+    "shipping_at_checkout": "Shipping calculated at checkout",
+    "remove": "Remove",
+    "empty": "Your cart is empty",
+    "notes": "Order notes",
+    "item_count": {
+      "one": "item",
+      "other": "items"
+    }
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email address",
+    "phone": "Phone",
+    "message": "Message",
+    "send": "Send",
+    "email_sent": "Thanks for contacting us. We'll get back to you as soon as possible."
+  },
+  "search": {
+    "title": "Search",
+    "submit": "Submit"
   }
 }

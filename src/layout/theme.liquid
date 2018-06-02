@@ -18,7 +18,6 @@ MIT License
 <head>
 {% include 'meta-general' %}
 {% include 'meta-social' %}
-{% include 'meta-schema' %}
 {% include 'style-tags' %}
 {% include 'script-tags', layout: 'theme' %}
 {{ content_for_header }}
@@ -29,5 +28,6 @@ MIT License
     {{ content_for_layout }}
   </main>
   {% section 'theme-footer' %}
+  {% include 'meta-schema' %}
 </body>
 </html>

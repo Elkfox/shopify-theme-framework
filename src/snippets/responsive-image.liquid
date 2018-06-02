@@ -44,6 +44,7 @@
   }
   #ImageWrapper-{{ image.id }}-{{ responsive_image_counter }} {
     max-width: {{ max_width_image }}px;
+    {% if width %}width:{{ width }}px;{% endif %}
   }
 
   #ImageWrapper-{{ image.id }}-{{ responsive_image_counter }}::before {
