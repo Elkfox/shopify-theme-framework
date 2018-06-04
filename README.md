@@ -26,13 +26,15 @@ https://concrete-theme.myshopify.com
 * Consider removing .map files on build
 * Mod responsive-images to allow for our custom background image ratio techniques
 * RTE styling
+* Resonsive video css, and js?
+* no-script detection?
+* no-cookie detection, specifically for cart layout?
 
 ### Layouts
 
-* Basic Header layout
-  * Including search styling?
+* 404 page
 * Basic Footer layout
-  * Social icons
-  * Payment icons
   * Subscribe form
 * Add mandatory home page sections
+* Customer Address layout
+* Customer account & orders layouts... needs better basic layout, ideally free of any table concepts, but responsive-tables if necessary

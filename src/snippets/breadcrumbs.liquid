@@ -1,0 +1,70 @@
+<!-- /snippets/breadcrumbs.liquid -->
+
+{%- capture breadcrumb_divider -%}<span aria-hidden="true">&rsaquo;</span>{%- endcapture -%}
+
+<ol class="inline margin-bottom-2x">
+  <li>
+    <a href="/">{{ 'general.home' | t }}</a>
+  </li>
+  {% if template contains 'product' %}
+    {% if collection %}
+      {{ breadcrumb_divider }}
+      {% if collection.handle %}
+        {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+        {{ collection.title | link_to: url }}
+      {% endif %}
+    {% endif %}
+    {{ breadcrumb_divider }}
+    <li>{{ product.title }}</li>
+  {% elsif template == 'collection' and collection.handle %}
+    {{ breadcrumb_divider }}
+    {% if current_tags %}
+      {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+      {{ collection.title | link_to: url }}
+      {{ breadcrumb_divider }}
+      <li>{{ current_tags | join: " + " }}</li>
+    {% else %}
+      <li>{{ collection.title }}</li>
+    {% endif %}
+  {% elsif template == 'blog' %}
+    {{ breadcrumb_divider }}
+    {% if current_tags %}
+      {{ blog.title | link_to: blog.url }}
+      {{ breadcrumb_divider }}
+      <li>{{ current_tags | join: " + " }}</li>
+    {% else %}
+    <li>{{ blog.title }}</li>
+    {% endif %}
+  {% elsif template == 'article' %}
+    {{ breadcrumb_divider }}
+    {{ blog.title | link_to: blog.url }}
+    {{ breadcrumb_divider }}
+    <li>{{ article.title }}</li>
+  {% elsif template == 'page' %}
+    {{ breadcrumb_divider }}
+    <li>{{ page.title }}</li>
+  {% elsif template == 'search' and search.performed %}
+    {% capture search_url %}/search/{% endcapture %}
+    {{ breadcrumb_divider }}
+    <li>{{ 'search.title' | t | link_to: search_url }}</li>
+    {{ breadcrumb_divider }}
+    <li>{{ search.terms }}</li>
+  {% elsif template contains 'customers' %}
+    {{ breadcrumb_divider }}
+    {% capture account_url %}/account/{% endcapture %}
+    {% if template contains 'addresses' %}
+      <li>{{ 'customer.account.title' | t | link_to: account_url }}</li>
+      {{ breadcrumb_divider }}
+      <li>{{ 'customer.addresses.title' | t }}</li>
+    {% elsif template contains 'order' %}
+      <li>{{ 'customer.account.title' | t | link_to: account_url }}</li>
+      {{ breadcrumb_divider }}
+      <li>{{ 'customer.orders.title' | t }}</li>
+    {% else %}
+      <li>{{ page_title }}</li>
+    {% endif %}
+  {% else %}
+    {{ breadcrumb_divider }}
+    <li>{{ page_title }}</li>
+  {% endif %}
+</ol>

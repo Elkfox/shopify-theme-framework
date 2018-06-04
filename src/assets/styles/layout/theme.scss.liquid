@@ -3,143 +3,92 @@
 * @import url('./global/form.scss');
 **/
 
-// TESTING
-$adjustAmount: 10%;
-$colorHighlight: lighten({{ settings.color_alternate }}, $adjustAmount*2);
-
-
-
-
-
-
-// @import 'normalize.css/normalize';
 @import '~normalize.css/normalize';
 
 @import url('../global/variables.scss.liquid');
-@import url('../global/mixins.scss');
-
+@import url('../global/grid50.mixins.scss');
 @import url('../global/grid50.reset.scss');
+
+@import url('../global/typography.scss');
+
 @import url('../global/grid50.scss');
 @import url('../global/grid50.helpers.scss');
-@import url('../global/grid50.forms.scss');
 
-@import url('../global/fonts.scss');
+@import url('../global/forms.scss');
 @import url('../global/media.scss');
+@import url('../global/social.scss');
 
+@import url('../global/animation.scss');
 
+/* Global ====================================================================*/
 
-// EXPERIMENTAL!!!!!!
-//
-// * div {
-//   overflow: auto
-// }
+body {
+  background-color: $colorBackground;
+  color: $colorText;
+}
 
-
-
-// START TEMPORARY
-
-  body {
-    font-size: $fontBaseSize;
-
-    font-family: $fontBodyFamily;
-    font-weight: $fontBodyWeight;
-    line-height: $fontBaseLineHeight;
-
-    background-color: $colorBackground;
-    color: $colorText;
+a {
+  color: $colorBrand;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
   }
-  p {
-    font-size: 1rem;
-  }
-  a {
-    color: $colorBrand;
-  }
-  h1, h2, h3, h4, h5, h6,
-  .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: $fontHeadingFamily;
-    font-weight: $fontHeadingWeight;
-    line-height: $fontBaseLineHeight*0.85;
+}
+
+img {
+  max-width: 100%;
+}
+
+hr {
+  display: block;
+  height: $borderWeight;
+  border: 0;
+  border-top: $borderWeight $borderStyle $colorBorder;
+}
+
+/* Helpers ===================================================================*/
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+/* RTE containers ============================================================*/
+
+.rte {
+  p:not(:last-child) {
     margin-bottom: 1rem;
   }
-  h1, .h1 {
-    font-size: 2.5rem;
-  }
-  h2, .h2 {
-    font-size: 2rem;
-  }
-  h3, .h3 {
-    font-size: 1.75rem;
-  }
-  h4, .h4 {
-    font-size: 1.5rem;
-  }
-  h5, .h5 {
-    font-size: 1.25rem;
-  }
-  h6, .h6 {
-    font-size: 1rem;
-  }
-  small {
-    font-size: 0.8rem;
-  }
-  b, strong {
-    font-weight: bold;
-  }
-  em, i {
-    font-style: italic;
-  }
+}
 
-  img {
-    max-width: 100%;
+/* Header ================================================================*/
+
+header {
+  .logo {
+    margin: 0;
   }
-  hr {
-    display: block;
-    height: $borderWeight;
-    border: 0;
-    border-top: $borderWeight $borderStyle $colorBorder;
-  }
+}
 
+/* Navigation ================================================================*/
 
-
-  header {
-    .logo {
-      margin: 0;
-    }
-  }
-
-
-  .visually-hidden {
-    @include visually-hidden;
-  }
-
-
-  .rte {
-    p:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-
-
-
-
-
-/* Navigation =================================================================*/
+/**
+* The starting point for dropdown menus is about as light as is possible
+**/
 
 nav {
   ul {
     > li {
-      padding: $spacing/4;
       position: relative;
       ul {
         display: none;
         position: absolute;
         top: 100%;
         z-index: 2;
-        // START Demo styles
+
+        // Demo styles
         border: $borderWeight $borderStyle $colorBrand;
         background-color: $colorBackground;
         padding: $spacing;
-        // END Demo styles
+
         li {
           display: block;
         }
@@ -153,5 +102,77 @@ nav {
   }
 }
 
+/* Mini cart =================================================================*/
 
-// END TEMPORARY
+/**
+* The mini cart is provided as a simple demo of a non-Ajax cart summary
+**/
+
+#MiniCart {
+  position: relative;
+  > div {
+    display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 2;
+
+    // Demo styles
+    border: $borderWeight $borderStyle $colorBrand;
+    background-color: $colorBackground;
+    padding: $spacing;
+    img {
+      float: left;
+      margin-right: $spacing;
+    }
+
+  }
+  &:hover {
+    > div {
+      display: block;
+    }
+  }
+}
+
+/* Customers =================================================================*/
+
+/**
+* The 'form-container' class makes Shopify forms behave nicely
+**/
+
+.form-container {
+  max-width: 25em;
+  margin: 0 auto;
+  form {
+    width: 100%;
+  }
+  // Add the class 'wide' to make the form grow to fit the parent element
+  &.wide {
+    max-width: 100%;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="password"],
+  textarea {
+    width: 100%;
+    @include clearfix();
+    &:not(:last-child) {
+      margin-bottom: $spacing;
+    }
+  }
+}
+
+// Responsive Forms
+@include s() {
+  form,
+  button, .button,
+  input,
+  textarea {
+    width: 100%;
+    @include clearfix();
+    &:not(:last-child) {
+      margin-bottom: $spacing*2;
+    }
+  }
+}

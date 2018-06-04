@@ -1,12 +1,14 @@
-/* Grid50 Variables ==========================================================*/
+/**
+* Requires the following variables:
+* $gutter: 50px;
+* // Screen Sizes
+* $s: 600px;
+* $m: 850px;
+* $l: 1150px;
+* $xl: 1450px;
+**/
 
-$gutter: 50px;
-
-// Screen Sizes
-$s: 600px;
-$m: 850px;
-$l: 1150px;
-$xl: 1450px;
+/* Grid50 mixins =============================================================*/
 
 // Flex Grids
 @mixin flex() {

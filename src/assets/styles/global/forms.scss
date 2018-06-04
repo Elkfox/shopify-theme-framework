@@ -1,19 +1,16 @@
+/**
+* Styles for forms
+* Includes additional styles for Shopify forms
+*
+* Requirements: grid50.scss
+**/
+
 /* Form Variables ============================================================*/
 
-$fontBaseSize: 16px;
-$formFieldHeight: $fontBaseSize*3;
+$formFieldHeight: $fontBaseSize*2.75;
 $colorPlaceholder: $colorBorder;
 
 /* Form Styling ==============================================================*/
-
-// input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-//   text-indent: 0;
-// }
-
-
-// form {
-//   max-width: 100%;
-// }
 
 // Input Styling
 input[type="text"],
@@ -30,13 +27,12 @@ select {
   border-radius: $borderRadius;
   padding: 0 $fontBaseSize;
   text-indent: 0;
-
   @include prefixer(appearance, none);
 
   // @include transition();
 
   &.error {
-    // border-color: $colorHighlight;
+    border-color: $colorPlaceholder;
   }
   // Webkit Placeholders
   &::placeholder,
@@ -50,11 +46,6 @@ select {
     color: $colorPlaceholder;
     text-indent: 0;
   }
-  // Safari Placeholders
-  // &::-webkit-textfield-decoration-container {
-  //   display: block;
-  // }
-
   // Webkit Autofill
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -62,7 +53,7 @@ select {
     border: $borderWeight $borderStyle $colorBorder;
     border-radius: $borderRadius;
     -webkit-text-fill-color: $colorText;
-    -webkit-box-shadow: 0 0 0px $gutter*100 rgba($colorHighlight, 0.35) inset;
+    -webkit-box-shadow: 0 0 0px $gutter*100 rgba($colorPlaceholder, 0.35) inset;
   }
   // Firefox Selector Options
   option {
@@ -75,20 +66,15 @@ select {
 textarea {
   height: initial;
   resize: horizontal;
-  // line-height: $lineHeight;
   line-height: inherit;
-  // padding: $gutter/2;
-  font-family: inherit; // For Firefox
+  padding: $spacing;
+  // For Firefox
+  font-family: inherit;
 }
 
 // Labels
 label {
-  // display: block;
-  // font-size: $h5;
-  // font-weight: $fontBold;
-  // line-height: $lineHeight;
-  // margin-bottom: $lineHeight/2;
-  // @include clearfix(); TBC ?????????
+  font-weight: $fontBold;
 }
 
 // Checkboxes
@@ -133,31 +119,41 @@ input[type="reset"] {
   padding: 0 $fontBaseSize;
   border: $borderWeight $borderStyle $colorBrand;
   border-radius: $borderRadius;
+  background-color: $colorBrand;
   text-align: center;
-  color: $colorBrand;
+  color: $colorBackground;
   cursor: pointer;
-
   @include prefixer(appearance, none);
+
   // @include transition();
 
   &:hover {
-    background-color: darken($colorBrand, $adjustAmount);
-    border-color: darken($colorBrand, $adjustAmount);
-    color: $colorBackground;
+    background-color: $colorBackground;
+    color: $colorBrand;
   }
   &:disabled, &.disabled {
     cursor: default;
     background-color: $colorBorder;
     border-color: $colorBorder;
-    color: darken($colorBorder, $adjustAmount);
+    color: $colorBackground;
     &:hover {
       @extend .disabled;
+    }
+  }
+  &.unstyled {
+    background-color: transparent;
+    height: initial;
+    border: none;
+    @extend a;
+    &:hover {
+      @extend a:hover;
     }
   }
 }
 a.button {
   display: inline-block;
   text-decoration: none;
+  line-height: $formFieldHeight - ($borderWeight*2);
 }
 
 // .select-wrapper {
@@ -186,8 +182,8 @@ a.button {
   padding: $gutter/3.5;
   margin: $gutter/2 auto;
   color: $colorBackground;
-  background-color: $colorHighlight;
-  border: $borderWeight $borderStyle $colorHighlight;
+  background-color: $colorPlaceholder;
+  border: $borderWeight $borderStyle $colorPlaceholder;
   border-radius: $borderRadius;
   li {
     margin-bottom: $gutter/3;
@@ -197,71 +193,5 @@ a.button {
   }
   a {
     color: $colorBackground;
-  }
-}
-
-// Shopify Form Fixes
-// form#AddToCartForm,
-// #ContactForm form,
-// .popup form,
-// form#customer_login,
-// form#create_customer,
-// #PasswordRecoverForm form,
-// #PasswordResetForm form,
-// #ActivateAccountForm form,
-// form#address_form_new {
-//   input[type="text"],
-//   input[type="email"],
-//   input[type="number"],
-//   input[type="tel"],
-//   input[type="password"],
-//   textarea,
-//   .select-wrapper,
-//   .province-wrapper,
-//   button, .button {
-//     width: 100%;
-//     @include clearfix();
-//     &:not(:last-child) {
-//       margin-bottom: $spacing*2;
-//     }
-//   }
-// }
-//
-// // Wide Forms
-// form#AddToCartForm,
-// form#contact_form,
-// .popup form,
-// form#customer_login,
-// form#create_customer,
-// #PasswordRecoverForm form,
-// #PasswordResetForm form,
-// #ActivateAccountForm form,
-// form#CartPage {
-//   display: block;
-//   width: 100%;
-// }
-
-// Responsive Forms
-@include s() {
-  form,
-  button, .button,
-  input[type="button"],
-  input[type="submit"],
-  input[type="reset"],
-  input[type="text"],
-  input[type="email"],
-  input[type="number"],
-  input[type="tel"],
-  input[type="password"],
-  input[type="search"],
-  textarea,
-  // .select-wrapper,
-  // .province-wrapper
-                       {
-    width: 100%;
-    @include clearfix();
-    &:not(:last-child) {
-      margin-bottom: $spacing*2;
-    }
   }
 }

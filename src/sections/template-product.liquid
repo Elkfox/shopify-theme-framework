@@ -1,0 +1,190 @@
+<!-- sections/template-product.liquid -->
+
+{%- assign sold_out = true -%}
+{%- assign on_sale = false -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+{%- if current_variant.compare_at_price > current_variant.price -%}
+  {%- assign on_sale = true -%}
+{%- endif -%}
+
+{%- if current_variant.available -%}
+  {%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign sharing_enabled = section.settings.sharing_enabled -%}
+
+<div class="padding-top-2x"
+     data-section-type="product"
+     data-section-id="{{ section.id }}"
+     data-enable-history-state="true">
+
+  <div class="row">
+    <div class="column l6 m6 s12">
+      <div id="ProductPhoto">
+        {% include 'responsive-image' with
+          image: product.featured_image,
+          max_width: 600,
+          max_height: 900
+        %}
+      </div>
+
+      {% if product.images.size > 1 %}
+        <div id="ProductThumbs" class="row collapse">
+          {% for image in product.images %}
+            <div class="column l3 m4 s4">
+              {% include 'responsive-image' with
+                image: image,
+                max_width: 200,
+                max_height: 300
+              %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="column l6 m6 s12">
+      <h1>{{ product.title }}</h1>
+
+      {%- comment -%}
+        Product pricing
+      {%- endcomment -%}
+      <p class="margin-bottom-2x">
+        <span class="visually-hidden">
+          {{ 'product.regular_price' | t }}
+        </span>
+        <span id="ProductPrice" class="h3">
+          {{ current_variant.price | money }}
+        </span>
+        {% if on_sale %}
+          <span id="OnSale">
+            <span class="hidden">
+              {{ 'product.original_price' | t }}
+            </span>
+            <span>
+              {{ 'product.original_price' | t }}
+            </span>
+            <s id="ComparePrice">
+              {{ product.compare_at_price | money }}
+            </s>
+          </span>
+        {% endif %}
+      </p>
+
+      <form action="/cart/add"
+            method="post"
+            enctype="multipart/form-data"
+            id="AddToCartForm"
+            data-cart-submit>
+
+        {% unless product.options.size == 1 and product.variants[0].title == 'Default Title' %}
+          {% for option in product.options_with_values %}
+            <label {% if option.name == 'default' %}class="hidden"{% endif %}
+                   for="SingleOptionSelector-{{ forloop.index }}">
+              {{ option.name }}
+            </label>
+            <div class="select-wrapper">
+              <select class="single-option-selector"
+                      id="SingleOptionSelector-{{ forloop.index }}"
+                      data-index="option{{ forloop.index }}">
+                {% for value in option.values %}
+                  <option value="{{ value | escape }}"
+                          {%- if option.selected_value == value %}selected="selected"{% endif %}>
+                    {{ value }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endfor %}
+        {% endunless %}
+
+        {%- comment -%}
+          Original variant selector
+          The customer will not see this element
+          TBC - Do we actually need a second selector?????
+        {%- endcomment -%}
+        <div class="hidden">
+          <div class="select-wrapper">
+            <select name="id"
+                    id="productSelect"
+                    data-index="option{{ forloop.index }}">
+              {% for variant in product.variants %}
+                {% if variant.available %}
+                  <option
+                    value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+                  </option>
+                {% else %}
+                  <option disabled="disabled">
+                    {{ variant.title }} - {{ 'product.sold_out' | t }}
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <label for="Quantity" class="visually-hidden">
+          {{ 'product.quantity' | t }}
+        </label>
+        <div class="quantity-adjust inline margin-right-1x">
+          <a class="adjust" data-change="-1">&#8211;</a>
+          <input type="number" id="Quantity" class="quantity" name="quantity" value="1" min="1" data-cart-quantity="1">
+          <a class="adjust" data-change="1">&#43;</a>
+        </div>
+
+        {% if sold_out %}
+          <button type="submit" name="add" data-add-to-cart disabled>
+            <span id="AddToCartText">{{ 'product.sold_out' | t }}</span>
+          </button>
+        {% else %}
+          <button type="submit" name="add" data-add-to-cart>
+            <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
+          </button>
+        {% endif %}
+
+      </form>
+
+      <div class="rte">
+        {{ product.description }}
+      </div>
+
+      <!-- TO DO -->
+      {% if sharing_enabled %}
+        {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% if collection %}
+  {% if collection.previous_product or collection.next_product %}
+    <p class="right">
+      {% if collection.previous_product %}
+        <span class="left">
+          {{ 'general.pagination.previous' | t | link_to: collection.previous_product }}
+        </span>
+      {% endif %}
+      {% if collection.next_product %}
+        <span class="right">
+          {{ 'general.pagination.next' | t | link_to: collection.next_product }}
+        </span>
+      {% endif %}
+    </p>
+  {% endif %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "sharing_enabled",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

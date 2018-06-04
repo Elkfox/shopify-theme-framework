@@ -80,6 +80,9 @@ $fontBold: 700;
     display: inline-block;
   }
 }
+.clearfix {
+  @include clearfix();
+}
 
 // Text Transform
 .uppercase {
@@ -108,48 +111,48 @@ $fontBold: 700;
 
 // Breakpoint Specific
 @include xl() {
-  .xl-hide { display: none !important; }
+  .xl-hide { display: none; }
   .xl-left { text-align: left; }
   .xl-center { text-align: center; }
   .xl-right { text-align: right; }
   .xl-v-middle { vertical-align: middle; }
   .xl-v-top { vertical-align: top; }
   .xl-v-bottom { vertical-align: bottom; }
-  .xl-show { display: block; }
-  .l-show, .m-show, .s-show { display: none !important; }
+  .xl-show { display: inherit !important; }
+  .l-show, .m-show, .s-show { display: none; }
 }
 @include l() {
-  .l-hide { display: none !important; }
+  .l-hide { display: none; }
   .l-left { text-align: left; }
   .l-center { text-align: center; }
   .l-right { text-align: right; }
   .l-v-middle { vertical-align: middle; }
   .l-v-top { vertical-align: top; }
   .l-v-bottom { vertical-align: bottom; }
-  .l-show { display: block; }
-  .xl-show, .m-show, .s-show { display: none !important; }
+  .l-show { display: inherit !important; }
+  .xl-show, .m-show, .s-show { display: none; }
 }
 @include m() {
-  .m-hide { display: none !important; }
+  .m-hide { display: none; }
   .m-left { text-align: left; }
   .m-center { text-align: center; }
   .m-right { text-align: right; }
   .m-v-middle {   vertical-align: middle; }
   .m-v-top { vertical-align: top; }
   .m-v-bottom { vertical-align: bottom; }
-  .m-show { display: block; }
-  .xl-show, .l-show, .s-show { display: none !important; }
+  .m-show { display: inherit !important; }
+  .xl-show, .l-show, .s-show { display: none; }
 }
 @include s() {
-  .s-hide { display: none !important; }
+  .s-hide { display: none; }
   .s-left { text-align: left; }
   .s-center { text-align: center; }
   .s-right { text-align: right; }
   .s-v-middle { vertical-align: middle; }
   .s-v-top { vertical-align: top; }
   .s-v-bottom { vertical-align: bottom; }
-  .s-show { display: block; }
-  .xl-show, .l-show, .m-show { display: none !important; }
+  .s-show { display: inherit !important; }
+  .xl-show, .l-show, .m-show { display: none; }
 }
 
 /* Spacing Helpers ===========================================================*/

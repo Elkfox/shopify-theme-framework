@@ -1,7 +1,7 @@
 /**
 * Cart Template Script
 * ------------------------------------------------------------------------------
-* A file that contains scripts specifically for the art template
+* A file that contains scripts specifically for the cart template
 *
 * @namespace cart
 **/

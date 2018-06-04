@@ -1,0 +1,58 @@
+<!-- snippets/social-sharing.liquid -->
+
+{%- assign permalinkURL = shop.url | append: share_permalink -%}
+{%- assign share_title = share_title | url_param_escape -%}
+{%- assign share_image = share_image | img_url: '1024x1024' -%}
+
+<h5 class="margin-top-2x">
+  {{ 'social.share.title' | t }}
+</h5>
+
+{%- if sharing_enabled -%}
+  {%- if settings.share_facebook %}
+    <a target="_blank"
+       rel="nofollow"
+       href="//www.facebook.com/sharer.php?u={{ permalinkURL }}"
+       class="button share facebook">
+      {{ 'social.share.facebook' | t }}
+    </a>
+  {% endif -%}
+
+  {%- if settings.share_twitter -%}
+    <a target="_blank"
+       rel="nofollow"
+       href="//twitter.com/share?url={{ permalinkURL }}&amp;text={{ share_title }}"
+       class="button share twitter">
+      {{ 'social.share.twitter' | t }}
+    </a>
+  {% endif -%}
+
+  {%- if settings.share_pinterest -%}
+    <a target="_blank"
+       rel="nofollow"
+       href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{{ share_image }}&amp;description={{ share_title }}"
+       class="button share pinterest">
+      {{ 'social.share.pinterest' | t }}
+    </a>
+  {% endif -%}
+
+  {%- if template == 'product' -%}
+    {% if settings.share_fancy -%}
+      <a target="_blank"
+         rel="nofollow"
+         href="http://www.thefancy.com/fancyit?ItemURL={{ permalinkURL }}&amp;Title={{ share_title }}&amp;Category=Other&amp;ImageURL={{ share_image }}"
+         class="button share fancy">
+        {{ 'social.share.fancy' | t }}
+      </a>
+    {% endif -%}
+  {% endif -%}
+
+  {%- if settings.share_google_plus -%}
+    <a target="_blank"
+       rel="nofollow"
+       href="//plus.google.com/share?url={{ permalinkURL }}"
+       class="button share google">
+      {{ 'social.share.google_plus' | t }}
+    </a>
+  {% endif -%}
+{%- endif -%}

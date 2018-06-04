@@ -9,6 +9,12 @@
 
 $inputNumberWidth: $fontBaseSize*3;
 
+.template-cart {
+  form {
+    width: 100%;
+  }
+}
+
 // Quantity adjustment
 .quantity-adjust {
   input[type="number"] {
@@ -21,6 +27,8 @@ $inputNumberWidth: $fontBaseSize*3;
       -webkit-appearance: none;
       margin: 0;
     }
+    // Hide the 'spinner' in Firefox
+    -moz-appearance: textfield;
   }
   a {
     text-decoration: none;

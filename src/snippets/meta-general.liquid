@@ -7,8 +7,8 @@
 {%- assign divider = ' &ndash; ' -%}
 {%- capture seo_title -%}
   {{- page_title -}}
-  {%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' -%}{{ divider }}{{- 'common.meta.tags' | t: tags: meta_tags -}}{%- endif -%}
-  {%- if current_page != 1 -%}{{ divider }}{{ 'common.meta.page' | t: page: current_page -}}{%- endif -%}
+  {%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' -%}{{ divider }}{{- 'general.meta.tags' | t: tags: meta_tags -}}{%- endif -%}
+  {%- if current_page != 1 -%}{{ divider }}{{ 'general.meta.page' | t: page: current_page -}}{%- endif -%}
   {%- assign escaped_page_title = page_title | escape -%}
   {%- unless escaped_page_title contains shop.name -%}{{ divider }}{{- shop.name -}}{%- endunless -%}
 {%- endcapture %}

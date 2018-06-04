@@ -1,5 +1,6 @@
 {
-  "common": {
+  "general": {
+    "home": "Home",
     "meta": {
       "page": "Page {{ page }}",
       "tags": "Tagged with {{ tags }}"
@@ -8,13 +9,6 @@
       "previous": "Previous",
       "next": "Next"
     }
-  },
-  "customer": {
-    "account": "Account",
-    "logged_in_as_html": "Logged in as {{ first_name }}",
-    "log_out": "Log out",
-    "log_in": "Log in",
-    "create_account": "Create account"
   },
   "collection": {
     "no_matches": "Sorry, there are no products in this collection",
@@ -82,5 +76,136 @@
   "search": {
     "title": "Search",
     "submit": "Submit"
+  },
+  "customer": {
+    "account": {
+      "title": "My Account",
+      "details": "Account Details",
+      "view_addresses": "View Addresses",
+      "return": "Return to Account Details",
+      "logged_in_as_html": "Logged in as {{ first_name }}",
+      "logout": "Logout"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create a password to finish setting up your account.",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation"
+    },
+    "addresses": {
+      "title": "Your Addresses",
+      "default": "Default",
+      "add_new": "Add a New Address",
+      "edit_address": "Edit address",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address1",
+      "address2": "Address2",
+      "city": "City",
+      "country": "Country",
+      "province": "Province",
+      "zip": "Postal/Zip Code",
+      "phone": "Phone",
+      "set_default": "Set as default address",
+      "add": "Add Address",
+      "update": "Update Address",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you wish to delete this address?"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "submit": "Sign In",
+      "cancel": "Return to Store",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue",
+      "no_account": "No account?",
+      "forgot_password": "Forgot?"
+    },
+    "orders": {
+      "title": "Order History",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fulfillment Status",
+      "total": "Total",
+      "none": "You haven't placed any orders yet."
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date": "Placed on {{ date }}",
+      "cancelled": "Order Cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "billing_address": "Billing Address",
+      "payment_status": "Payment Status",
+      "shipping_address": "Shipping Address",
+      "fulfillment_status": "Fulfillment Status",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "fulfilled_with_date": "Fulfilled {{ date }}",
+      "track_shipment": "Track shipment",
+      "subtotal": "Subtotal"
+    },
+    "recover_password": {
+      "title": "Forgot your password?",
+      "email": "Email",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "subtext": "Submit the email address you registered to request a password reset email.",
+      "success": "We've sent you an email with a link to update your password."
+    },
+    "reset_password": {
+      "title": "Password reset",
+      "subtext": "Enter a new password for {{ email }}",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "placeholder": "●●●●●●●●",
+      "submit": "Reset Password"
+    },
+    "register": {
+      "title": "Register",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Register",
+      "cancel": "Return to Store"
+    }
+  },
+  "social": {
+    "facebook": "Facebook",
+    "fancy": "Fancy",
+    "google_plus": "Google+",
+    "medium": "Medium",
+    "instagram": "Instagram",
+    "pinterest": "Pinterest",
+    "twitter": "Twitter",
+    "vimeo": "Vimeo",
+    "youtube": "YouTube",
+    "on": "{{ shop }} on {{ social }}",
+    "share": {
+      "title": "Share",
+      "fancy": "Fancy",
+      "google_plus": "+1",
+      "facebook": "Share",
+      "pinterest": "Pin it",
+      "twitter": "Tweet"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y"
   }
 }

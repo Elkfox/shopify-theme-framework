@@ -68,8 +68,33 @@
     {%- comment -%}
       Header cart link and item count
       This href is all on one line to avoid whitespace issues
+
+      The #MiniCart item loop is a simple demo of a non-Ajax cart summary
     {%- endcomment -%}
-    <a href="/cart">{{ 'cart.title' | t }} ({{ cart.item_count }} {{ 'cart.item_count' | t: count: cart.item_count }})</a>
+    <div id="MiniCart">
+      <a href="/cart" id="CartLink">{{ 'cart.title' | t }} ({{ cart.item_count }} {{ 'cart.item_count' | t: count: cart.item_count }})</a>
+      <div>
+        {% for item in cart.items %}
+          <div class="clearfix">
+            <a href="{{ item.url }}">
+              {% if item.image != blank %}
+                <img src="{{ item.image | img_url: '50x80' }}"
+                     srcset="{{ item.image | img_url: '50x80' }} 1x,
+                             {{ item.image | img_url: '50x80', scale: 2 }} 2x"
+                     alt="{{ item.title }}">
+              {% endif %}
+              {{ item.product.title }}
+              <br>
+              {{ item.variant.title }}
+            </a>
+            <br>
+            <small>{{ item.price | money_with_currency }}</small>
+          </div>
+          <hr class="margin-top-1x margin-bottom-1x">
+        {% endfor %}
+        <a href="/cart">{{ 'cart.view_cart' | t }}</a>
+      </div>
+    </div>
 
     <br>
 
@@ -82,15 +107,15 @@
           <li>
             {%- if customer.first_name != blank %}
               {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-              {{ 'customer.logged_in_as_html' | t: first_name: first_name }}
+              {{ 'customer.account.logged_in_as_html' | t: first_name: first_name }}
             {% else %}
               <a href="/account">{{ 'layout.customer.account' | t }}</a>
             {% endif -%}
           </li>
-          <li>{{ 'customer.log_out' | t | customer_logout_link }}</li>
+          <li>{{ 'customer.account.logout' | t | customer_logout_link }}</li>
         {% else %}
-          <li>{{ 'customer.log_in' | t | customer_login_link }}</li>
-          <li>{{ 'customer.create_account' | t | customer_register_link }}</li>
+          <li>{{ 'customer.login.title' | t | customer_login_link }}</li>
+          <li>{{ 'customer.register.title' | t | customer_register_link }}</li>
         {% endif %}
       </ul>
     {% endif %}

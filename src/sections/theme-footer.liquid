@@ -3,6 +3,9 @@
 <!-- TO DO -->
 
 {%- assign footer_linklist = section.settings.footer_linklist -%}
+{% assign social_icons_available = 'twitter,facebook,instagram,pinterest,fancy,google_plus,youtube,vimeo,medium' | split: ',' %}
+{% assign show_social_icons = section.settings.show_social_icons %}
+{% assign show_payment_icons = section.settings.show_payment_icons %}
 
 <footer class="container l margin-top-4x padding-bottom-4x">
   <hr>
@@ -19,11 +22,38 @@
   {%- comment -%}
     Available payment gateway icons
   {%- endcomment -%}
-  {% if section.settings.show_payment_icons %}
+  {% if show_social_icons %}
     {% unless shop.enabled_payment_types == empty %}
-      <p class="center margin-bottom-2x">
-        Payment gateway icons
-      </p>
+      <ul class="block center margin-bottom-2x">
+        {% for social in social_icons_available %}
+          {% capture title %}social.{{ social }}{% endcapture %}
+          {% capture link %}social_{{ social }}_link{% endcapture %}
+          {% if settings[link] != blank %}
+            <li class="inline">
+              <a href="{{ settings[link] }}" title="{{ shop.name }} on {{ title | t }}" target="_blank">
+                {{ title | t }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endunless %}
+  {% endif %}
+  {%- comment -%}
+    Available payment gateways
+  {%- endcomment -%}
+  {% if show_payment_icons %}
+    {% unless shop.enabled_payment_types == empty %}
+      {% assign payment_icons_available = 'amazon_payments,american_express,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' %}
+      <ul class="block center margin-bottom-2x">
+        {% for gateway in shop.enabled_payment_types %}
+          {% if payment_icons_available contains gateway %}
+            <li class="inline">
+              {{ gateway | camelcase | replace:'_',' ' }}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
     {% endunless %}
   {% endif %}
   {%- comment -%}
@@ -43,6 +73,12 @@
         "id": "footer_linklist",
         "label": "First menu",
         "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_icons",
+        "label": "Show social media icons",
+        "default": false
       },
       {
         "type": "checkbox",

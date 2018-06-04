@@ -1,0 +1,43 @@
+<!-- templates/customers/account.liquid -->
+
+{% assign pagination = 20 %}
+
+{% include 'breadcrumbs' %}
+
+<h1>{{ 'customer.account.title' | t }}</h1>
+
+<h4>{{ 'customer.orders.title' | t }}</h4>
+
+{% paginate customer.orders by 20 %}
+  {% if customer.orders.size != 0 %}
+    <div class="row l-table s-hide">
+      <div class="column l2"><b>{{ 'customer.orders.order_number' | t }}</b></div>
+      <div class="column l3"><b>{{ 'customer.orders.date' | t }}</b></div>
+      <div class="column l3"><b>{{ 'customer.orders.payment_status' | t }}</b></div>
+      <div class="column l2"><b>{{ 'customer.orders.fulfillment_status' | t }}</b></div>
+      <div class="column l2 right"><b>{{ 'customer.orders.total' | t }}</b></div>
+    </div>
+    <div class="row l-table m-table">
+      {% for order in customer.orders %}
+        <div class="column l2 s12">{{ order.name | link_to: order.customer_url }}</div>
+        <div class="column l3 s12">{{ order.created_at | date: format: 'month_day_year' }}</div>
+        <div class="column l3 s12">{{ order.financial_status_label }}</div>
+        <div class="column l2 s12">{{ order.fulfillment_status_label }}</div>
+        <div class="column l2 s12 right">{{ order.total_price | money }}</div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>{{ 'customer.orders.none' | t }}</p>
+  {% endif %}
+
+  {% include 'pagination' %}
+
+{% endpaginate %}
+
+<br>
+
+<h4>{{ 'customer.account.details' | t }}</h4>
+
+{{ customer.default_address | format_address }}
+
+<a href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>

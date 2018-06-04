@@ -1,12 +1,12 @@
 // Spacing
-$spacing: 10px !default;
-$gutter: $spacing*5 !default;
+$spacing: 10px;
+$gutter: $spacing*5;
 
 // Screen Sizes
-$s: 600px !default;
-$m: 950px !default;
-$l: 1250px !default;
-$xl: 1500px !default;
+$s: 650px;
+$m: 900px;
+$l: 1250px;
+$xl: 1500px;
 
 // Colors
 $colorBrand: {{ settings.color_brand }};
@@ -15,11 +15,26 @@ $colorBackground: {{ settings.color_background }};
 $colorBorder: {{ settings.color_border }};
 $colorAlternate: {{ settings.color_alternate }};
 
-// Typography
-$fontBaseSize: 16px !default;
-$fontBaseLineHeight: 1.5;
-
 // Borders
 $borderWeight: 1px;
 $borderStyle: solid;
 $borderRadius: 2px;
+
+// Typography
+$fontBaseSize: 16px;
+$fontBaseLineHeight: 1.5;
+
+{{ settings.font_heading | font_face }}
+{{ settings.font_body | font_face }}
+{%- assign font_body_bold = settings.font_body | font_modify: 'weight', 'bolder' -%}
+{%- assign font_body_bold_italic = font_body_bold | font_modify: 'style', 'italic' -%}
+{{ font_body_bold | font_face }}
+{{ font_body_bold_italic | font_face }}
+
+// Headings
+$fontHeadingFamily: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+$fontHeadingWeight: {{ settings.font_heading.weight }};
+
+// Body
+$fontBodyFamily: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+$fontBodyWeight: {{ settings.font_body.weight }};
