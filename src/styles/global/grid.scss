@@ -29,6 +29,20 @@
   margin-left: -($gutter/2);
   margin-right: -($gutter/2);
 
+  // Standard Grid
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  // Reverse Grid
+  &.reverse { @include reverse(); }
+  &.xl-reverse { @include xl() { @include reverse(); } }
+  &.l-reverse { @include l() { @include reverse(); } }
+  &.m-reverse { @include m() { @include reverse(); } }
+  &.s-reverse { @include s() { @include reverse(); } }
+
   // Table Grid
   &.table { @include table(); }
   &.xl-table { @include xl() { @include table(); } }
@@ -36,68 +50,34 @@
   &.m-table { @include m() { @include table(); } }
   &.s-table { @include s() { @include table(); } }
 
-  // Standard Grid
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  &.collapse {
-    margin-left: 0;
-    margin-right: 0;
-    .column {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
+  // Collapsed Grid
+  &.collapse { @include collapse(); }
+  &.xl-collapse { @include xl() { @include collapse(); } }
+  &.l-collapse { @include l() { @include collapse(); } }
+  &.m-collapse { @include m() { @include collapse(); } }
+  &.s-collapse { @include s() { @include collapse(); } }
 }
 
 // Column Grid
-
 .column {
   float: left;
   min-height: 0.125rem;
   padding-left: $gutter/2;
   padding-right: $gutter/2;
-  &.l1 { width: percentage(1/12); }
-  &.l2 { width: percentage(2/12); }
-  &.l3 { width: percentage(3/12); }
-  &.l4 { width: percentage(4/12); }
-  &.l5 { width: percentage(5/12); }
-  &.l6 { width: percentage(6/12); }
-  &.l7 { width: percentage(7/12); }
-  &.l8 { width: percentage(8/12); }
-  &.l9 { width: percentage(9/12); }
-  &.l10 { width: percentage(10/12); }
-  &.l11 { width: percentage(11/12); }
-  &.l12 { width: 100%; }
+  @for $i from 1 through $columns {
+    &.l#{$i} { width: percentage($i/$columns); }
+  }
   @include m() {
-    &.m1 { width: percentage(1/12); }
-    &.m2 { width: percentage(2/12); }
-    &.m3 { width: percentage(3/12); }
-    &.m4 { width: percentage(4/12); }
-    &.m5 { width: percentage(5/12); }
-    &.m6 { width: percentage(6/12); }
-    &.m7 { width: percentage(7/12); }
-    &.m8 { width: percentage(8/12); }
-    &.m9 { width: percentage(9/12); }
-    &.m10 { width: percentage(10/12); }
-    &.m11 { width: percentage(11/12); }
-    &.m12 { width: 100%; }
+    @for $i from 1 through $columns {
+      &.m#{$i} { width: percentage($i/$columns); }
+    }
   }
   @include s() {
-    &.s1 { width: percentage(1/12); }
-    &.s2 { width: percentage(2/12); }
-    &.s3 { width: percentage(3/12); }
-    &.s4 { width: percentage(4/12); }
-    &.s5 { width: percentage(5/12); }
-    &.s6 { width: percentage(6/12); }
-    &.s7 { width: percentage(7/12); }
-    &.s8 { width: percentage(8/12); }
-    &.s9 { width: percentage(9/12); }
-    &.s10 { width: percentage(10/12); }
-    &.s11 { width: percentage(11/12); }
-    &.s12 { width: 100%; }
+    @for $i from 1 through $columns {
+      &.s#{$i} {
+        width: percentage($i/$columns);
+      }
+    }
   }
   // Uniform Height Clearing
   @include l() {
@@ -123,34 +103,33 @@
 // Flex Grid
 .flex {
   @include flex();
-  @include box-orient--vertical();
-  @include flex-direction(column);
-  .row {
-    @include flex();
+  @include box-orient(horizontal);
+  @include flex-flow(row, no-wrap);
+
+  &.row {
     @include flex-direction(row);
-    .box {
-      margin-left: $gutter/2;
-      margin-right: $gutter/2;
-      flex: auto;
-      align-self: center;
-      &:first-child {
-        margin-left: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-      &.center {
-        text-align: center;
-        align-items: center;
-      }
-    }
-    @include s() {
-      @include flex-direction(column);
-      .box {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-      }
+    &.reverse {
+      @include flex-direction(row-reverse);
     }
   }
+  &.wrap {
+    @include flex-wrap(wrap);
+  }
+
+  .h-start { @include justify-content(start); }
+  .h-end { @include justify-content(end); }
+  .h-center { @include justify-content(center); }
+  .h-space-between { @include justify-content(space-between ); }
+  .h-space-around { @include justify-content(space-around); }
+  .h-space-evenly { @include justify-content(space-evenly); }
+
+  .v-start { @include align-content(start); }
+  .v-end { @include align-content(end); }
+  .v-center { @include align-content(center); }
+  .v-space-between { @include align-content(space-between ); }
+  .v-space-around { @include align-content(space-around); }
+  .v-space-evenly { @include align-content(space-evenly); }
+  .v-stretch { @include align-content(stretch); }
+
+  .grow { @include flex-grow(1); }
 }

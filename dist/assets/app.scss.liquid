@@ -27,6 +27,7 @@ $colorBorder: $colorAlternate;
 $adjustAmount: 25%;
 
 // Space & Borders
+$columns: 12;
 $spacing: 10px;
 $gutter: $spacing*5;
 $borderRadius: 2px;
@@ -119,7 +120,7 @@ $prefixes: webkit moz ms spec;
   }
 }
 @mixin m-l() {
-  @media (min-width: $s + 1px) and (max-width: $l) {
+  @media (min-width: $s + 1px) and (max-width: $xl - 1px) {
     @content;
   }
 }
@@ -141,19 +142,38 @@ $prefixes: webkit moz ms spec;
 
 // Flex
 @mixin flex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
-  display: -webkit-flex;
-  display: flex;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  display: -ms-flexbox !important;
+  display: -webkit-box !important;
+  display: -webkit-flexbox !important;
+  display: -webkit-flex !important;
+  display: flex !important;
 }
-@mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical);
+@mixin flex-direction($direction) {
+  @include prefixer(flex-direction, $direction);
 }
-@mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction);
+@mixin flex-wrap($wrap) {
+  @include prefixer(flex-wrap, $wrap);
+}
+@mixin flex-flow($direction, $wrap) {
+  @include flex-direction($direction);
+  @include flex-wrap($wrap);
+}
+@mixin flex-grow($grow) {
+  @include prefixer(flex-grow, $grow);
+}
+@mixin box-orient($orient) {
+  @include prefixer(box-orient, $orient);
+}
+@mixin align-items($align) {
+  @include prefixer(align-items, $align);
+}
+@mixin align-content($align) {
+  @include prefixer(align-content, $align);
+}
+@mixin justify-content($justify) {
+  @include prefixer(justify-content, $justify);
 }
 
 // Table Grids
@@ -166,21 +186,31 @@ $prefixes: webkit moz ms spec;
   > .column {
     float: none;
     display: table-cell;
-    &.middle {
-      vertical-align: middle;
-    }
-    &.top {
-      vertical-align: top;
-    }
-    &.bottom {
-      vertical-align: bottom;
-    }
     &:first-of-type {
       padding-left: 0;
     }
     &:last-of-type {
       padding-right: 0;
     }
+  }
+}
+
+// Reverse Grid
+@mixin reverse() {
+  direction: rtl;
+  > .column {
+    direction: ltr;
+    float: right;
+  }
+}
+
+// Collapsed Columns
+@mixin collapse() {
+  margin-left: 0;
+  margin-right: 0;
+  > .column {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -593,6 +623,20 @@ a.button {
   margin-left: -($gutter/2);
   margin-right: -($gutter/2);
 
+  // Standard Grid
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  // Reverse Grid
+  &.reverse { @include reverse(); }
+  &.xl-reverse { @include xl() { @include reverse(); } }
+  &.l-reverse { @include l() { @include reverse(); } }
+  &.m-reverse { @include m() { @include reverse(); } }
+  &.s-reverse { @include s() { @include reverse(); } }
+
   // Table Grid
   &.table { @include table(); }
   &.xl-table { @include xl() { @include table(); } }
@@ -600,68 +644,34 @@ a.button {
   &.m-table { @include m() { @include table(); } }
   &.s-table { @include s() { @include table(); } }
 
-  // Standard Grid
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  &.collapse {
-    margin-left: 0;
-    margin-right: 0;
-    .column {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
+  // Collapsed Grid
+  &.collapse { @include collapse(); }
+  &.xl-collapse { @include xl() { @include collapse(); } }
+  &.l-collapse { @include l() { @include collapse(); } }
+  &.m-collapse { @include m() { @include collapse(); } }
+  &.s-collapse { @include s() { @include collapse(); } }
 }
 
 // Column Grid
-
 .column {
   float: left;
   min-height: 0.125rem;
   padding-left: $gutter/2;
   padding-right: $gutter/2;
-  &.l1 { width: percentage(1/12); }
-  &.l2 { width: percentage(2/12); }
-  &.l3 { width: percentage(3/12); }
-  &.l4 { width: percentage(4/12); }
-  &.l5 { width: percentage(5/12); }
-  &.l6 { width: percentage(6/12); }
-  &.l7 { width: percentage(7/12); }
-  &.l8 { width: percentage(8/12); }
-  &.l9 { width: percentage(9/12); }
-  &.l10 { width: percentage(10/12); }
-  &.l11 { width: percentage(11/12); }
-  &.l12 { width: 100%; }
+  @for $i from 1 through $columns {
+    &.l#{$i} { width: percentage($i/$columns); }
+  }
   @include m() {
-    &.m1 { width: percentage(1/12); }
-    &.m2 { width: percentage(2/12); }
-    &.m3 { width: percentage(3/12); }
-    &.m4 { width: percentage(4/12); }
-    &.m5 { width: percentage(5/12); }
-    &.m6 { width: percentage(6/12); }
-    &.m7 { width: percentage(7/12); }
-    &.m8 { width: percentage(8/12); }
-    &.m9 { width: percentage(9/12); }
-    &.m10 { width: percentage(10/12); }
-    &.m11 { width: percentage(11/12); }
-    &.m12 { width: 100%; }
+    @for $i from 1 through $columns {
+      &.m#{$i} { width: percentage($i/$columns); }
+    }
   }
   @include s() {
-    &.s1 { width: percentage(1/12); }
-    &.s2 { width: percentage(2/12); }
-    &.s3 { width: percentage(3/12); }
-    &.s4 { width: percentage(4/12); }
-    &.s5 { width: percentage(5/12); }
-    &.s6 { width: percentage(6/12); }
-    &.s7 { width: percentage(7/12); }
-    &.s8 { width: percentage(8/12); }
-    &.s9 { width: percentage(9/12); }
-    &.s10 { width: percentage(10/12); }
-    &.s11 { width: percentage(11/12); }
-    &.s12 { width: 100%; }
+    @for $i from 1 through $columns {
+      &.s#{$i} {
+        width: percentage($i/$columns);
+      }
+    }
   }
   // Uniform Height Clearing
   @include l() {
@@ -687,36 +697,35 @@ a.button {
 // Flex Grid
 .flex {
   @include flex();
-  @include box-orient--vertical();
-  @include flex-direction(column);
-  .row {
-    @include flex();
+  @include box-orient(horizontal);
+  @include flex-flow(row, no-wrap);
+
+  &.row {
     @include flex-direction(row);
-    .box {
-      margin-left: $gutter/2;
-      margin-right: $gutter/2;
-      flex: auto;
-      align-self: center;
-      &:first-child {
-        margin-left: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-      &.center {
-        text-align: center;
-        align-items: center;
-      }
-    }
-    @include s() {
-      @include flex-direction(column);
-      .box {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-      }
+    &.reverse {
+      @include flex-direction(row-reverse);
     }
   }
+  &.wrap {
+    @include flex-wrap(wrap);
+  }
+
+  .h-start { @include justify-content(start); }
+  .h-end { @include justify-content(end); }
+  .h-center { @include justify-content(center); }
+  .h-space-between { @include justify-content(space-between ); }
+  .h-space-around { @include justify-content(space-around); }
+  .h-space-evenly { @include justify-content(space-evenly); }
+
+  .v-start { @include align-content(start); }
+  .v-end { @include align-content(end); }
+  .v-center { @include align-content(center); }
+  .v-space-between { @include align-content(space-between ); }
+  .v-space-around { @include align-content(space-around); }
+  .v-space-evenly { @include align-content(space-evenly); }
+  .v-stretch { @include align-content(stretch); }
+
+  .grow { @include flex-grow(1); }
 }
 
 /* Forms =====================================================================*/
@@ -912,6 +921,17 @@ form#CartPage {
   }
 }
 
+// Toggled Nav
+.theme-nav-toggled {
+  .dropdown-menu {
+    display: none;
+    margin-left: $spacing;
+    &.visible {
+      display: block;
+    }
+  }
+}
+
 // Pagination
 .pagination {
   a, .page.current {
@@ -958,25 +978,25 @@ form#CartPage {
 
 /* Toggle Side Menu ==========================================================*/
 
-.theme-nav-toggled {
+.drawer {
   z-index: 9995;
   position: fixed;
   width: 100%;
   max-width: 100%;
   height: 100%;
   padding: $gutter;
-  @include transition-property(); // For legacy support
-  @include prefixer(transition-duration, 0.3s);
+  @include transition();
   @include prefixer(transition-delay, 0.3s);
   &.from-left {
     top: 0;
     left: 0;
+    max-width: $s;
     @include prefixer(transform, translate3d(-100%, 0, 0));
-    max-width: 350px;
   }
   &.from-right {
     top: 0;
     right: 0;
+    max-width: $s;
     @include prefixer(transform, translate3d(100%, 0, 0));
   }
   &.from-bottom {
@@ -989,23 +1009,17 @@ form#CartPage {
   }
   &.visible {
     @include prefixer(transform, translate3d(0, 0, 0));
+    @include prefixer(transition-delay, 0s);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  // Demo styling
-  background-color: $colorText;
-  color: $colorBackground;
-  a {
-    color: $colorBackground;
-  }
-  .nav-toggled-close {
+  .drawer-close {
     display: block;
     position: absolute;
     top: $gutter/2;
     right: $gutter/2;
   }
-  &.from-left, &.from-right { width: 400px; max-width: 90%; }
 }
 
 /* Popups ====================================================================*/
@@ -1088,7 +1102,6 @@ form#CartPage {
 }
 
 // Popup Cart
-
 #PopupCart {
   .popup-content {
     width: 400px;
@@ -1102,7 +1115,6 @@ form#CartPage {
 }
 
 // Popup Account
-
 #PopupAccount {
   .popup-content {
     width: 400px;

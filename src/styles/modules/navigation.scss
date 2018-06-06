@@ -35,6 +35,17 @@
   }
 }
 
+// Toggled Nav
+.theme-nav-toggled {
+  .dropdown-menu {
+    display: none;
+    margin-left: $spacing;
+    &.visible {
+      display: block;
+    }
+  }
+}
+
 // Pagination
 .pagination {
   a, .page.current {

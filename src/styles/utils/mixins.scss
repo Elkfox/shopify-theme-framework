@@ -47,7 +47,7 @@
   }
 }
 @mixin m-l() {
-  @media (min-width: $s + 1px) and (max-width: $l) {
+  @media (min-width: $s + 1px) and (max-width: $xl - 1px) {
     @content;
   }
 }
@@ -69,19 +69,38 @@
 
 // Flex
 @mixin flex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
-  display: -webkit-flex;
-  display: flex;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  display: -ms-flexbox !important;
+  display: -webkit-box !important;
+  display: -webkit-flexbox !important;
+  display: -webkit-flex !important;
+  display: flex !important;
 }
-@mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical);
+@mixin flex-direction($direction) {
+  @include prefixer(flex-direction, $direction);
 }
-@mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction);
+@mixin flex-wrap($wrap) {
+  @include prefixer(flex-wrap, $wrap);
+}
+@mixin flex-flow($direction, $wrap) {
+  @include flex-direction($direction);
+  @include flex-wrap($wrap);
+}
+@mixin flex-grow($grow) {
+  @include prefixer(flex-grow, $grow);
+}
+@mixin box-orient($orient) {
+  @include prefixer(box-orient, $orient);
+}
+@mixin align-items($align) {
+  @include prefixer(align-items, $align);
+}
+@mixin align-content($align) {
+  @include prefixer(align-content, $align);
+}
+@mixin justify-content($justify) {
+  @include prefixer(justify-content, $justify);
 }
 
 // Table Grids
@@ -94,21 +113,31 @@
   > .column {
     float: none;
     display: table-cell;
-    &.middle {
-      vertical-align: middle;
-    }
-    &.top {
-      vertical-align: top;
-    }
-    &.bottom {
-      vertical-align: bottom;
-    }
     &:first-of-type {
       padding-left: 0;
     }
     &:last-of-type {
       padding-right: 0;
     }
+  }
+}
+
+// Reverse Grid
+@mixin reverse() {
+  direction: rtl;
+  > .column {
+    direction: ltr;
+    float: right;
+  }
+}
+
+// Collapsed Columns
+@mixin collapse() {
+  margin-left: 0;
+  margin-right: 0;
+  > .column {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
