@@ -1,3 +1,0 @@
-Stable build release
-
-Documentation
