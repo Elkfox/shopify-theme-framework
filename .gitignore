@@ -67,3 +67,4 @@ secrets.json
 .ruby-version
 /Migration
 package-lock.json
+NOTES.md
