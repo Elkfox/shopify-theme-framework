@@ -1,0 +1,106 @@
+/**
+* Simple Flex Grid
+* Requires: grid50.scss, grid50.mixins.scss
+*
+* See https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+**/
+
+/* Grid50 flex mixins ========================================================*/
+
+/**
+* Available flex properties
+**/
+@mixin flex-direction($direction) {
+  @include prefixer(flex-direction, $direction);
+}
+@mixin flex-wrap($wrap) {
+  @include prefixer(flex-wrap, $wrap);
+}
+@mixin flex-flow($direction, $wrap) {
+  @include prefixer(flex-flow, $direction $wrap);
+}
+@mixin flex-distribution($grow) {
+  @include prefixer(flex, $grow);
+}
+@mixin flex-align($property, $align) {
+  @include prefixer(align-#{$property}, $align);
+}
+@mixin flex-justify($justify) {
+  @include prefixer(justify-content, $justify);
+  > .column {
+    @include flex-distribution(0 0 auto);
+  }
+}
+/**
+* Basic flex row
+**/
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  @include flex-flow(row, wrap);
+
+  /**
+  * Row flex modes
+  **/
+  // Row behaviour
+  &.nowrap { @include flex-wrap(nowrap); }
+  &.vertical { @include flex-direction(column); }
+  // Horizontal alignment
+  &.h-start { @include flex-justify(flex-start); }
+  &.h-center { @include flex-justify(center); }
+  &.h-end { @include flex-justify(flex-end); }
+  &.h-space-between { @include flex-justify(space-between ); }
+  &.h-space-around { @include flex-justify(space-around); }
+  &.h-space-evenly { @include flex-justify(space-evenly); }
+  // Vertical alignment
+  &.v-start { @include flex-align(items, flex-start); }
+  &.v-center { @include flex-align(items, center); }
+  &.v-end { @include flex-align(items, flex-end); }
+  &.v-baseline { @include flex-align(items, baseline); }
+  &.v-stretch { @include flex-align(items, stretch); }
+  &.v-space-between { @include flex-align(content, space-between ); }
+  &.v-space-around { @include flex-align(content, space-around); }
+  // Remove clearfixes (they aren't needed and don't play nicely with flex)
+  &:after { content: normal; }
+  /**
+  * Flex items, with flex modes
+  **/
+  > .column {
+    float: none;
+    @include flex-distribution(auto);
+    &.grow { @include flex-distribution(1); }
+    &.shrink { @include flex-distribution(0); }
+    // Individual vertical alignment
+    &.v-start { @include flex-align(self, flex-start); }
+    &.v-center { @include flex-align(self, center); }
+    &.v-end { @include flex-align(self, flex-end); }
+    &.v-baseline { @include flex-align(self, baseline); }
+    &.v-stretch { @include flex-align(self, stretch); }
+  }
+}
+/**
+* Column widths
+**/
+@mixin column($width) {
+  width: $width;
+  .flex & {
+    width: auto;
+    @include flex-distribution(0 0 $width);
+  }
+}
+
+/* Grid50 flex grids =========================================================*/
+
+.row {
+  // Flex Grid
+  &.flex { @include flex(); }
+  &.xl-flex { @include xl() { @include flex(); } }
+  &.l-flex { @include l() { @include flex(); } }
+  &.m-flex { @include m() { @include flex(); } }
+  &.s-flex { @include s() { @include flex(); } }
+}

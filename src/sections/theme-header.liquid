@@ -25,7 +25,7 @@
     - Home page only: only shows on the home page
   {%- endcomment -%}
   {% if section.settings.announcement_bar_enabled %}
-    <div class="container l center">
+    <div class="container center">
       {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
         {%- if section.settings.announcement_bar_link != blank -%}
           <a href="{{ section.settings.announcement_bar_link }}">
@@ -69,34 +69,34 @@
       Header cart link and item count
       This href is all on one line to avoid whitespace issues
 
-      The #MiniCart item loop is a simple demo of a non-Ajax cart summary
+      The #cartPreview item loop is a simple demo of a non-Ajax cart summary
     {%- endcomment -%}
-    <div id="MiniCart">
+    <div id="cartPreview">
       <a href="/cart" id="CartLink">{{ 'cart.title' | t }} ({{ cart.item_count }} {{ 'cart.item_count' | t: count: cart.item_count }})</a>
-      <div>
-        {% for item in cart.items %}
-          <div class="clearfix">
-            <a href="{{ item.url }}">
-              {% if item.image != blank %}
-                <img src="{{ item.image | img_url: '50x80' }}"
-                     srcset="{{ item.image | img_url: '50x80' }} 1x,
-                             {{ item.image | img_url: '50x80', scale: 2 }} 2x"
-                     alt="{{ item.title }}">
-              {% endif %}
-              {{ item.product.title }}
+      {% unless cart.item_count == 0 %}
+        <div>
+          {% for item in cart.items %}
+            <div class="clearfix">
+              <a href="{{ item.url }}">
+                {% if item.image != blank %}
+                  <img src="{{ item.image | img_url: '50x80' }}"
+                       srcset="{{ item.image | img_url: '50x80' }} 1x,
+                               {{ item.image | img_url: '50x80', scale: 2 }} 2x"
+                       alt="{{ item.title }}">
+                {% endif %}
+                {{ item.product.title }}
+                <br>
+                {{ item.variant.title }}
+              </a>
               <br>
-              {{ item.variant.title }}
-            </a>
-            <br>
-            <small>{{ item.price | money_with_currency }}</small>
-          </div>
-          <hr class="margin-top-1x margin-bottom-1x">
-        {% endfor %}
-        <a href="/cart">{{ 'cart.view_cart' | t }}</a>
-      </div>
+              <small>{{ item.price | money_with_currency }}</small>
+            </div>
+            <hr class="margin-top-1x margin-bottom-1x">
+          {% endfor %}
+          <a href="/cart">{{ 'cart.view_cart' | t }}</a>
+        </div>
+      {% endunless %}
     </div>
-
-    <br>
 
     {%- comment -%}
       Header customer account links

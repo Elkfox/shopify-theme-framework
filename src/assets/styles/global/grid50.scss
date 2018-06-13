@@ -6,26 +6,11 @@
 * $m: 850px;
 * $l: 1150px;
 * $xl: 1450px;
+* // Column structure
+* $columns: 12;
 **/
 
 /* Grid50 mixins =============================================================*/
-
-// Flex Grids
-@mixin flex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
-  display: -webkit-flex;
-  display: flex;
-}
-@mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical);
-}
-@mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction);
-}
 
 // Table Grids
 @mixin table() {
@@ -74,7 +59,7 @@
   }
 }
 @mixin m-l() {
-  @media (min-width: $s + 1px) and (max-width: $l) {
+  @media (min-width: $s + 1px) and (max-width: $xl) {
     @content;
   }
 }
@@ -94,12 +79,18 @@
   }
 }
 
+// Column widths
+@mixin column($width) {
+  width: $width;
+}
+
 /* Grid50 Grids ==============================================================*/
 
 .container {
   max-width: 100%;
   width: 100%;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: $gutter;
   padding-right: $gutter;
   &.xl {
@@ -154,45 +145,18 @@
   min-height: 0.125rem;
   padding-left: $gutter/2;
   padding-right: $gutter/2;
-  &.l1 { width: percentage(1/12); }
-  &.l2 { width: percentage(2/12); }
-  &.l3 { width: percentage(3/12); }
-  &.l4 { width: percentage(4/12); }
-  &.l5 { width: percentage(5/12); }
-  &.l6 { width: percentage(6/12); }
-  &.l7 { width: percentage(7/12); }
-  &.l8 { width: percentage(8/12); }
-  &.l9 { width: percentage(9/12); }
-  &.l10 { width: percentage(10/12); }
-  &.l11 { width: percentage(11/12); }
-  &.l12 { width: 100%; }
+  @for $i from 1 through $columns {
+    &.l#{$i} { @include column(percentage($i/$columns)); }
+  }
   @include m() {
-    &.m1 { width: percentage(1/12); }
-    &.m2 { width: percentage(2/12); }
-    &.m3 { width: percentage(3/12); }
-    &.m4 { width: percentage(4/12); }
-    &.m5 { width: percentage(5/12); }
-    &.m6 { width: percentage(6/12); }
-    &.m7 { width: percentage(7/12); }
-    &.m8 { width: percentage(8/12); }
-    &.m9 { width: percentage(9/12); }
-    &.m10 { width: percentage(10/12); }
-    &.m11 { width: percentage(11/12); }
-    &.m12 { width: 100%; }
+    @for $i from 1 through $columns {
+      &.m#{$i} { @include column(percentage($i/$columns)); }
+    }
   }
   @include s() {
-    &.s1 { width: percentage(1/12); }
-    &.s2 { width: percentage(2/12); }
-    &.s3 { width: percentage(3/12); }
-    &.s4 { width: percentage(4/12); }
-    &.s5 { width: percentage(5/12); }
-    &.s6 { width: percentage(6/12); }
-    &.s7 { width: percentage(7/12); }
-    &.s8 { width: percentage(8/12); }
-    &.s9 { width: percentage(9/12); }
-    &.s10 { width: percentage(10/12); }
-    &.s11 { width: percentage(11/12); }
-    &.s12 { width: 100%; }
+    @for $i from 1 through $columns {
+      &.s#{$i} { @include column(percentage($i/$columns)); }
+    }
   }
   // Uniform Height Clearing
   @include l() {
@@ -212,40 +176,5 @@
     &:nth-child(4n+1).s3 { clear: both; }
     &:nth-child(3n+1).s4 { clear: both; }
     &:nth-child(2n+1).s6 { clear: both; }
-  }
-}
-
-// Flex Grid
-.flex {
-  @include flex();
-  @include box-orient--vertical();
-  @include flex-direction(column);
-  .row {
-    @include flex();
-    @include flex-direction(row);
-    .box {
-      margin-left: $gutter/2;
-      margin-right: $gutter/2;
-      flex: auto;
-      align-self: center;
-      &:first-child {
-        margin-left: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-      &.center {
-        text-align: center;
-        align-items: center;
-      }
-    }
-    @include s() {
-      @include flex-direction(column);
-      .box {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
   }
 }

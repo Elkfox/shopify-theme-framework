@@ -1,5 +1,5 @@
 /**
-* Product Template Script
+* Product Template Scripts
 * ------------------------------------------------------------------------------
 * A file that contains scripts specifically for Product templates
 *

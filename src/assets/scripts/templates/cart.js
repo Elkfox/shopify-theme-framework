@@ -1,5 +1,5 @@
 /**
-* Cart Template Script
+* Cart Template Scripts
 * ------------------------------------------------------------------------------
 * A file that contains scripts specifically for the cart template
 *

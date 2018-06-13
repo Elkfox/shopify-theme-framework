@@ -136,7 +136,22 @@
 
 {% else %}
 
-  <h2>{{ 'cart.title' | t }}</h2>
-  <p class="h4">{{ 'cart.empty' | t }}</p>
+  {% comment %}
+    Empty cart for browsing with cookie support
+  {% endcomment %}
+  <div class="hidden cookies">
+    <h2>{{ 'cart.title' | t }}</h2>
+    <p class="h4">{{ 'cart.empty' | t }}</p>
+  </div>
+
+  {% comment %}
+    Cart no cookies state
+    ---------------------
+    Browser cookies are required to use the cart. If cookies aren't enabled in the
+    browser a message is displayed prompting the user to enable them.
+    {% endcomment %}
+  <div class="no-cookies">
+    <span class="h2">{{ 'cart.cookies_required' | t }}</span>
+  </div>
 
 {% endif %}

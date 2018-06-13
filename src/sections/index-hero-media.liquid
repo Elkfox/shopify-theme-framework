@@ -1,0 +1,111 @@
+<!-- /sections/index-hero-media.liquid -->
+
+{%- comment -%}
+  This hero media section is for diplaying combinations of images, text, link
+  and videos (not included by default) in a banner/slider format
+
+  This section is hidden on small screens by default, as overlayed content
+  doesn't tend to work well over landscape images on small screens. Consider
+  adding an alternate image option for small screens that is square or portrait.
+{%- endcomment -%}
+
+<section class="hero-media s-hide">
+  {% for block in section.blocks %}
+    <div class="block_{{ count }}">
+      {% if block.settings.image != blank %}
+        {% include 'responsive-bg-image' with
+          image: block.settings.image,
+          ratio: 0.5
+        %}
+      {% else %}
+        <div style="background-color:#EEE;padding-top:50%;overflow:hidden;">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          <style>
+            .block_{{ count }} .placeholder-svg {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              height: 100%;
+              width: 100%;
+              opacity: 0.25;
+            }
+          </style>
+        </div>
+      {% endif %}
+
+      <div class="overlay-content container s">
+        {% if block.settings.title != blank %}
+          <h2>{{ block.settings.title | escape }}</h2>
+        {% endif %}
+        {% if block.settings.text != blank %}
+          <div>{{ block.settings.text }}</div>
+        {% endif %}
+        {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+          <br>
+          <a href="{{ block.settings.button_link }}" class="button">
+            {{ block.settings.button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    {% if section.blocks.size == 0 %}
+      <div class="placeholder-noblocks">
+        {{ 'onboarding.no_content' | t }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Image with text overlay",
+    "max_blocks": 3,
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Image with text overlay"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>This is a great place to show off featured content comprimising background images, text content and buttons.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text overlay",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

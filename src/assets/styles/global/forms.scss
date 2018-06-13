@@ -2,12 +2,12 @@
 * Styles for forms
 * Includes additional styles for Shopify forms
 *
-* Requirements: grid50.scss
+* Requirements: grid50.scss, grid50.mixins.scss
 **/
 
 /* Form Variables ============================================================*/
 
-$formFieldHeight: $fontBaseSize*2.75;
+$formFieldHeight: 44px;
 $colorPlaceholder: $colorBorder;
 
 /* Form Styling ==============================================================*/
@@ -65,7 +65,8 @@ select {
 }
 textarea {
   height: initial;
-  resize: horizontal;
+  overflow: auto;
+  // resize: horizontal;
   line-height: inherit;
   padding: $spacing;
   // For Firefox
@@ -128,7 +129,7 @@ input[type="reset"] {
   // @include transition();
 
   &:hover {
-    background-color: $colorBackground;
+    background-color: transparent;
     color: $colorBrand;
   }
   &:disabled, &.disabled {

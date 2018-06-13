@@ -1,0 +1,112 @@
+<!-- sections/index-collection-list.liquid -->
+
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available when you add "Collection list" section in the Theme Editor.
+
+  Theme Store required settings
+  - Heading: title of the collection list section
+  - Collection
+{%- endcomment -%}
+
+{%- assign item_limit = section.blocks.size -%}
+
+{%- assign trailing_item = false -%}
+{%- if item_limit == 2 or item_limit == 4 or item_limit == 8 or item_limit == 10 -%}
+  {%- assign column = 'column l6 m6 s12' -%}
+{%- elsif item_limit == 5 or item_limit == 7 or item_limit == 11 -%}
+  {%- assign column = 'column l6 m6 s12' -%}
+  {%- assign trailing_item = true -%}
+{%- elsif item_limit == 1 -%}
+  {%- assign column = 'column l12' -%}
+{%- else -%}
+  {%- assign column = 'column l4 m4 s12' -%}
+{%- endif -%}
+
+<section>
+  {% if section.settings.title != blank %}
+    <h2>{{ section.settings.title | escape }}</h2>
+  {% endif %}
+
+  <div class="row">
+    {% for block in section.blocks %}
+      {%- assign collection = collections[block.settings.collection] -%}
+      {% if trailing_item and forloop.last %}
+        {%- assign column = 'column l12' -%}
+      {% endif %}
+
+      <div class="{{ column }}">
+        <a href="{{ collection.url | default: "#" }}" {{ block.shopify_attributes }}>
+          {% if collection.image != blank or collection.products.first != blank %}
+            {%- assign image_object = collection.image | default: collection.products.first.featured_image -%}
+            {% include 'responsive-image' with
+              image: image_object,
+              max_width: 600,
+              max_height: 600
+            %}
+          {% elsif collection == empty %}
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+
+          {%- assign default_label = 'onboarding.collection_title' | t -%}
+          <h4>{{ collection.title | default: default_label }}</h4>
+        </a>
+      </div>
+
+    {% endfor %}
+
+  </div>
+
+  {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+  {% endif %}
+</section>
+
+{% schema %}
+  {
+    "name": "Collection list",
+    "max_blocks": 12,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Collection list"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection list",
+        "category": "Collection",
+        "blocks": [
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

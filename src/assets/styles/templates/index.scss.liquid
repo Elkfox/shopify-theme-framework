@@ -1,0 +1,30 @@
+/**
+* Styles for the homepage template
+*
+* Import additional stylesheets into this sheet using CSS imports:
+* eg. @import url('./global/variables.scss.liquid');
+**/
+
+@import url('../global/variables.scss.liquid');
+
+#MainContent .shopify-section:not(:last-child) {
+  margin-bottom: $spacing*10;
+}
+
+/**
+* Styles for the Homepage Hero Media Section
+* Dependencies: grid50.mixins.scss, variables.scss.liquid
+**/
+
+@import url('../global/grid50.mixins.scss');
+
+.hero-media {
+  position: relative;
+  overflow: hidden;
+  .overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include prefixer(transform, translateY(-50%) translateX(-50%));
+  }
+}

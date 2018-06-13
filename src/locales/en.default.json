@@ -8,6 +8,12 @@
     "pagination": {
       "previous": "Previous",
       "next": "Next"
+    },
+    "newsletter_form": {
+      "newsletter_email": "Join our mailing list",
+      "email_placeholder": "Email address",
+      "confirmation": "Thanks for subscribing",
+      "submit": "Subscribe"
     }
   },
   "collection": {
@@ -42,7 +48,6 @@
     "on_sale_html": "On sale for {{ price }}",
     "on_sale_from_html": "On sale from {{ price }}",
     "on_sale": "On sale",
-    "original_price": "Originaly",
     "sold_out": "Sold out"
   },
   "cart": {
@@ -63,7 +68,8 @@
     "item_count": {
       "one": "item",
       "other": "items"
-    }
+    },
+    "cookies_required": "Please enable cookies to continue shopping"
   },
   "contact": {
     "name": "Name",
@@ -205,7 +211,43 @@
       "twitter": "Tweet"
     }
   },
+  "blog": {
+    "article": {
+      "published": "Published",
+      "author_on_date_html": "Posted by {{ author }} on {{ date }}",
+      "read_more": "Read more",
+      "tags": "Tags"
+    },
+    "comments": {
+      "title": "Comments",
+      "comment_meta_html": "{{ author }} on {{ date }}",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "post": "Post comment",
+      "moderated":
+        "Please note, comments must be approved before they are published",
+      "success_moderated":
+        "Your comment was posted successfully and will published it after is has been reviewed by our staff.",
+      "success": "Your comment was posted successfully! Thank you!",
+      "new_comment": "New comment",
+      "with_count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      }
+    }
+  },
   "date_formats": {
     "month_day_year": "%B %d, %Y"
+  },
+  "onboarding": {
+    "blog_title": "Your post's title",
+    "blog_excerpt":
+      "Your store hasn’t published any blog posts yet. A blog can be used to talk about new product launches, tips, or other news you want to share with your customers. You can check out Shopify’s ecommerce blog for inspiration and advice for your own store and blog.",
+    "blog_author": "Author name",
+    "product_title": "Example Product Title",
+    "collection_title": "Example Collection Title",
+    "no_content":
+      "This section doesn’t currently include any content. Add content to this section using the sidebar."
   }
 }

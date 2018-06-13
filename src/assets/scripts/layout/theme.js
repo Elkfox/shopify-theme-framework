@@ -12,6 +12,9 @@ import 'lazysizes';
 import 'lazysizes/plugins/respimg/ls.respimg';
 
 $(document).ready(() => {
+  // Confirmation Javascript is working
+  $('html').removeClass('noscript')
+
   // Common a11y fixes
   if (window.location.hash !== '#') {
     pageLinkFocus($(window.location.hash));
@@ -20,6 +23,15 @@ $(document).ready(() => {
   $('.in-page-link').on('click', (evt) => {
     pageLinkFocus($(evt.currentTarget.hash));
   });
+
+  // Check for cookie compatibility
+  // See https://stackoverflow.com/questions/6125330#answer-6125366
+  var cookies = ("cookie" in document && (document.cookie.length > 0 || (document.cookie = "test").indexOf.call(document.cookie, "test") > -1));
+  if (cookies === true) {
+    $('html').addClass('cookies')
+  } else {
+    $('html').addClass('no-cookies')
+  }
 
   // Target iframes to make them responsive
   const iframeSelectors =
@@ -31,12 +43,5 @@ $(document).ready(() => {
   //   $iframes: $(iframeSelectors),
   //   iframeWrapperClass: 'rte__video-wrapper',
   // });
-  //
-  // Apply a specific class to the html element for browser support of cookies.
-  // if (cookiesEnabled()) {
-  //   document.documentElement.className = document.documentElement.className.replace(
-  //     'supports-no-cookies',
-  //     'supports-cookies',
-  //   );
-  // }
+
 });

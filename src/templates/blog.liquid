@@ -1,18 +1,16 @@
 <!-- templates/blog.liquid -->
 
-{% assign column_width = 'column l6' %}
+{% assign column_width = 'column l6 m6 s12' %}
+{% paginate blog.articles by 6 %}
 
-{% paginate blog.articles by 2 %}
+  {% if current_tags %}
+    <h1>{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h1>
+  {% else %}
+    <h1>{{ blog.title }}</h1>
+  {% endif %}
 
   <div class="row">
-
     <div class="column l9 m12 s12">
-      {% if current_tags %}
-        <h1>{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}</h1>
-      {% else %}
-        <h1>{{ blog.title }}</h1>
-      {% endif %}
-
       <div class="row">
         {% for article in blog.articles %}
           {% include 'blog-article' %}
@@ -22,8 +20,25 @@
       {% include 'pagination' %}
     </div>
 
-    <aside class="column l3 m-hide s-hide">
-      <p> TO DO: INSERT TAG LOOP! </p>
+    <aside class="column l3 m-hide s-hide" role="complementary">
+      {%- comment -%}
+        The Tag link list functions as a list of content items.
+        Non-visual users will expect lists of content to appear in a list
+        structure, allowing for easier understanding and navigation of list items.
+      {%- endcomment -%}
+      <ul>
+        {% for tag in blog.all_tags %}
+          {% if current_tags contains tag %}
+            <li>{{ tag }}</li>
+          {% else %}
+            <li>
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">
+                {{ tag }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
     </aside>
 
   </div>

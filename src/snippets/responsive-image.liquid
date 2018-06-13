@@ -1,7 +1,5 @@
-<!-- snippets/responsive-image -->
-
 {%- comment -%}
-    Creates a style tag and it restricts an image from growing larger than its max resolution.
+    It creates a style tag and it restricts an image from growing larger than its max resolution.
 
     Dependencies:
     - Lazysizes plugin (https://github.com/aFarkas/lazysizes) which enable responsive image with faster load time and better performance.
@@ -10,8 +8,6 @@
 
     Accepts:
     - image: {Object} Image object
-    - width: A fixed width option
-    - ratio: Image cropping tool using decimal percentages
     - max_width: {Number} Max width of the image container
     - max_height: {Number} Max height of the image container
     - img_class: {String} class name of the <img />
@@ -46,27 +42,15 @@
   }
   #ImageWrapper-{{ image.id }}-{{ responsive_image_counter }} {
     max-width: {{ max_width_image }}px;
-    {% if width %}width:{{ width }}px;{% endif %}
   }
 
   #ImageWrapper-{{ image.id }}-{{ responsive_image_counter }}::before {
     {%- comment -%}
       When you change the window screen width, we want to make sure that the container's size is proportionally calculated.
-      Note regarding padding percentage: The percentage is calculated with respect to the width of the generated box's containing block
-      source: http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#padding-properties
+      Note regarding padding percentage: The percentage is calculated with respect to the width of the generated box's containing block (source: http://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#padding-properties)
     {%- endcomment -%}
-    padding-top: {% if ratio -%}
-                   {{ ratio | times: 100}}%
-                 {%- else -%}
-                   {{ max_height_image | divided_by: max_width_image | times: 100}}%
-                 {%- endif %};
+    padding-top:{{ max_height_image | divided_by: max_width_image | times: 100 }}%;
   }
-  {% if ratio -%}
-    #ImageWrapper-{{ image.id }}-{{ responsive_image_counter }} img {
-      height: auto;
-      top: -20%;
-    }
-  {%- endif %}
 </style>
 
 {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}

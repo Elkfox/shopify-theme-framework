@@ -1,5 +1,5 @@
 /**
- * Customer Addresses Script
+ * Customer Addresses Scripts
  * ------------------------------------------------------------------------------
  * This file that contains scripts for the Customer Addresses template
  * template.

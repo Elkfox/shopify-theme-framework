@@ -1,0 +1,63 @@
+<!-- sections/index-featured-collection.liquid -->
+
+{%- comment -%}
+  This is a required section for the Shopify Theme Store.
+  It is available in the "Featured Collection" section in the theme editor.
+
+  Theme Store required settings
+  - Collection
+
+  Theme Store optional settings
+  - Heading: title of the featured collection section
+{%- endcomment -%}
+
+{%- assign collection = collections[section.settings.collection] -%}
+
+<section>
+  {% if section.settings.title != blank %}
+    <h2>{{ section.settings.title | escape }}</h2>
+  {% endif %}
+
+  <div class="row">
+    {% for product in collection.products limit: 6 %}
+      {% include 'collection-product' %}
+    {% else %}
+      {% for i in (1..6) %}
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {%- assign column_width = column_width | default: 'column l4 m6 s12' -%}
+        <div class="{{ column_width }} margin-bottom-2x">
+          <a href="#">
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+            <p>{{ 'onboarding.product_title' | t }}</p>
+          </a>
+          <p>{{ 1999 | money }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</section>
+
+{% schema %}
+  {
+    "name": "Featured collection",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}

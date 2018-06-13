@@ -14,7 +14,11 @@ Copyright (c) 2017 Elkfox Co Pty Ltd
 https://elkfox.com
 MIT License
 ============================================================================ -->
-<html lang="{{ shop.locale }}">
+{%- comment -%}
+  In order to confirm the availability of Javascript the 'no-script' class
+  exists on the document until Javascript is loaded. See theme.js for more
+{%- endcomment -%}
+<html lang="{{ shop.locale }}" class="noscript">
 <head>
 {% include 'meta-general' %}
 {% include 'meta-social' %}
