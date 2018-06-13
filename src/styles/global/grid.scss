@@ -43,6 +43,13 @@
   &.m-reverse { @include m() { @include reverse(); } }
   &.s-reverse { @include s() { @include reverse(); } }
 
+  // Flex Grid
+  &.flex { @include flex(); }
+  &.xl-flex { @include xl() { @include flex(); } }
+  &.l-flex { @include l() { @include flex(); } }
+  &.m-flex { @include m() { @include flex(); } }
+  &.s-flex { @include s() { @include flex(); } }
+
   // Table Grid
   &.table { @include table(); }
   &.xl-table { @include xl() { @include table(); } }
@@ -65,18 +72,16 @@
   padding-left: $gutter/2;
   padding-right: $gutter/2;
   @for $i from 1 through $columns {
-    &.l#{$i} { width: percentage($i/$columns); }
+    &.l#{$i} { @include column(percentage($i/$columns)); }
   }
   @include m() {
     @for $i from 1 through $columns {
-      &.m#{$i} { width: percentage($i/$columns); }
+      &.m#{$i} { @include column(percentage($i/$columns)); }
     }
   }
   @include s() {
     @for $i from 1 through $columns {
-      &.s#{$i} {
-        width: percentage($i/$columns);
-      }
+      &.s#{$i} { @include column(percentage($i/$columns)); }
     }
   }
   // Uniform Height Clearing
@@ -98,38 +103,4 @@
     &:nth-child(3n+1).s4 { clear: both; }
     &:nth-child(2n+1).s6 { clear: both; }
   }
-}
-
-// Flex Grid
-.flex {
-  @include flex();
-  @include box-orient(horizontal);
-  @include flex-flow(row, no-wrap);
-
-  &.row {
-    @include flex-direction(row);
-    &.reverse {
-      @include flex-direction(row-reverse);
-    }
-  }
-  &.wrap {
-    @include flex-wrap(wrap);
-  }
-
-  .h-start { @include justify-content(start); }
-  .h-end { @include justify-content(end); }
-  .h-center { @include justify-content(center); }
-  .h-space-between { @include justify-content(space-between ); }
-  .h-space-around { @include justify-content(space-around); }
-  .h-space-evenly { @include justify-content(space-evenly); }
-
-  .v-start { @include align-content(start); }
-  .v-end { @include align-content(end); }
-  .v-center { @include align-content(center); }
-  .v-space-between { @include align-content(space-between ); }
-  .v-space-around { @include align-content(space-around); }
-  .v-space-evenly { @include align-content(space-evenly); }
-  .v-stretch { @include align-content(stretch); }
-
-  .grow { @include flex-grow(1); }
 }

@@ -103,7 +103,7 @@ $prefixes: webkit moz ms spec;
   *zoom: 1;
 }
 
-// Screen Sizes
+// Screen sizes
 @mixin s() {
   @media (max-width: $s) {
     @content;
@@ -140,16 +140,7 @@ $prefixes: webkit moz ms spec;
   }
 }
 
-// Flex
-@mixin flex() {
-  display: -webkit-box !important;
-  display: -moz-box !important;
-  display: -ms-flexbox !important;
-  display: -webkit-box !important;
-  display: -webkit-flexbox !important;
-  display: -webkit-flex !important;
-  display: flex !important;
-}
+// Flex grids
 @mixin flex-direction($direction) {
   @include prefixer(flex-direction, $direction);
 }
@@ -157,26 +148,80 @@ $prefixes: webkit moz ms spec;
   @include prefixer(flex-wrap, $wrap);
 }
 @mixin flex-flow($direction, $wrap) {
-  @include flex-direction($direction);
-  @include flex-wrap($wrap);
+  @include prefixer(flex-flow, $direction $wrap);
 }
-@mixin flex-grow($grow) {
-  @include prefixer(flex-grow, $grow);
+@mixin flex-distribution($grow) {
+  @include prefixer(flex, $grow);
 }
-@mixin box-orient($orient) {
-  @include prefixer(box-orient, $orient);
+@mixin flex-align($property, $align) {
+  @include prefixer(align-#{$property}, $align);
 }
-@mixin align-items($align) {
-  @include prefixer(align-items, $align);
-}
-@mixin align-content($align) {
-  @include prefixer(align-content, $align);
-}
-@mixin justify-content($justify) {
+@mixin flex-justify($justify) {
   @include prefixer(justify-content, $justify);
+  > .column {
+    @include flex-distribution(0 0 auto);
+  }
+}
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  @include flex-flow(row, wrap);
+
+  // Row behaviour
+  &.no-wrap { @include flex-wrap(no-wrap); }
+  &.vertical { @include flex-direction(column); }
+
+  // Horizontal alignment
+  &.h-start { @include flex-justify(flex-start); }
+  &.h-center { @include flex-justify(center); }
+  &.h-end { @include flex-justify(flex-end); }
+  &.h-space-between { @include flex-justify(space-between ); }
+  &.h-space-around { @include flex-justify(space-around); }
+  &.h-space-evenly { @include flex-justify(space-evenly); }
+
+  // Vertical alignment
+  &.v-start { @include flex-align(items, flex-start); }
+  &.v-center { @include flex-align(items, center); }
+  &.v-end { @include flex-align(items, flex-end); }
+  &.v-baseline { @include flex-align(items, baseline); }
+  &.v-stretch { @include flex-align(items, stretch); }
+  &.v-space-between { @include flex-align(content, space-between ); }
+  &.v-space-around { @include flex-align(content, space-around); }
+
+  &:after {
+    content: normal;
+  }
+
+  > .column {
+    float: none;
+    @include flex-distribution(auto);
+    &.grow { @include flex-distribution(1); }
+    &.shrink { @include flex-distribution(0); }
+
+    // Individual vertical alignment
+    &.v-start { @include flex-align(self, flex-start); }
+    &.v-center { @include flex-align(self, center); }
+    &.v-end { @include flex-align(self, flex-end); }
+    &.v-baseline { @include flex-align(self, baseline); }
+    &.v-stretch { @include flex-align(self, stretch); }
+  }
 }
 
-// Table Grids
+// Column widths
+@mixin column($width) {
+  width: $width;
+  .flex & {
+    width: auto;
+    @include flex-distribution(0 0 $width);
+  }
+}
+
+// Table grids
 @mixin table() {
   display: table;
   table-layout: fixed;
@@ -197,14 +242,19 @@ $prefixes: webkit moz ms spec;
 
 // Reverse Grid
 @mixin reverse() {
-  direction: rtl;
+  &.flex {
+    @include flex-direction(row-reverse);
+    &.vertical { @include flex-direction(column-reverse); }
+  }
+  &.table {
+    direction: rtl;
+  }
   > .column {
-    direction: ltr;
     float: right;
   }
 }
 
-// Collapsed Columns
+// Collapsed columns
 @mixin collapse() {
   margin-left: 0;
   margin-right: 0;
@@ -214,14 +264,14 @@ $prefixes: webkit moz ms spec;
   }
 }
 
-// Verically Align
+// Verically align
 @mixin vertical-align() {
   position: relative;
   top: 50%;
   @include prefixer(transform, perspective(1px) translateY(-50%));
 }
 
-// Transition Property (for legacy support)
+// Transition property (for legacy support)
 @mixin transition-property() {
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
@@ -637,6 +687,13 @@ a.button {
   &.m-reverse { @include m() { @include reverse(); } }
   &.s-reverse { @include s() { @include reverse(); } }
 
+  // Flex Grid
+  &.flex { @include flex(); }
+  &.xl-flex { @include xl() { @include flex(); } }
+  &.l-flex { @include l() { @include flex(); } }
+  &.m-flex { @include m() { @include flex(); } }
+  &.s-flex { @include s() { @include flex(); } }
+
   // Table Grid
   &.table { @include table(); }
   &.xl-table { @include xl() { @include table(); } }
@@ -659,18 +716,16 @@ a.button {
   padding-left: $gutter/2;
   padding-right: $gutter/2;
   @for $i from 1 through $columns {
-    &.l#{$i} { width: percentage($i/$columns); }
+    &.l#{$i} { @include column(percentage($i/$columns)); }
   }
   @include m() {
     @for $i from 1 through $columns {
-      &.m#{$i} { width: percentage($i/$columns); }
+      &.m#{$i} { @include column(percentage($i/$columns)); }
     }
   }
   @include s() {
     @for $i from 1 through $columns {
-      &.s#{$i} {
-        width: percentage($i/$columns);
-      }
+      &.s#{$i} { @include column(percentage($i/$columns)); }
     }
   }
   // Uniform Height Clearing
@@ -692,40 +747,6 @@ a.button {
     &:nth-child(3n+1).s4 { clear: both; }
     &:nth-child(2n+1).s6 { clear: both; }
   }
-}
-
-// Flex Grid
-.flex {
-  @include flex();
-  @include box-orient(horizontal);
-  @include flex-flow(row, no-wrap);
-
-  &.row {
-    @include flex-direction(row);
-    &.reverse {
-      @include flex-direction(row-reverse);
-    }
-  }
-  &.wrap {
-    @include flex-wrap(wrap);
-  }
-
-  .h-start { @include justify-content(start); }
-  .h-end { @include justify-content(end); }
-  .h-center { @include justify-content(center); }
-  .h-space-between { @include justify-content(space-between ); }
-  .h-space-around { @include justify-content(space-around); }
-  .h-space-evenly { @include justify-content(space-evenly); }
-
-  .v-start { @include align-content(start); }
-  .v-end { @include align-content(end); }
-  .v-center { @include align-content(center); }
-  .v-space-between { @include align-content(space-between ); }
-  .v-space-around { @include align-content(space-around); }
-  .v-space-evenly { @include align-content(space-evenly); }
-  .v-stretch { @include align-content(stretch); }
-
-  .grow { @include flex-grow(1); }
 }
 
 /* Forms =====================================================================*/

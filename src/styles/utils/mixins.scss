@@ -30,7 +30,7 @@
   *zoom: 1;
 }
 
-// Screen Sizes
+// Screen sizes
 @mixin s() {
   @media (max-width: $s) {
     @content;
@@ -67,16 +67,7 @@
   }
 }
 
-// Flex
-@mixin flex() {
-  display: -webkit-box !important;
-  display: -moz-box !important;
-  display: -ms-flexbox !important;
-  display: -webkit-box !important;
-  display: -webkit-flexbox !important;
-  display: -webkit-flex !important;
-  display: flex !important;
-}
+// Flex grids
 @mixin flex-direction($direction) {
   @include prefixer(flex-direction, $direction);
 }
@@ -84,26 +75,80 @@
   @include prefixer(flex-wrap, $wrap);
 }
 @mixin flex-flow($direction, $wrap) {
-  @include flex-direction($direction);
-  @include flex-wrap($wrap);
+  @include prefixer(flex-flow, $direction $wrap);
 }
-@mixin flex-grow($grow) {
-  @include prefixer(flex-grow, $grow);
+@mixin flex-distribution($grow) {
+  @include prefixer(flex, $grow);
 }
-@mixin box-orient($orient) {
-  @include prefixer(box-orient, $orient);
+@mixin flex-align($property, $align) {
+  @include prefixer(align-#{$property}, $align);
 }
-@mixin align-items($align) {
-  @include prefixer(align-items, $align);
-}
-@mixin align-content($align) {
-  @include prefixer(align-content, $align);
-}
-@mixin justify-content($justify) {
+@mixin flex-justify($justify) {
   @include prefixer(justify-content, $justify);
+  > .column {
+    @include flex-distribution(0 0 auto);
+  }
+}
+@mixin flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  @include flex-flow(row, wrap);
+
+  // Row behaviour
+  &.no-wrap { @include flex-wrap(no-wrap); }
+  &.vertical { @include flex-direction(column); }
+
+  // Horizontal alignment
+  &.h-start { @include flex-justify(flex-start); }
+  &.h-center { @include flex-justify(center); }
+  &.h-end { @include flex-justify(flex-end); }
+  &.h-space-between { @include flex-justify(space-between ); }
+  &.h-space-around { @include flex-justify(space-around); }
+  &.h-space-evenly { @include flex-justify(space-evenly); }
+
+  // Vertical alignment
+  &.v-start { @include flex-align(items, flex-start); }
+  &.v-center { @include flex-align(items, center); }
+  &.v-end { @include flex-align(items, flex-end); }
+  &.v-baseline { @include flex-align(items, baseline); }
+  &.v-stretch { @include flex-align(items, stretch); }
+  &.v-space-between { @include flex-align(content, space-between ); }
+  &.v-space-around { @include flex-align(content, space-around); }
+
+  &:after {
+    content: normal;
+  }
+
+  > .column {
+    float: none;
+    @include flex-distribution(auto);
+    &.grow { @include flex-distribution(1); }
+    &.shrink { @include flex-distribution(0); }
+
+    // Individual vertical alignment
+    &.v-start { @include flex-align(self, flex-start); }
+    &.v-center { @include flex-align(self, center); }
+    &.v-end { @include flex-align(self, flex-end); }
+    &.v-baseline { @include flex-align(self, baseline); }
+    &.v-stretch { @include flex-align(self, stretch); }
+  }
 }
 
-// Table Grids
+// Column widths
+@mixin column($width) {
+  width: $width;
+  .flex & {
+    width: auto;
+    @include flex-distribution(0 0 $width);
+  }
+}
+
+// Table grids
 @mixin table() {
   display: table;
   table-layout: fixed;
@@ -124,14 +169,19 @@
 
 // Reverse Grid
 @mixin reverse() {
-  direction: rtl;
+  &.flex {
+    @include flex-direction(row-reverse);
+    &.vertical { @include flex-direction(column-reverse); }
+  }
+  &.table {
+    direction: rtl;
+  }
   > .column {
-    direction: ltr;
     float: right;
   }
 }
 
-// Collapsed Columns
+// Collapsed columns
 @mixin collapse() {
   margin-left: 0;
   margin-right: 0;
@@ -141,14 +191,14 @@
   }
 }
 
-// Verically Align
+// Verically align
 @mixin vertical-align() {
   position: relative;
   top: 50%;
   @include prefixer(transform, perspective(1px) translateY(-50%));
 }
 
-// Transition Property (for legacy support)
+// Transition property (for legacy support)
 @mixin transition-property() {
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
