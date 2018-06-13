@@ -5,12 +5,12 @@
 <header class="theme-header" role="banner">
   <div class="container">
 
-    <div class="row l-table m-table">
-      <div class="column l8 m8 s12 l-left m-left s-middle">
+    <div class="row flex v-center h-space-between">
+      <div class="column s12 s-center">
         {% include 'theme-logo' %}
       </div>
 
-      <div class="column l4 m4 s12 l-right m-right s-middle">
+      <div class="column s12 s-center">
         {% if customer %}
           <a href="/account" data-trigger="popup" data-target="#PopupAccount">{{ 'account.general.title' | t }}</a>
         {% else %}
@@ -31,12 +31,12 @@
       </div>
     </div>
 
-    <div class="row l-table m-table s-hide">
-      <div class="column{% if enable_search %} l9 m9 {% else %} l12{% endif %} s12 l-left m-left s-v-middle">
+    <div class="row flex v-center h-space-between s-hide">
+      <div class="column left">
         {% include 'theme-nav-main' %}
       </div>
       {% if enable_search %}
-        <div class="column l3 m3 s12 l-right m-right">
+        <div class="column right">
           {% include 'form-search' %}
         </div>
       {% endif %}
