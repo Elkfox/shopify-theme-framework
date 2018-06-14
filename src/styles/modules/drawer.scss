@@ -9,8 +9,8 @@
   padding: $gutter;
   background-color: $colorBackground;
   @include transition();
-  @include prefixer(transition-delay, 0.3s);
-  
+  @include prefixer(transition-delay, $transitionDelay);
+
   &.from-left {
     top: 0;
     left: 0;

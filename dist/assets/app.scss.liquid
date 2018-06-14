@@ -142,32 +142,27 @@ $prefixes: webkit moz ms spec;
 
 // Flex grids
 @mixin flex-direction($direction) {
-  @include prefixer(flex-direction, $direction);
+  @include prefixer(flex-direction, $direction, webkit spec);
 }
 @mixin flex-wrap($wrap) {
-  @include prefixer(flex-wrap, $wrap);
+  @include prefixer(flex-wrap, $wrap, webkit spec);
 }
 @mixin flex-flow($direction, $wrap) {
-  @include prefixer(flex-flow, $direction $wrap);
+  @include prefixer(flex-flow, $direction $wrap, webkit spec);
 }
-@mixin flex-distribution($grow) {
-  @include prefixer(flex, $grow);
+@mixin flex-distribution($distribution) {
+  @include prefixer(flex, $distribution, webkit spec);
 }
 @mixin flex-align($property, $align) {
-  @include prefixer(align-#{$property}, $align);
+  @include prefixer(align-#{$property}, $align, webkit spec);
 }
 @mixin flex-justify($justify) {
-  @include prefixer(justify-content, $justify);
+  @include prefixer(justify-content, $justify, webkit spec);
   > .column {
     @include flex-distribution(0 0 auto);
   }
 }
 @mixin flex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
   display: -webkit-flex;
   display: flex;
   @include flex-flow(row, wrap);
@@ -197,9 +192,11 @@ $prefixes: webkit moz ms spec;
     content: normal;
   }
 
-  > .column {
-    float: none;
-    @include flex-distribution(auto);
+  > * {
+    &.column {
+      float: none;
+      @include flex-distribution(1);
+    }
     &.grow { @include flex-distribution(1); }
     &.shrink { @include flex-distribution(0); }
 
@@ -215,9 +212,9 @@ $prefixes: webkit moz ms spec;
 // Column widths
 @mixin column($width) {
   width: $width;
-  .flex & {
+  .flex > & {
     width: auto;
-    @include flex-distribution(0 0 $width);
+    @include flex-distribution(0 0 $width !important);
   }
 }
 
@@ -279,7 +276,7 @@ $prefixes: webkit moz ms spec;
 }
 
 // Transitions
-@mixin transition() {
+@mixin transition($transition:$transition) {
   @include prefixer(transition, $transition);
 }
 
@@ -687,13 +684,6 @@ a.button {
   &.m-reverse { @include m() { @include reverse(); } }
   &.s-reverse { @include s() { @include reverse(); } }
 
-  // Flex Grid
-  &.flex { @include flex(); }
-  &.xl-flex { @include xl() { @include flex(); } }
-  &.l-flex { @include l() { @include flex(); } }
-  &.m-flex { @include m() { @include flex(); } }
-  &.s-flex { @include s() { @include flex(); } }
-
   // Table Grid
   &.table { @include table(); }
   &.xl-table { @include xl() { @include table(); } }
@@ -1008,8 +998,8 @@ form#CartPage {
   padding: $gutter;
   background-color: $colorBackground;
   @include transition();
-  @include prefixer(transition-delay, 0.3s);
-  
+  @include prefixer(transition-delay, $transitionDelay);
+
   &.from-left {
     top: 0;
     left: 0;
@@ -1047,13 +1037,12 @@ form#CartPage {
 
 /* Popups ====================================================================*/
 
-/// Basic popup styling
 .popup {
   position: fixed;
   z-index: 9996;
   opacity: 0;
   visibility: hidden;
-  @include transition();
+  @include transition($transitionProperty $transitionSpeed/2 $transitionStyle);
   &.visible {
     opacity: 1;
     visibility: visible;
@@ -1067,9 +1056,7 @@ form#CartPage {
     overflow: auto; // Optional line for overly tall popups
     padding: $gutter;
     background-color: $colorBackground;
-    text-align: initial;
     cursor: default;
-    white-space: initial;
     color: $colorText;
   }
   &.overlay {
@@ -1084,16 +1071,19 @@ form#CartPage {
       -webkit-backface-visibility: hidden;
       cursor: pointer;
       z-index: 9997;
-      text-align: center;
-      white-space: nowrap;
+      text-align: initial;
       @include overlay();
       @include prefixer(transition-delay, 0.3s);
-      @include prefixer(transform, translateY(-$gutter/2));
+      @include prefixer(transform, translateY($gutter/2));
+      @include flex();
+      @include flex-align(items, center);
+      @include flex-justify(center);
       @include transition();
+      .popup-content {
+        position: relative;
+      }
     }
-    .popup-content {
-      @include vertical-align();
-    }
+
     &.visible {
       .popup-inner {
         @include prefixer(transform, translateY(0px));
@@ -1107,12 +1097,12 @@ form#CartPage {
       left: $gutter;
       padding: $gutter/2;
       @include prefixer(transition-delay, 0.3s);
-      @include prefixer(transform, translateY(-$gutter/2));
+      @include prefixer(transform, translateY(100%));
       @include transition();
     }
     &.visible {
       .popup-content {
-        @include prefixer(transform, translateY(0px));
+        @include prefixer(transform, translateY(0%));
       }
     }
   }
@@ -1315,6 +1305,9 @@ form#CartPage {
     display: inline-block;
   }
 }
+.flex {
+  @include flex();
+}
 
 // Positioning
 .relative {
@@ -1339,6 +1332,7 @@ form#CartPage {
 
 // Breakpoint Specific
 @include xl() {
+  .xl-flex { @include flex(); }
   .xl-hide { display: none !important; }
   .xl-left { text-align: left; }
   .xl-center { text-align: center; }
@@ -1350,6 +1344,7 @@ form#CartPage {
   .l-show, .m-show, .s-show { display: none !important; }
 }
 @include l() {
+  .l-flex { @include flex(); }
   .l-hide { display: none !important; }
   .l-left { text-align: left; }
   .l-center { text-align: center; }
@@ -1361,6 +1356,7 @@ form#CartPage {
   .xl-show, .m-show, .s-show { display: none !important; }
 }
 @include m() {
+  .m-flex { @include flex(); }
   .m-hide { display: none !important; }
   .m-left { text-align: left; }
   .m-center { text-align: center; }
@@ -1372,6 +1368,7 @@ form#CartPage {
   .xl-show, .l-show, .s-show { display: none !important; }
 }
 @include s() {
+  .s-flex { @include flex(); }
   .s-hide { display: none !important; }
   .s-left { text-align: left; }
   .s-center { text-align: center; }

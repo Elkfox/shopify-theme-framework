@@ -69,32 +69,27 @@
 
 // Flex grids
 @mixin flex-direction($direction) {
-  @include prefixer(flex-direction, $direction);
+  @include prefixer(flex-direction, $direction, webkit spec);
 }
 @mixin flex-wrap($wrap) {
-  @include prefixer(flex-wrap, $wrap);
+  @include prefixer(flex-wrap, $wrap, webkit spec);
 }
 @mixin flex-flow($direction, $wrap) {
-  @include prefixer(flex-flow, $direction $wrap);
+  @include prefixer(flex-flow, $direction $wrap, webkit spec);
 }
-@mixin flex-distribution($grow) {
-  @include prefixer(flex, $grow);
+@mixin flex-distribution($distribution) {
+  @include prefixer(flex, $distribution, webkit spec);
 }
 @mixin flex-align($property, $align) {
-  @include prefixer(align-#{$property}, $align);
+  @include prefixer(align-#{$property}, $align, webkit spec);
 }
 @mixin flex-justify($justify) {
-  @include prefixer(justify-content, $justify);
+  @include prefixer(justify-content, $justify, webkit spec);
   > .column {
     @include flex-distribution(0 0 auto);
   }
 }
 @mixin flex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
   display: -webkit-flex;
   display: flex;
   @include flex-flow(row, wrap);
@@ -124,9 +119,11 @@
     content: normal;
   }
 
-  > .column {
-    float: none;
-    @include flex-distribution(auto);
+  > * {
+    &.column {
+      float: none;
+      @include flex-distribution(1);
+    }
     &.grow { @include flex-distribution(1); }
     &.shrink { @include flex-distribution(0); }
 
@@ -142,9 +139,9 @@
 // Column widths
 @mixin column($width) {
   width: $width;
-  .flex & {
+  .flex > & {
     width: auto;
-    @include flex-distribution(0 0 $width);
+    @include flex-distribution(0 0 $width !important);
   }
 }
 
@@ -206,7 +203,7 @@
 }
 
 // Transitions
-@mixin transition() {
+@mixin transition($transition:$transition) {
   @include prefixer(transition, $transition);
 }
 

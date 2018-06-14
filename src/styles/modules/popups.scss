@@ -1,12 +1,11 @@
 /* Popups ====================================================================*/
 
-/// Basic popup styling
 .popup {
   position: fixed;
   z-index: 9996;
   opacity: 0;
   visibility: hidden;
-  @include transition();
+  @include transition($transitionProperty $transitionSpeed/2 $transitionStyle);
   &.visible {
     opacity: 1;
     visibility: visible;
@@ -20,9 +19,7 @@
     overflow: auto; // Optional line for overly tall popups
     padding: $gutter;
     background-color: $colorBackground;
-    text-align: initial;
     cursor: default;
-    white-space: initial;
     color: $colorText;
   }
   &.overlay {
@@ -37,16 +34,19 @@
       -webkit-backface-visibility: hidden;
       cursor: pointer;
       z-index: 9997;
-      text-align: center;
-      white-space: nowrap;
+      text-align: initial;
       @include overlay();
       @include prefixer(transition-delay, 0.3s);
-      @include prefixer(transform, translateY(-$gutter/2));
+      @include prefixer(transform, translateY($gutter/2));
+      @include flex();
+      @include flex-align(items, center);
+      @include flex-justify(center);
       @include transition();
+      .popup-content {
+        position: relative;
+      }
     }
-    .popup-content {
-      @include vertical-align();
-    }
+
     &.visible {
       .popup-inner {
         @include prefixer(transform, translateY(0px));
@@ -60,12 +60,12 @@
       left: $gutter;
       padding: $gutter/2;
       @include prefixer(transition-delay, 0.3s);
-      @include prefixer(transform, translateY(-$gutter/2));
+      @include prefixer(transform, translateY(100%));
       @include transition();
     }
     &.visible {
       .popup-content {
-        @include prefixer(transform, translateY(0px));
+        @include prefixer(transform, translateY(0%));
       }
     }
   }

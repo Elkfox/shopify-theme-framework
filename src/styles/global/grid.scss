@@ -43,13 +43,6 @@
   &.m-reverse { @include m() { @include reverse(); } }
   &.s-reverse { @include s() { @include reverse(); } }
 
-  // Flex Grid
-  &.flex { @include flex(); }
-  &.xl-flex { @include xl() { @include flex(); } }
-  &.l-flex { @include l() { @include flex(); } }
-  &.m-flex { @include m() { @include flex(); } }
-  &.s-flex { @include s() { @include flex(); } }
-
   // Table Grid
   &.table { @include table(); }
   &.xl-table { @include xl() { @include table(); } }
