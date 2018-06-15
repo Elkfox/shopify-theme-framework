@@ -1,8 +1,17 @@
+/**
+* Theme layout
+**/
+
 import "../../styles/layout/theme.scss.liquid";
 
 import $ from 'jquery';
+// import jQuery from 'jquery';
 import {pageLinkFocus} from '@shopify/theme-a11y';
-// import {cookiesEnabled} from '@shopify/theme-cart';
+
+// var Handlebars = require('Handlebars')
+// import Handlebars from 'handlebars';
+// import 'handlebars/dist/handlebars.min.js';
+// import "../../scripts/global/cartfox.js";
 
 import 'lazysizes/plugins/object-fit/ls.object-fit';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
@@ -12,17 +21,13 @@ import 'lazysizes';
 import 'lazysizes/plugins/respimg/ls.respimg';
 
 $(document).ready(() => {
-  // Confirmation Javascript is working
+
+  // Testing only!!!!
+  // alert($.fn.jquery);
+  // alert(jQuery.fn.jquery);
+
+  // Confirmation Javascript is available
   $('html').removeClass('noscript')
-
-  // Common a11y fixes
-  if (window.location.hash !== '#') {
-    pageLinkFocus($(window.location.hash));
-  }
-
-  $('.in-page-link').on('click', (evt) => {
-    pageLinkFocus($(evt.currentTarget.hash));
-  });
 
   // Check for cookie compatibility
   // See https://stackoverflow.com/questions/6125330#answer-6125366
@@ -32,6 +37,16 @@ $(document).ready(() => {
   } else {
     $('html').addClass('no-cookies')
   }
+
+  // TO DO
+  // // Common a11y fixes
+  // if (window.location.hash !== '#') {
+  //   pageLinkFocus($(window.location.hash));
+  // }
+  //
+  // $('.in-page-link').on('click', (evt) => {
+  //   pageLinkFocus($(evt.currentTarget.hash));
+  // });
 
   // Target iframes to make them responsive
   const iframeSelectors =

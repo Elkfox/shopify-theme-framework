@@ -12,36 +12,6 @@
 
 /* Grid50 mixins =============================================================*/
 
-// Table Grids
-@mixin table() {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  > .column {
-    float: none;
-    display: table-cell;
-    &.middle {
-      vertical-align: middle;
-    }
-    &.top {
-      vertical-align: top;
-    }
-    &.bottom {
-      vertical-align: bottom;
-    }
-    &:first-of-type {
-      padding-left: 0;
-    }
-    &:last-of-type {
-      padding-right: 0;
-    }
-  }
-}
-
-/* Grid50 Mixins =============================================================*/
-
 // Screen Sizes
 @mixin s() {
   @media (max-width: $s) {
@@ -82,6 +52,34 @@
 // Column widths
 @mixin column($width) {
   width: $width;
+}
+
+// Table Grids
+@mixin table() {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  > .column {
+    float: none;
+    display: table-cell;
+    &.middle {
+      vertical-align: middle;
+    }
+    &.top {
+      vertical-align: top;
+    }
+    &.bottom {
+      vertical-align: bottom;
+    }
+    &:first-of-type {
+      padding-left: 0;
+    }
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
 }
 
 /* Grid50 Grids ==============================================================*/

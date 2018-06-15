@@ -237,6 +237,19 @@
       }
     }
   },
+  "gift_cards": {
+    "title": "Here's your {{ value }} gift card for {{ shop }}!",
+    "subtext": "Here's your gift card!",
+    "disabled": "Disabled",
+    "expired": "Expired on {{ expiry }}",
+    "active": "Expires on {{ expiry }}",
+    "redeem": "Use this code at checkout to redeem your gift card",
+    "shop_link": "Start shopping",
+    "print": "Print",
+    "remaining_html": "{{ balance }} left",
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "initial_value": "Gift card value: {{ value }}"
+  },
   "date_formats": {
     "month_day_year": "%B %d, %Y"
   },

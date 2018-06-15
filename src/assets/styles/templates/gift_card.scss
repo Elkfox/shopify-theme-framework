@@ -1,0 +1,42 @@
+/**
+* Styles for the cart template
+*
+* Import additional stylesheets into this sheet using CSS imports:
+* eg. @import url('./global/variables.scss.liquid');
+*
+* IMPORTANT: This currrently wont work as expected. Styles added here are
+* erroneously applied globally, regardless of template or layout
+* Hence, these are temporarily applied within the .template-giftcard class
+**/
+
+
+.template-giftcard {
+
+  // Apple wallet styles
+  .apple-wallet-image {
+    display: block;
+    margin: 0 auto;
+  }
+
+  // Print styles
+  @media print {
+    @page {
+      margin: 0.5cm;
+    }
+    p {
+      orphans: 3;
+      widows: 3;
+    }
+    .print-giftcard,
+    .apple-wallet {
+      display: none;
+    }
+  }
+
+  main {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
