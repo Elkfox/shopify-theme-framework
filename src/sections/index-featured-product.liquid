@@ -55,7 +55,8 @@
     <ul id="productThumbs" class="row collapse">
       {% for image in product.images %}
         <li class="column l3 m4 s4">
-          <a href="{{ image.src | img_url: '1500x' }}">
+          <a href="{{ image.src | img_url: '1500x' }}"
+             title="{{ 'product.thumbnail_accessible_title_html' | t: count: forloop.index, product_title: product.title }}">
             {% include 'responsive-bg-image' with
               image: image,
               ratio: 1.0

@@ -11,7 +11,7 @@
 
 <section class="hero-media s-hide">
   {% for block in section.blocks %}
-    <div class="block_{{ count }}">
+    <div class="block_{{ forloop.index }}">
       {% if block.settings.image != blank %}
         {% include 'responsive-bg-image' with
           image: block.settings.image,
@@ -20,8 +20,11 @@
       {% else %}
         <div style="background-color:#EEE;padding-top:50%;overflow:hidden;">
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- comment -%}
+            Placholder styling for demonstration purposes only
+          {%- endcomment -%}
           <style>
-            .block_{{ count }} .placeholder-svg {
+            .block_{{ forloop.index }} .placeholder-svg {
               position: absolute;
               top: 0;
               bottom: 0;

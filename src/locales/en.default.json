@@ -48,7 +48,8 @@
     "on_sale_html": "On sale for {{ price }}",
     "on_sale_from_html": "On sale from {{ price }}",
     "on_sale": "On sale",
-    "sold_out": "Sold out"
+    "sold_out": "Sold out",
+    "thumbnail_accessible_title_html": "Image {{ count }} of {{ product_title }}"
   },
   "cart": {
     "title": "Cart",

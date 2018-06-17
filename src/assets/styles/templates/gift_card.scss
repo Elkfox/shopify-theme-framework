@@ -6,11 +6,34 @@
 *
 * IMPORTANT: This currrently wont work as expected. Styles added here are
 * erroneously applied globally, regardless of template or layout
-* Hence, these are temporarily applied within the .template-giftcard class
+* Hence, styles below are applied within the body .template-giftcard class
 **/
 
-
 .template-giftcard {
+  // Flex vertical alignment
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  .giftcard {
+    max-width: 40em;
+    margin: 0 auto;
+  }
+
+  .gitcard-image {
+    max-width: 475px;
+  }
+
+  .gift-card-actions {
+    margin-top: 30px;
+  }
+
+  // Code field
+  .gift-card-code {
+    font-size: 2em;
+    text-align: center;
+  }
 
   // Apple wallet styles
   .apple-wallet-image {
@@ -33,10 +56,4 @@
     }
   }
 
-  main {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
 }
