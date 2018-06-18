@@ -28,7 +28,7 @@
         <label for="SortBy" class="visually-hidden">
           {{ 'collection.sort.title' | t }}
         </label>
-        <select name="SortBy" data-sort>
+        <select name="SortBy">
           {% for option in sort_options %}
             <option value="{{ option }}"{% if collection.sort_by == blank and collection.default_sort_by == option %}
                     selected="selected"{% elsif collection.sort_by == option %}
