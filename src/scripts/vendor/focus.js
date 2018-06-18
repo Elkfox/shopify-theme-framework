@@ -23,10 +23,9 @@ var Focus = function(target, config) {
     'targetClass': null,
     'sticky': null,
     'innerSelector': '.popup-inner',
-    'popupContent': '.popup-content',
     'autoFocusSelector': '[data-auto-focus]',
     'slide': null,
-    'slideSpeed': 'fast',
+    'slideDuration': 'fast',
     'visible': false
   };
   // Merge configs
@@ -38,7 +37,6 @@ var Focus = function(target, config) {
 
   // Update current popup config
   this.visible = this.config.visible;
-  this.width = jQuery(this.config.popupContent).outerWidth();
 
   // Detach unless set to be sticky
   if (!this.config.sticky) {
@@ -77,7 +75,7 @@ Focus.prototype.show = function() {
       jQuery('[data-target="'+this.target+'"]').addClass(this.config.targetClass);
     };
     if (this.config.slide) {
-      this.element.slideDown(this.config.slideSpeed);
+      this.element.slideDown(this.config.slideDuration);
     };
     this.element.addClass(this.config.visibleClass);
     jQuery('body').addClass(this.config.bodyClass);
@@ -125,7 +123,7 @@ Focus.prototype.hide = function() {
       jQuery('[data-target="'+this.target+'"]').removeClass(this.config.targetClass);
     };
     if (this.config.slide) {
-      this.element.slideUp(this.config.slideSpeed);
+      this.element.slideUp(this.config.slideDuration);
     };
     jQuery('body').removeClass(this.config.bodyClass);
 
