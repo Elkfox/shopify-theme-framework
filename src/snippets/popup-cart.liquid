@@ -58,7 +58,7 @@
         </div>
       </div>
       <p class="center"><a href="/cart" class="button wide" aria-label="{{ 'cart.checkout' | t }}">{{ 'cart.checkout' | t }}</a></p>
-      <a href="#close" class="popup-close" data-close data-target="#PopupCart.popup" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+      <a href="#close" class="popup-close" data-close data-target="#PopupCart" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
     </div>
   </div>
   {% raw %}
@@ -106,5 +106,5 @@
   {% endraw %}
 </div>
 <script>
-  var cartPopup = new Focus('#PopupCart.popup');
+  var cartPopup = new Focus('#PopupCart');
 </script>

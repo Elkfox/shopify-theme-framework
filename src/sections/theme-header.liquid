@@ -17,7 +17,7 @@
           <a href="/account">{{ 'account.login.title' | t }}</a>
         {% endif %}
 
-        <a href="/cart" id="CartLink" data-trigger="popup" data-target="#PopupCart.popup" aria-controls="Cart" aria-expanded="false" class="v-middle">
+        <a href="/cart" id="CartLink" data-trigger="popup" data-target="#PopupCart" aria-controls="Cart" aria-expanded="false" class="v-middle">
           {{ 'cart.title' | t }}
           <span data-cart-item-count>{{ cart.item_count }}</span>
           (<span data-cart-total>{{ cart.total_price | money_with_currency }}</span>)

@@ -76,8 +76,8 @@
       // Cart error handling
       $(document).on('cartfox:requestComplete', function(event, cart, error) {
         if (error) {
-          $("#ErrorPopup").find("#errorMessage").text(error);
-          errorPopup.show();
+          $("#PopupError").find("#errorMessage").text(error);
+          PopupError.show();
         } else {
           {% unless template == 'cart' %}
             cartPopup.show();
