@@ -3,8 +3,8 @@
 {%- layout 'gift_card' -%}
 
 {%- assign gift_card_expiry_date = gift_card.expires_on | date: "%d/%m/%y" -%}
-{% assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency %}
-{% assign formatted_current_balance = gift_card.balance | money %}
+{%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency -%}
+{%- assign formatted_current_balance = gift_card.balance | money -%}
 {%- assign code_size = gift_card.code | format_code | size -%}
 
 <div class="giftcard container s center">

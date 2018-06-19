@@ -5,13 +5,9 @@
 import "../../styles/layout/theme.scss.liquid";
 
 import $ from 'jquery';
+// Testing only!!!!
 // import jQuery from 'jquery';
 import {pageLinkFocus} from '@shopify/theme-a11y';
-
-// var Handlebars = require('Handlebars')
-// import Handlebars from 'handlebars';
-// import 'handlebars/dist/handlebars.min.js';
-// import "../../scripts/global/cartfox.js";
 
 import 'lazysizes/plugins/object-fit/ls.object-fit';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
@@ -27,7 +23,7 @@ $(document).ready(() => {
   // alert(jQuery.fn.jquery);
 
   // Confirmation Javascript is available
-  $('html').removeClass('noscript')
+  $('html').removeClass('noscript').addClass('js')
 
   // Check for cookie compatibility
   // See https://stackoverflow.com/questions/6125330#answer-6125366

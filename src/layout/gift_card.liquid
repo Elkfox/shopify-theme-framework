@@ -17,7 +17,7 @@
   <meta name="msapplication-square310x310logo" content="{{ settings.favicon | img_url: '310x310' }}">
   {% endif -%}
   {% include 'style-tags' %}
-  {% include 'script-tags' %}
+  {% include 'script-tags', layout: 'gift_card' %}
   {{ content_for_header }}
 </head>
 <body class="template-giftcard">

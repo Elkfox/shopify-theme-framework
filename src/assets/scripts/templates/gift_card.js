@@ -1,6 +1,7 @@
 /**
 * Gift Card layout
 *
+* @namespace gift_card
 * IMPORTANT: This currently will only work during development and will fail to
 * load when deployed to current issues with Slate v1
 **/
@@ -40,15 +41,6 @@ QRCode.toDataURL(config.printButton, {
   }, function (err, url) {
   $('#QR').html('<img src="' + url + '" style="width:' + config.QRwidth/2 + 'px">')
 })
-
-// QRCode.toDataURL('Some text', function (err, url) {
-//   $('#QR').html('<img src="' + url + '">')
-// })
-// new QRCode($qrCode[0], {
-//   text: $qrCode.attr('data-identifier'),
-//   width: 120,
-//   height: 120,
-// });
 
 // Print Gift Card action
 $(config.printButton).on('click', () => {
