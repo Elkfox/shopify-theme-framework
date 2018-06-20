@@ -84,7 +84,7 @@
       <form action="/cart/add"
             method="post"
             enctype="multipart/form-data"
-            id="AddToCartForm"
+            {% comment -%}id="AddToCartForm"{%- endcomment -%}
             data-cart-submit>
 
         {%- comment -%}
@@ -99,8 +99,9 @@
                      for="singleOptionSelector-{{ forloop.index }}">
                 {{ option.name }}
               </label>
-              <select id="singleOptionSelector-{{ forloop.index }}"
-                      data-index="option{{ forloop.index }}">
+              <select id="SingleOptionSelector-{{ forloop.index0 }}"
+                      data-single-option-selector
+                      data-index="option{{ option.position }}">
                 {% for value in option.values %}
                   <option value="{{ value | escape }}"
                           {%- if option.selected_value == value %}selected="selected"{% endif %}>
@@ -114,23 +115,23 @@
 
         {%- comment -%}
           Original variant selector with fallback for no Javascript
-          The customer will not see this element
+          The customer will not see this element as long as their browser
+          supports Javascript
         {%- endcomment -%}
-        <noscript>
-          <select name="id">
-            {% for variant in product.variants %}
-              {% if variant.available %}
-                <option
-                  value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
-                </option>
-              {% else %}
-                <option disabled="disabled">
-                  {{ variant.title }} - {{ 'product.sold_out' | t }}
-                </option>
-              {% endif %}
-            {% endfor %}
-          </select>
-        </noscript>
+        <select class="noscript" name="id" data-product-select>
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              <option
+                value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}
+              </option>
+            {% else %}
+              <option disabled="disabled">
+                {{ variant.title }} - {{ 'product.sold_out' | t }}
+              </option>
+            {% endif %}
+          {% endfor %}
+        </select>
+
 
         <label for="Quantity" class="visually-hidden">
           {{ 'product.quantity' | t }}
@@ -141,16 +142,19 @@
           <a class="js adjust" data-change="1">&#43;</a>
         </div>
 
-        {% if sold_out %}
-          <button type="submit" name="add" data-add-to-cart disabled>
-            <span id="AddToCartText">{{ 'product.sold_out' | t }}</span>
-          </button>
-        {% else %}
-          <button type="submit" name="add" data-add-to-cart>
-            <span id="AddToCartText">{{ 'product.add_to_cart' | t }}</span>
-          </button>
-        {% endif %}
-
+        <button
+          type="submit"
+          name="add"
+          data-add-to-cart
+          {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+            <span data-add-to-cart-text>
+              {% if current_variant.available %}
+                {{ 'product.sold_out' | t }}
+              {% else %}
+                {{ 'product.add_to_cart' | t }}
+              {% endif %}
+            </span>
+        </button>
       </form>
 
       <div class="rte">

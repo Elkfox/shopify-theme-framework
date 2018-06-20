@@ -25,24 +25,6 @@ MIT License
 {% include 'style-tags' %}
 {% include 'script-tags', layout: 'theme' %}
 {{ content_for_header }}
-
-<script>
-var cart;
-(function() {
-  cart = new Cartfox.Cart({{ cart | json }}, {
-    addItem: '[data-add-to-cart]',
-    cartItemCount: '[data-cart-item-count]',
-    cartTotal: '[data-cart-total]',
-    decreaseQuantity: '[data-minus-one]',
-    increaseQuantity: '[data-plus-one]',
-    itemQuantity: '[data-item-quantity]',
-    removeItem: '[data-remove-item]',
-    emptyTemplate: '[data-cart-template]',
-    itemsContainer: '[data-item-container]'
-  });
-});
-</script>
-
 </head>
 <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}{% if template.suffix != null %} suffix-{{ template.suffix | handle }}{% endif %}">
   {% section 'theme-header' %}
@@ -51,5 +33,13 @@ var cart;
   </main>
   {% section 'theme-footer' %}
   {% include 'meta-schema' %}
+
+  <script>
+    var cart;
+    $(document).ready(function() {
+      cart = new CartFox({{ cart | json }});
+    });
+  </script>
+
 </body>
 </html>

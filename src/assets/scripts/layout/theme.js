@@ -4,9 +4,22 @@
 
 import "../../styles/layout/theme.scss.liquid";
 
-import $ from 'jquery';
+// import $ from 'jquery';
 // Testing only!!!!
 // import jQuery from 'jquery';
+
+import $ from 'jquery';
+// window.jQuery = $;
+// window.$ = $;
+// window.jQuery = require('jquery');
+
+import "../../scripts/global/q.js";
+import "../../scripts/global/cartfox.js";
+
+// import CartFox from 'CartFox'
+// var CartFox = require('../../scripts/global/cartfox.js')
+
+
 import {pageLinkFocus} from '@shopify/theme-a11y';
 
 import 'lazysizes/plugins/object-fit/ls.object-fit';
@@ -16,6 +29,13 @@ import 'lazysizes/plugins/bgset/ls.bgset';
 import 'lazysizes';
 import 'lazysizes/plugins/respimg/ls.respimg';
 
+
+// var cart;
+// $.getJSON('/cart.js', function (data) {
+//   console.log(data)
+//   cart = new CartFox(data);
+// });
+
 $(document).ready(() => {
 
   // Testing only!!!!
@@ -23,7 +43,8 @@ $(document).ready(() => {
   // alert(jQuery.fn.jquery);
 
   // Confirmation Javascript is available
-  $('html').removeClass('noscript').addClass('js')
+  document.documentElement.className = document.documentElement.className.replace('noscript', 'js');
+  // $('html').removeClass('noscript').addClass('js')
 
   // Check for cookie compatibility
   // See https://stackoverflow.com/questions/6125330#answer-6125366

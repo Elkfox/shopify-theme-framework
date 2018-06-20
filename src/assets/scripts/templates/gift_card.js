@@ -6,8 +6,6 @@
 * load when deployed to current issues with Slate v1
 **/
 
-// alert('wtf')
-
 import "../../styles/templates/gift_card.scss";
 
 import $ from 'jquery';
