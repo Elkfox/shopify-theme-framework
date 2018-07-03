@@ -3,5 +3,16 @@
 <div class="container s">
   <h1>{{ 'account.login.title' | t }}</h1>
   <h4>{{ 'account.login.message' | t }}</h4>
+
+  {% comment %}
+    Display the recovery success message if the recovery form has just been submitted.
+  {% endcomment %}
+  {% form 'recover_customer_password' %}
+    {{ form.errors | default_errors }}
+    {% if form.posted_successfully? %}
+      <p class="note">{{ 'account.recover.success' | t }}</p>
+    {% endif %}
+  {% endform %}
+
   {% include 'form-login' %}
 </div>
