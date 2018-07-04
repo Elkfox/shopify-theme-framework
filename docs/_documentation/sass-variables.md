@@ -8,8 +8,7 @@ Concrete has some SCSS variables defined that will help to ensure your theme is 
 Note that some of the color variables are defined using liquid, meaning that the variables can be easily tweaked from the theme settings.
 
 ##### Colors
-{% highlight scss %}
-{% raw %}  
+{% highlight scss %}{% raw %}
 // This colour is the main brand color, for example if the website was coca-cola you would set this to red.
 $colorBrand: {{ settings.color_brand }};
 
@@ -27,9 +26,7 @@ $colorHighlight: {{ settings.color_highlight }};
 
 // If your brand has a tertiary colour you can set this here. Alternatively it will be fine to set this to the brand color too.
 $colorAlternate: {{ settings.color_alternate }};
-
-{% endraw %}
-{% endhighlight %}
+{% endraw %}{% endhighlight %}
 
 ##### Breakpoints
 Concrete's default breakpoints. These are used to control media queries and container widths.
@@ -40,17 +37,30 @@ $l: 1050px;
 $xl: 1450px;
 {% endhighlight %}
 
-##### Gutter
+##### Spacing
 
-This is where Grid50 gets it's name. Gutter is always set to 50px, when you apply spacing around the site using gutter can save heaps of time. If you want a space that is less or more than 50 try using SCSS arithmetic functions.
+This is where the layout all begins. Spacing is always set to 10px, it's a starting point for building out margins, padding and gutters across the whole framework. It can also be used and manipulated as needed to style elements inside custom classes, because it's a nice round number it always plays nicely when using SCSS arithmetic functions.
 
 {% highlight scss %}
-$gutter: 50px;
+$spacing: 10px;
 
 .class {
-  padding-left: $gutter/2;
-  margin: ($gutter/3) ($gutter/5) ($gutter*2);
+  padding-left: $spacing;
+  margin: ($spacing/2) ($spacing*3) ($spacing*2);
 }
 {% endhighlight %}
 
-Knowing that your gutter will be a multiple of 50px is helpful for creating mockups and designing too! 
+##### Gutter
+
+This is where Grid50 gets it's name. Gutter is always set to 50px (defined using `$spacing*5`), the gutter is used to build the Concrete grid system. Of course, `$gutter` can also be used inside custom classes and manipulated using SCSS arithmetic functions as needed.
+
+{% highlight scss %}
+$gutter: $spacing*5;
+
+.class {
+  padding-left: $gutter;
+  margin: ($gutter/2) ($gutter*3) ($gutter*2);
+}
+{% endhighlight %}
+
+Knowing that your gutter will be a multiple of 50px is helpful for creating mockups and designing too!

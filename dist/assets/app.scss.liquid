@@ -1319,6 +1319,10 @@ form#CartPage {
 .fixed {
   position: fixed;
 }
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
 
 // Margin & Padding
 .no-margin {
@@ -1340,8 +1344,8 @@ form#CartPage {
   .xl-v-middle { vertical-align: middle; }
   .xl-v-top { vertical-align: top; }
   .xl-v-bottom { vertical-align: bottom; }
-  .xl-show { display: block; }
   .l-show, .m-show, .s-show { display: none !important; }
+  .xl-show { display: block !important; }
 }
 @include l() {
   .l-flex { @include flex(); }
@@ -1352,8 +1356,8 @@ form#CartPage {
   .l-v-middle { vertical-align: middle; }
   .l-v-top { vertical-align: top; }
   .l-v-bottom { vertical-align: bottom; }
-  .l-show { display: block; }
   .xl-show, .m-show, .s-show { display: none !important; }
+  .l-show { display: block !important; }
 }
 @include m() {
   .m-flex { @include flex(); }
@@ -1364,8 +1368,8 @@ form#CartPage {
   .m-v-middle {   vertical-align: middle; }
   .m-v-top { vertical-align: top; }
   .m-v-bottom { vertical-align: bottom; }
-  .m-show { display: block; }
   .xl-show, .l-show, .s-show { display: none !important; }
+  .m-show { display: block !important; }
 }
 @include s() {
   .s-flex { @include flex(); }
@@ -1376,8 +1380,8 @@ form#CartPage {
   .s-v-middle { vertical-align: middle; }
   .s-v-top { vertical-align: top; }
   .s-v-bottom { vertical-align: bottom; }
-  .s-show { display: block; }
   .xl-show, .l-show, .m-show { display: none !important; }
+  .s-show { display: block !important; }
 }
 
 

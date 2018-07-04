@@ -35,18 +35,18 @@ nav:
         url: '#grid-column'
   - title: 'Sass variables'
     url: '#sass-variables'
-  - title: Helper classes
-    url: '#helper-classes'
   - title: 'Sass mixins'
     url: '#sass-mixins'
+  - title: Helper classes
+    url: '#helper-classes'
   - title: 'Icons'
     url: '#icons'
   - title: Javascript Modules
     url: '#javascript-modules'
     childlinks:
-    - title: 'Cart'
+    - title: 'Cartfox'
       url: '#cart'
-    - title: 'Popups'
+    - title: 'Focus'
       url: '#focus'
     - title: 'Product'
       url: '#concrete-product'

@@ -66,7 +66,7 @@ $iconLinecap: square;
 // Mixins ===================================================================
 
 // Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
-@mixin prefixer($property, $value, $prefixes) {
+@mixin prefixer($property, $value, $prefixes:webkit moz ms spec) {
   @each $prefix in $prefixes {
     @if $prefix == webkit {
       -webkit-#{$property}: $value;
@@ -99,21 +99,17 @@ $iconLinecap: square;
 @mixin vertical-align() {
   position: relative;
   top: 50%;
-  -webkit-transform: perspective(1px) translateY(-50%);
-  -ms-transform: perspective(1px) translateY(-50%);
-  transform: perspective(1px) translateY(-50%);
+  @include prefixer(transform, perspective(1px) translateY(-50%));
 }
 
 // Transition Property (for legacy support)
 @mixin transition-property() {
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
+  @include prefixer(transition-property, transform);
 }
 
 // Transitions
 @mixin transition() {
-  @include prefixer(transition, $transition, webkit moz ms spec);
+  @include prefixer(transition, $transition);
 }
 
 // Overlays
@@ -126,21 +122,73 @@ $iconLinecap: square;
   height: 100%;
 }
 
-// Flex
+// Flex grids
+@mixin flex-direction($direction) {
+  @include prefixer(flex-direction, $direction, webkit spec);
+}
+@mixin flex-wrap($wrap) {
+  @include prefixer(flex-wrap, $wrap, webkit spec);
+}
+@mixin flex-flow($direction, $wrap) {
+  @include prefixer(flex-flow, $direction $wrap, webkit spec);
+}
+@mixin flex-distribution($distribution) {
+  @include prefixer(flex, $distribution, webkit spec);
+}
+@mixin flex-align($property, $align) {
+  @include prefixer(align-#{$property}, $align, webkit spec);
+}
+@mixin flex-justify($justify) {
+  @include prefixer(justify-content, $justify, webkit spec);
+  > .column {
+    @include flex-distribution(0 0 auto);
+  }
+}
 @mixin flex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: -webkit-flexbox;
   display: -webkit-flex;
   display: flex;
-}
-@mixin box-orient--vertical() {
-  @include prefixer(box-orient, vertical, webkit moz spec);
-}
-@mixin flex-direction($flex-direction) {
-  @include prefixer(flex-direction, $flex-direction, webkit moz ms spec);
+  @include flex-flow(row, wrap);
+
+  // Row behaviour
+  &.nowrap { @include flex-wrap(nowrap); }
+  &.vertical { @include flex-direction(column); }
+
+  // Horizontal alignment
+  &.h-start { @include flex-justify(flex-start); }
+  &.h-center { @include flex-justify(center); }
+  &.h-end { @include flex-justify(flex-end); }
+  &.h-space-between { @include flex-justify(space-between ); }
+  &.h-space-around { @include flex-justify(space-around); }
+  &.h-space-evenly { @include flex-justify(space-evenly); }
+
+  // Vertical alignment
+  &.v-start { @include flex-align(items, flex-start); }
+  &.v-center { @include flex-align(items, center); }
+  &.v-end { @include flex-align(items, flex-end); }
+  &.v-baseline { @include flex-align(items, baseline); }
+  &.v-stretch { @include flex-align(items, stretch); }
+  &.v-space-between { @include flex-align(content, space-between ); }
+  &.v-space-around { @include flex-align(content, space-around); }
+
+  &:after {
+    content: normal;
+  }
+
+  > * {
+    &.column {
+      float: none;
+      @include flex-distribution(1);
+    }
+    &.grow { @include flex-distribution(1); }
+    &.shrink { @include flex-distribution(0); }
+
+    // Individual vertical alignment
+    &.v-start { @include flex-align(self, flex-start); }
+    &.v-center { @include flex-align(self, center); }
+    &.v-end { @include flex-align(self, flex-end); }
+    &.v-baseline { @include flex-align(self, baseline); }
+    &.v-stretch { @include flex-align(self, stretch); }
+  }
 }
 
 // Screen Sizes & Types
@@ -150,12 +198,12 @@ $iconLinecap: square;
   }
 }
 @mixin m() {
-  @media (min-width: $s) and (max-width: $l - 1px) {
+  @media (min-width: $s - 1px) and (max-width: $l - 1px) {
     @content;
   }
 }
 @mixin l() {
-  @media (min-width: $l) and (max-width: $xl - 1px) {
+  @media (min-width: $l) {
     @content;
   }
 }
@@ -170,11 +218,11 @@ $iconLinecap: square;
   display: table;
   table-layout: fixed;
   width: 100%;
-  margin: 0 0 $gutter;
+  margin-left: 0;
+  margin-right: 0;
   .column {
     float: none;
     display: table-cell;
-    vertical-align: middle;
     &.middle {
       vertical-align: middle;
     }
@@ -199,6 +247,16 @@ $iconLinecap: square;
   .column {
     direction: ltr;
     float: right;
+  }
+}
+
+// Collapsed columns
+@mixin collapse() {
+  margin-left: 0;
+  margin-right: 0;
+  > .column {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

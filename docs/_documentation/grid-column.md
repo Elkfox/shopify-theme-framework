@@ -115,3 +115,53 @@ By default Concrete is actually desktop first, however many people prefer to wor
     </div>
   </div>
 </div>
+
+By default columns have padding inside them equal to `$gutter/2`, we can remove this automatic spacing by adding the `collapse` class on the `row` element.
+
+In addition, we can also define specific breakpoints in which to collapse the grid, by using a helper class such as `l-collapse`.
+
+{% highlight html %}
+<!-- These columns will not have padding -->
+<div class="row collapse">
+  <div class="column l3">column l3</div>
+  <div class="column l3">column l3</div>
+  <div class="column l3">column l3</div>
+  <div class="column l3">column l3</div>
+</div>
+{% endhighlight %}
+
+<div class="demo-wrapper">
+  <div class="container demo-grid">
+    <div class="row collapse demo-grid">
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+    </div>
+  </div>
+</div>
+
+By default columns are positioned using the `float` css attribute, we can easily create a table based grid by adding the `table` class on the `row` element.
+
+In addition, we can also define specific breakpoints in which to display the grid as a table, by using a helper class such as `l-table`.
+
+{% highlight html %}
+<!-- This is a table based grid -->
+<div class="row table">
+  <div class="column l3">column l3</div>
+  <div class="column l3">column l3</div>
+  <div class="column l3">column l3</div>
+  <div class="column l3">column l3</div>
+</div>
+{% endhighlight %}
+
+<div class="demo-wrapper">
+  <div class="container demo-grid">
+    <div class="row table demo-grid">
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+      <div class="column l3 demo-grid">column l3</div>
+    </div>
+  </div>
+</div>

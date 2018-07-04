@@ -129,14 +129,14 @@ Adjust your screen width to see the alignment change.
 </div>
 
 ###### Hide
-`hidden` can be used to hide any element. If you wish to hide on a extra large screen sizes you can use `xl-hide`.
+`hidden` can be used to hide any element, if you wish to hide only on extra large screen sizes you can use `xl-hide`.
 
 {% highlight html %}
-  <div class="hidden">Always Hidden</div>
-  <div class="xl-hide">Hidden on extra large screens</div>
-  <div class="l-hide">Hidden on large screens</div>
-  <div class="m-hide">Hidden on medium screens</div>
-  <div class="s-hide">Hidden on small screens</div>
+<div class="hidden">Always Hidden</div>
+<div class="xl-hide">Hidden on extra large screens</div>
+<div class="l-hide">Hidden on large screens</div>
+<div class="m-hide">Hidden on medium screens</div>
+<div class="s-hide">Hidden on small screens</div>
 {% endhighlight %}
 
 Adjust your screen size to see the elements hide and display
@@ -153,10 +153,10 @@ Adjust your screen size to see the elements hide and display
 
 Elements will only be visible on the defined screen width.
 {% highlight html %}
-  <div class="xl-show">Only visible on extra large screens</div>
-  <div class="l-show">Only visible on large screens</div>
-  <div class="m-show">Only visible on medium screens</div>
-  <div class="s-show">Only visible on small screens</div>
+<div class="xl-show">Only visible on extra large screens</div>
+<div class="l-show">Only visible on large screens</div>
+<div class="m-show">Only visible on medium screens</div>
+<div class="s-show">Only visible on small screens</div>
 {% endhighlight %}
 
 Adjust your screen size to see the elements display and hide.
@@ -167,3 +167,25 @@ Adjust your screen size to see the elements display and hide.
   <div class="m-show demo-grid">Only visible on medium screens</div>
   <div class="s-show demo-grid">Only visible on small screens</div>
 </div>
+
+###### Flex
+
+`flex` will cause elements to behave using the Flexbox layout model, if you wish to use flex only on extra large screen sizes you can use `xl-flex`.
+{% highlight html %}
+<div class="flex">
+  <div>One</div>
+  <div>Two</div>
+</div>
+{% endhighlight %}
+
+A basic flex row:
+
+<div class="demo-wrapper">
+  <div class="demo-grid flex">
+    <div>One</div>
+    <div>Two</div>
+  </div>
+</div>
+
+## Additional helpers
+Concrete also includes some optional additional helpers that are incredibly useful for quickly building out custom layouts and spacing without writing a ton of custom classes.

@@ -1,7 +1,3 @@
-// .parallax {
-//   transition: background-position-y 0.5s ease-out;
-// }
-
 header {
   position: relative;
   height: auto;
@@ -129,13 +125,11 @@ article.documentation {
   background-color: $colorBackground;
   bottom: 0px;
   left: 0px;
-  padding-left: $gutter;
+  padding-left: $gutter/2;
   z-index: 10;
-  @include m() {
-    padding-left: $gutter/2;
-  }
-  @include s() {
-    padding-left: $gutter/4;
+  @include l() {
+    padding-bottom: $gutter;
+    padding-left: $gutter;
   }
   p {
     margin-bottom: 0;

@@ -8,18 +8,18 @@ Concrete uses [Cartfox🛒🦊](https://github.com/Elkfox/Cartfox) for all thing
 As you can see in the `/layout/theme.liquid` Cartfox is initialized here using Concrete's default elements for selectors. If you wish to changes class names or apply different selectors, you can do so here.
 
 {% highlight javascript %}
-  var cart;
-  $(document).ready(function() {
-    cart = new Cartfox.Cart({{ cart | json }}, {
-      addItem: '[data-add-to-cart]',
-      cartItemCount: "[data-cart-item-count]",
-      cartTotal: "[data-cart-total]",
-      decreaseQuantity: "[data-minus-one]",
-      increaseQuantity: "[data-plus-one]",
-      itemQuantity: '[data-item-quantity]',
-      removeItem: '[data-remove-item]',
-      emptyTemplate: '[data-cart-template]',
-      itemsContainer: '[data-item-container]'
-    });
+var cart;
+$(document).ready(function() {
+  cart = new Cartfox.Cart({{ cart | json }}, {
+    addItem: '[data-add-to-cart]',
+    cartItemCount: "[data-cart-item-count]",
+    cartTotal: "[data-cart-total]",
+    decreaseQuantity: "[data-minus-one]",
+    increaseQuantity: "[data-plus-one]",
+    itemQuantity: '[data-item-quantity]',
+    removeItem: '[data-remove-item]',
+    emptyTemplate: '[data-cart-template]',
+    itemsContainer: '[data-item-container]'
   });
+});
 {% endhighlight %}

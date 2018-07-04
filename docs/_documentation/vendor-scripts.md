@@ -24,10 +24,10 @@ Creating composite functions
 
 We use Lodash in some of concrete functions (`concrete.Sections`, `concrete.Product`, `concrete.Variants`) because it makes things faster (in the browser), and easier to maintain.
 
-#### [Concrete Popups](https://github.com/Elkfox/Concrete-Popups)
-Modals and popups are used so frequently in e-commerce websites that we developed our own flavour because we weren't that impressed with the alternatives. This lives in the vendor scripts because it is a dependency of the framework - although it doesn't need to be if you choose otherwise.
+#### [Focus](https://elkfox.github.io/Focus/)
+Modals and popups are used so frequently on commerce websites that we developed our own flavour because we weren't that impressed with the alternatives. Focus lives in the vendor scripts because it is a dependency of the framework - although it doesn't need to be if you choose otherwise.
 
-There is some basic documentation [here](#concrete-popups).
+Learn about working with Focus in Concrete [here](#focus).
 
 #### [Cartfox](https://github.com/Elkfox/Cartfox)
 Cartfox is our very own ajax cart, lightweight and integrated to concrete but is easily adaptable to any theme.
