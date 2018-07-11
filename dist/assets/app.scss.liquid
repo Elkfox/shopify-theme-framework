@@ -705,19 +705,35 @@ a.button {
   min-height: 0.125rem;
   padding-left: $gutter/2;
   padding-right: $gutter/2;
-  @for $i from 1 through $columns {
-    &.l#{$i} { @include column(percentage($i/$columns)); }
-  }
-  @include m() {
-    @for $i from 1 through $columns {
-      &.m#{$i} { @include column(percentage($i/$columns)); }
+
+  // Build out our column grids
+  @for $count from 1 through length($columns) {
+    $column: nth($columns, $count);
+
+    @for $i from 1 through $column {
+      $column-class: $i + '-of-' + $column;
+      @if $count == 1 { $column-class: $i; }
+
+      &.l#{$column-class} { @include column(percentage($i/$column)); }
+    }
+    @include m() {
+      @for $i from 1 through $column {
+        $column-class: $i + '-of-' + $column;
+        @if $count == 1 { $column-class: $i; }
+
+        &.m#{$column-class} { @include column(percentage($i/$column)); }
+      }
+    }
+    @include s() {
+      @for $i from 1 through $column {
+        $column-class: $i + '-of-' + $column;
+        @if $count == 1 { $column-class: $i; }
+
+        &.s#{$column-class} { @include column(percentage($i/$column)); }
+      }
     }
   }
-  @include s() {
-    @for $i from 1 through $columns {
-      &.s#{$i} { @include column(percentage($i/$columns)); }
-    }
-  }
+
   // Uniform Height Clearing
   @include l() {
     &:nth-child(6n+1).l2 { clear: both; }
