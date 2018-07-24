@@ -136,12 +136,32 @@
   }
 }
 
+// Column class
+@function column-class($count, $column-count, $column-index, $column-prefix:'') {
+  $column-class: $column-index + '-of-' + $column-count;
+  @if $count == 1 { $column-class: $column-index; }
+
+  @return $column-prefix+$column-class;
+}
+
 // Column widths
-@mixin column($width) {
+@mixin column-width($width) {
   width: $width;
   .flex > & {
     width: auto;
     @include flex-distribution(0 0 $width !important);
+  }
+}
+
+// Column clearing
+@mixin column-clear($column-count, $column-index, $column-class) {
+  $column-child: $column-count/$column-index;
+
+  // Only include columns that are greater than zero and do not contain decimal places
+  @if $column-child > 0 {
+    @if round($column-child) == $column-child {
+      &:nth-child(#{$column-child}n+1).#{$column-class} { clear: both; }
+    }
   }
 }
 

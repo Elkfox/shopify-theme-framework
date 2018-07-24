@@ -67,49 +67,47 @@
 
   // Build out our column grids
   @for $count from 1 through length($columns) {
-    $column: nth($columns, $count);
+    $column-count: nth($columns, $count);
 
-    @for $i from 1 through $column {
-      $column-class: $i + '-of-' + $column;
-      @if $count == 1 { $column-class: $i; }
+    @for $column-index from 1 through $column-count {
+      $column-class: column-class($count, $column-count, $column-index, l);
 
-      &.l#{$column-class} { @include column(percentage($i/$column)); }
+      &.#{$column-class} { @include column-width(percentage($column-index/$column-count)); }
     }
     @include m() {
-      @for $i from 1 through $column {
-        $column-class: $i + '-of-' + $column;
-        @if $count == 1 { $column-class: $i; }
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, m);
 
-        &.m#{$column-class} { @include column(percentage($i/$column)); }
+        &.#{$column-class} { @include column-width(percentage($column-index/$column-count)); }
       }
     }
     @include s() {
-      @for $i from 1 through $column {
-        $column-class: $i + '-of-' + $column;
-        @if $count == 1 { $column-class: $i; }
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, s);
 
-        &.s#{$column-class} { @include column(percentage($i/$column)); }
+        &.#{$column-class} { @include column-width(percentage($column-index/$column-count)); }
       }
     }
-  }
 
-  // Uniform Height Clearing
-  @include l() {
-    &:nth-child(6n+1).l2 { clear: both; }
-    &:nth-child(4n+1).l3 { clear: both; }
-    &:nth-child(3n+1).l4 { clear: both; }
-    &:nth-child(2n+1).l6 { clear: both; }
-  }
-  @include m() {
-    &:nth-child(6n+1).m2 { clear: both; }
-    &:nth-child(4n+1).m3 { clear: both; }
-    &:nth-child(3n+1).m4 { clear: both; }
-    &:nth-child(2n+1).m6 { clear: both; }
-  }
-  @include s() {
-    &:nth-child(6n+1).s2 { clear: both; }
-    &:nth-child(4n+1).s3 { clear: both; }
-    &:nth-child(3n+1).s4 { clear: both; }
-    &:nth-child(2n+1).s6 { clear: both; }
+    // Uniform Height Clearing
+
+    @include l() {
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, l);
+        @include column-clear($column-count, $column-index, $column-class);
+      }
+    }
+    @include m() {
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, m);
+        @include column-clear($column-count, $column-index, $column-class);
+      }
+    }
+    @include s() {
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, s);
+        @include column-clear($column-count, $column-index, $column-class);
+      }
+    }
   }
 }

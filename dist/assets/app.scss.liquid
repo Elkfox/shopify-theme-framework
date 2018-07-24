@@ -27,7 +27,7 @@ $colorBorder: $colorAlternate;
 $adjustAmount: 25%;
 
 // Space & Borders
-$columns: 12;
+$columns: 12,16;
 $spacing: 10px;
 $gutter: $spacing*5;
 $borderRadius: 2px;
@@ -209,12 +209,32 @@ $prefixes: webkit moz ms spec;
   }
 }
 
+// Column class
+@function column-class($count, $column-count, $column-index, $column-prefix:'') {
+  $column-class: $column-index + '-of-' + $column-count;
+  @if $count == 1 { $column-class: $column-index; }
+
+  @return $column-prefix+$column-class;
+}
+
 // Column widths
-@mixin column($width) {
+@mixin column-width($width) {
   width: $width;
   .flex > & {
     width: auto;
     @include flex-distribution(0 0 $width !important);
+  }
+}
+
+// Column clearing
+@mixin column-clear($column-count, $column-index, $column-class) {
+  $column-child: $column-count/$column-index;
+
+  // Only include columns that are greater than zero and do not contain decimal places
+  @if $column-child > 0 {
+    @if round($column-child) == $column-child {
+      &:nth-child(#{$column-child}n+1).#{$column-class} { clear: both; }
+    }
   }
 }
 
@@ -708,50 +728,48 @@ a.button {
 
   // Build out our column grids
   @for $count from 1 through length($columns) {
-    $column: nth($columns, $count);
+    $column-count: nth($columns, $count);
 
-    @for $i from 1 through $column {
-      $column-class: $i + '-of-' + $column;
-      @if $count == 1 { $column-class: $i; }
+    @for $column-index from 1 through $column-count {
+      $column-class: column-class($count, $column-count, $column-index, l);
 
-      &.l#{$column-class} { @include column(percentage($i/$column)); }
+      &.#{$column-class} { @include column-width(percentage($column-index/$column-count)); }
     }
     @include m() {
-      @for $i from 1 through $column {
-        $column-class: $i + '-of-' + $column;
-        @if $count == 1 { $column-class: $i; }
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, m);
 
-        &.m#{$column-class} { @include column(percentage($i/$column)); }
+        &.#{$column-class} { @include column-width(percentage($column-index/$column-count)); }
       }
     }
     @include s() {
-      @for $i from 1 through $column {
-        $column-class: $i + '-of-' + $column;
-        @if $count == 1 { $column-class: $i; }
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, s);
 
-        &.s#{$column-class} { @include column(percentage($i/$column)); }
+        &.#{$column-class} { @include column-width(percentage($column-index/$column-count)); }
       }
     }
-  }
 
-  // Uniform Height Clearing
-  @include l() {
-    &:nth-child(6n+1).l2 { clear: both; }
-    &:nth-child(4n+1).l3 { clear: both; }
-    &:nth-child(3n+1).l4 { clear: both; }
-    &:nth-child(2n+1).l6 { clear: both; }
-  }
-  @include m() {
-    &:nth-child(6n+1).m2 { clear: both; }
-    &:nth-child(4n+1).m3 { clear: both; }
-    &:nth-child(3n+1).m4 { clear: both; }
-    &:nth-child(2n+1).m6 { clear: both; }
-  }
-  @include s() {
-    &:nth-child(6n+1).s2 { clear: both; }
-    &:nth-child(4n+1).s3 { clear: both; }
-    &:nth-child(3n+1).s4 { clear: both; }
-    &:nth-child(2n+1).s6 { clear: both; }
+    // Uniform Height Clearing
+
+    @include l() {
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, l);
+        @include column-clear($column-count, $column-index, $column-class);
+      }
+    }
+    @include m() {
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, m);
+        @include column-clear($column-count, $column-index, $column-class);
+      }
+    }
+    @include s() {
+      @for $column-index from 1 through $column-count {
+        $column-class: column-class($count, $column-count, $column-index, s);
+        @include column-clear($column-count, $column-index, $column-class);
+      }
+    }
   }
 }
 
