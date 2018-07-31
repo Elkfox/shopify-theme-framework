@@ -90,7 +90,6 @@
     }
 
     // Uniform Height Clearing
-
     @include l() {
       @for $column-index from 1 through $column-count {
         $column-class: column-class($count, $column-count, $column-index, l);

@@ -24,9 +24,9 @@
 // =require vendor/focus.js
 
 /*!
- * concrete.cart.min.js
+ * cartfox.js
  */
-// =require vendor/Cartfox.js
+// =require vendor/cartfox.js
 
 // Attempts to preserve comments that likely contain licensing information,
 // even if the comment does not have directives such as `@license` or `/*!`.
