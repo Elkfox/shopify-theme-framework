@@ -19,69 +19,67 @@
       </div>
 
       {% for item in cart.items %}
-        <div class="row l-table m-table">
-          <div class="column l1 m2 s12 v-top">
-            <a href="{{ item.url | within: collections.all }}">
-              <img class="product_image" srcset="{{ item.image | img_url: '512x512', scale: 2 }} 2x" src="{{ item.image | img_url: '512x512' }}" alt="{{ item.title | escape }}">
-            </a>
-          </div>
-          <div class="column l4 m3 s12 v-top">
-            <p>
-              <a class="product_title h4" href="{{ item.url }}">
-                {{ item.product.title }}
-              </a>
-              <span>
-                <a class="variant_title h5" href="{{ item.url }}">
-                  {{ item.variant.title }}
+        <div class="row l-table m-table margin-bottom-2x">
+          <div class="column l5 m5 s12 v-top">
+            <div class="row l-table m-table">
+              <div class="column l3 m5 s12 v-top">
+                <a href="{{ item.url | within: collections.all }}">
+                  <img srcset="{{ item.image | img_url: '512x512', scale: 2 }} 2x" src="{{ item.image | img_url: '512x512' }}" alt="{{ item.title | escape }}">
                 </a>
-              </span>
-
-              {% comment %}
-                Optional, loop through custom product line items if available
-                For more info visit http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
-              {% endcomment %}
-              {% if item.properties > 0 %}
-                {% for property in item.properties %}
-                  {% assign first_character_in_key = property.first | truncate: 1, '' %}
-                  {% unless property.last == blank or first_character_in_key == '_' %}
-                    <br>
-                    <label>{{ property.first }}:</label>
-                    {{ property.last }}
-                  {% endunless %}
-                {% endfor %}
-              {% endif %}
-            </p>
-          </div>
-          <div class="column l3 m2 s-hide v-top">
-            {{ item.price | money_with_currency }}
-          </div>
-          <div class="column l2 m3 s12 v-top">
-            <div class="row table collapse">
-              <div class="column l12 m12 s6 v-middle">
-                <div class="quantity-adjust no-margin">
-                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" class="adjust" data-item-quantity-minus="{{ forloop.index }}">&#8211;</a>
-                  <input class="quantity" type="number" name="updates[]" value="{{ item.quantity }}" data-item-quantity-amount="{{ forloop.index }}" min="0" pattern="[0-9]*">
-                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" class="adjust" data-item-quantity-plus="{{ forloop.index }}">&#43;</a>
-                </div>
               </div>
-              <div class="column l6 v-middle s-show right">
-                {% if item.total_discount > 0 %}
-                  <s>{{ item.original_line_price | money_with_currency }}</s>
-                  <p class="no-margin">{{ item.message }}</p>
-                {% else %}
-                  <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
-                {% endif %}<br>
-                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="button small" data-remove-item="{{ forloop.index }}">{{ 'cart.remove' | t }}</a>
+              <div class="column l9 m7 s12">
+                <p class="h4 no-margin">
+                  <a href="{{ item.url }}">
+                    {{ item.product.title }}
+                  </a>
+                </p>
+                <p{% unless item.properties > 0 %} class="no-margin"{% endunless %}>
+                  <a href="{{ item.url }}">
+                    {{ item.variant.title }}
+                  </a>
+                </p>
+
+                {% comment %}
+                  Optional, loop through custom product line items if available
+                  For more info visit http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
+                {% endcomment %}
+                {% if item.properties > 0 %}
+                  <p class="no-margin">
+                    {% for property in item.properties %}
+                      {% assign first_character_in_key = property.first | truncate: 1, '' %}
+                      {% unless property.last == blank or first_character_in_key == '_' %}
+                        <label>{{ property.first }}:</label>
+                        {{ property.last }}<br>
+                      {% endunless %}
+                    {% endfor %}
+                  </p>
+                {% endif %}
               </div>
             </div>
           </div>
-          <div class="column l2 m2 right v-top s-hide">
-            {% if item.total_discount > 0 %}
-              <s>{{ item.original_line_price | money_with_currency }}</s>
-              <p class="no-margin">{{ item.message }}</p>
-            {% else %}
-              <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
-            {% endif %}<br>
+
+          <div class="column l3 m2 s12 s-hide v-top">
+            <p class="no-margin">{{ item.price | money_with_currency }}</p>
+          </div>
+
+          <div class="column l2 m3 s6 v-top">
+            <div class="quantity-adjust no-margin">
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" class="adjust" data-item-quantity-minus="{{ forloop.index }}">&#8211;</a>
+              <input class="quantity" type="number" name="updates[]" value="{{ item.quantity }}" data-item-quantity-amount="{{ forloop.index }}" min="0" pattern="[0-9]*">
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" class="adjust" data-item-quantity-plus="{{ forloop.index }}">&#43;</a>
+            </div>
+          </div>
+
+          <div class="column l2 m2 s6 right v-top">
+            <div class="s-hide margin-bottom-2x">
+              {% if item.total_discount > 0 %}
+                <s>{{ item.original_line_price | money_with_currency }}</s>
+                <p class="no-margin">{{ item.message }}</p>
+              {% else %}
+                <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
+              {% endif %}
+            </div>
+
             <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="button small" data-remove-item="{{ forloop.index }}">{{ 'cart.remove' | t }}</a>
           </div>
         </div>
