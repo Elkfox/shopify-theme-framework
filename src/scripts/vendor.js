@@ -19,6 +19,11 @@
 // =require vendor/lodash.min.js
 
 /*!
+ * Q.js
+ */
+// =require vendor/Q.js
+
+/*!
  * focus.js
  */
 // =require vendor/focus.js

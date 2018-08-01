@@ -25,7 +25,7 @@
               {% endif %}
 
               <p>
-                <b>{{ address.first_name | capitalize }} {{ address.last_name | capitalize }}</b>
+                <strong>{{ address.first_name | capitalize }} {{ address.last_name | capitalize }}</strong>
                 {% unless address.company == blank %}
                   ({{ address.company }})
                 {% endunless %}

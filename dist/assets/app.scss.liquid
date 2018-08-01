@@ -50,7 +50,7 @@ $h4: 1.25rem;
 $h5: 1rem;
 $h6: 0.75rem;
 $p: 1rem;
-$small: 0.625rem;
+$small: 0.6875rem;
 
 // Screen Sizes
 $s: 600px;
@@ -394,6 +394,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+*::-moz-selection { background-color: rgba($colorHighlight, 0.75); }
+*::selection { background-color: rgba($colorHighlight, 0.75); }
+
 img {
   max-width: 100%;
 }
@@ -507,7 +510,7 @@ select {
   // IE & Edge placeholders
   &:-ms-input-placeholder
   &::-ms-input-placeholder {
-    
+
   }
   // Safari placeholders
   &::-webkit-textfield-decoration-container {
@@ -520,7 +523,7 @@ select {
     border: $borderWeight $borderStyle $colorBorder;
     border-radius: $borderRadius;
     -webkit-text-fill-color: $colorText;
-    -webkit-box-shadow: 0 0 0px $gutter*100 rgba($colorHighlight, 0.35) inset;
+    -webkit-box-shadow: 0 0 0px $gutter*100 rgba($colorAlternate, 0.35) inset;
   }
   // Select dropdown options for Firefox
   option {
@@ -599,6 +602,12 @@ input[type="reset"] {
   cursor: pointer;
   @include prefixer(appearance, none);
   @include transition();
+  &.small {
+    height: $gutter/2;
+    line-height: (($gutter/2) - $borderWeight*2);
+    padding: 0 $spacing;
+    font-size: $h6;
+  }
   &:hover {
     background-color: darken($colorBrand, $adjustAmount);
     border-color: darken($colorBrand, $adjustAmount);

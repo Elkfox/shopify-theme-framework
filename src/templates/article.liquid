@@ -12,7 +12,7 @@
 
       <header>
         <h1>{{ article.title }}</h1>
-        {% capture author %}<b>{{ article.author }}</b>{% endcapture %}
+        {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
         {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
         <p>
           {{ 'blog.article.author_on_date_html' | t: author: author, date: date }}

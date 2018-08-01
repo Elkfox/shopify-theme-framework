@@ -21,7 +21,7 @@
 
   <p><a href="{{ article.url }}">{{ 'blog.article.read_more' | t }}</a></p>
 
-  {% capture author %}<b>{{ article.author }}</b>{% endcapture %}
+  {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
   {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%A, %-d %B, %Y' }}</time>{% endcapture %}
   <p>{{ 'blog.article.author_on_date_html' | t: author: author, date: date }}
     {% if article.tags.size > 0 %}

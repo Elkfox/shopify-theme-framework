@@ -27,7 +27,7 @@
       {% if product.price_varies %}
         {{ 'product.on_sale_from_html' | t: price: sale_price }}
       {% else %}
-        <b>{{ 'product.on_sale_html' | t: price: sale_price }}</b>
+        <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
       {% endif %}
     {% else %}
       {% if product.price_varies %}

@@ -7,7 +7,7 @@
               |\
               |/
 
-Cartfox v3.0-alpha.1
+Cartfox v3.0-alpha.2
 https://github.com/Elkfox/Cartfox
 Copyright (c) 2018 Elkfox Co Pty Ltd
 
@@ -46,6 +46,8 @@ const CartFox = function CartFox(configuration) {
   };
   const defaultOptions = {
     moneyFormat: '${{amount}}',
+    quantityTimeout: 500,
+    logs: false,
   };
 
   // Create a new queue
@@ -59,14 +61,20 @@ const CartFox = function CartFox(configuration) {
 
   // Keep track of items in an id centric structure
   this.items = this.createItems(cart);
-  this.selectors = Object.assign(selectors, defaultSelectors);
-  this.options = Object.assign(options, defaultOptions);
+  this.selectors = Object.assign(defaultSelectors, selectors);
+  this.options = Object.assign(defaultOptions, options);
   this.renderCart = this.options.renderCart || this.renderCart;
   if (this.options.onRender && typeof this.options.onRender === 'function') { this.onRender = this.options.onRender.bind(this); }
 
   // Build the event listeners from the selectors
   this.buildEventListeners(this.selectors);
   jQuery(document).trigger('cartfox:ready', [this]);
+
+  // Log, if needed
+  this.log('Ready');
+  this.log(this.selectors);
+  this.log(this.options);
+
   return this;
 }
 
@@ -80,8 +88,9 @@ CartFox.prototype.buildEventListeners = function buildEventListeners(selectors) 
     jQuery(document).on('click', selectors.decreaseQuantity, this.decreaseQuantity.bind(this));
     jQuery(document).on('click', selectors.increaseQuantity, this.increaseQuantity.bind(this));
     jQuery(document).on('click', selectors.quickAdd, this.quickAdd.bind(this));
+    this.log('Built event listeners');
   } catch (error) {
-    console.warn('Could not build event listeners: ' + error);
+    this.log('Could not build event listeners: ' + error, 'warn');
   }
   return this;
 };
@@ -111,15 +120,16 @@ CartFox.prototype.addToCart = function onClickAddToCartButton(event) {
   };
 
   this.addItem(data);
+  this.log('addItem');
 };
 
 CartFox.prototype.quickAdd = function onClickQuickAddButton(event) {
   'use strict';
   event.preventDefault();
 
-  const id = Number(jQuery(event.currentTarget).data(this.getDataAttribute(this.selectors.quickAdd)));
-  const quantity = Number(jQuery(event.currentTarget).data(this.getDataAttribute(this.selectors.quickAddQuantity))) || 1;
-  const properties = jQuery(event.currentTarget).data(this.getDataAttribute(this.selectors.quickAddProperties)) || {};
+  const id = Number(jQuery(event.currentTarget).data(this.getDataAttributeWithValue(this.selectors.quickAdd)));
+  const quantity = Number(jQuery(event.currentTarget).data(this.getDataAttributeWithValue(this.selectors.quickAddQuantity))) || 1;
+  const properties = jQuery(event.currentTarget).data(this.getDataAttributeWithValue(this.selectors.quickAddProperties)) || {};
   const data = {
     id: id,
     quantity: quantity,
@@ -127,13 +137,14 @@ CartFox.prototype.quickAdd = function onClickQuickAddButton(event) {
   };
 
   this.addItem(data);
+  this.log('quickAdd: (id: ' + id + ' quantity: ' + quantity + ' properties: ' + properties + ')');
 };
 
 CartFox.prototype.removeFromCart = function onClickRemoveButton(event) {
   'use strict';
   event.preventDefault();
 
-  const attribute = this.getDataAttribute(this.selectors.removeItem);
+  const attribute = this.getDataAttributeWithValue(this.selectors.removeItem);
   const line = Number(jQuery(event.currentTarget).data(attribute));
 
   this.removeItemByLine(line);
@@ -143,39 +154,60 @@ CartFox.prototype.decreaseQuantity = function onClickDecreaseQuantityButton(even
   'use strict';
   event.preventDefault();
 
-  const attribute = this.getDataAttribute(this.selectors.decreaseQuantity);
+  const attribute = this.getDataAttributeWithValue(this.selectors.decreaseQuantity);
   const line = Number(jQuery(event.currentTarget).data(attribute));
   const index = line - 1;
   const id = this.cart.items[index].id;
-  const quantity = this.cart.items[index].quantity - 1;
+  const quantityAttribute = this.getAttributeWithValue(this.selectors.itemQuantity, line);
+  const quantityValue = Number(jQuery(quantityAttribute).val());
+  const quantity = quantityValue || this.cart.items[index].quantity;
+  const newQuantity = quantity - 1;
 
-  const success = function success(cart) {
-    return jQuery(document).trigger('cartfox:itemQuantityDecreased', [cart]);
-  }
-  const error = function error(error) {
-    return jQuery(document).trigger('cartfox:cannotDecreaseItemQuantity', [error]);
-  }
-  const options = {
-    success: success,
-    error: error,
-  }
+  if (newQuantity >= 0) {
+    jQuery(quantityAttribute).val(newQuantity);
 
-  this.updateItemByLine(line, quantity, options);
+    const success = function success(cart) {
+      this.updateCartObject(cart);
+      return jQuery(document).trigger('cartfox:itemQuantityDecreased', [cart]);
+    }.bind(this);
+    const error = function error(error) {
+      return jQuery(document).trigger('cartfox:cannotDecreaseItemQuantity', [error]);
+    }
+    const options = {
+      success: success,
+      error: error,
+    }
+
+    if (typeof this.quantityTimeout == 'number') {
+      this.log('Cleared quantityTimeout');
+      clearTimeout(this.quantityTimeout);
+    }
+
+    this.quantityTimeout = setTimeout(function() {
+      this.updateItemByLine(line, newQuantity, options);
+      this.quantityTimeout = null;
+    }.bind(this), this.options.quantityTimeout);
+  }
 };
 
 CartFox.prototype.increaseQuantity = function onClickIncreaseQuantityButton(event) {
   'use strict';
   event.preventDefault();
 
-  const attribute = this.getDataAttribute(this.selectors.increaseQuantity);
+  const attribute = this.getDataAttributeWithValue(this.selectors.increaseQuantity);
   const line = Number(jQuery(event.currentTarget).data(attribute));
   const index = line - 1;
   const id = this.cart.items[index].id;
-  const quantity = this.cart.items[index].quantity + 1;
+  const quantityAttribute = this.getAttributeWithValue(this.selectors.itemQuantity, line);
+  const quantityValue = Number(jQuery(quantityAttribute).val());
+  const quantity = quantityValue || this.cart.items[index].quantity;
+  const newQuantity = quantity + 1;
+  jQuery(quantityAttribute).val(newQuantity);
 
   const success = function success(cart) {
+    this.updateCartObject(cart);
     return jQuery(document).trigger('cartfox:itemQuantityIncreased', [cart]);
-  }
+  }.bind(this);
   const error = function error(error) {
     return jQuery(document).trigger('cartfox:cannotIncreaseItemQuantity', [error]);
   }
@@ -184,7 +216,15 @@ CartFox.prototype.increaseQuantity = function onClickIncreaseQuantityButton(even
     error: error,
   }
 
-  this.updateItemByLine(line, quantity, options);
+  if (typeof this.quantityTimeout == 'number') {
+    this.log('Cleared quantityTimeout');
+    clearTimeout(this.quantityTimeout);
+  }
+
+  this.quantityTimeout = setTimeout(function() {
+    this.updateItemByLine(line, newQuantity, options);
+    this.quantityTimeout = null;
+  }.bind(this), this.options.quantityTimeout);
 };
 /*
   End Event based Functions
@@ -213,6 +253,7 @@ CartFox.prototype.getCart = function getCart(config) {
 
   // Add the request to the queue
   this.queue.add(request);
+  this.log('Queued: Get cart');
   return this.cart;
 }
 
@@ -224,6 +265,7 @@ CartFox.prototype.updateCartObject = function updateCartObjectFromNewCart(cart) 
 
   this.cart = cart;
   this.renderCart(this.cart);
+  this.log('Updated cart object');
 }
 
 // Default cart rendering
@@ -238,6 +280,8 @@ CartFox.prototype.renderCart = function renderCartFromObject() {
   if (this.onRender && typeof this.onRender === 'function') {
     this.onRender(this.cart);
   }
+
+  this.log('Triggered: onRender');
 }
 
 // Create an AJAX request to add an item the cart
@@ -275,6 +319,7 @@ CartFox.prototype.addItem = function addItem(data, config) {
   // Add the request to the queue
   jQuery(document).trigger('cartfox:beforeItemAdded');
   this.queue.add(request);
+  this.log('Queued: beforeItemAdded');
   return this;
 };
 
@@ -305,6 +350,7 @@ CartFox.prototype.removeItemById = function removeItemById(id, config) {
   // Add the request to the queue
   jQuery(document).trigger('cartfox:beforeItemRemoved');
   this.queue.add(request);
+  this.log('Queued: beforeItemRemoved');
   return this;
 }
 
@@ -335,6 +381,7 @@ CartFox.prototype.removeItemByLine = function removeItemFromCartUsingLineindex(l
   // Add the request to the queue
   jQuery(document).trigger('cartfox:beforeItemRemoved');
   this.queue.add(request);
+  this.log('Queued: beforeItemRemoved');
   return this;
 }
 
@@ -363,6 +410,7 @@ CartFox.prototype.updateItemById = function updateItemById(id, quantity, config)
   // Add the request to the queue
   jQuery(document).trigger('cartfox:beforeItemUpdated');
   this.queue.add(request);
+  this.log('Queued: beforeItemUpdated');
   return this;
 }
 
@@ -391,6 +439,7 @@ CartFox.prototype.updateItemByLine = function updateItemFromCartUsingLineindex(l
   // Add the request to the queue
   jQuery(document).trigger('cartfox:beforeItemUpdated');
   this.queue.add(request);
+  this.log('Queued: beforeItemUpdated (Line: ' + line + '. Quantity: ' + quantity + ')');
   return this;
 }
 
@@ -415,6 +464,7 @@ CartFox.prototype.clearCart = function clearCart(config) {
   // Add the request to the queue
   jQuery(document).trigger('cartfox:beforeCartCleared');
   this.queue.add(request);
+  this.log('Queued: beforeCartCleared');
   return this;
 }
 
@@ -426,8 +476,20 @@ CartFox.prototype.clearCart = function clearCart(config) {
   Utility Functions
 */
 
-CartFox.prototype.getDataAttribute = function getAttributeFromDataAttributeSelector(selector) {
-  return selector.replace('[data-', '').replace(']', '');
+CartFox.prototype.getDataAttributeWithValue = function getAttributeFromDataAttributeSelector(selector, value) {
+  if (typeof value != 'undefined') {
+    return selector.replace('[data-', '').replace(']', '="' + value + '"');
+  } else {
+    return selector.replace('[data-', '').replace(']', '');
+  }
+};
+
+CartFox.prototype.getAttributeWithValue = function getAttributeFromDataAttributeSelector(selector, value) {
+  if (typeof value != 'undefined') {
+    return selector.replace(']', '="' + value + '"]');
+  } else {
+    return false;
+  }
 };
 
 CartFox.prototype.createItems = function createAnIdCentricDataStuctureFromTheCart(cart) {
@@ -441,6 +503,30 @@ CartFox.prototype.createItems = function createAnIdCentricDataStuctureFromTheCar
   }
 
   return items;
+};
+
+CartFox.prototype.log = function createConsoleLog(log, type) {
+  const message = log;
+
+  if (typeof message == 'object') {
+    var logMessage = message;
+  } else {
+    var logMessage = 'Cartfox: ' + message;
+  }
+
+  if (this.options.logs) {
+    if (typeof type != 'undefined') {
+      if (type == 'error') {
+        console.error(logMessage);
+      } else if (type == 'warn') {
+        console.warn(logMessage);
+      } else {
+        console.info(logMessage);
+      }
+    } else {
+      console.info(logMessage);
+    }
+  }
 };
 
 /*

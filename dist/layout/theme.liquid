@@ -39,19 +39,14 @@
     {{ 'vendor.js' | asset_url | script_tag }}
     <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'app.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
     <!--[if lte IE 9]><script src="{{ 'app.js' | asset_url }}"></script><![endif]-->
+
     <script>
-      var cart;
       $(document).ready(function() {
-        cart = new Cartfox.Cart({{ cart | json }}, {
-          addItem: '[data-add-to-cart]',
-          cartItemCount: "[data-cart-item-count]",
-          cartTotal: "[data-cart-total]",
-          decreaseQuantity: "[data-minus-one]",
-          increaseQuantity: "[data-plus-one]",
-          itemQuantity: '[data-item-quantity]',
-          removeItem: '[data-remove-item]',
-          emptyTemplate: '[data-cart-template]',
-          itemsContainer: '[data-item-container]'
+        window.cartFox = new CartFox({
+          cart: {{ cart | json }},
+          options: {
+            logs: true,
+          }
         });
       });
     </script>
@@ -80,7 +75,7 @@
           PopupError.show();
         } else {
           {% unless template == 'cart' %}
-            cartPopup.show();
+            PopupCart.show();
           {% endunless %}
         }
       });

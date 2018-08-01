@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Concrete",
     "theme_author": "Elkfox",
-    "theme_version": "2.0.5",
+    "theme_version": "2.1.0",
     "theme_documentation_url": "https://elkfox.github.io/Concrete/",
     "theme_support_email": "help@elkfox.com"
   },
@@ -12,43 +12,43 @@
     "settings": [
       {
         "type": "header",
-        "content": "General colors"
+        "content": "Theme colors"
       },
       {
         "type": "color",
         "id": "color_brand",
         "label": "Brand Color",
-        "default": "#EB666B"
+        "default": "#5625DD"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "Main Text Color",
-        "default": "#333"
+        "default": "#444"
       },
       {
         "type": "color",
         "id": "color_foreground",
         "label": "Foreground Color",
-        "default": "#333"
+        "default": "#BBB"
       },
       {
         "type": "color",
         "id": "color_background",
         "label": "Background Color",
-        "default": "#EFECE8"
+        "default": "#F5F5F5"
       },
       {
         "type": "color",
         "id": "color_highlight",
         "label": "Highlight Color",
-        "default": "#6FBBA4"
+        "default": "#02FFEC"
       },
       {
         "type": "color",
         "id": "color_alternate",
         "label": "Alternate Color",
-        "default": "#7A7391"
+        "default": "#FE3975"
       }
     ]
   },
