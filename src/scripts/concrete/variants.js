@@ -1,5 +1,4 @@
 concrete.Variants = (function() {
-
   function Variants(options) {
     this.$container = options.$container;
     this.product = options.product;
@@ -12,7 +11,6 @@ concrete.Variants = (function() {
   }
 
   Variants.prototype = _.assign({}, Variants.prototype, {
-
     _getCurrentOptions: function() {
       var currentOptions = _.map(jQuery(this.singleOptionSelector, this.$container), function(el) {
         var $element = $(el);
@@ -51,6 +49,7 @@ concrete.Variants = (function() {
 
     _onSelectChange: function() {
       var variant = this._getVariantFromOptions();
+      
       this.$container.trigger({
         type: 'variantChange',
         variant: variant
