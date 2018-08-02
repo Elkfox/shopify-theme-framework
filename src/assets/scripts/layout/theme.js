@@ -2,13 +2,17 @@
 * Theme layout
 **/
 
-import "../../styles/layout/theme.scss.liquid";
+import '../../styles/theme.scss.liquid';
 
 // import $ from 'jquery';
 // Testing only!!!!
 // import jQuery from 'jquery';
 
 import $ from 'jquery';
+window.jQuery = $;
+window.$ = $;
+
+
 // window.jQuery = $;
 // window.$ = $;
 // window.jQuery = require('jquery');
@@ -17,7 +21,7 @@ import "../../scripts/global/q.js";
 import "../../scripts/global/cartfox.js";
 
 // import CartFox from 'CartFox'
-// var CartFox = require('../../scripts/global/cartfox.js')
+var CartFox = require('../../scripts/global/cartfox.js')
 
 
 import {pageLinkFocus} from '@shopify/theme-a11y';

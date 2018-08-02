@@ -5,8 +5,6 @@
 * eg. @import url('./global/variables.scss.liquid');
 **/
 
-@import url('../global/variables.scss.liquid');
-
 #MainContent .shopify-section:not(:last-child) {
   margin-bottom: $spacing*10;
 }
@@ -16,7 +14,7 @@
 * Dependencies: grid50.mixins.scss, variables.scss.liquid
 **/
 
-@import url('../global/grid50.mixins.scss');
+// @import url('../global/grid50.mixins.scss');
 
 .hero-media {
   position: relative;

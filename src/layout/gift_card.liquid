@@ -16,7 +16,7 @@
   <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '152x152' }}">
   <meta name="msapplication-square310x310logo" content="{{ settings.favicon | img_url: '310x310' }}">
   {% endif -%}
-  {% include 'style-tags' %}
+  {% include 'style-tags', layout: 'gift_card' %}
   {% include 'script-tags', layout: 'gift_card' %}
   {{ content_for_header }}
 </head>

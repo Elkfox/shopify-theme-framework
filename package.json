@@ -1,12 +1,9 @@
 {
 	"name": "concrete-theme",
 	"version": "1.0.0",
-	"description": "Elkfox's theme framework for Shopify themes",
-	"keywords": [
-		"shopify",
-		"elkfox",
-		"theme"
-	],
+	"private": true,
+	"description": "Elkfox's Slate v1 theme framework for Shopify themes",
+	"keywords": ["shopify", "elkfox", "theme"],
 	"bugs": "https://github.com/Elkfox/Concrete/issues",
 	"license": "MIT",
 	"author": "Elkfox Co Pty Ltd",
@@ -15,28 +12,29 @@
 		"url": "https://github.com/Elkfox/Concrete.git"
 	},
 	"devDependencies": {
-		"@shopify/slate-tools": ">=1.0.0-beta.1",
-		"stylelint-config-prettier": "^3.0.4",
-		"stylelint-config-shopify": "^5.0.0"
-	},
+    "@shopify/slate-tools": ">=1.0.0-beta.5",
+    /* "babel-preset-shopify": "^16.2.0",
+    "eslint-plugin-shopify": "^19.0.0", */
+    "stylelint-config-prettier": "^3.0.4",
+    "stylelint-config-shopify": "^5.0.0"
+  },
 	"dependencies": {
-		"@shopify/theme-a11y": "^1.0.0-alpha.3",
-		"@shopify/theme-images": "^1.0.0-alpha.3",
+		"@shopify/theme-a11y": "^1.0.0",
+		"@shopify/theme-images": "^1.0.0-alpha.7",
 		"handlebars": "^4.0.11",
 		"imports-loader": "^0.8.0",
-		"jquery": "^3.2.1",
-		"lazysizes": "^4.0.2",
+		"jquery": "^3.3.1",
+		"lazysizes": "^4.0.4",
 		"normalize.css": "^7.0.0",
 		"qrcode": "^1.2.0"
 	},
 	"scripts": {
-		"start": "slate-tools start",
-		"watch": "slate-tools start --skipFirstDeploy",
-		"build": "slate-tools build",
-		"deploy": "slate-tools build && slate-tools deploy",
-		"zip": "slate-tools build && slate-tools zip",
-		"lint": "slate-tools lint",
-		"format": "slate-tools format"
-	},
-	"private": true
+    "start": "slate-tools start",
+    "watch": "slate-tools start --skipFirstDeploy",
+    "build": "slate-tools build",
+    "deploy": "slate-tools build && slate-tools deploy",
+    "zip": "slate-tools build && slate-tools zip",
+    "lint": "slate-tools lint",
+    "format": "slate-tools format"
+  }
 }

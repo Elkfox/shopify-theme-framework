@@ -3,10 +3,10 @@
 *
 * @namespace gift_card
 * IMPORTANT: This currently will only work during development and will fail to
-* load when deployed to current issues with Slate v1
+* load jQuery when deployed
 **/
 
-import "../../styles/templates/gift_card.scss";
+import '../../styles/templates/gift_card.scss.liquid';
 
 import $ from 'jquery';
 

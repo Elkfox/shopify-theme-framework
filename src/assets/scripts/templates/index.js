@@ -6,4 +6,6 @@
 * @namespace product
 **/
 
-import "../../styles/templates/index.scss.liquid";
+import '../../styles/templates/index.scss';
+
+import $ from 'jquery';

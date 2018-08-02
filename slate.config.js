@@ -12,14 +12,35 @@ const alias = {
 // var $;
 
 module.exports = {
-  extends: {
-    dev: {resolve: {alias}},
-    prod: {resolve: {alias}},
-  },
-  externals: {
-    jquery: 'jQuery'
+  slateTools: {
+    promptSettings: false,
+    extends: {
+      dev: {
+        resolve: {alias},
+        module: {
+          rules: [
+            {
+              test: require.resolve('cartfox'),
+              use: 'imports-loader?jQuery=jquery,$=jquery',
+            },
+          ],
+        },
+      },
+      prod: {
+        resolve: {alias},
+        module: {
+          rules: [
+            {
+              test: require.resolve('cartfox'),
+              use: 'imports-loader?jQuery=jquery,$=jquery',
+            },
+          ],
+        },
+      },
+    },
   },
 };
+
 
 // module.exports = {
 //   slateTools: {
