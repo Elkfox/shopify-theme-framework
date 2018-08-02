@@ -75,18 +75,18 @@
               <p>
                 {% if on_sale %}
                   {% if item.price_varies %}
-                    {% assign sale_price = item.price | money %}
+                    {% assign sale_price = item.price | money_with_currency %}
                     {{ 'product.on_sale_from_html' | t: price: sale_price }}
                   {% else %}
                     <strong>{{ 'product.on_sale_html' | t: price: sale_price }}</strong>
-                    {{ item.price | money }}
+                    {{ item.price | money_with_currency }}
                   {% endif %}
                 {% else %}
                   {% if item.price_varies %}
-                    {% assign price = item.price | money %}
+                    {% assign price = item.price | money_with_currency %}
                     {{ 'product.priced_from_html' | t: price: price }}
                   {% else %}
-                    {{ item.price | money }}
+                    {{ item.price | money_with_currency }}
                   {% endif %}
                 {% endif %}
                 {% if sold_out %}
@@ -94,7 +94,7 @@
                 {% endif %}
                 {% if on_sale %}
                   <span class="hidden">{{ 'product.original_price' | t }}</span>
-                  <s>{{ item.compare_at_price | money }}</s>
+                  <s>{{ item.compare_at_price | money_with_currency }}</s>
                 {% endif %}
               </p>
             {% endif %}

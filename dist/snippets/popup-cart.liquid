@@ -9,64 +9,100 @@
 <div id="PopupCart" class="popup overlay">
   <div class="popup-inner">
     <div class="popup-content left">
-      <div class="h4">{{ 'cart.title' | t }}</div>
-      <div class="items" data-item-container></div>
-      <hr>
-      <p><small>{{ 'cart.shipping_at_checkout' | t }}</small></p>
-      <div class="row cart-item">
-        <div class="column l6 m6 s6">
-          <a href="/cart" aria-label="{{ 'cart.view_cart' | t }}">{{ 'cart.view_cart' | t }}</a>
+      <div class="row">
+        <div class="column l6">
+          <p class="h3 no-margin">{{ 'cart.title' | t }}</p>
         </div>
-        <div class="column l6 m6 s6 right">
-          <strong>{{ 'cart.total' | t }} <span data-cart-total>{{ cart.total_price | money_with_currency }}</span></strong>
+        <div class="column l6 right">
+          <a href="#close" data-close data-target="#PopupCart" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
         </div>
       </div>
-      <p class="center"><a href="/cart" class="button wide" aria-label="{{ 'cart.checkout' | t }}">{{ 'cart.checkout' | t }}</a></p>
-      <a href="#close" class="popup-close" data-close data-target="#PopupCart" aria-label="{{ 'common.close' | t }}">{{ 'common.close' | t }}</a>
+
+      <hr>
+
+      <div data-cart-popup-container></div>
     </div>
   </div>
 </div>
 
 {% raw %}
-  <script data-cart-template type="text/x-handlebars-template">
-    <div class="item">
-      <p>
-        <a href="{{lineItem.url}}">{{lineItem.title}}</a>
-      </p>
-      <div class="row cart-item">
-        <div class="column l6 m6 s6">
-          {{#if lineItem.total_discount}}
-            <!-- <s>{{formatMoney lineItem.original_line_price}}</s> -->
-            <p class="no-margin">
-              <strong>
-                {{#if lineItem.line_price}}
-                 {{formatMoney lineItem.line_price}}
-                {{else}}
-                  Free
+  <script data-cart-popup-template type="text/x-handlebars-template">
+    {{#if item_count}}
+      {{#each items}}
+        <div class="item row margin-bottom-2x">
+          <div class="column l3">
+            {{#if this.image}}
+              <a href="{{this.url}}" class="block">
+                <img src="{{this.image}}" alt="{{this.title}}" class="wide">
+              </a>
+            {{/if}}
+          </div>
+          <div class="column l9">
+            <div class="row margin-bottom-2x">
+              <div class="column l7 m7 s12">
+                <p class="h4 no-margin">
+                  <a href="{{this.url}}">{{this.product_title}}</a>
+                </p>
+                {{#if this.variant_title}}
+                  <p class="no-margin">
+                    <a href="{{this.url}}">{{this.variant_title}}</a>
+                  </p>
                 {{/if}}
-              </strong>
-              <span> </span>
-              <s class="small">{{formatMoney lineItem.original_line_price}}</s>
-            </p>
-            {{#each lineItem.discounts}}
-               <small class="no-margin">{{this.title}}</small><br>
-            {{/each}}
-            <!-- <small class="no-margin">{{lineItem.discounts}}</small> -->
-          {{else}}
-            <p class="no-margin">
-              <strong>{{formatMoney lineItem.line_price}}</strong>
-            </p>
-          {{/if}}
-          <p><small><a href="#" data-remove-item data-item-id="{{lineItem.id}}">Remove</a></small></p>
-        </div>
-        <div class="column l6 m6 s6 right">
-          <div class="quantity-adjust">
-            <a class="adjust" data-minus-one>&#8722;</a>
-            <span class="quantity" data-item-quantity data-item-id="{{lineItem.id}}">{{ lineItem.quantity }}</span>
-            <a class="adjust" data-plus-one>&#43;</a>
+              </div>
+              <div class="column l5 m5 s12 right s-left">
+                {{#if this.total_discount}}
+                  <p class="no-margin">
+                    <del class="small">{{{formatMoney this.original_line_price}}}</del>
+                    <strong>
+                      {{{formatMoney this.line_price}}}
+                    </strong>
+                  </p>
+                  {{#each this.discounts}}
+                     <p class="small no-margin">{{this.title}}</p>
+                  {{/each}}
+                {{else}}
+                  <p class="no-margin">
+                    <strong>{{{formatMoney this.line_price}}}</strong>
+                  </p>
+                {{/if}}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="column l6 m6 s12">
+                <div class="quantity-adjust">
+                  <a class="adjust" data-item-quantity-minus="{{@index}}">&#8722;</a>
+                  <input type="number" class="quantity" data-item-quantity-amount="{{@index}}" value="{{this.quantity}}">
+                  <a class="adjust" data-item-quantity-plus="{{@index}}">&#43;</a>
+                </div>
+              </div>
+              <div class="column l6 m6 s12 right s-left">
+                <p class="no-margin"><a href="#" data-remove-item data-item-id="{{this.id}}" aria-label="{% endraw %}{{ 'cart.remove' | t }}{% raw %}">{% endraw %}{{ 'cart.remove' | t }}{% raw %}</a></p>
+              </div>
+            </div>
           </div>
         </div>
+      {{/each}}
+    {{else}}
+      <p>{% endraw %}{{ 'cart.empty' | t }}{% raw %}</p>
+    {{/if}}
+
+    <hr>
+
+    <div class="row table">
+      <div class="column l6 v-middle">
+        <label class="no-margin">{% endraw %}{{ 'cart.total' | t }}{% raw %}</label>
       </div>
+      <div class="column l6 right v-middle">
+        <p class="no-margin">{{{formatMoney total_price}}}</p>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="column l6 m6 s12 s-margin-bottom-1x"><a href="/cart" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.view' | t }}{% raw %}">{% endraw %}{{ 'cart.view' | t }}{% raw %}</a></div>
+      <div class="column l6 m6 s12"><a href="/checkout" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.checkout' | t }}{% raw %}">{% endraw %}{{ 'cart.checkout' | t }}{% raw %}</a></div>
     </div>
   </script>
 {% endraw %}

@@ -63,3 +63,106 @@ concrete.getUrlParameterByName = function(parameter) {
 };
 
 concrete.urlParams = concrete.getUrlParameters();
+
+concrete.handlebarsHelpers = (function() {
+  /*
+    Task: Compare two values and return true or false
+  */
+  Handlebars.registerHelper('compare', function (v1, operator, v2, options) {
+    'use strict';
+    var operators = {
+      '==': v1 == v2 ? true : false,
+      '===': v1 === v2 ? true : false,
+      '!=': v1 != v2 ? true : false,
+      '!==': v1 !== v2 ? true : false,
+      '>': v1 > v2 ? true : false,
+      '>=': v1 >= v2 ? true : false,
+      '<': v1 < v2 ? true : false,
+      '<=': v1 <= v2 ? true : false,
+      '||': v1 || v2 ? true : false,
+      '&&': v1 && v2 ? true : false
+    }
+    if (operators.hasOwnProperty(operator)) {
+      if (operators[operator]) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    }
+    return console.error('Error: Operator "' + operator + '" not found');
+  });
+
+  /*
+    Task: Return the size of an object
+  */
+  Handlebars.registerHelper('size', function (object, amount, options) {
+    var size = 0;
+    for (key in object) {
+      if (object.hasOwnProperty(key)) size++;
+    }
+    if (size > amount) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  });
+
+  /*
+    Task: Output image url at a specified size, similar to Shopify's liquid filter
+  */
+  Handlebars.registerHelper('img_url', function (options) {
+    var image = options.hash['image'],
+        size = options.hash['size'],
+        scale = options.hash['scale'] || 1,
+        url = image;
+
+    if (typeof(image) != 'undefined') {
+      if (typeof(size) != 'undefined') {
+        if (size.indexOf('x') != -1) {
+          var filter = size.indexOf('x'),
+              chars = size.length,
+              sizes = size.split('x'),
+              size = '';
+
+          for (i = 0; i < sizes.length; i++) {
+            if ((filter == 0 && i == 0) || (filter != 0 && i != 0)) {
+              size += 'x';
+            }
+            if (sizes[i] != 0) {
+              size += sizes[i] * scale;
+            }
+            if (filter == chars && i == 0) {
+              size += 'x';
+            }
+          }
+          size = '_' + size + '.';
+          url = image.replace(/.([^.]*)$/, size + '$1');
+        }
+      }
+
+      return url;
+    }
+  });
+
+  /*
+    Task: Split a string at the requested position
+  */
+  Handlebars.registerHelper('split', function(content, split, position, options) {
+    if (content !== null && content !== undefined) {
+      if (content.indexOf(split) >= 0) {
+        var split = content.split(split);
+        return split[position];
+      } else {
+        return content;
+      }
+    } else {
+      return false;
+    }
+  });
+
+  /*
+    Task: Format money using the Cartfox formatMoney function
+  */
+  Handlebars.registerHelper('formatMoney', function (amount, options) {
+    return cartFox.formatMoney(amount);
+  });
+}());

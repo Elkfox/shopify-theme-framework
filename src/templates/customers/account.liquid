@@ -23,7 +23,7 @@
             <div class="column l2 s12"><p><strong>{{ order.name | link_to: order.customer_url }}</strong></p></div>
             <div class="column l2 s12"><p>{{ order.created_at | date: format: 'simple' }}</p></div>
             <div class="column l5 s12"><p>{{ order.financial_status_label }} / {{ order.fulfillment_status_label }}</p></div>
-            <div class="column l3 s12 l-right"><p>{{ order.total_price | money }}</p></div>
+            <div class="column l3 s12 l-right"><p>{{ order.total_price | money_with_currency }}</p></div>
           </div>
         {% endfor %}
       {% else %}

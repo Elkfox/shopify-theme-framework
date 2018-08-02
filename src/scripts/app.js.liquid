@@ -20,7 +20,7 @@ window.concrete = window.concrete || {};
 concrete.strings = {
   soldOut: "{{ 'product.sold_out' | t }}",
   addToCart: "{{ 'product.add_to_cart' | t }}",
-  unavailable: "{{ 'product.unavailable' | t }}"
+  unavailable: "{{ 'product.unavailable' | t }}",
 };
 
 concrete.urlParams = {};
@@ -29,7 +29,6 @@ concrete.urlParams = {};
 // =require concrete/cache.js
 // =require concrete/utils.js
 // =require concrete/a11y.js
-// =require concrete/currency.js
 // =require concrete/sections.js
 // =require concrete/images.js
 // =require concrete/collection.js
@@ -37,11 +36,10 @@ concrete.urlParams = {};
 // =require concrete/product.js
 // =require concrete/empty-section.js
 
-
 // Initialize on document ready
 $(document).ready(function() {
   // Register sections js
   var sections = new concrete.Sections();
   sections.register('product', concrete.Product);
   sections.register('collection', concrete.Collection);
-})
+});

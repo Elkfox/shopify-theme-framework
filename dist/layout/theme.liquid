@@ -40,14 +40,46 @@
     <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'app.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
     <!--[if lte IE 9]><script src="{{ 'app.js' | asset_url }}"></script><![endif]-->
 
-    <script>
+    <script type="text/javascript">
       $(document).ready(function() {
         window.cartFox = new CartFox({
           cart: {{ cart | json }},
           options: {
-            logs: true,
+            moneyFormat: {{ shop.money_with_currency_format | json }},
+            logs: false,
           }
         });
+
+        $(document).trigger('cartfox:loaded', cartFox.cart);
+      });
+
+      // Cart error handling
+      $(document).on('cartfox:error', function(event, error) {
+        const source = $('[data-cart-popup-error-template]').html();
+        const template = Handlebars.compile(source);
+        const html = template(error.responseJSON);
+        $('[data-cart-popup-error-container]').html(html);
+        $('body').removeClass('active-cart');
+        PopupError.show();
+      });
+
+      // Cart active state
+      $(document).on('cartfox:beforeRender', function(event) {
+        $('body').addClass('active-cart');
+      });
+
+      // Cart popup rendering
+      $(document).on('cartfox:loaded cartfox:onRender', function(event, cart) {
+        const source = $('[data-cart-popup-template]').html();
+        const template = Handlebars.compile(source);
+        const html = template(cart);
+        $('[data-cart-popup-container]').html(html);
+        $('body').removeClass('active-cart');
+      });
+
+      // Cart item added
+      $(document).on('cartfox:itemAddedToCart', function(event, cart) {
+        PopupCart.show();
       });
     </script>
   </head>
@@ -66,20 +98,6 @@
     {% if customer %}
       {% include 'popup-account' %}
     {% endif %}
-
-    <script type="text/javascript">
-      // Cart error handling
-      $(document).on('cartfox:requestComplete', function(event, cart, error) {
-        if (error) {
-          $("#PopupError").find("#errorMessage").text(error);
-          PopupError.show();
-        } else {
-          {% unless template == 'cart' %}
-            PopupCart.show();
-          {% endunless %}
-        }
-      });
-    </script>
   </body>
 
 </html>

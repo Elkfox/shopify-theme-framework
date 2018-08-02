@@ -4,8 +4,17 @@
 
 }
 
+.active-cart {
+  .quantity-adjust,
+  [data-quick-add],
+  [data-add-to-cart],
+  [data-remove-item] {
+    opacity: 0.75;
+    pointer-events: none;
+  }
+}
+
 .quantity-adjust {
-  margin-bottom: $spacing*2;
   @include prefixer(user-select, none);
   @include flex();
   @include flex-align('items', 'center');

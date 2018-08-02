@@ -126,7 +126,7 @@
   },
   "cart": {
     "title": "Cart",
-    "view_cart": "View cart",
+    "view": "View cart",
     "product": "Product",
     "sku": "SKU",
     "price": "Price",

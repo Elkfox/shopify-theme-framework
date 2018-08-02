@@ -58,42 +58,42 @@
           {% endif %}
         </div>
         <div class="column l2 s-hide"><p>{{ line_item.sku }}</p></div>
-        <div class="column l2 s-hide"><p>{{ line_item.price | money }}</p></div>
+        <div class="column l2 s-hide"><p>{{ line_item.price | money_with_currency }}</p></div>
         <div class="column l1 s7"><p>{{ line_item.quantity }}</p></div>
-        <div class="column l2 s5 right"><p>{{ line_item.quantity | times: line_item.price | money }}</p></div>
+        <div class="column l2 s5 right"><p>{{ line_item.quantity | times: line_item.price | money_with_currency }}</p></div>
       </div>
     {% endfor %}
 
     <div class="row l-table m-table collapse">
       <div class="column l8"><p>{{ 'cart.subtotal' | t }}</p></div>
-      <div class="column l4 right"><p>{{ order.subtotal_price | money }}</p></div>
+      <div class="column l4 right"><p>{{ order.subtotal_price | money_with_currency }}</p></div>
     </div>
 
     {% for discount in order.discounts %}
       <div class="row l-table m-table collapse">
         <div class="column l8"><p>{{ discount.code }} {{ 'account.order.discount' | t }}</p></div>
-        <div class="column l4 right"><p>{{ discount.savings | money }}</p></div>
+        <div class="column l4 right"><p>{{ discount.savings | money_with_currency }}</p></div>
       </div>
     {% endfor %}
 
     {% for shipping_method in order.shipping_methods %}
       <div class="row l-table m-table collapse">
         <div class="column l8"><p>{{ 'account.order.shipping' | t }} ({{ shipping_method.title }})</p></div>
-        <div class="column l4 right"><p>{{ shipping_method.price | money }}</p></div>
+        <div class="column l4 right"><p>{{ shipping_method.price | money_with_currency }}</p></div>
       </div>
     {% endfor %}
 
     {% for tax_line in order.tax_lines %}
       <div class="row l-table m-table collapse">
         <div class="column l8"><p>{{ 'account.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</p></div>
-        <div class="column l4 right"><p>{{ tax_line.price | money }}</p></div>
+        <div class="column l4 right"><p>{{ tax_line.price | money_with_currency }}</p></div>
       </div>
     {% endfor %}
 
     <div class="row l-table m-table collapse">
       <div class="column l8"><p><strong>{{ 'cart.total' | t }}</strong></p></div>
       <div class="column l4 right">
-        <p><strong>{{ order.total_price | money }} {{ order.currency }}</p></strong>
+        <p><strong>{{ order.total_price | money_with_currency }} {{ order.currency }}</p></strong>
       </div>
     </div>
 

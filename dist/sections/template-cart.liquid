@@ -3,132 +3,137 @@
 {% assign display_notes = section.settings.notes %}
 {% assign display_additional_checkout_buttons = section.settings.additional_checkout_buttons %}
 
-{% if cart.item_count > 0 %}
+<div class="container l">
+  <h1>{{ 'cart.title' | t }}</h1>
+  <div data-cart-popup-container></div>
+</div>
 
-  <div class="container l">
-    <h1>{{ 'cart.title' | t }}</h1>
-
-    <form id="CartPage" action="/cart" method="post" novalidate>
+{% raw %}
+  <script data-cart-template type="text/x-handlebars-template">
+    {{#if item_count}}
       <div class="s-hide">
-        <div class="row l-table m-table" id="CartHeader">
-          <div class="column l5 m5"><label>{{ 'cart.product' | t }}</label></div>
-          <div class="column l3 m2"><label>{{ 'cart.price' | t }}</label></div>
-          <div class="column l2 m3"><label>{{ 'cart.quantity' | t }}</label></div>
-          <div class="column l2 m2 l-right m-right"><label>{{ 'cart.subtotal' | t }}</label></div>
+        <div class="row l-table m-table">
+          <div class="column l5 m5"><label>{% endraw %}{{ 'cart.product' | t }}{% raw %}</label></div>
+          <div class="column l3 m2"><label>{% endraw %}{{ 'cart.price' | t }}{% raw %}</label></div>
+          <div class="column l2 m3"><label>{% endraw %}{{ 'cart.quantity' | t }}{% raw %}</label></div>
+          <div class="column l2 m2 l-right m-right"><label>{% endraw %}{{ 'cart.subtotal' | t }}{% raw %}</label></div>
         </div>
       </div>
 
-      {% for item in cart.items %}
+      {{#each items}}
         <div class="row l-table m-table margin-bottom-2x">
           <div class="column l5 m5 s12 v-top">
             <div class="row l-table m-table">
               <div class="column l3 m5 s12 v-top">
-                <a href="{{ item.url | within: collections.all }}">
-                  <img srcset="{{ item.image | img_url: '512x512', scale: 2 }} 2x" src="{{ item.image | img_url: '512x512' }}" alt="{{ item.title | escape }}">
-                </a>
+                {{#if this.image}}
+                  <a href="{{this.url}}" class="block">
+                    <img src="{{this.image}}" alt="{{this.title}}" class="wide">
+                  </a>
+                {{/if}}
               </div>
               <div class="column l9 m7 s12">
                 <p class="h4 no-margin">
-                  <a href="{{ item.url }}">
-                    {{ item.product.title }}
+                  <a href="{{this.url}}">
+                    {{this.product.title}}
                   </a>
                 </p>
-                <p{% unless item.properties > 0 %} class="no-margin"{% endunless %}>
-                  <a href="{{ item.url }}">
-                    {{ item.variant.title }}
-                  </a>
-                </p>
-
-                {% comment %}
-                  Optional, loop through custom product line items if available
-                  For more info visit http://docs.shopify.com/support/your-store/products/how-do-I-collect-additional-information-on-the-product-page-Like-for-a-monogram-engraving-or-customization
-                {% endcomment %}
-                {% if item.properties > 0 %}
+                {{#if this.variant_title}}
                   <p class="no-margin">
-                    {% for property in item.properties %}
-                      {% assign first_character_in_key = property.first | truncate: 1, '' %}
-                      {% unless property.last == blank or first_character_in_key == '_' %}
-                        <label>{{ property.first }}:</label>
-                        {{ property.last }}<br>
-                      {% endunless %}
-                    {% endfor %}
+                    <a href="{{this.url}}">{{this.variant_title}}</a>
                   </p>
-                {% endif %}
+                {{/if}}
+
+                {{#size this.properties 0}}
+                  <p class="no-margin">
+                    {{#each this.properties}}
+                      {{this}}
+                    {{/each}}
+                  </p>
+                {{/size}}
               </div>
             </div>
           </div>
 
-          <div class="column l3 m2 s12 s-hide v-top">
-            <p class="no-margin">{{ item.price | money_with_currency }}</p>
+          <div class="column l3 m2 s12 v-top">
+            <div class="s-hide">
+              <p class="no-margin">{{formatMoney this.price}}</p>
+            </div>
+            <div class="m-hide l-hide">
+              <p class="no-margin"><strong>{{formatMoney this.line_price}}</strong></p>
+            </div>
           </div>
 
           <div class="column l2 m3 s6 v-top">
             <div class="quantity-adjust no-margin">
-              <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" class="adjust" data-item-quantity-minus="{{ forloop.index }}">&#8211;</a>
-              <input class="quantity" type="number" name="updates[]" value="{{ item.quantity }}" data-item-quantity-amount="{{ forloop.index }}" min="0" pattern="[0-9]*">
-              <a href="/cart/change?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" class="adjust" data-item-quantity-plus="{{ forloop.index }}">&#43;</a>
+              <a href="#" class="adjust" data-item-quantity-minus="{{@index}}">&#8211;</a>
+              <input class="quantity" type="number" name="updates[]" value="{{this.quantity}}" data-item-quantity-amount="{{@index}}" min="0" pattern="[0-9]*">
+              <a href="#" class="adjust" data-item-quantity-plus="{{@index}}">&#43;</a>
             </div>
           </div>
 
           <div class="column l2 m2 s6 right v-top">
             <div class="s-hide margin-bottom-2x">
-              {% if item.total_discount > 0 %}
-                <s>{{ item.original_line_price | money_with_currency }}</s>
-                <p class="no-margin">{{ item.message }}</p>
+              {{#compare this.total_discount '>' 0}}
+                <s>{{formatMoney this.original_line_price}}</s>
+                <p class="no-margin">{{this.message}}</p>
               {% else %}
-                <p class="no-margin"><strong>{{ item.line_price | money_with_currency }}</strong></p>
-              {% endif %}
+                <p class="no-margin"><strong>{{formatMoney this.line_price}}</strong></p>
+              {{/compare}}
             </div>
 
-            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="button small" data-remove-item="{{ forloop.index }}">{{ 'cart.remove' | t }}</a>
+            <a href="/cart/change?line={{@index}}&amp;quantity=0" class="button small" data-remove-item="{{@index}}">{% endraw %}{{ 'cart.remove' | t }}{% raw %}</a>
           </div>
         </div>
-      {% endfor %}
+      {{/each}}
+    {{else}}
+      <p>{% endraw %}{{ 'cart.empty' | t }}{% raw %}</p>
+    {{/if}}
 
-      <div class="row">
-        <div class="column l6 m6 s12">
+    <div class="row">
+      <div class="column l6 m6 s12">
+        {% endraw %}
           {% if display_notes %}
             <label for="CartSpecialInstructions">{{ 'cart.notes' | t }}</label>
             <textarea class="wide" name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
           {% endif %}
-        </div>
+        {% raw %}
+      </div>
 
-        <div class="column l6 m6 s12 l-right m-right">
-          <p>
-            <span class="cart-total-heading">{{ 'cart.total' | t }}</span>
-            <span class="h3">{{ cart.total_price | money_with_currency }}</span>
-          </p>
+      <div class="column l6 m6 s12 l-right m-right">
+        <p>
+          <span class="cart-total-heading">{% endraw %}{{ 'cart.total' | t }}{% raw %}</span>
+          <span class="h3">{{this.total_price}}</span>
+        </p>
 
-          {% if cart.total_discount > 0 %}
-            <h3><s>{{ cart.original_total_price | money_with_currency }}</s></h3>
-            <p>
-              {{ 'cart.savings' | t }} <span><i>{{ cart.total_discounts | money_with_currency }}</i></span>
-            </p>
-          {% endif %}
+        {{#compare cart.total_discount '>' 0}}
+          <h3><s>{{{formatMoney this.original_total_price}}}</s></h3>
+          <p>{% endraw %}{{ 'cart.savings' | t }}{% raw %} <span><i>{{{formatMoney cart.total_discounts}}}</i></span></p>
+        {{/compare}}
 
-          <p><i>{{ 'cart.shipping_at_checkout' | t }}</i></p>
+        <p><i>{% endraw %}{{ 'cart.shipping_at_checkout' | t }}{% raw %}</i></p>
+        <a href="/checkout" class="button{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.checkout' | t }}{% raw %}">{% endraw %}{{ 'cart.checkout' | t }}{% raw %}</a>
 
-          <button type="submit" name="update">{{ 'cart.update' | t }}</button>
-          <button type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
-
+        {% endraw %}
           {% if additional_checkout_buttons and display_additional_checkout_buttons %}
             <div class="additional-checkout-buttons">
               {{ content_for_additional_checkout_buttons }}
             </div>
           {% endif %}
-        </div>
+        {% raw %}
       </div>
-    </form>
-  </div>
+    </div>
+  </script>
+{% endraw %}
 
-{% else %}
-
-  <div class="container l">
-    <h2>{{ 'cart.title' | t }}</h2>
-    <p class="h4">{{ 'cart.empty' | t }}</p>
-  </div>
-
-{% endif %}
+<script type="text/javascript">
+  // Cart page rendering
+  $(document).on('cartfox:loaded cartfox:onRender', function(event, cart) {
+    const source = $('[data-cart-template]').html();
+    const template = Handlebars.compile(source);
+    const html = template(cart);
+    $('[data-cart-container]').html(html);
+  });
+</script>
 
 {% schema %}
   {

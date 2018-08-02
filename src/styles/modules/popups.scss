@@ -80,19 +80,13 @@
 // Popup Cart
 #PopupCart {
   .popup-content {
-    width: 400px;
-  }
-  p {
-    margin-bottom: $gutter/3;
-  }
-  .cart-item {
-    margin-bottom: $gutter/3;
+    width: $s;
   }
 }
 
 // Popup Account
 #PopupAccount {
   .popup-content {
-    width: 400px;
+    width: $s;
   }
 }

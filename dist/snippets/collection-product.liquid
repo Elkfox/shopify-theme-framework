@@ -2,7 +2,7 @@
 
 {% assign sold_out = true %}
 {% assign on_sale = false %}
-{% assign sale_price = product.price | money %}
+{% assign sale_price = product.price | money_with_currency %}
 
 {% assign column_width = column_width | default: 'column l4 m6 s12' %}
 
@@ -31,15 +31,15 @@
       {% endif %}
     {% else %}
       {% if product.price_varies %}
-        {% assign price = product.price | money %}
+        {% assign price = product.price | money_with_currency %}
         {{ 'product.priced_from_html' | t: price: price }}
       {% else %}
-        {{ product.price | money }}
+        {{ product.price | money_with_currency }}
       {% endif %}
     {% endif %}
     {% if on_sale %}
       <span class="hidden">{{ 'product.original_price' | t }}</span>
-      <s>{{ product.compare_at_price | money }}</s>
+      <s>{{ product.compare_at_price | money_with_currency }}</s>
     {% endif %}
   </p>
 

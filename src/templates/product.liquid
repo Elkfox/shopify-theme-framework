@@ -82,13 +82,13 @@
 
             <span class="hidden">{{ 'product.regular_price' | t }}</span>
             <span id="ProductPrice" class="h2" itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
-              {{ current_variant.price | money }}
+              {{ current_variant.price | money_with_currency }}
             </span>
 
             <p id="OnSale"{% unless on_sale %} class="hidden"{% endunless %}>
               <span class="hidden">{{ 'product.original_price' | t }}</span>
               <span>{{ 'product.original_price' | t }}</span>
-              <s id="ComparePrice">{{ product.compare_at_price | money }}</s>
+              <s id="ComparePrice">{{ product.compare_at_price | money_with_currency }}</s>
             </p>
 
             <label for="Quantity">{{ 'product.quantity' | t }}</label>

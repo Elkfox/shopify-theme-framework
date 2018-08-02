@@ -38,7 +38,7 @@
   <h2>{{ formatted_initial_value }}</h2>
 
   {% if gift_card.balance != gift_card.initial_value %}
-    <p>{{ 'gift_cards.issued.remaining_html' | t: balance: gift_card.balance | money }}</p>
+    <p>{{ 'gift_cards.issued.remaining_html' | t: balance: gift_card.balance | money_with_currency }}</p>
   {% endif %}
 
   {%- assign code_size = gift_card.code | format_code | size -%}

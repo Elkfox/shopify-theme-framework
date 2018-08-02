@@ -861,7 +861,9 @@ form#CartPage {
 /* Product ===================================================================*/
 
 .template-product {
-
+  .form-item {
+    margin-bottom: $spacing*2;
+  }
 }
 
 /* Cart ======================================================================*/
@@ -870,8 +872,17 @@ form#CartPage {
 
 }
 
+.active-cart {
+  .quantity-adjust,
+  [data-quick-add],
+  [data-add-to-cart],
+  [data-remove-item] {
+    opacity: 0.75;
+    pointer-events: none;
+  }
+}
+
 .quantity-adjust {
-  margin-bottom: $spacing*2;
   @include prefixer(user-select, none);
   @include flex();
   @include flex-align('items', 'center');
@@ -1141,20 +1152,14 @@ form#CartPage {
 // Popup Cart
 #PopupCart {
   .popup-content {
-    width: 400px;
-  }
-  p {
-    margin-bottom: $gutter/3;
-  }
-  .cart-item {
-    margin-bottom: $gutter/3;
+    width: $s;
   }
 }
 
 // Popup Account
 #PopupAccount {
   .popup-content {
-    width: 400px;
+    width: $s;
   }
 }
 

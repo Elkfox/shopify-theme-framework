@@ -95,10 +95,10 @@ concrete.Product = (function() {
       var variant = evt.variant;
 
       if (variant) {
-        $(this.selectors.originalPrice).html(concrete.Currency.formatMoney(variant.price));
+        $(this.selectors.originalPrice).html(cartFox.formatMoney(variant.price));
         if (variant.price < variant.compare_at_price) {
           $(this.selectors.onSale).removeClass('hidden')
-          $(this.selectors.comparePrice).html(concrete.Currency.formatMoney(variant.compare_at_price, concrete.moneyFormat))
+          $(this.selectors.comparePrice).html(cartFox.formatMoney(variant.compare_at_price));
         } else {
           $(this.selectors.onSale).addClass('hidden');
         }
