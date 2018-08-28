@@ -1,18 +1,31 @@
+<!-- section/theme-header.liquid -->
+
 {%- comment -%}
   This is a required section for the Shopify Theme Store.
-  It is available in the "Header" section in the theme editor.
-
-  Theme Store required settings
-  - Show announcement
-  - Text: message to announce
-  - Link: link of the announcement bar
-
-  Theme Store optional settings
-  - Home page only: only shows on the home page
 {%- endcomment -%}
+
+{% assign logo = section.settings.logo %}
+{% assign logo_width = section.settings.logo_max_width | append: 'x' %}
+{% assign h1 = false %}
+{% if template == 'index' %}
+  {% assign h1 = true %}
+{% endif %}
+
 <section data-section-id="{{ section.id }}" data-section-type="header">
-  {%- if section.settings.announcement_bar_enabled -%}
-    <div>
+
+  {%- comment -%}
+    Announcement bar
+
+    Theme Store required settings
+    - Show announcement
+    - Text: message to announce
+    - Link: link of the announcement bar
+
+    Theme Store optional settings
+    - Home page only: only shows on the home page
+  {%- endcomment -%}
+  {% if section.settings.announcement_bar_enabled %}
+    <div class="container center">
       {%- if section.settings.announcement_bar_home_page_only == false or template.name == 'index' -%}
         {%- if section.settings.announcement_bar_link != blank -%}
           <a href="{{ section.settings.announcement_bar_link }}">
@@ -21,66 +34,74 @@
         {%- else -%}
           <p>{{ section.settings.announcement_bar_text | escape }}</p>
         {%- endif -%}
+        <hr>
       {%- endif -%}
     </div>
-  {%- endif -%}
+  {% endif %}
 
-  <header role="banner">
-    {% if template.name == 'index' %}
-      <h1>
+  <header role="banner" class="container l margin-top-2x margin-bottom-2x">
+
+    {%- comment -%}
+      Header logo
+    {%- endcomment -%}
+    {% if h1 %}
+      <h1 class="logo">
     {% else %}
-      <div class="h1">
+      <div class="h1 logo">
     {% endif %}
-        <a href="/" class="logo-image">
-          {% if section.settings.logo != blank %}
-            {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
-            <img src="{{ section.settings.logo | img_url: image_size }}"
-                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
-                alt="{{ section.settings.logo.alt | default: shop.name }}">
-          {% else %}
-            {{ shop.name }}
-          {% endif %}
+      {% if logo != blank %}
+        <a href="/" title="{{ shop.name }}" class="logo-image">
+          <img src="{{ section.settings.logo | img_url: logo_width }}"
+               srcset="{{ section.settings.logo | img_url: logo_width }} 1x,
+                       {{ section.settings.logo | img_url: logo_width, scale: 2 }} 2x"
+               alt="{{ section.settings.logo.alt | default: shop.name }}">
         </a>
-    {% if template.name == 'index' %}
+      {% else %}
+        <a href="/" title="{{ shop.name }}">{{ shop.name }}</a>
+      {% endif %}
+    {% if h1 %}
       </h1>
     {% else %}
       </div>
     {% endif %}
 
-    <a href="/cart">
-      {% include 'icon-cart' %}
-      {{ 'layout.cart.title' | t }}
-      ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
+    {%- comment -%}
+      Cart link, total and item count
+    {%- endcomment -%}
+    <a href="/cart" id="CartLink">
+      {{- 'layout.cart.title' | t }} ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
     </a>
 
+    {%- comment -%}
+      Header customer account links
+    {%- endcomment -%}
     {% if shop.customer_accounts_enabled %}
-      <ul>
+      <ul class="inline margin-bottom-2x">
         {% if customer %}
           <li>
-            {% if customer.first_name != blank %}
+            {%- if customer.first_name != blank %}
               {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-              {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+              {{ 'customer.account.logged_in_as_html' | t: first_name: first_name }}
             {% else %}
               <a href="/account">{{ 'layout.customer.account' | t }}</a>
-            {% endif %}
+            {% endif -%}
           </li>
-          <li>
-            {{ 'layout.customer.log_out' | t | customer_logout_link }}
-          </li>
+          <li>{{ 'customer.account.logout' | t | customer_logout_link }}</li>
         {% else %}
-          <li>
-            {{ 'layout.customer.log_in' | t | customer_login_link }}
-          </li>
-          <li>
-            {{ 'layout.customer.create_account' | t | customer_register_link }}
-          </li>
+          <li>{{ 'customer.login.title' | t | customer_login_link }}</li>
+          <li>{{ 'customer.register.title' | t | customer_register_link }}</li>
         {% endif %}
       </ul>
     {% endif %}
 
+    <br>
+
+    {%- comment -%}
+      Header search form
+    {%- endcomment -%}
     <form action="/search" method="get" role="search">
-      <label for="Search" class="label-hidden">
-        {{ 'general.search.placeholder' | t }}
+      <label for="Search" class="visually-hidden">
+        {{ 'general.search.title' | t }}
       </label>
 
       <input type="search"
@@ -89,21 +110,25 @@
         value="{{ search.terms | escape }}"
         placeholder="{{ 'general.search.placeholder' | t }}">
 
-      <button type="submit" class="button">
-        {% include 'icon-search' %}
+      <button type="submit">
+        {% comment %}{% include 'icon-search' %}{% endcomment %} <!-- TO DO -->
         <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
       </button>
     </form>
+
   </header>
 
-  <nav role="navigation">
-    <ul>
+  {%- comment -%}
+    Main navigation menu
+  {%- endcomment -%}
+  <nav role="navigation" class="container l margin-bottom-2x">
+    <ul class="inline padding-bottom-2x">
       {% for link in linklists[section.settings.menu].links %}
         {% if link.links != blank %}
           <li>
             <a href="{{ link.url }}">
               {{ link.title }}
-              {% include 'icon-arrow-down' %}
+              {% comment %}{% include 'icon-arrow-down' %}{% endcomment %} <!-- TO DO -->
             </a>
             <ul>
               {% for childlink in link.links %}
@@ -124,9 +149,16 @@
         {% endif %}
       {% endfor %}
     </ul>
+
+    <hr>
+
   </nav>
+
 </section>
 
+{%- comment -%}
+  Additional section styles
+{%- endcomment -%}
 {% if section.settings.logo != blank %}
   <style>
     .logo-image {
@@ -196,42 +228,3 @@
     ]
   }
 {% endschema %}
-
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "{{ shop.name }}",
-  {% if section.settings.logo %}
-    {% assign image_size = section.settings.logo.width | append:'x' %}
-    "logo": "https:{{ section.settings.logo | img_url: image_size }}",
-  {% endif %}
-  "sameAs": [
-    "{{ settings.social_twitter_link }}",
-    "{{ settings.social_facebook_link }}",
-    "{{ settings.social_pinterest_link }}",
-    "{{ settings.social_instagram_link }}",
-    "{{ settings.social_tumblr_link }}",
-    "{{ settings.social_snapchat_link }}",
-    "{{ settings.social_youtube_link }}",
-    "{{ settings.social_vimeo_link }}"
-  ],
-  "url": "{{ shop.url }}{{ page.url }}"
-}
-</script>
-
-{% if template.name == 'index' %}
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": "{{ shop.name }}",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "{{ shop.url }}/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "url": "{{ shop.url }}{{ page.url }}"
-    }
-  </script>
-{% endif %}

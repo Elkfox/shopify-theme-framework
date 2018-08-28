@@ -1,60 +1,138 @@
-// Text colors
-$color-body-text: var(--color-body-text);
+/**
+* Grid setup and spacing
+**/
+$spacing: 10px;
+$gutter: $spacing*5;
+$columns: 12;
 
-// Background colors
-$color-body: var(--color-main-background);
+/**
+* Breakpoints & container widths
+**/
+$s: 650px;
+$m: 900px;
+$l: 1250px;
+$xl: 1500px;
 
-// Placeholders
-$placeholder-color-foreground: #161d25;
-$placeholder-color-background: #f9fafb;
+/**
+* Colors
+**/
+$colorBrand: var(--color-brand);
+$colorText: var(--color-body-text);
+$colorBody: var(--color-body-background);
+$colorBorder: var(--color-border);
+$colorAlternate: var(--color-alternate);
 
-// Other colors
-$color-accent: var(--color-accent);
-$color-border: var(--color-border);
+/**
+* Borders
+**/
+$borderWeight: 1px;
+$borderStyle: solid;
+$borderRadius: 2px;
 
-// Helper colors for form error states
-$color-disabled: #000000;
-$color-disabled-border: #000000;
-$color-error: #ff6d6d;
-$color-error-bg: #ffffff;
-$color-success: #000000;
-$color-success-bg: #000000;
+/**
+* Typography
+**/
+$fontBaseSize: 16px;
+$fontBaseLineHeight: 1.5;
+$fontHeadingFamily: var(--font-heading);
+$fontHeadingWeight: var(--font-body-weight);
+$fontBodyFamily: var(--font-body);
+$fontBodyWeight: var(--font-body-weight);
+$fontBodyStyle: var(--font-body-style);
+$fontBodyBoldWeight: var(--font-body-bold-weight);
 
-// Typography
-$font-heading: var(--font-heading);
-$font-body: var(--font-body);
-$font-body-weight: var(--font-body-weight);
-$font-body-style: var(--font-body-style);
-$font-body-bold-weight: var(--font-body-bold-weight);
+// $font-body: var(--font-body);
+// $font-body-weight: var(--font-body-weight);
+// $font-body-style: var(--font-body-style);
+// $font-body-bold-weight: var(--font-body-bold-weight);
 
-// Transitions
-$transition-duration: 250ms;
-$transition-timing: ease-in-out;
-
-// Grid
-$grid-medium: 46.85em;
-$grid-large: 61.85em;
-$grid-widescreen: 87.5em;
-$grid-max-width: 73.75em;
-$grid-gutter: 30px;
+// // Text colors
+// $color-body-text: var(--color-body-text);
+//
+// // Background colors
+// $color-body: var(--color-main-background);
+//
+// // Placeholders
+// $placeholder-color-foreground: #161d25;
+// $placeholder-color-background: #f9fafb;
+//
+// // Other colors
+// $color-accent: var(--color-accent);
+// $color-border: var(--color-border);
+//
+// // Helper colors for form error states
+// $color-disabled: #000000;
+// $color-disabled-border: #000000;
+// $color-error: #ff6d6d;
+// $color-error-bg: #ffffff;
+// $color-success: #000000;
+// $color-success-bg: #000000;
+//
+//
+// // Transitions
+// $transition-duration: 250ms;
+// $transition-timing: ease-in-out;
+//
+// // Grid
+// $grid-medium: 46.85em;
+// $grid-large: 61.85em;
+// $grid-widescreen: 87.5em;
+// $grid-max-width: 73.75em;
+// $grid-gutter: 30px;
 
 // Breakpoints used with the media-query mixin
-$small: 'small';
-$medium: 'medium';
-$medium-down: 'medium-down';
-$medium-up: 'medium-up';
-$large: 'large';
-$large-down: 'large-down';
-$large-up: 'large-up';
-$widescreen: 'widescreen';
 
-$breakpoints: (
-  $small '(max-width: #{$grid-medium - 1})',
-  $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
-  $medium-down '(max-width: #{$grid-large - 1})',
-  $medium-up '(min-width: #{$grid-medium})',
-  $large '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})',
-  $large-down '(max-width: #{$grid-widescreen - 1})',
-  $large-up '(min-width: #{$grid-large})',
-  $widescreen '(min-width: #{$grid-widescreen})'
-);
+// $s: 's';
+// $m: 'm';
+// $s-m: 's-m';
+// $m-xl: 'm-xl';
+// $l: 'l';
+// $s-l: 's-l';
+// $l-xl: 'l-xl';
+// $xl: 'xl';
+
+// $small: 'small';
+// $medium: 'medium';
+// $medium-down: 'medium-down';
+// $medium-up: 'medium-up';
+// $large: 'large';
+// $large-down: 'large-down';
+// $large-up: 'large-up';
+// $widescreen: 'widescreen';
+
+// WORKING TEMP FIXES
+$small: $s;
+$grid-gutter: $gutter;
+$color-border: $colorBorder;
+$color-body: $colorBody;
+$color-body-text: $colorText;
+
+$font-body-weight: $fontBodyWeight;
+$font-body-style: $fontBodyStyle;
+$font-body-bold-weight: $fontBodyBoldWeight;
+$font-body: $fontBodyFamily;
+
+$font-heading: $fontHeadingFamily;
+
+//
+// $breakpoints: (
+//   $small '(max-width: #{$grid-medium - 1})',
+//   $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
+//   $medium-down '(max-width: #{$grid-large - 1})',
+//   $medium-up '(min-width: #{$grid-medium})',
+//   $large '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})',
+//   $large-down '(max-width: #{$grid-widescreen - 1})',
+//   $large-up '(min-width: #{$grid-large})',
+//   $widescreen '(min-width: #{$grid-widescreen})'
+// );
+
+// $breakpoints: (
+//   $s '(max-width: #{$m - 1})',
+//   $m '(min-width: #{$m}) and (max-width: #{$l - 1})',
+//   $s-m '(max-width: #{$l - 1})',
+//   $m-xl '(min-width: #{$m})',
+//   $l '(min-width: #{$l}) and (max-width: #{$xl - 1})',
+//   $s-l '(max-width: #{$xl - 1})',
+//   $l-xl '(min-width: #{$l})',
+//   $xl '(min-width: #{$xl})'
+// );

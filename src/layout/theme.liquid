@@ -39,13 +39,28 @@
     document.documentElement.className = document.documentElement.className.replace('no-js', '');
 
     window.theme = {
-      strings: {
-        addToCart: {{ 'products.product.add_to_cart' | t | json }},
-        soldOut: {{ 'products.product.sold_out' | t | json }},
-        unavailable: {{ 'products.product.unavailable' | t | json }}
-      },
-      moneyFormat: {{ shop.money_format | json }}
+      // strings: {
+      //   addToCart: {{ 'products.product.add_to_cart' | t | json }},
+      //   soldOut: {{ 'products.product.sold_out' | t | json }},
+      //   unavailable: {{ 'products.product.unavailable' | t | json }}
+      // },
+      // moneyFormat: {{ shop.money_format | json }}
+
+      // document.addEventListener("DOMContentLoaded", function(event) {
+      //   window.cart = new CartFox({{ cart | json }});
+      // });
     };
+
+    // window.theme = {
+    //   new CartFox({{ cart | json }});
+    // };
+
+    // document.addEventListener("DOMContentLoaded", function(event) {
+    //   window.cart = new CartFox({{ cart | json }});
+    // });
+
+    window.cart = new CartFox({{ cart | json }});
+
   </script>
 
   {% include 'script-tags', layout: 'theme' %}

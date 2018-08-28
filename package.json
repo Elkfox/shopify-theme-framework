@@ -1,16 +1,19 @@
 {
-  "name": "starter-theme",
+  "name": "concrete-slate",
   "version": "1.0.0-alpha.1",
   "private": true,
-  "author": "Shopify Inc.",
-  "description":
-    "An opinionated, Slate compatible, starting point for developing Shopify themes.",
-  "keywords": ["shopify", "theme"],
-  "bugs": "https://github.com/Shopify/starter-theme/issues",
+  "author": "Elkfox",
+  "description": "Concrete Shopify theme framework, for Slate v1",
+  "keywords": [
+    "shopify",
+    "theme",
+    "Elkfox"
+  ],
+  "bugs": "https://github.com/Elkfox/Concrete/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Shopify/starter-theme.git"
+    "url": "https://github.com/Elkfox/Concrete.git"
   },
   "devDependencies": {
     "@shopify/slate-tools": ">=1.0.0-beta.5",
@@ -27,6 +30,7 @@
     "@shopify/theme-rte": "^1.0.0-alpha.7",
     "@shopify/theme-sections": "^1.0.0-alpha.7",
     "@shopify/theme-variants": "^1.0.0-alpha.8",
+    "cartfox": "^3.0.2-alpha",
     "jquery": "^3.2.1",
     "lazysizes": "^4.0.2",
     "lodash-es": "^4.17.4",

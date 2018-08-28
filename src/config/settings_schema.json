@@ -1,33 +1,44 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Starter theme",
+    "theme_name": "Concrete theme",
     "theme_version": "1.0.0",
-    "theme_author": "Shopify",
-    "theme_documentation_url": "https://github.com/Shopify/starter-theme",
-    "theme_support_url": "https://github.com/Shopify/starter-theme/issues"
+    "theme_author": "Elkfox",
+    "theme_documentation_url": "https://github.com/Elkfox/Concrete",
+    "theme_support_url": "https://github.com/Elkfox/Concrete/issues"
   },
   {
     "name": "Colors",
     "settings": [
       {
         "type": "color",
-        "id": "color_accent",
-        "label": "Accent",
-        "default": "#c4cdd5",
-        "info": "Buttons and special ornaments"
+        "id": "color_brand",
+        "label": "Brand color",
+        "default": "#5625DD"
       },
       {
         "type": "color",
-        "id": "color_body_text",
-        "label": "Text",
-        "default": "#161d25"
+        "id": "color_text",
+        "label": "Main text color",
+        "default": "#444444"
       },
       {
         "type": "color",
-        "id": "color_main_bg",
-        "label": "Background",
-        "default": "#fff"
+        "id": "color_background",
+        "label": "Background color",
+        "default": "#F5F5F5"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border color",
+        "default": "#BBBBBB"
+      },
+      {
+        "type": "color",
+        "id": "color_alternate",
+        "label": "Alert color",
+        "default": "#F26968"
       }
     ]
   },
