@@ -1,0 +1,26 @@
+<!-- /snippets/popup-error.liquid -->
+
+{% comment %}
+  For dispaying cart errors when necessary
+{% endcomment %}
+
+<div id="PopupError" class="popup overlay">
+  <div class="popup-inner">
+    <div class="popup-content">
+      <div data-cart-popup-error-container></div>
+
+      <a href="#close" class="popup-close" data-close data-target="#PopupError" aria-label="{{ 'general.common.close' | t }}">{{ 'general.common.close' | t }}</a>
+    </div>
+  </div>
+</div>
+
+{% raw %}
+  <script data-cart-popup-error-template type="text/x-handlebars-template">
+    <h3>{{message}}</h3>
+    <p class="no-margin" >{{description}}</p>
+  </script>
+{% endraw %}
+
+<script>
+  // var PopupError = new Focus('#PopupError');
+</script>

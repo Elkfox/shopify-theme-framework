@@ -55,11 +55,46 @@
       //   new CartFox({{ cart | json }});
       // };
 
-      // document.addEventListener("DOMContentLoaded", function(event) {
-      //   window.cart = new CartFox({{ cart | json }});
-      // });
+      document.addEventListener("DOMContentLoaded", function(event) {
+        window.cart = new CartFox({
+          cart: {{ cart | json }},
+          options: {
+            moneyFormat: {{ shop.money_with_currency_format | json }},
+            logs: true,
+          }
+        });
 
-      window.cart = new CartFox({{ cart | json }});
+        // Cart error handling
+        jQuery(document).on('cartfox:error', function(event, error) {
+          const source = jQuery('[data-cart-popup-error-template]').html();
+          const template = Handlebars.compile(source);
+          const html = template(error.responseJSON);
+          jQuery('[data-cart-popup-error-container]').html(html);
+          jQuery('body').removeClass('active-cart');
+          // PopupError.show();
+        });
+
+        // Cart active state
+        jQuery(document).on('cartfox:beforeRender', function(event) {
+          jQuery('body').addClass('active-cart');
+        });
+
+        // Cart popup rendering
+        jQuery(document).on('cartfox:loaded cartfox:onRender', function(event, cart) {
+          const source = jQuery('[data-cart-popup-template]').html();
+          const template = Handlebars.compile(source);
+          const html = template(cart);
+          jQuery('[data-cart-popup-container]').html(html);
+          jQuery('body').removeClass('active-cart');
+        });
+
+        // Cart item added
+        jQuery(document).on('cartfox:itemAddedToCart', function(event, cart) {
+          // PopupCart.show();
+        });
+
+        jQuery(document).trigger('cartfox:loaded', cart.cart);
+      });
     </script>
 
     {% include 'script-tags', layout: 'theme' %}
@@ -77,5 +112,7 @@
     </main>
 
     {% section 'footer' %}
+    {% include 'popup-cart' %}
+    {% include 'popup-error' %}
   </body>
 </html>

@@ -11,23 +11,16 @@ import '../../styles/theme.scss.liquid';
 import {focusHash, bindInPageLinks} from '@shopify/theme-a11y';
 import {cookiesEnabled} from '@shopify/theme-cart';
 
+window.jQuery = require('jquery');
+window.Handlebars = require('handlebars/dist/handlebars.min.js');
+window.Queue = require('@elkfox/queue');
+window.CartFox = require('@elkfox/cart');
 
-// See https://stackoverflow.com/questions/10462223/call-a-local-function-within-module-exports-from-another-function-in-module-ex/44461485
-// ...and https://docs.npmjs.com/getting-started/packages
-var CartFox = require('cartfox'); // See https://eslint.org/docs/rules/no-var
-CartFox.aCartFoxFunctionHERE();
-
-// import CartFox from 'cartfox';
-
-// START TESTING
-// import $ from 'jquery';
-// import CartFox from '../../scripts/layout/cartfox';
-// import '../../scripts/layout/cartfox.js';
-// import CartFox from 'CartFox'
-// const CartFox = require('../../scripts/layout/cartfox.js');
-// var CartFox = require('../../scripts/layout/cartfox');
-// END TESTING
-
+// Handlebars helpers (these will move elsewhere, likely to a package)
+// Format money using the CartFox formatMoney function
+Handlebars.registerHelper('formatMoney', function (amount, options) {
+  return cart.formatMoney(amount);
+});
 
 // Common a11y fixes
 focusHash();
