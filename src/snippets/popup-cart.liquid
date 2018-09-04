@@ -11,7 +11,7 @@
     <div class="popup-content left">
       <div class="row margin-bottom-2x">
         <div class="column l6">
-          <p class="h3 no-margin">{{ 'cart.title' | t }}</p>
+          <p class="h3 no-margin">{{ 'cart.general.title' | t }}</p>
         </div>
         <div class="column l6 right">
           <a href="#close" data-close data-target="#PopupCart" aria-label="{{ 'general.common.close' | t }}">{{ 'general.common.close' | t }}</a>
@@ -75,7 +75,7 @@
                 </div>
               </div>
               <div class="column l6 m6 s12 right s-left">
-                <p class="no-margin"><a href="#" data-remove-item data-item-id="{{this.id}}" aria-label="{% endraw %}{{ 'cart.remove' | t }}{% raw %}">{% endraw %}{{ 'cart.remove' | t }}{% raw %}</a></p>
+                <p class="no-margin"><a href="#" data-remove-item="{{@index}}" data-item-id="{{this.id}}" aria-label="{% endraw %}{{ 'cart.general.remove' | t }}{% raw %}">{% endraw %}{{ 'cart.general.remove' | t }}{% raw %}</a></p>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
 
       <div class="row table margin-bottom-2x">
         <div class="column l6 v-middle">
-          <label class="no-margin">{% endraw %}{{ 'cart.total' | t }}{% raw %}</label>
+          <label class="no-margin">{% endraw %}{{ 'cart.label.total' | t }}{% raw %}</label>
         </div>
         <div class="column l6 right v-middle">
           <p class="no-margin">{{{formatMoney total_price}}}</p>
@@ -92,15 +92,17 @@
       </div>
 
       <div class="row">
-        <div class="column l6 m6 s12 s-margin-bottom-1x"><a href="/cart" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.view' | t }}{% raw %}">{% endraw %}{{ 'cart.view' | t }}{% raw %}</a></div>
-        <div class="column l6 m6 s12"><a href="/checkout" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.checkout' | t }}{% raw %}">{% endraw %}{{ 'cart.checkout' | t }}{% raw %}</a></div>
+        <div class="column l6 m6 s12 s-margin-bottom-1x"><a href="/cart" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.general.view' | t }}{% raw %}">{% endraw %}{{ 'cart.general.view' | t }}{% raw %}</a></div>
+        <div class="column l6 m6 s12"><a href="/checkout" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</a></div>
       </div>
     {{else}}
-      <p class="no-margin center">{% endraw %}{{ 'cart.empty' | t }}{% raw %}</p>
+      <p class="no-margin center">{% endraw %}{{ 'cart.general.empty' | t }}{% raw %}</p>
     {{/if}}
   </script>
 {% endraw %}
 
-<script>
-  // var PopupCart = new Focus('#PopupCart');
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(event) {
+    window.PopupCart = new Focus('#PopupCart');
+  });
 </script>

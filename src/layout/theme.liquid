@@ -55,7 +55,7 @@
       //   new CartFox({{ cart | json }});
       // };
 
-      document.addEventListener("DOMContentLoaded", function(event) {
+      document.addEventListener('DOMContentLoaded', function(event) {
         window.cart = new CartFox({
           cart: {{ cart | json }},
           options: {
@@ -71,7 +71,7 @@
           const html = template(error.responseJSON);
           jQuery('[data-cart-popup-error-container]').html(html);
           jQuery('body').removeClass('active-cart');
-          // PopupError.show();
+          PopupError.show();
         });
 
         // Cart active state
@@ -90,7 +90,7 @@
 
         // Cart item added
         jQuery(document).on('cartfox:itemAddedToCart', function(event, cart) {
-          // PopupCart.show();
+          PopupCart.show();
         });
 
         jQuery(document).trigger('cartfox:loaded', cart.cart);
