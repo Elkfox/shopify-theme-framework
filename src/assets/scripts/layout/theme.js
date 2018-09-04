@@ -13,6 +13,7 @@ import {cookiesEnabled} from '@shopify/theme-cart';
 
 window.jQuery = require('jquery');
 window.Handlebars = require('handlebars/dist/handlebars.min.js');
+window.Focus = require('@elkfox/focus');
 window.Queue = require('@elkfox/queue');
 window.CartFox = require('@elkfox/cart');
 
