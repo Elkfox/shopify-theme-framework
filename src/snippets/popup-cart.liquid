@@ -1,0 +1,108 @@
+<!-- /snippets/popup-cart.liquid -->
+
+{% comment %}
+  This snippets adds the ability to display the cart contents on any shopify page.
+  Dependencies:
+   - Handlebars
+{% endcomment %}
+
+<div id="PopupCart" class="popup overlay">
+  <div class="popup-inner">
+    <div class="popup-content left">
+      <div class="row margin-bottom-2x">
+        <div class="column l6">
+          <p class="h3 no-margin">{{ 'cart.general.title' | t }}</p>
+        </div>
+        <div class="column l6 right">
+          <a href="#close" data-close data-target="#PopupCart" aria-label="{{ 'general.common.close' | t }}">{{ 'general.common.close' | t }}</a>
+        </div>
+      </div>
+
+      <div data-cart-popup-container></div>
+    </div>
+  </div>
+</div>
+
+{% raw %}
+  <script data-cart-popup-template type="text/x-handlebars-template">
+    {{#if item_count}}
+      {{#each items}}
+        <div class="item row margin-bottom-2x">
+          <div class="column l3 m3 s4">
+            {{#if this.image}}
+              <a href="{{this.url}}" class="block">
+                <img src="{{this.image}}" alt="{{this.title}}" class="wide">
+              </a>
+            {{/if}}
+          </div>
+          <div class="column l9 m9 s8">
+            <div class="row margin-bottom-2x">
+              <div class="column l7 m7 s12">
+                <p class="h4 no-margin">
+                  <a href="{{this.url}}">{{this.product_title}}</a>
+                </p>
+                {{#if this.variant_title}}
+                  <p class="no-margin">
+                    <a href="{{this.url}}">{{this.variant_title}}</a>
+                  </p>
+                {{/if}}
+              </div>
+              <div class="column l5 m5 s12 right s-left">
+                {{#if this.total_discount}}
+                  <p class="no-margin">
+                    <del class="small">{{{formatMoney this.original_line_price}}}</del>
+                    <strong>
+                      {{{formatMoney this.line_price}}}
+                    </strong>
+                  </p>
+                  {{#each this.discounts}}
+                     <p class="small no-margin">{{this.title}}</p>
+                  {{/each}}
+                {{else}}
+                  <p class="no-margin">
+                    <strong>{{{formatMoney this.line_price}}}</strong>
+                  </p>
+                {{/if}}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="column l6 m6 s12">
+                <div class="quantity-adjust">
+                  <a class="adjust" data-item-quantity-minus="{{@index}}">&#8722;</a>
+                  <input type="number" class="quantity" data-item-quantity-amount="{{@index}}" value="{{this.quantity}}">
+                  <a class="adjust" data-item-quantity-plus="{{@index}}">&#43;</a>
+                </div>
+              </div>
+              <div class="column l6 m6 s12 right s-left">
+                <p class="no-margin"><a href="#" data-remove-item="{{@index}}" data-item-id="{{this.id}}" aria-label="{% endraw %}{{ 'cart.general.remove' | t }}{% raw %}">{% endraw %}{{ 'cart.general.remove' | t }}{% raw %}</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+
+      <div class="row table margin-bottom-2x">
+        <div class="column l6 v-middle">
+          <label class="no-margin">{% endraw %}{{ 'cart.label.total' | t }}{% raw %}</label>
+        </div>
+        <div class="column l6 right v-middle">
+          <p class="no-margin">{{{formatMoney total_price}}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column l6 m6 s12 s-margin-bottom-1x"><a href="/cart" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.general.view' | t }}{% raw %}">{% endraw %}{{ 'cart.general.view' | t }}{% raw %}</a></div>
+        <div class="column l6 m6 s12"><a href="/checkout" class="button wide{{#unless item_count}} disabled{{/unless}}" aria-label="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</a></div>
+      </div>
+    {{else}}
+      <p class="no-margin center">{% endraw %}{{ 'cart.general.empty' | t }}{% raw %}</p>
+    {{/if}}
+  </script>
+{% endraw %}
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function(event) {
+    window.PopupCart = new Focus('#PopupCart');
+  });
+</script>

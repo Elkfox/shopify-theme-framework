@@ -69,7 +69,7 @@
       Cart link, total and item count
     {%- endcomment -%}
     <a href="/cart" id="CartLink">
-      {{- 'layout.cart.title' | t }} ({{ cart.item_count }} {{ 'layout.cart.items_count' | t: count: cart.item_count }})
+      {{- 'layout.cart.title' | t }} (<span data-cart-item-count>{{ cart.item_count }}</span>)
     </a>
 
     {%- comment -%}
