@@ -40,15 +40,10 @@
   {% endif %}
 
   <header role="banner" class="container l margin-top-2x margin-bottom-2x">
-
     {%- comment -%}
       Header logo
     {%- endcomment -%}
-    {% if h1 %}
-      <h1 class="logo">
-    {% else %}
-      <div class="h1 logo">
-    {% endif %}
+    <div class="h1 logo">
       {% if logo != blank %}
         <a href="/" title="{{ shop.name }}" class="logo-image">
           <img src="{{ section.settings.logo | img_url: logo_width }}"
@@ -59,11 +54,7 @@
       {% else %}
         <a href="/" title="{{ shop.name }}">{{ shop.name }}</a>
       {% endif %}
-    {% if h1 %}
-      </h1>
-    {% else %}
-      </div>
-    {% endif %}
+    </div>
 
     {%- comment -%}
       Cart link, total and item count

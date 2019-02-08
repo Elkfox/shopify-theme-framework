@@ -1,7 +1,7 @@
 @charset 'UTF-8';
 
 /**
- * [replace with theme name] | Built with Slate
+ * [replace with theme name] | Built with Slate & Concrete
  */
 @import '~normalize.css/normalize';
 
@@ -11,6 +11,15 @@
 // Tools
 @import './tools/mixins';
 @import './tools/functions';
+
+// Grid
+@import '~grid50/grid50/_grid50.variables.scss';
+@import '~grid50/grid50/_grid50.mixins.scss';
+@import '~grid50/grid50/_grid50.columns.scss';
+@import '~grid50/grid50/_grid50.flex.scss';
+// @import '~grid50/grid50/_grid50.typography.scss';
+@import '~grid50/grid50/_grid50.helpers.scss';
+@import '~grid50/grid50/_grid50.forms.scss';
 
 // Core
 @import './core/forms';
@@ -37,3 +46,15 @@
 // Templates
 @import './templates/gift_card';
 @import './templates/product';
+
+/**
+ * Layout
+ */
+
+body {
+  background-color: $color-body;
+}
+
+a:hover {
+  text-decoration: none;
+}

@@ -1,0 +1,39 @@
+{%- comment -%}
+  For SEO reasons a custom H1 should always be set on the homepage
+{%- endcomment -%}
+<section>
+  {%- if section.settings.title != blank -%}
+    <h1>{{ section.settings.title | escape }}</h1>
+  {%- else -%}
+    <h1>{{ shop.name }}</h1>
+  {%- endif -%}
+  {%- if section.settings.text != blank -%}
+    <div class="rte">
+      {{ section.settings.text }}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+  {
+    "name": "SEO title",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Talk about your brand"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+      }
+    ],
+    "presets": [{
+      "name": "SEO title",
+      "category": "Text"
+    }]
+  }
+{% endschema %}

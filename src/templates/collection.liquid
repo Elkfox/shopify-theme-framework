@@ -1,4 +1,5 @@
 {% paginate collection.products by 12 %}
+<div class="container l">
   <header role="banner">
     <h1>{{ collection.title }}</h1>
     {% if collection.description != blank %}
@@ -8,7 +9,7 @@
     {% endif %}
 
     {% if collection.all_tags.size > 0 %}
-      <ul>
+      <ul class="inline">
         {% for tag in collection.all_tags %}
           {% if current_tags contains tag %}
             <li class="active">
@@ -24,9 +25,9 @@
     {% endif %}
   </header>
 
-  <div>
+  <div class="row">
     {% for product in collection.products %}
-      <div>
+      <div class="column l4 s6">
         {% if product.featured_image != blank %}
           <a href="{{ product.url | within: collection }}">
             {% include 'responsive-image' with
@@ -94,6 +95,7 @@
       {% endif %}
 
     {% endfor %}
+  </div>
   </div>
 
   {% if paginate.pages > 1 %}

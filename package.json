@@ -22,8 +22,8 @@
     "stylelint-config-shopify": "^5.0.0"
   },
   "dependencies": {
-    "@elkfox/queue": "^0.0.7",
     "@elkfox/cart": "3.0.0-alpha.6",
+    "@elkfox/queue": "^0.0.7",
     "@shopify/theme-a11y": "^1.0.1",
     "@shopify/theme-addresses": "^1.0.0",
     "@shopify/theme-cart": "^1.0.0-alpha.7",
@@ -32,6 +32,7 @@
     "@shopify/theme-rte": "^1.0.0-alpha.7",
     "@shopify/theme-sections": "^1.1.0",
     "@shopify/theme-variants": "^1.0.0-alpha.8",
+    "grid50": "^0.5.12",
     "handlebars": "^4.1.0",
     "jquery": "^3.2.1",
     "lazysizes": "^4.1.1",
