@@ -1,7 +1,7 @@
 {%- comment -%}
   For SEO reasons a custom H1 should always be set on the homepage
 {%- endcomment -%}
-<section>
+<section class="container l">
   {%- if section.settings.title != blank -%}
     <h1>{{ section.settings.title | escape }}</h1>
   {%- else -%}

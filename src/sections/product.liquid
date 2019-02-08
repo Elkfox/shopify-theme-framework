@@ -25,7 +25,12 @@
       {% for image in product.images %}
         <li>
           <a href="{{ image.src | img_url: '480x480' }}" data-thumbnail-id="{{ image.id }}" data-product-single-thumbnail>
-            <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
+            {%- include 'responsive-image' with
+              image: image,
+              max_width: 150,
+              max_height: 150,
+              wrapper_class: 'product-single__thumbnail-image'
+            -%}
           </a>
         </li>
       {% endfor %}
@@ -34,7 +39,6 @@
 
   <h1>{{ product.title }}</h1>
   <p>{{ product.vendor }}</p>
-
 
   <form action="/cart/add" method="post" enctype="multipart/form-data">
     {% unless product.has_only_default_variant %}

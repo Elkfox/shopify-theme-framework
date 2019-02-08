@@ -11,6 +11,8 @@ import '../../styles/theme.scss.liquid';
 import {focusHash, bindInPageLinks} from '@shopify/theme-a11y';
 import {cookiesEnabled} from '@shopify/theme-cart';
 
+import $ from 'jquery';
+
 window.jQuery = require('jquery');
 window.Handlebars = require('handlebars/dist/handlebars.min.js');
 window.Queue = require('@elkfox/queue');
