@@ -204,6 +204,19 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@elkfox/cart@3.0.0-alpha.5":
+  version "3.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@elkfox/cart/-/cart-3.0.0-alpha.5.tgz#58e6dd54dc821dc6207bedd66fa9c3ee3b872dba"
+  integrity sha512-eZjJAU1CvbPeTTBwb9IgMHBaOIrAyb6Yu9Kxuw8E/A6+AIccxoOcSLS5oWSykZ9H0LFCVkoxNDBUldWu83emxw==
+  dependencies:
+    "@elkfox/queue" ">=0.0.7"
+    jquery "^3.2.1"
+
+"@elkfox/queue@>=0.0.7", "@elkfox/queue@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@elkfox/queue/-/queue-0.0.7.tgz#535f1c71ce68d338e804e84ac6809546a17e8d9a"
+  integrity sha512-AJ5TydBxNkCAK/m1QBQC6i99Uk9728HsySz6jExJRrgcVZT1AyP8JAVlzJXEdfn1uR703FS9Bs7SSZlJx9x9lw==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -5640,6 +5653,17 @@ handlebars@^4.0.3:
   version "4.0.12"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.12.tgz#2c15c8a96d46da5e266700518ba8cb8d919d5bc5"
   integrity sha512-RhmTekP+FZL+XNhwS1Wf+bTTZpdLougwt5pcgA1tuz6Jcx0fpH/7z0qd71RKnZHBCxIRBHfBOnio4gViPemNzA==
+  dependencies:
+    async "^2.5.0"
+    optimist "^0.6.1"
+    source-map "^0.6.1"
+  optionalDependencies:
+    uglify-js "^3.1.4"
+
+handlebars@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.0.tgz#0d6a6f34ff1f63cecec8423aa4169827bf787c3a"
+  integrity sha512-l2jRuU1NAWK6AW5qqcTATWQJvNPEwkM7NEKSiv/gqOsoSQbVoWyqVEY5GS+XPQ88zLNmqASRpzfdm8d79hJS+w==
   dependencies:
     async "^2.5.0"
     optimist "^0.6.1"

@@ -46,6 +46,16 @@
       moneyFormat: {{ shop.money_format | json }}
     };
 
+    document.addEventListener('DOMContentLoaded', function(event) {
+      window.cart = new CartFox({
+        cart: {{ cart | json }},
+        options: {
+          moneyFormat: {{ shop.money_with_currency_format | json }},
+          logs: true,
+        }
+      });
+    });
+
     {% if template.directory == 'customers' %}
       theme.allCountryOptionTags = {{ all_country_option_tags | json }};
     {% endif %}
