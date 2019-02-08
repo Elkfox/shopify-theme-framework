@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@elkfox/queue": "^0.0.7",
-    "@elkfox/cart": "3.0.0-alpha.5",
+    "@elkfox/cart": "3.0.0-alpha.6",
     "@shopify/theme-a11y": "^1.0.1",
     "@shopify/theme-addresses": "^1.0.0",
     "@shopify/theme-cart": "^1.0.0-alpha.7",
