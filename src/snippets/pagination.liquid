@@ -1,33 +1,3 @@
-<!-- snippets/pagination.liquid -->
-
-{% if paginate.pages > 1 %}
-  <ul class="inline">
-    {% if paginate.previous %}
-      <li>
-        <a href="{{ paginate.previous.url }}">
-           &laquo; {{ 'general.pagination.previous' | t }}
-        </a>
-      </li>
-    {% endif %}
-    {% for part in paginate.parts %}
-      {% if part.is_link %}
-        <li>
-          <a href="{{ part.url }}" title="">{{ part.title }}</a>
-        </li>
-      {% else %}
-        {% if part.title == paginate.current_page %}
-          <li>{{ part.title }}</li>
-        {% else %}
-          <li>&hellip;</li>
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-    {% if paginate.next %}
-      <li>
-        <a href="{{ paginate.next.url }}">
-          {{ 'general.pagination.next' | t }} &raquo;
-        </a>
-      </li>
-    {% endif %}
-  </ul>
-{% endif %}
+<div class="pagination">
+  {{ paginate | default_pagination }}
+</div>

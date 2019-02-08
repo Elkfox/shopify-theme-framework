@@ -65,6 +65,3 @@ _site
 secrets.json
 .jekyll-metadata
 .ruby-version
-/Migration
-package-lock.json
-NOTES.md

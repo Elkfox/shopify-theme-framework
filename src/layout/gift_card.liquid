@@ -1,26 +1,33 @@
 <!doctype html>
-<html lang="{{ shop.locale }}" class="noscript">
+<html class="no-js" lang="{{ shop.locale }}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  {% assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency -%}
-  {% assign formatted_initial_value_stripped = formatted_initial_value | strip_html -%}
-  <title>{{ 'gift_cards.title' | t: value: formatted_initial_value_stripped, shop: shop.name }}</title>
-  <meta name="description" content="{{ 'gift_cards.subtext' | t }}">
+  <meta name="theme-color" content="{{ settings.color_accent }}">
   <link rel="canonical" href="{{ canonical_url }}">
-  <meta name="theme-color" content="{{ settings.color_brand }}">
-  {% if settings.favicon != blank -%}
-  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
-  <link rel="icon" sizes="192x192" href="{{ settings.favicon | img_url: '192x192' }}">
-  <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '152x152' }}">
-  <meta name="msapplication-square310x310logo" content="{{ settings.favicon | img_url: '310x310' }}">
-  {% endif -%}
+
+  {% if settings.favicon != blank %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  {%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency -%}
+  {%- assign formatted_initial_value_stripped = formatted_initial_value | strip_html -%}
+  <title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value_stripped, shop: shop.name }}</title>
+
+  <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
   {% include 'style-tags', layout: 'gift_card' %}
+  {% include 'css-variables' %}
+
   {% include 'script-tags', layout: 'gift_card' %}
+
   {{ content_for_header }}
 </head>
+
 <body class="template-giftcard">
-  {{ content_for_layout }}
+  <main role="main" id="MainContent">
+    {{ content_for_layout }}
+  </main>
 </body>
 </html>

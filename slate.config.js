@@ -1,72 +1,18 @@
+/* eslint-disable */
+
+// Configuration file for all things Slate.
+// For more information, visit https://github.com/Shopify/slate/wiki/Slate-Configuration
+
 const path = require('path');
 
-const alias = {
-  jquery: path.resolve('./node_modules/jquery'),
-  'normalize': path.resolve('./node_modules/normalize.css'),
-};
-
-// const config = require('$');
-
-// import $ from 'jquery';
-
-// var $;
-
 module.exports = {
-  slateTools: {
-    promptSettings: false,
-    extends: {
-      dev: {
-        resolve: {alias},
-        module: {
-          rules: [
-            {
-              test: require.resolve('cartfox'),
-              use: 'imports-loader?jQuery=jquery,$=jquery',
-            },
-          ],
-        },
-      },
-      prod: {
-        resolve: {alias},
-        module: {
-          rules: [
-            {
-              test: require.resolve('cartfox'),
-              use: 'imports-loader?jQuery=jquery,$=jquery',
-            },
-          ],
-        },
+  'cssVarLoader.liquidPath': ['src/snippets/css-variables.liquid'],
+  'webpack.extend': {
+    resolve: {
+      alias: {
+        jquery: path.resolve('./node_modules/jquery'),
+        'lodash-es': path.resolve('./node_modules/lodash-es'),
       },
     },
   },
 };
-
-
-// module.exports = {
-//   slateTools: {
-//     extends: {
-//       dev: {
-//         resolve: {alias},
-//         module: {
-//           rules: [
-//             {
-//               test: require.resolve('owl.carousel'),
-//               use: 'imports-loader?$=jquery,jQuery=jquery',
-//             },
-//           ],
-//         },
-//       },
-//       prod: {
-//         resolve: {alias},
-//         module: {
-//           rules: [
-//             {
-//               test: require.resolve('owl.carousel'),
-//               use: 'imports-loader?$=jquery,jQuery=jquery',
-//             },
-//           ],
-//         },
-//       },
-//     },
-//   },
-// };

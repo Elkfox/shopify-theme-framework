@@ -1,45 +1,72 @@
 <!doctype html>
-<!-- ===========================================================================
-Feel free to add your own header here, but please don't remove ours
- ___  _   _    _
-/   || | | |  | |
-\__  | | | |  | |  __
-/    |/  |/_) |/  /  \_/\/
-\___/|__/| \_/|__/\__/  /\_/
-              |\
-              |/
-Concrete v3.0.0
-https://github.com/Elkfox/Concrete
-Copyright (c) 2017 Elkfox Co Pty Ltd
-https://elkfox.com
-MIT License
-============================================================================ -->
-{%- comment -%}
-  In order to confirm the availability of Javascript the 'no-script' class
-  exists on the document until Javascript is loaded. See theme.js for more
-{%- endcomment -%}
-<html lang="{{ shop.locale }}" class="noscript">
+<html class="no-js supports-no-cookies" lang="{{ shop.locale }}">
 <head>
-{% include 'meta-general' %}
-{% include 'meta-social' %}
-{% include 'style-tags', layout: 'theme' %}
-{% include 'script-tags', layout: 'theme' %}
-{{ content_for_header }}
-</head>
-<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}{% if template.suffix != null %} suffix-{{ template.suffix | handle }}{% endif %}">
-  {% section 'theme-header' %}
-  <main role="main" id="MainContent" class="container l">
-    {{ content_for_layout }}
-  </main>
-  {% section 'theme-footer' %}
-  {% include 'meta-schema' %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_accent }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  {%- capture seo_title -%}
+    {{ page_title }}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {% include 'social-meta-tags' %}
+  {% include 'style-tags', layout: 'theme' %}
+  {% include 'css-variables' %}
 
   <script>
-    var cart;
-    $(document).ready(function() {
-      cart = new CartFox({{ cart | json }});
-    });
+    document.documentElement.className = document.documentElement.className.replace('no-js', '');
+
+    window.theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    };
+
+    {% if template.directory == 'customers' %}
+      theme.allCountryOptionTags = {{ all_country_option_tags | json }};
+    {% endif %}
   </script>
+
+  {% include 'script-tags', layout: 'theme' %}
+
+  {{ content_for_header }}
+</head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  {% section 'header' %}
+
+  <main role="main" id="MainContent">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
 
 </body>
 </html>
