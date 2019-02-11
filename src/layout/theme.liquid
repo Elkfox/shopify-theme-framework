@@ -80,14 +80,6 @@
         });
       }
 
-      jQuery(document).ready(function(){
-        $('[data-add-to-cart]').on('click', function(e) {
-          var form = $(this).parents('form:first');
-          e.preventDefault();
-          addItem(form)
-        });
-      });
-
       function addItem(form) {
         console.log(form)
         jQuery.ajax({
@@ -115,6 +107,14 @@
         var parsedJSON = JSON.parse(data.responseText);
         jQuery('.messages').html(parsedJSON.description);
       }
+
+      jQuery(document).ready(function(){
+        $('[data-add-to-cart]').on('click', function(e) {
+          var form = $(this).parents('form:first');
+          e.preventDefault();
+          addItem(form)
+        });
+      });      
     </script>
 
   </main>
