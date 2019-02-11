@@ -34,10 +34,6 @@
   {% include 'style-tags', layout: 'theme' %}
   {% include 'css-variables' %}
 
-  <!-- TESTING ONLY -->
-  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
-  {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
-
   <script>
     document.documentElement.className = document.documentElement.className.replace('no-js', '');
 
@@ -49,16 +45,6 @@
       },
       moneyFormat: {{ shop.money_format | json }}
     };
-
-    document.addEventListener('DOMContentLoaded', function(event) {
-      window.cart = new CartFox({
-        cart: {{ cart | json }},
-        options: {
-          moneyFormat: {{ shop.money_with_currency_format | json }},
-          logs: true,
-        }
-      });
-    });
 
     {% if template.directory == 'customers' %}
       theme.allCountryOptionTags = {{ all_country_option_tags | json }};
@@ -78,6 +64,59 @@
 
   <main role="main" id="MainContent">
     {{ content_for_layout }}
+
+
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
+    <h3 style="background-color:red;color:white;font-size:2em;">MESSAGES: <span class="messages"></div></h3>
+    <a href="/cart" id="cart-number">View cart {{ cart.count }}</a>
+
+    <script type="text/javascript">
+      var Cart = {{ cart | json }};
+
+      function getCart() {
+        jQuery.getJSON('/cart.js', function(cart) {
+          var Cart = cart;
+          console.log(Cart)
+        });
+      }
+
+      jQuery(document).ready(function(){
+        $('[data-add-to-cart]').on('click', function(e) {
+          var form = $(this).parents('form:first');
+          e.preventDefault();
+          addItem(form)
+        });
+      });
+
+      function addItem(form) {
+        console.log(form)
+        jQuery.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          dataType: 'json',
+          data: jQuery(form).serialize(),
+          success: function(data) {
+            addItemSuccess(data);
+          },
+          error: function(data) {
+            addItemFail(data);
+          }
+        });
+      }
+
+      function addItemSuccess(product) {
+        getCart();
+        var newQuantity = Cart.item_count + product.quantity
+        jQuery('.messages').html(product.title + ' was added to the cart!');
+        jQuery('[data-cart-item-count]').replaceWith(newQuantity);
+      }
+
+      function addItemFail(data) {
+        var parsedJSON = JSON.parse(data.responseText);
+        jQuery('.messages').html(parsedJSON.description);
+      }
+    </script>
+
   </main>
 
   {% section 'footer' %}

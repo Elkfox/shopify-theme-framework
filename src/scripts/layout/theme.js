@@ -11,18 +11,10 @@ import '../../styles/theme.scss.liquid';
 import {focusHash, bindInPageLinks} from '@shopify/theme-a11y';
 import {cookiesEnabled} from '@shopify/theme-cart';
 
-import $ from 'jquery';
-
-window.jQuery = require('jquery');
-window.Handlebars = require('handlebars/dist/handlebars.min.js');
-window.Queue = require('@elkfox/queue');
-window.CartFox = require('@elkfox/cart');
-
-// Handlebars helpers (these will move elsewhere, likely to a package)
-// Format money using the CartFox formatMoney function
-Handlebars.registerHelper('formatMoney', function (amount, options) {
-  return cart.formatMoney(amount);
-});
+// import $ from 'jquery';
+//
+// window.jQuery = $;
+// window.$ = $;
 
 // Common a11y fixes
 focusHash();
