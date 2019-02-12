@@ -204,10 +204,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@elkfox/grid@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@elkfox/grid/-/grid-0.0.6.tgz#418c4817fbb4b275d226d48ec91c5a0673a9ea63"
-  integrity sha512-kOGGzFGtbuqcCa84FGtbHciI+fyWKuoqBetw5V6aGGDoXaw/M1EwNcHwVkmXbQNlAT/ChHsH1TGrHIbochSaVg==
+"@elkfox/grid@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@elkfox/grid/-/grid-0.0.7.tgz#439885c1973df40960210e8a1cf8d0b01f3e45c0"
+  integrity sha512-I22wMlIQrRlYr1Z4p6JAT3L/P/AA4YyzHZBN6MbLlwaq5s8pR3FK1c5rrUYRQqLZged5400yfJPMOWoo6VA7/g==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"

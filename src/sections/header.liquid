@@ -25,7 +25,7 @@
     </div>
   {%- endif -%}
 
-  <header role="banner">
+  <header role="banner" class="container l">
     <a href="/" class="logo-image">
       {% if section.settings.logo != blank %}
         {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
@@ -86,8 +86,8 @@
     </form>
   </header>
 
-  <nav role="navigation">
-    <ul>
+  <nav role="navigation" class="container l">
+    <ul class="inline">
       {% for link in linklists[section.settings.menu].links %}
         {% if link.links != blank %}
           <li>
