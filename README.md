@@ -2,6 +2,13 @@
 
 A minimal boilerplate for rapid development of Shopify theme. Built using Shopify Starter Theme & Slate v1.
 
+@elkfox/grid layout system & helpers have been included to make getting started super easy.
+
+## FAQ
+
+Q. Why is it ugly?
+A. This is designed to be a simple starting point for your themes. You should create your own styling methodology.
+
 ## Inclusions
 
 - @elkfox/grid
