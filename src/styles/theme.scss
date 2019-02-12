@@ -43,15 +43,3 @@
 // Templates
 @import './templates/gift_card';
 @import './templates/product';
-
-/**
- * Layout
- */
-
-body {
-  background-color: $color-body;
-}
-
-a:hover {
-  text-decoration: none;
-}
