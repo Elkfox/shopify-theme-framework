@@ -20,7 +20,7 @@ A Yep! It's on [this branch](https://github.com/Elkfox/Concrete/tree/slate_0)
 
 Q. Where is the documentation?
 
-A You can see the old documentation [here](https://elkfox.github.io/Concrete/). This is yet to be updated for the Slate v1 version (at time of writing, 2018/02/12)
+A You can see the old documentation [here](https://github.com/Elkfox/Concrete/tree/slate_0). This is yet to be updated for the Slate v1 version (at time of writing, 2018/02/12)
 
 ## Inclusions
 
