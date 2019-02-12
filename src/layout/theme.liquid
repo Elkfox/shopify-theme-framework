@@ -67,8 +67,7 @@
 
 
     {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
-    <h3 style="background-color:red;color:white;font-size:2em;">MESSAGES: <span class="messages"></div></h3>
-    <a href="/cart" id="cart-number">View cart {{ cart.count }}</a>
+    <h2 data-cart-feedback></div>
 
     <script type="text/javascript">
       var Cart = {{ cart | json }};
@@ -76,12 +75,10 @@
       function getCart() {
         jQuery.getJSON('/cart.js', function(cart) {
           var Cart = cart;
-          console.log(Cart)
         });
       }
 
       function addItem(form) {
-        console.log(form)
         jQuery.ajax({
           type: 'POST',
           url: '/cart/add.js',
@@ -98,23 +95,23 @@
 
       function addItemSuccess(product) {
         getCart();
-        var newQuantity = Cart.item_count + product.quantity
-        jQuery('.messages').html(product.title + ' was added to the cart!');
+        var newQuantity = Cart.item_count + product.quantity;
+        jQuery('[data-cart-feedback]').html(product.title + ' was added to the cart!');
         jQuery('[data-cart-item-count]').replaceWith(newQuantity);
       }
 
       function addItemFail(data) {
         var parsedJSON = JSON.parse(data.responseText);
-        jQuery('.messages').html(parsedJSON.description);
+        jQuery('[data-cart-feedback]').html(parsedJSON.description);
       }
 
       jQuery(document).ready(function(){
         $('[data-add-to-cart]').on('click', function(e) {
           var form = $(this).parents('form:first');
           e.preventDefault();
-          addItem(form)
+          addItem(form);
         });
-      });      
+      });
     </script>
 
   </main>

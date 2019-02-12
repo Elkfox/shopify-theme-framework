@@ -13,13 +13,10 @@
 @import './tools/functions';
 
 // Grid
-@import '~grid50/grid50/_grid50.variables.scss';
-@import '~grid50/grid50/_grid50.mixins.scss';
-@import '~grid50/grid50/_grid50.columns.scss';
-@import '~grid50/grid50/_grid50.flex.scss';
-// @import '~grid50/grid50/_grid50.typography.scss';
-@import '~grid50/grid50/_grid50.helpers.scss';
-@import '~grid50/grid50/_grid50.forms.scss';
+@import '~@elkfox/grid/grid.settings.scss';
+@import '~@elkfox/grid/grid.columns.scss';
+@import '~@elkfox/grid/grid.flex.scss';
+@import '~@elkfox/grid/grid.helpers.scss';
 
 // Core
 @import './core/forms';
