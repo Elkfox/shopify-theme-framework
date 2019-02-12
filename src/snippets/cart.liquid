@@ -1,0 +1,53 @@
+<script type="text/javascript">
+  /**
+   * Micro cart - @ Cam Gould 2018
+   * MIT License
+   *
+   * This tiny cart is a temporary but super portable replacement for @elkfox/cart
+   */
+
+   function getCart(callback){
+     jQuery.getJSON('/cart.js', callback);
+   }
+
+   function addItem(form) {
+     jQuery.ajax({
+       type: 'POST',
+       url: '/cart/add.js',
+       dataType: 'json',
+       data: jQuery(form).serialize(),
+       success: function(data) {
+         addItemSuccess(data);
+       },
+       error: function(data) {
+         addItemFail(data);
+       }
+     });
+   }
+
+   function addItemSuccess(product) {
+     getCart(updateTotals);
+     showMessage(product);
+   }
+
+   function updateTotals(cart) {
+     jQuery('[data-cart-item-count]').html(cart.item_count);
+   }
+
+   function showMessage(product) {
+     jQuery('[data-cart-feedback]').html(product.title + ' was added to the cart!');
+   }
+
+   function addItemFail(data) {
+     var parsedJSON = JSON.parse(data.responseText);
+     jQuery('[data-cart-feedback]').html(parsedJSON.description);
+   }
+
+   jQuery(document).ready(function(){
+     $('[data-add-to-cart]').on('click', function(e) {
+       var form = $(this).parents('form:first');
+       e.preventDefault();
+       addItem(form);
+     });
+   });
+</script>
