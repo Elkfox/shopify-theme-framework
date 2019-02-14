@@ -1,0 +1,284 @@
+---
+# this ensures Jekyll reads the file to be transformed into CSS later
+# only Main files contain this front matter, not partials.
+---
+
+// Variables ===================================================================
+
+// Palette
+$colorWhite: #fbfbfb;
+$colorLightGray: #f8f8f2;
+$colorGray: #44475a;
+$colorDarkGray: #21212a;
+
+$colorPink: #b08cff;
+$colorPurple: #854AA0;
+$colorCyan: #68C7ED;
+$colorBlue: #6272a4;
+$colorYellow: #E7DC64;
+$colorGreen: #5FE1C2;
+$colorOrange: #ffb86c;
+$colorRed: #F2608A;
+
+// Variables in use
+$colorOne: $colorPink;
+$colorTwo: $colorPurple;
+$colorThree: $colorCyan;
+$colorFour: $colorGreen;
+$colorFive: $colorBlue;
+$colorSix: $colorRed;
+$colorSeven: $colorOrange;
+$colorEight: $colorYellow;
+
+$colorText: $colorLightGray;
+$colorBackground: $colorDarkGray;
+$colorForeground: $colorLightGray;
+
+// Typography
+$fontLight: 300;
+$fontRegular: 400;
+$fontBold: 600;
+$lineHeight: 1.75;
+
+$bodyFontFamily: 'Oxygen', Helvetica, Arial, sans-serif;
+$headingFontFamily: 'Oxygen', Helvetica, Arial, sans-serif;
+
+// Space & Borders
+$gutter: 50px;
+$borderRadius: 2px;
+$borderWeight: 4px;
+$borderStyle: solid;
+$borderColor: $colorYellow;
+
+// Screen Sizes
+$s: 650px;
+$m: 850px;
+$l: 1050px;
+$xl: 1450px;
+
+// Miscellaneous
+$transition: all .3s ease-out;
+
+// Icons
+$baseIconSize: 32px;
+$iconLinecap: square;
+
+// Mixins ===================================================================
+
+// Prefixer (See https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss)
+@mixin prefixer($property, $value, $prefixes:webkit moz ms spec) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+// Clearfix
+@mixin clearfix() {
+  display: block; // TBC - is this OK? Seems to help
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  *zoom: 1;
+}
+
+// Verically Align
+@mixin vertical-align() {
+  position: relative;
+  top: 50%;
+  @include prefixer(transform, perspective(1px) translateY(-50%));
+}
+
+// Transition Property (for legacy support)
+@mixin transition-property() {
+  @include prefixer(transition-property, transform);
+}
+
+// Transitions
+@mixin transition() {
+  @include prefixer(transition, $transition);
+}
+
+// Overlays
+@mixin overlay() {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Flex grids
+@mixin flex-direction($direction) {
+  @include prefixer(flex-direction, $direction, webkit spec);
+}
+@mixin flex-wrap($wrap) {
+  @include prefixer(flex-wrap, $wrap, webkit spec);
+}
+@mixin flex-flow($direction, $wrap) {
+  @include prefixer(flex-flow, $direction $wrap, webkit spec);
+}
+@mixin flex-distribution($distribution) {
+  @include prefixer(flex, $distribution, webkit spec);
+}
+@mixin flex-align($property, $align) {
+  @include prefixer(align-#{$property}, $align, webkit spec);
+}
+@mixin flex-justify($justify) {
+  @include prefixer(justify-content, $justify, webkit spec);
+  > .column {
+    @include flex-distribution(0 0 auto);
+  }
+}
+@mixin flex() {
+  display: -webkit-flex;
+  display: flex;
+  @include flex-flow(row, wrap);
+
+  // Row behaviour
+  &.nowrap { @include flex-wrap(nowrap); }
+  &.vertical { @include flex-direction(column); }
+
+  // Horizontal alignment
+  &.h-start { @include flex-justify(flex-start); }
+  &.h-center { @include flex-justify(center); }
+  &.h-end { @include flex-justify(flex-end); }
+  &.h-space-between { @include flex-justify(space-between ); }
+  &.h-space-around { @include flex-justify(space-around); }
+  &.h-space-evenly { @include flex-justify(space-evenly); }
+
+  // Vertical alignment
+  &.v-start { @include flex-align(items, flex-start); }
+  &.v-center { @include flex-align(items, center); }
+  &.v-end { @include flex-align(items, flex-end); }
+  &.v-baseline { @include flex-align(items, baseline); }
+  &.v-stretch { @include flex-align(items, stretch); }
+  &.v-space-between { @include flex-align(content, space-between ); }
+  &.v-space-around { @include flex-align(content, space-around); }
+
+  &:after {
+    content: normal;
+  }
+
+  > * {
+    &.column {
+      float: none;
+      @include flex-distribution(1);
+    }
+    &.grow { @include flex-distribution(1); }
+    &.shrink { @include flex-distribution(0); }
+
+    // Individual vertical alignment
+    &.v-start { @include flex-align(self, flex-start); }
+    &.v-center { @include flex-align(self, center); }
+    &.v-end { @include flex-align(self, flex-end); }
+    &.v-baseline { @include flex-align(self, baseline); }
+    &.v-stretch { @include flex-align(self, stretch); }
+  }
+}
+
+// Screen Sizes & Types
+@mixin s() {
+  @media (max-width: $s) {
+    @content;
+  }
+}
+@mixin m() {
+  @media (min-width: $s - 1px) and (max-width: $l - 1px) {
+    @content;
+  }
+}
+@mixin l() {
+  @media (min-width: $l) {
+    @content;
+  }
+}
+@mixin xl() {
+  @media (min-width: $xl) {
+    @content;
+  }
+}
+
+// Table Grids
+@mixin table() {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  .column {
+    float: none;
+    display: table-cell;
+    &.middle {
+      vertical-align: middle;
+    }
+    &.top {
+      vertical-align: top;
+    }
+    &.bottom {
+      vertical-align: bottom;
+    }
+    &:first-of-type {
+      padding-left: 0;
+    }
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+}
+
+// Reverse Grids
+@mixin reverse() {
+  direction: rtl;
+  .column {
+    direction: ltr;
+    float: right;
+  }
+}
+
+// Collapsed columns
+@mixin collapse() {
+  margin-left: 0;
+  margin-right: 0;
+  > .column {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// Front matter dependent
+body {
+  background-image: url('{{ site.github.url }}/assets/bg-layer-1.png');
+  background-repeat: repeat-x;
+}
+.body-wrapper {
+  background-image: url('{{ site.github.url }}/assets/bg-layer-2.png');
+  background-repeat: repeat-x;
+  overflow: auto;
+}
+
+
+// Imports ===================================================================
+
+@import "header";
+@import "helpers";
+@import "grid";
+@import "typography";
+@import "form";
+@import "syntax";
+@import "icons";
+@import "additions";

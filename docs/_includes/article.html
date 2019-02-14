@@ -1,0 +1,28 @@
+<article class="column l8 m12 s12 documentation rte">
+
+    {% for link in site.nav %}
+      {% assign link_handle = link.url | remove: '#' %}
+      {% for article in site.documentation %}
+        {% if article.handle == link_handle %}
+          <div class="anchor" id="{{ article.handle }}">
+            <h2>{{ article.title }}</h2>
+            {{ article.content }}
+            {% if link.childlinks %}
+              {% for childlink in link.childlinks %}
+                {% assign childlink_handle = childlink.url | remove: '#' %}
+                {% for article in site.documentation %}
+                  {% if article.handle == childlink_handle %}
+                    <div class="anchor" id="{{ article.handle }}">
+                      <h3>{{ article.title }}</h2>
+                      {{ article.content }}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+</article>

@@ -1,0 +1,47 @@
+@mixin icon {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1%; // Makes inline SVGs behave more like text characters
+  svg {
+    // vertical-align: middle;
+    overflow: visible;
+    fill: none;
+    stroke: none;
+    .fill {
+      fill: $colorOne;
+    }
+    .stroke {
+      stroke: $colorOne;
+      stroke-width: $borderWeight;
+      stroke-linecap: $iconLinecap;
+      stroke-miterlimit: 10;
+    }
+  }
+  .icon-block & {
+    display: block !important;
+  }
+}
+
+.icon {
+  @include icon();
+}
+.icon-small .icon {
+  @include icon();
+  svg {
+    height: $baseIconSize/2;
+    width: $baseIconSize/2;
+    .stroke {
+      stroke-width: $borderWeight*2;
+    }
+  }
+}
+.icon-large .icon {
+  @include icon();
+  svg {
+    height: $baseIconSize*2;
+    width: $baseIconSize*2;
+    .stroke {
+      stroke-width: $borderWeight/2;
+    }
+  }
+}
