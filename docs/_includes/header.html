@@ -1,0 +1,14 @@
+<header class="center">
+  <div class="content">
+    <h1>{{ site.name }}</h1>
+    <h2>{{ site.subtitle }}</h2>
+    <p class="links">
+      <a href="{{ site.github_url }}" target="_blank" rel="nofollow">{% include icon.html icon='github' icon_size='20' %} View Source on GitHub </a>
+      {% if site.demo_url %}
+        <br class="s-show">
+        <a href="{{ site.demo_url }}"  target="_blank" rel="nofollow"> {% include icon.html icon='shopify' icon_size='20' %} View Demo Store</a>
+      {% endif %}
+    </p>
+    <a class="button" href="{{ site.download_url }}">{% include icon.html icon='download' icon_size='16' %}Download</a>
+  </div>
+</header>

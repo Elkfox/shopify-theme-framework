@@ -1,0 +1,38 @@
+
+  </div>
+  <script src="{{ site.github.url }}/assets/js/smooth-scroll.js"></script>
+  <script>smoothScroll.init();</script>
+  <script>
+  $(window).on('scroll load resize', function() {
+    var scroll = $(document).scrollTop()
+    var header = $('header').outerHeight()
+    if(scroll > header) {
+      $('aside.sidebar > div').addClass('fixed')
+    } else {
+      $('aside.sidebar > div').removeClass('fixed')
+    }
+  })
+
+  window.addEventListener("scroll", function(event){
+  	var top = this.pageYOffset;
+  	var layers = document.getElementsByClassName("parallax");
+  	var layer, speed, yPos, svg;
+  	for (var i = 0; i < layers.length; i++) {
+  		layer = layers[i];
+  		speed = layer.getAttribute('data-perspective');
+  		var yPos = (top * speed / 100);
+  		layer.setAttribute('style', 'background-position-y:' + yPos + 'px');
+  	}
+  });
+
+  $('.anchor').on('scrollSpy:enter', function() {
+    var id = $(this).attr('id')
+    $('.sidebar [href="#'+ id +'"]').addClass('active').parent().siblings('ul.childlinks').slideDown(1000)
+  });
+  $('.anchor').on('scrollSpy:exit', function() {
+    var id = $(this).attr('id')
+    $('.sidebar [href="#'+ id +'"]').removeClass('active').parent().siblings('ul.childlinks').slideUp(1000)
+  });
+  $('.anchor').scrollSpy()
+  </script>
+</body>

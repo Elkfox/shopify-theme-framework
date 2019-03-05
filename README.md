@@ -7,16 +7,20 @@ A minimal boilerplate for rapid development of Shopify theme. Built using Shopif
 ## FAQ
 
 Q. Why is it ugly?
+
 A. This is designed to be a simple starting point for your themes. You should create your own styling methodology.
 
 Q. Why doesn't it look like the demo store?
+
 A. The demo store is running an old version (at time of writing, 2018/02/12)
 
 Q. Is the old Concrete still available?
-A Yep! It's on [this branch](https://github.com/Elkfox/Concrete/tree/Slate_0)
+
+A Yep! It's on [this branch](https://github.com/Elkfox/Concrete/tree/slate_0)
 
 Q. Where is the documentation?
-A You can see the old documentation [here](https://elkfox.github.io/Concrete/). This is yet to be updated for the Slate v1 version (at time of writing, 2018/02/12)
+
+A You can see the old documentation [here](https://github.com/Elkfox/Concrete/tree/slate_0). This is yet to be updated for the Slate v1 version (at time of writing, 2018/02/12)
 
 ## Inclusions
 

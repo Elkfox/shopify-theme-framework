@@ -1,0 +1,27 @@
+<aside class="sidebar column l4 m-hide s-hide">
+  <div>
+    <h3>Contents</h3>
+    <ul role="navigation">
+      {% for link in site.nav %}
+        <li>
+          <h4><a data-scroll href="{{ link.url }}">{{ link.title }}</a></h4>
+          {% if link.childlinks %}
+            <ul class="childlinks">
+              {% for childlink in link.childlinks %}
+                <li>
+                  <a data-scroll href="{{ childlink.url }}">{{ childlink.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</aside>
+<div class="credit l4 m12 s12">
+  <p>
+    <a href="https://elkfox.com" target="_blank" rel="nofollow">Made with {% include icon.html icon='heart' icon_size='13' %} by {% include icon.html icon='elkfox' icon_size='35' %}
+    </a>
+  </p>
+</div>
