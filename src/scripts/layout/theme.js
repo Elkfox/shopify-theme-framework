@@ -48,7 +48,6 @@ function addItem(form) {
       addItemFail(data);
     },
   });
-  disableInteraction();
 }
 
 function addItemSuccess(product) {
@@ -61,33 +60,12 @@ function updateTotals(cart) {
 }
 
 function showMessage(product) {
-  const imageOriginal = product.image;
-  const image = imageOriginal.replace(/.jpg|.png|.gif/gi, (extension) => {
-    return `_x80${extension}`;
-  });
-
-  $('[data-cart-feedback]').html(`<div><span class="image"><img src="${image}"></span><span>${product.title} was added to the cart!</span></div>`).attr('role', 'alert');
-  window.setTimeout(() => {
-    $('[data-cart-feedback]').removeAttr('role');
-    enableInteraction();
-  }, 3000);
-}
-
-function disableInteraction() {
-  $('[data-add-to-cart]').addClass('disabled');
-}
-
-function enableInteraction() {
-  $('[data-add-to-cart]').removeClass('disabled');
+  $('[data-cart-feedback]').html(`${product.title} was added to the cart!`);
 }
 
 function addItemFail(data) {
   const parsedJSON = JSON.parse(data.responseText);
-  $('[data-cart-feedback]').html(`<div><span>${parsedJSON.description}</span></div>`).attr('role', 'alert');
-  window.setTimeout(() => {
-    $('[data-cart-feedback]').removeAttr('role');
-    enableInteraction();
-  }, 3000);
+  $('[data-cart-feedback]').html(parsedJSON.description);
 }
 
 $(document).ready(() => {
