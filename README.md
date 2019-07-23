@@ -1,3 +1,7 @@
+## Please note that we are currently developing a new theme workflow that will entirely replace Concrete. However we will continue to maintain this project for the foreseeable future. Please feel welcome to submit PRs to help support the active community of users.
+
+-----------
+
 # Concrete
 
 A minimal boilerplate for rapid development of Shopify theme. Built using Shopify Starter Theme & Slate v1.
