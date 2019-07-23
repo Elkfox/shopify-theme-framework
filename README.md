@@ -1,4 +1,6 @@
-## Please note that we are currently developing a new theme workflow that will entirely replace Concrete. However we will continue to maintain this project for the foreseeable future. Please feel welcome to submit PRs to help support the active community of users.
+## ⚠️ Please note that we are currently developing a new theme workflow that will entirely replace Concrete.
+
+### We will continue to maintain this project for the foreseeable future. Please feel welcome to submit PRs to help support the active community of users.
 
 -----------
 
