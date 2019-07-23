@@ -1,6 +1,10 @@
-## ⚠️ Please note that we are currently developing a new theme workflow that will eventiually completely replace Concrete.
+## ⚠️ Please note that we are currently developing a new theme workflow that will eventually completely replace Concrete.
 
 ### We will continue to maintain this project for the foreseeable future. Please feel welcome to submit PRs to help support the active community of users.
+
+-----------
+
+If you are looking for the Slate v0 version, please see [this](https://github.com/Elkfox/Concrete/tree/slate_0) branch.
 
 -----------
 
