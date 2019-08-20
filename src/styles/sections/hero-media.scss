@@ -1,0 +1,26 @@
+.hero-media {
+  background-color: black;
+}
+
+.hero-media__block {
+  position: relative;
+  @include prefixer(display, flex, ('webkit', 'moz', 'ms', 'spec'));
+  @include prefixer(align-items, center, ('webkit', 'spec'));
+  min-height: 500px
+}
+
+.hero-media__background-image {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  padding: 0 2rem;
+  background-position: 50%;
+}
+
+.hero-media__content {
+  z-index: 1;
+  @include container($grid-widescreen);
+  color: white;
+}
