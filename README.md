@@ -1,3 +1,11 @@
+## ⚠️ Please note that we are currently developing a new theme workflow for Concrete. Concrete v2 (Slate v0) and v3 (Slate v1) both continue to work and are still supported.
+
+-----------
+
+If you are looking for the Slate v0 version, please see [this](https://github.com/Elkfox/Concrete/tree/slate_0) branch.
+
+-----------
+
 # Concrete
 
 A minimal boilerplate for rapid development of Shopify theme. Built using Shopify Starter Theme & Slate v1.
