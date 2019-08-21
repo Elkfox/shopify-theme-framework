@@ -1,0 +1,26 @@
+.collection__header {
+  @include container($grid-max-width, 1rem 2rem);
+}
+
+.collection__products {
+  @include container($grid-max-width, 1rem);
+  @include prefixer(display, flex, ('webkit', 'moz', 'ms', 'spec'));
+  @include prefixer(flex-wrap, wrap, ('webkit', 'moz', 'ms', 'spec'));
+}
+
+.collection__products__product {
+  @include prefixer(flex-basis, 25%, ('webkit', 'moz', 'ms', 'spec'));
+  padding: 1rem;
+
+  .responsive-image__image {
+    width: 100%;
+  }
+
+  @include media-query($medium) {
+    @include prefixer(flex-basis, 50%, ('webkit', 'moz', 'ms', 'spec'));
+  }
+
+  @include media-query($small) {
+    @include prefixer(flex-basis, 100%, ('webkit', 'moz', 'ms', 'spec'));
+  }
+}

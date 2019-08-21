@@ -1,20 +1,37 @@
-[![Build Status](https://travis-ci.org/Shopify/starter-theme.svg?branch=master)](https://travis-ci.org/Shopify/starter-theme)
+# Concrete v4
 
-# Starter Theme
+This is a complete rebuild of the Concrete Framework for Shopify theme development. The framework is currently dependant on Slate v1 (beta), though is being developed with a view to less reliance on the Shopify development team.
 
-> **Starter Theme and [Slate v1](https://github.com/Shopify/slate) are currently in beta!** You should expect potentially breaking changes between updates and more bugs than a finalized release. Slate v1.0 has not yet been tested on Windows.
+Components will be liberated from the main framework where possible to allow for personal preferences while offering a solid starting point out-of-the-box.
 
-Starter Theme represents the Shopify Themes Team's opinionated starting point for new Slate theme projects. It strives to include up-to-date best practices and solutions that we have deemed needed for the majority of themes we build. It is a reflection of what’s possible when building a theme!
+There are some key differences to Starter Theme that should be noted:
 
-## Intentional lack of styles
+* jQuery is out, but you can add it if you want it
+* [@elkfox/shopify-theme](https://www.npmjs.com/package/@elkfox/shopify-theme) is used to add some important features
+* We will be adding more tools to [@elkfox/shopify-theme](https://www.npmjs.com/package/@elkfox/shopify-theme) that you can use to extend your theme development, if you choose.
+* Mixins and some other basic styles are pulled from [sass-library](https://www.npmjs.com/package/sass-library)
+* US English is currently the only language shipped, but others can be easily added
+* The product page works out-of-the-box with a single variant product
+* The breakpoints set in the variables.scss work out-of-the-box
 
-When launching Starter Theme for the first time, you may notice a lack of CSS styles. Is Starter Theme broken? Definitely not! Keep in mind this was done intentionally. Starter Theme is not a framework but rather a starting point for your project. It contains all the files the Shopify Themes team considers to be the bare essentials to building a Shopify theme.
+Coming soon:
 
-For templates and snippets, standard Liquid tags and logic have been included with little to no markup, classes, or other code that you will need to remove. The [`src/styles/theme.scss`](https://github.com/Shopify/starter-theme/blob/master/src/assets/styles/theme.scss) file contains extremely limited styling to not get in the way of developers' CSS preferences. The JavaScript files contain most of our [helper scripts](https://github.com/Shopify/theme-scripts/tree/master/packages) and [lazysizes](https://github.com/aFarkas/lazysizes) for responsive image lazy loading.
+* A new Ajax cart and product page Javascript library
+* Optional sections library
+
+Coming later:
+
+* Support for upcoming [breaking Shopify theme changes](https://developers.shopify.com/changelog/the-new-online-store-design-experience-is-now-available-in-developer-preview-and-here-s-what-you-need-to-know)
+
+## Getting started
+
+Assuming you have Slate v1 installed locally.
+
+$ yarn create slate-theme my-new-theme elkfox/concrete
+
+See https://shopify.github.io/slate/docs/starter-themes#custom-starter-themes
 
 ## System requirements
-
-You'll want to ensure you have the following already installed on your local machine before getting started with Starter theme:
 
 - **Node:** The current LTS (long-term support) release. We like to use a Node Version Manager like [NVM](https://github.com/creationix/nvm).
 
@@ -33,13 +50,15 @@ For more information on connecting your new project with a Shopify store, see th
 ## Contributing
 
 For help on setting up the repository locally, building, testing, and contributing
-please see [CONTRIBUTING.md](https://github.com/Shopify/starter-theme/blob/master/CONTRIBUTING.md).
+please see [CONTRIBUTING.md](https://github.com/Elkfox/Concrete/blob/master/CONTRIBUTING.md).
 
 ## Code of Conduct
 
 All developers who wish to contribute through code or issues, take a look at the
-[Code of Conduct](https://github.com/Shopify/starter-theme/blob/master/CODE_OF_CONDUCT.md).
+[Code of Conduct](https://github.com/Elkfox/Concrete/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
-Copyright © 2018 Shopify. See [LICENSE](https://github.com/Shopify/starter-theme/blob/master/LICENSE) for further details.
+Copyright © 2019 Elkfox Co Pty Ltd. See [LICENSE](https://github.com/Elkfox/Concrete/blob/master/LICENSE) for further details.
+
+Concrete v4 was built on Shopify's Starter Theme - Copyright © 2018 Shopify. See [LICENSE](https://github.com/Shopify/starter-theme/blob/master/LICENSE) for further details.

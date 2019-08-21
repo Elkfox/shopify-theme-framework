@@ -204,6 +204,11 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@elkfox/shopify-theme@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@elkfox/shopify-theme/-/shopify-theme-0.0.8.tgz#2c51facc673bb12bb04f7753a7bd41304563f41c"
+  integrity sha512-7Ivn53MrC593U/+5Ln/5S7sTtpE6O63xdxWi+Eb+OIiKzstSLM3e+2QaUf2Lta0Ur02qZXoigBf4OFaIVBDe8Q==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -7095,11 +7100,6 @@ jest@22.4.2:
     import-local "^1.0.0"
     jest-cli "^22.4.2"
 
-jquery@^3.2.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
-  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
-
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.9.tgz#748911fb04f48a60c4771b375cac45a80df11c03"
@@ -10426,6 +10426,11 @@ sass-graph@^2.2.4:
     lodash "^4.0.0"
     scss-tokenizer "^0.2.3"
     yargs "^7.0.0"
+
+sass-library@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/sass-library/-/sass-library-0.1.1.tgz#1517646bb431d856b43f6166514591e43840319f"
+  integrity sha512-Nf9u5x5xViSVU6xtfItnk0MCo5Qd4/zkD2SG0Tnbue+aHd15yGuPSTOC/ef0C1KAdb3GSd3AqolaIcBOHK7ACg==
 
 sass-loader@6.0.7:
   version "6.0.7"

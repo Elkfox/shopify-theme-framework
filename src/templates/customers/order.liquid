@@ -29,7 +29,7 @@
   </thead>
   <tbody>
     {% for line_item in order.line_items %}
-      <tr id="{{ line_item.key }}" class="responsive-table-row">
+      <tr id="{{ line_item.key }}">
         <td data-label="{{ 'customer.order.product' | t }}">
           {{ line_item.title | link_to: line_item.product.url }}
           {% if line_item.fulfillment %}
@@ -64,7 +64,7 @@
     {% endfor %}
   </tbody>
   <tfoot>
-    <tr class="responsive-table-row">
+    <tr>
       <td colspan="4" class="small--hide">{{ 'customer.order.subtotal' | t }}</td>
       <td data-label="{{ 'customer.order.subtotal' | t }}">{{ order.line_items_subtotal_price | money }}</td>
     </tr>

@@ -1,0 +1,3 @@
+.template-page #MainContent {
+  @include container($grid-max-width, 1rem 2rem);
+}

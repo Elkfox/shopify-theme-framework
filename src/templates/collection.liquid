@@ -1,5 +1,5 @@
 {% paginate collection.products by 12 %}
-  <header role="banner">
+  <header role="banner" class="collection__header">
     <h1>{{ collection.title }}</h1>
     {% if collection.description != blank %}
       <div class="rte">
@@ -24,9 +24,9 @@
     {% endif %}
   </header>
 
-  <div>
+  <div class="collection__products">
     {% for product in collection.products %}
-      <div>
+      <div class="collection__products__product">
         {% if product.featured_image != blank %}
           <a href="{{ product.url | within: collection }}">
             {% include 'responsive-image' with

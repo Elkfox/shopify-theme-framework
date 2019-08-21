@@ -1,3 +1,21 @@
+.product section {
+  @include container($grid-max-width, 1rem);
+  @include prefixer(display, flex, ('webkit', 'moz', 'ms', 'spec'));
+  @include prefixer(flex-wrap, wrap, ('webkit', 'moz', 'ms', 'spec'));
+
+  > div {
+    padding: 1rem;
+
+    @include media-query($medium-up) {
+      @include prefixer(flex-basis, 50%, ('webkit', 'moz', 'ms', 'spec'));
+    }
+  }
+
+  .responsive-image__image {
+    width: 100%;
+  }
+}
+
 .product-single__thumbnail-image {
   border: 2px solid transparent;
 

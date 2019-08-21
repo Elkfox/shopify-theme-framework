@@ -9,32 +9,35 @@
 @import './variables';
 
 // Tools
-@import './tools/mixins';
-@import './tools/functions';
+@import '~sass-library/mixins/prefixer.scss';
+@import '~sass-library/mixins/breakpoints.scss';
+@import '~sass-library/mixins/container.scss';
+@import '~sass-library/mixins/transitions.scss';
+@import '~sass-library/mixins/visually-hidden.scss';
+@import '~sass-library/functions/get-transition-properties.scss';
+
+// @elkfox/shopify-theme
+@import '~@elkfox/shopify-theme/styles/media.scss';
+@import '~@elkfox/shopify-theme/styles/rte.scss';
 
 // Core
-@import './core/forms';
 @import './core/helpers';
 @import './core/layout';
-@import './core/media';
+@import './core/forms';
 @import './core/responsive-tables';
-@import './core/rte';
 @import './core/typography';
 
 // Components
-@import './components/buttons';
-@import './components/hero-banner';
 @import './components/icons';
-@import './components/placeholders';
-@import './components/responsive-images';
 @import './components/address-forms';
 
 // Sections
-@import './sections/blog-posts';
-@import './sections/collection-list';
-@import './sections/featured-collection';
-@import './sections/image-with-text';
+@import './sections/header';
+@import './sections/footer';
 
 // Templates
-@import './templates/gift_card';
+@import './templates/index';
+@import './templates/collection';
 @import './templates/product';
+@import './templates/page';
+@import './templates/gift_card';

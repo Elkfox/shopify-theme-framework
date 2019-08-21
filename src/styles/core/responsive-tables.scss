@@ -22,31 +22,31 @@
     td {
       display: block;
       margin: 0;
-      padding: $grid-gutter / 2;
+      padding: 1rem 0;
       text-align: right;
     }
 
     td::before {
       content: attr(data-label);
       float: left;
-      padding-right: 10px;
+      padding-right: 1rem;
       text-align: center;
     }
   }
 
   // Add a keyline between rows
-  .responsive-table-row + .responsive-table-row,
-  tfoot > .responsive-table-row:first-child {
+  .responsive-table tr:not(:first-of-type),
+  tfoot > tr:first-child {
     position: relative;
     margin-top: 10px;
-    padding-top: $grid-gutter / 2;
+    padding-top: 1rem;
 
     &::after {
       content: '';
       position: absolute;
       top: 0;
-      right: $grid-gutter / 2;
-      left: $grid-gutter / 2;
+      right: 1rem;
+      left: 1rem;
       display: block;
       border-bottom: 1px solid $color-border;
     }
