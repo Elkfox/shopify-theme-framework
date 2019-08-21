@@ -27,7 +27,9 @@ Coming later:
 
 Assuming you have Slate v1 installed locally.
 
+```
 $ yarn create slate-theme my-new-theme elkfox/concrete
+```
 
 See https://shopify.github.io/slate/docs/starter-themes#custom-starter-themes
 
@@ -36,16 +38,6 @@ See https://shopify.github.io/slate/docs/starter-themes#custom-starter-themes
 - **Node:** The current LTS (long-term support) release. We like to use a Node Version Manager like [NVM](https://github.com/creationix/nvm).
 
 - **NPM 5+ or Yarn:** Both of these package managers have [ups and downs](https://blog.risingstack.com/yarn-vs-npm-node-js-package-managers/), choose whichever you prefer. Follow the installation instructions [for Yarn](https://yarnpkg.com/en/docs/install) or [NPM](https://www.npmjs.com/get-npm) to make sure you're using the latest version.
-
-## Getting started
-
-To get started with Starter Theme, run the following command in your terminal:
-
-```
-$ yarn create slate-theme my-new-theme
-```
-
-For more information on connecting your new project with a Shopify store, see the [Slate docs](https://github.com/Shopify/slate/wiki/3.-Connect-to-your-store).
 
 ## Contributing
 
