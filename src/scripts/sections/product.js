@@ -228,6 +228,12 @@ register('product', {
 
   // Custom event for @elkfox/shopify-theme/cart
   onSubmitButtonClick(event) {
+    const submitButton = event.target.closest(selectors.submitButton);
+
+    if (!submitButton) {
+      return;
+    }
+
     event.preventDefault();
 
     const item = {};
