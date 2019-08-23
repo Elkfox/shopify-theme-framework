@@ -4,6 +4,7 @@
  * [replace with theme name] | Built with Slate
  */
 @import '~normalize.css/normalize';
+@import '~@elkfox/shopify-theme/styles/form-reset.scss';
 
 // Settings
 @import './variables';
@@ -16,11 +17,9 @@
 @import '~sass-library/mixins/visually-hidden.scss';
 @import '~sass-library/functions/get-transition-properties.scss';
 
-// @elkfox/shopify-theme
+// Core
 @import '~@elkfox/shopify-theme/styles/media.scss';
 @import '~@elkfox/shopify-theme/styles/rte.scss';
-
-// Core
 @import './core/helpers';
 @import './core/layout';
 @import './core/forms';
@@ -30,6 +29,7 @@
 // Components
 @import './components/icons';
 @import './components/address-forms';
+@import './components/pagination';
 
 // Sections
 @import './sections/header';
@@ -40,4 +40,5 @@
 @import './templates/collection';
 @import './templates/product';
 @import './templates/page';
+@import './templates/cart';
 @import './templates/gift_card';

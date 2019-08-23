@@ -10,6 +10,7 @@ import '../../styles/theme.scss.liquid';
 
 import {focusHash, bindInPageLinks} from '@shopify/theme-a11y';
 import {cookieTest} from '@elkfox/shopify-theme/scripts/cookies';
+import {getCart} from '@elkfox/shopify-theme/scripts/cart';
 import {responsiveVideos} from '@elkfox/shopify-theme/scripts/responsive-videos';
 import {responsiveTables} from '@elkfox/shopify-theme/scripts/responsive-tables';
 
@@ -23,3 +24,6 @@ cookieTest();
 // Responsive tables & RTE videos
 responsiveVideos();
 responsiveTables();
+
+// You can use the cart details to update the UI
+console.log(getCart())

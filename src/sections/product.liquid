@@ -37,6 +37,21 @@
     <h1>{{ product.title }}</h1>
     <p>{{ product.vendor }}</p>
 
+    <p data-price-wrapper>
+      <span data-product-price>
+        {{ current_variant.price | money }}
+      </span>
+
+      {% if product.compare_at_price_max > product.price %}
+        <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+        <s data-compare-price>
+          {% if current_variant.compare_at_price > current_variant.price %}
+            {{ current_variant.compare_at_price | money }}
+          {% endif %}
+        </s>
+      {% endif %}
+    </p>
+
     {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true' %}
       {% if product.has_only_default_variant %}
         <input type="hidden" name="id" value="{{ current_variant.id }}">
@@ -89,21 +104,6 @@
 
       <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
       <input type="number" id="Quantity" name="quantity" value="1" min="1">
-
-      <div data-price-wrapper>
-        <span data-product-price>
-          {{ current_variant.price | money }}
-        </span>
-
-        {% if product.compare_at_price_max > product.price %}
-          <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
-          <s data-compare-price>
-            {% if current_variant.compare_at_price > current_variant.price %}
-              {{ current_variant.compare_at_price | money }}
-            {% endif %}
-          </s>
-        {% endif %}
-      </div>
 
       <button
         type="submit"

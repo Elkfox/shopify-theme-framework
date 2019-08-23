@@ -17,23 +17,25 @@ h5, .h5,
 h6, .h6 {
   font-family: $font-heading;
   font-weight: $font-heading-weight;
+  line-height: 1.5;
+  margin-top: 0;
   margin-bottom: 1em;
 }
 
 h1, .h1 {
-  font-size: 3.5rem;
+  font-size: 3.75rem;
 }
 
 h2, .h2 {
-  font-size: 2.75rem;
+  font-size: 3rem;
 }
 
 h3, .h3 {
   font-size: 2.5rem;
 }
 
-h5 {
-  font-size: 1.25rem;
+h4 {
+  font-size: 1.75rem;
 }
 
 body,

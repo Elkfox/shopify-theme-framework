@@ -1,0 +1,23 @@
+.cart-page {
+  @include container($grid-max-width, 1rem 2rem);
+}
+
+.cart-page .responsive-table {
+  width: 100%;
+}
+
+.cart-page__summary {
+  @include prefixer(display, flex, ('webkit', 'moz', 'ms', 'spec'));
+  @include prefixer(flex-wrap, wrap, ('webkit', 'moz', 'ms', 'spec'));
+  margin-top: 4rem;
+
+  @include media-query($medium-up) {
+    > div {
+      @include prefixer(flex-basis, 50%, ('webkit', 'moz', 'ms', 'spec'));
+
+      &:last-of-type {
+        text-align: right;
+      }
+    }
+  }
+}

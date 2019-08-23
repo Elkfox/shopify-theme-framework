@@ -10,6 +10,7 @@ import {getUrlWithVariant, ProductForm} from '@shopify/theme-product-form';
 import {formatMoney} from '@shopify/theme-currency';
 import {register} from '@shopify/theme-sections';
 import {forceFocus} from '@shopify/theme-a11y';
+import {addItem} from '@elkfox/shopify-theme/scripts/cart';
 
 const classes = {
   hide: 'hide',
@@ -35,6 +36,8 @@ const selectors = {
   thumbnailActive: '[data-product-single-thumbnail][aria-current]',
 };
 
+const formState = {};
+
 register('product', {
   async onLoad() {
     const productFormElement = document.querySelector(selectors.productForm);
@@ -51,12 +54,19 @@ register('product', {
 
     this.container.addEventListener('click', this.onThumbnailClick);
     this.container.addEventListener('keyup', this.onThumbnailKeyup);
+
+    // Custom event listener for @elkfox/shopify-theme/cart event
+    this.onSubmitButtonClick = this.onSubmitButtonClick.bind(this);
+    this.container.addEventListener('click', this.onSubmitButtonClick);
   },
 
   onUnload() {
     this.productForm.destroy();
     this.removeEventListener('click', this.onThumbnailClick);
     this.removeEventListener('keyup', this.onThumbnailKeyup);
+
+    // Custom event listener for @elkfox/shopify-theme/cart event
+    this.removeEventListener('click', this.onSubmitButtonClick);
   },
 
   getProductJson(handle) {
@@ -74,6 +84,8 @@ register('product', {
     this.renderSubmitButton(variant);
 
     this.updateBrowserHistory(variant);
+
+    formState.currentVariant = variant;
   },
 
   onThumbnailClick(event) {
@@ -212,5 +224,20 @@ register('product', {
 
     const url = getUrlWithVariant(window.location.href, variant.id);
     window.history.replaceState({path: url}, '', url);
+  },
+
+  // Custom event for @elkfox/shopify-theme/cart
+  onSubmitButtonClick(event) {
+    event.preventDefault();
+
+    const item = {};
+
+    const currentVariant = this.productForm.variant();
+    const quantity = this.productForm.quantityInputs[0].value;
+
+    item.id = currentVariant.id;
+    item.quantity = quantity;
+
+    addItem(item);
   },
 });

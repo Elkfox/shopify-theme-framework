@@ -1,0 +1,3 @@
+.pagination {
+  @include container($grid-max-width, 2rem);
+}

@@ -204,10 +204,12 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@elkfox/shopify-theme@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@elkfox/shopify-theme/-/shopify-theme-0.0.8.tgz#2c51facc673bb12bb04f7753a7bd41304563f41c"
-  integrity sha512-7Ivn53MrC593U/+5Ln/5S7sTtpE6O63xdxWi+Eb+OIiKzstSLM3e+2QaUf2Lta0Ur02qZXoigBf4OFaIVBDe8Q==
+"@elkfox/shopify-theme@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@elkfox/shopify-theme/-/shopify-theme-0.1.1.tgz#e495d3c324e391807bc652f83f3f0e150bf4ec5f"
+  integrity sha512-T3DNXS6rXZrRJ+jjW+czdyapBNBM+GPoBVn6ueLyfxUWP9nGU4WnN2Qe4Ks3IyPQmZBilyDEj7beGQHDlRsmxQ==
+  dependencies:
+    node-fetch "^2.6.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -8162,6 +8164,11 @@ no-case@^2.2.0:
   integrity sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==
   dependencies:
     lower-case "^1.1.1"
+
+node-fetch@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
+  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
 node-gyp@^3.8.0:
   version "3.8.0"
