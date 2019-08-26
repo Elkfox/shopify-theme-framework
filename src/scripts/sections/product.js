@@ -1,10 +1,13 @@
 /**
  * Product Template Script
- * ------------------------------------------------------------------------------
+ * -----------------------------------------------------------------------------
  * A file that contains scripts highly couple code to the Product template.
  *
  * @namespace product
  */
+
+// Fetch is not supported by IE so we use a polyfill for now
+import fetch from 'node-fetch';
 
 import {getUrlWithVariant, ProductForm} from '@shopify/theme-product-form';
 import {formatMoney} from '@shopify/theme-currency';
@@ -35,8 +38,6 @@ const selectors = {
   thumbnailById: (id) => `[data-thumbnail-id='${id}']`,
   thumbnailActive: '[data-product-single-thumbnail][aria-current]',
 };
-
-const formState = {};
 
 register('product', {
   async onLoad() {
@@ -84,8 +85,6 @@ register('product', {
     this.renderSubmitButton(variant);
 
     this.updateBrowserHistory(variant);
-
-    formState.currentVariant = variant;
   },
 
   onThumbnailClick(event) {
@@ -226,7 +225,7 @@ register('product', {
     window.history.replaceState({path: url}, '', url);
   },
 
-  // Custom event for @elkfox/shopify-theme/cart
+  // Add item using @elkfox/shopify-theme/cart
   onSubmitButtonClick(event) {
     const submitButton = event.target.closest(selectors.submitButton);
 

@@ -204,10 +204,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@elkfox/shopify-theme@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@elkfox/shopify-theme/-/shopify-theme-0.1.1.tgz#e495d3c324e391807bc652f83f3f0e150bf4ec5f"
-  integrity sha512-T3DNXS6rXZrRJ+jjW+czdyapBNBM+GPoBVn6ueLyfxUWP9nGU4WnN2Qe4Ks3IyPQmZBilyDEj7beGQHDlRsmxQ==
+"@elkfox/shopify-theme@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@elkfox/shopify-theme/-/shopify-theme-0.1.2.tgz#4c8321ad29aeddaad4229bc263fc4b243a885544"
+  integrity sha512-lfG3OXYIVo3dP8/NgC+xV3Yp+bOsasWCvULL4n+XIY8uUtPpkKeT/Yo50mqgc34pr8oKNbLjBoVZphBEKhRoIg==
   dependencies:
     node-fetch "^2.6.0"
 

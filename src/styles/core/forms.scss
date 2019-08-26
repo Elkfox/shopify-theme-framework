@@ -26,7 +26,8 @@ input[type='submit'] {
   border: 1px solid $color-accent;
   color: $color-body;
 
-  &:hover {
+  &:hover,
+  &:active {
     background-color: $color-body-text;
     border-color: $color-body-text;
   }

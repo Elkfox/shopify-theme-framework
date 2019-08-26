@@ -53,12 +53,16 @@
     </p>
 
     {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true' %}
-      {% if product.has_only_default_variant %}
-        <input type="hidden" name="id" value="{{ current_variant.id }}">
-      {% else %}
-        {% for option in product.options_with_values %}
-          <div class="js">
+      {% for option in product.options_with_values %}
+        <div class="js">
+          {% if product.has_only_default_variant %}
 
+            {%- comment -%}
+              We need a hidden default value if the product has only one variant
+            {%- endcomment -%}
+            <input type="hidden" id="Option1" name="options[Title]" value="{{ product.variants[0].title }}">
+
+          {% else %}
             {% if forloop.index0 > 0 %}
 
               {% for value in option.values %}
@@ -85,9 +89,9 @@
               </select>
 
             {% endif %}
-          </div>
-        {% endfor %}
-      {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
 
       <noscript>
         <select name="id">
