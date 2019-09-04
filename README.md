@@ -25,11 +25,11 @@ Coming later:
 
 ## Getting started
 
-Assuming you have Slate v1 installed locally.
+<s>Assuming you have Slate v1 installed locally.
 
 ```
 $ yarn create slate-theme my-new-theme elkfox/concrete
-```
+```</s>
 
 See https://shopify.github.io/slate/docs/starter-themes#custom-starter-themes
 
