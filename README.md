@@ -30,9 +30,11 @@ Coming later:
 ```
 $ yarn create slate-theme my-new-theme elkfox/concrete
 ```
-</s>
 
 See https://shopify.github.io/slate/docs/starter-themes#custom-starter-themes
+</s>
+
+Fork this branch to get started.
 
 ## System requirements
 
