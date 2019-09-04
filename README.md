@@ -16,7 +16,6 @@ There are some key differences to Starter Theme that should be noted:
 
 Coming soon:
 
-* A new Ajax cart and product page Javascript library
 * Optional sections library
 
 Coming later:
