@@ -64,8 +64,7 @@
 
     <a href="/cart">
       {{ 'layout.cart.title' | t }}
-      (<span data-cart-count>{{ cart.item_count }}</span>
-      <span class="visually-hidden"> {{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>)
+      (<span data-cart-count>{{ cart.item_count }}</span><span class="visually-hidden"> {{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>)
     </a>
   </header>
 
