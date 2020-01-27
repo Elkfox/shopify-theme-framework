@@ -35,3 +35,8 @@ Copyright © 2019 Elkfox Co Pty Ltd. See [LICENSE](https://github.com/Elkfox/Con
 
 Concrete v4 was built on Shopify's Starter Theme - Copyright © 2018 Shopify. See [LICENSE](https://github.com/Shopify/starter-theme/blob/master/LICENSE) for further details.
 
+-----
+
+<a href="https://elkfox.com/">
+  <img src=".gitbook/assets/elkfox_logotype-email_signature.png" alt="drawing" height="40"/>
+</a>

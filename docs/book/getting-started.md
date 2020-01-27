@@ -12,5 +12,3 @@
 3. Configure your `.env` files
 4. Run `$ yarn start`
 5. Get coding!
-
-[![Elkfox](.gitbook/assets/elkfox_logotype-email_signature.png =40x)](https://elkfox.com/)

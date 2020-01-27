@@ -1,11 +1,3 @@
 {
-  "root": "./docs/book",
-  "plugins": [
-    "footer"
-  ],
-  "pluginsConfig": {
-    "layout": {
-      "footerPath" : "./docs/book/snippets/footer.html"
-    }
-  }
+  "root": "./docs/book"
 }
