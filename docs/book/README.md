@@ -16,38 +16,31 @@ There are some key differences to Starter Theme that should be noted:
 * The product page works out-of-the-box with a single variant product
 * The breakpoints set in the variables.scss work out-of-the-box
 
-#### Coming soon:
+### Coming soon:
 
 * Optional sections library
 * Support for upcoming [breaking Shopify theme changes](https://developers.shopify.com/changelog/the-new-online-store-design-experience-is-now-available-in-developer-preview-and-here-s-what-you-need-to-know)
 
-### Getting started
-
-Assuming you have Slate v1 installed locally.
-
-```text
-$ yarn create slate-theme my-new-theme elkfox/concrete
-```
-
-See [https://shopify.github.io/slate/docs/starter-themes\#custom-starter-themes](https://shopify.github.io/slate/docs/starter-themes#custom-starter-themes) &lt;/s&gt;
+## Getting started
 
 Fork this branch to get started.
 
-### System requirements
+## System requirements
 
 * **Node:** The current LTS \(long-term support\) release. We like to use a Node Version Manager like [NVM](https://github.com/creationix/nvm).
 * **NPM 5+ or Yarn:** Both of these package managers have [ups and downs](https://blog.risingstack.com/yarn-vs-npm-node-js-package-managers/), choose whichever you prefer. Follow the installation instructions [for Yarn](https://yarnpkg.com/en/docs/install) or [NPM](https://www.npmjs.com/get-npm) to make sure you're using the latest version.
 
-### Contributing
+## Contributing
 
 For help on setting up the repository locally, building, testing, and contributing please see [CONTRIBUTING.md](https://github.com/Elkfox/Concrete/blob/master/CONTRIBUTING.md).
 
-### Code of Conduct
+## Code of Conduct
 
 All developers who wish to contribute through code or issues, take a look at the [Code of Conduct](https://github.com/Elkfox/Concrete/blob/master/CODE_OF_CONDUCT.md).
 
-### License
+## License
 
 Copyright © 2019 Elkfox Co Pty Ltd. See [LICENSE](https://github.com/Elkfox/Concrete/blob/master/LICENSE) for further details.
 
 Concrete v4 was built on Shopify's Starter Theme - Copyright © 2018 Shopify. See [LICENSE](https://github.com/Shopify/starter-theme/blob/master/LICENSE) for further details.
+
