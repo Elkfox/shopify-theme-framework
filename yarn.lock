@@ -204,10 +204,12 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@elkfox/grid@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@elkfox/grid/-/grid-0.0.7.tgz#439885c1973df40960210e8a1cf8d0b01f3e45c0"
-  integrity sha512-I22wMlIQrRlYr1Z4p6JAT3L/P/AA4YyzHZBN6MbLlwaq5s8pR3FK1c5rrUYRQqLZged5400yfJPMOWoo6VA7/g==
+"@elkfox/shopify-theme@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@elkfox/shopify-theme/-/shopify-theme-0.1.2.tgz#4c8321ad29aeddaad4229bc263fc4b243a885544"
+  integrity sha512-lfG3OXYIVo3dP8/NgC+xV3Yp+bOsasWCvULL4n+XIY8uUtPpkKeT/Yo50mqgc34pr8oKNbLjBoVZphBEKhRoIg==
+  dependencies:
+    node-fetch "^2.6.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -383,20 +385,20 @@
     yamljs "0.2.10"
     yargs "^11.0.0"
 
-"@shopify/theme-a11y@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@shopify/theme-a11y/-/theme-a11y-1.0.1.tgz#0081521a779a90d16969ac464c7a4e365bae1886"
-  integrity sha1-AIFSGneakNFpaaxGTHpONluuGIY=
+"@shopify/theme-a11y@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@shopify/theme-a11y/-/theme-a11y-2.0.1.tgz#baf4beedca63c08c8f7e82de35bba9c9654c3126"
+  integrity sha512-kZxkVCQuNaoancZQZdXIVrPj5WmtxerrXlypyAgc7Q7gFEqOEYIHsey3xWnzKTM80hxk5N0rzrWMsRHWXbgp6g==
 
-"@shopify/theme-addresses@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@shopify/theme-addresses/-/theme-addresses-1.0.0.tgz#204327c8fbf2e2382c5af5532d3f8176a5111b42"
-  integrity sha512-RF7b4K1By/41aYoh6lBJIIFh3tmB1MGaw9zUvRre/b6qf07/oEEpEMFOMbLKyMuX4nY36cCVhY1xVnrgvcWvQw==
+"@shopify/theme-addresses@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/theme-addresses/-/theme-addresses-3.0.0.tgz#21a1db60e0414e351205d9d5e36f2f625f7a5445"
+  integrity sha512-3MyMnfw1VtPq3cLCr2GX71NgbJEsNO8Sm43Vfh76K7Jyqv2nQqHQAcJ87tgJhDzTcfvXwiYXdb14IusoUXsBDg==
 
 "@shopify/theme-cart@^1.0.0-alpha.7":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@shopify/theme-cart/-/theme-cart-1.0.1.tgz#175e98dd1a3c18d27389bff7b5ee3fbd69e1a430"
-  integrity sha512-mAxN0rLQTi7Pf6xR8qAe5V1AYtMC23Y5JdmnQkDn+pSU3skUuRlifrR8fu3mFdnH19YodJs+s4BIAoqi6g9IFg==
+  version "1.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@shopify/theme-cart/-/theme-cart-1.0.0-alpha.7.tgz#7065012c580fe8944f9e897f5404dbf8e1ccad01"
+  integrity sha1-cGUBLFgP6JRPnol/VATb+OHMrQE=
 
 "@shopify/theme-currency@^1.0.0-alpha.7":
   version "1.0.0-alpha.7"
@@ -418,6 +420,16 @@
     glob "^7.0.6"
     htmllint "^0.6.0"
     lodash "^4.15.0"
+
+"@shopify/theme-product-form@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/theme-product-form/-/theme-product-form-3.0.0.tgz#ad4b74f7f2bf98fd0e67095b1b4d0c54cbdca49f"
+  integrity sha512-9PWMY/hmWNd724GIEZvzAsRtTVP4J5RC3DAbOO83dS7CwnDcn7EQKceHuTqZAYEPAfom6xKnYViuLd17fTz4lQ==
+
+"@shopify/theme-product@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@shopify/theme-product/-/theme-product-1.0.0.tgz#505e6a0bf78359d384618d5317fbba857d53c455"
+  integrity sha512-l6jZlkPt2Juy0JXnnkTh+trBJD1zMFYp4RLHSD11hk6xwMtkUGRzLc6HQNhoAt//5Ft+vR2h92nZFFntX03oGQ==
 
 "@shopify/theme-rte@^1.0.0-alpha.7":
   version "1.0.0-alpha.7"
@@ -1032,7 +1044,7 @@ async@1.5.2:
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
   integrity sha1-7GphrlZIDAw8skHJVhjiCJL5Zyo=
 
-async@^2.0.0, async@^2.1.4, async@^2.4.1, async@^2.5.0, async@^2.6.0:
+async@^2.0.0, async@^2.1.4, async@^2.4.1, async@^2.6.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
@@ -5642,11 +5654,11 @@ gzip-size@3.0.0:
     duplexer "^0.1.1"
 
 handlebars@^4.0.3:
-  version "4.0.12"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.12.tgz#2c15c8a96d46da5e266700518ba8cb8d919d5bc5"
-  integrity sha512-RhmTekP+FZL+XNhwS1Wf+bTTZpdLougwt5pcgA1tuz6Jcx0fpH/7z0qd71RKnZHBCxIRBHfBOnio4gViPemNzA==
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.2.tgz#01127b3840156a0927058779482031afe0e730d7"
+  integrity sha512-4PwqDL2laXtTWZghzzCtunQUTLbo31pcCJrd/B/9JP8XbhVzpS5ZXuKqlOzsd1rtcaLo4KqAn8nl8mkknS4MHw==
   dependencies:
-    async "^2.5.0"
+    neo-async "^2.6.0"
     optimist "^0.6.1"
     source-map "^0.6.1"
   optionalDependencies:
@@ -7090,11 +7102,6 @@ jest@22.4.2:
     import-local "^1.0.0"
     jest-cli "^22.4.2"
 
-jquery@^3.2.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
-  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
-
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.9.tgz#748911fb04f48a60c4771b375cac45a80df11c03"
@@ -8146,6 +8153,11 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.2.tgz#489105ce7bc54e709d736b195f82135048c50fcc"
   integrity sha512-vdqTKI9GBIYcAEbFAcpKPErKINfPF5zIuz3/niBfq8WUZjpT2tytLlFVrBgWdOtqI4uaA/Rb6No0hux39XXDuw==
 
+neo-async@^2.6.0:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
+  integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -8157,6 +8169,11 @@ no-case@^2.2.0:
   integrity sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==
   dependencies:
     lower-case "^1.1.1"
+
+node-fetch@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
+  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
 node-gyp@^3.8.0:
   version "3.8.0"
@@ -10421,6 +10438,11 @@ sass-graph@^2.2.4:
     lodash "^4.0.0"
     scss-tokenizer "^0.2.3"
     yargs "^7.0.0"
+
+sass-library@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/sass-library/-/sass-library-1.2.0.tgz#2772c2b6fec32a9d9dd44d6b914b1ed33f5186fa"
+  integrity sha512-WKuS/JhBquDCEAmeN2Xp4bAiIg27PoG8I9fs8tePdijLDIRyH2LgcZqfhze1n6rlEwwohCN7D6l9/iX04t3lnA==
 
 sass-loader@6.0.7:
   version "6.0.7"

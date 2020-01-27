@@ -1,18 +1,18 @@
 {
-  "name": "starter-theme",
-  "version": "1.0.0-alpha.1",
+  "name": "concrete-theme",
+  "version": "4.0.0-alpha.1",
   "private": true,
-  "author": "Shopify Inc.",
+  "author": "Elkfox Co Pty Ltd",
   "description": "An opinionated, Slate compatible, starting point for developing Shopify themes.",
   "keywords": [
     "shopify",
     "theme"
   ],
-  "bugs": "https://github.com/Shopify/starter-theme/issues",
+  "bugs": "https://github.com/Elkfox/Concrete/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Shopify/starter-theme.git"
+    "url": "https://github.com/Elkfox/Concrete.git"
   },
   "devDependencies": {
     "@shopify/slate-tools": "1.0.0-beta.15",
@@ -22,20 +22,23 @@
     "stylelint-config-shopify": "^5.0.0"
   },
   "dependencies": {
-    "@elkfox/grid": "^0.0.7",
-    "@shopify/theme-a11y": "^1.0.1",
-    "@shopify/theme-addresses": "^1.0.0",
+    "@elkfox/shopify-theme": "^0.1.2",
+    "@shopify/theme-a11y": "^2.0.1",
+    "@shopify/theme-addresses": "^3.0.0",
     "@shopify/theme-cart": "^1.0.0-alpha.7",
     "@shopify/theme-currency": "^1.0.0-alpha.7",
     "@shopify/theme-images": "^1.0.0-alpha.7",
+    "@shopify/theme-product": "^1.0.0",
+    "@shopify/theme-product-form": "^3.0.0",
     "@shopify/theme-rte": "^1.0.0-alpha.7",
     "@shopify/theme-sections": "^1.1.0",
     "@shopify/theme-variants": "^1.0.0-alpha.8",
-    "jquery": "^3.2.1",
     "lazysizes": "^4.1.1",
     "lodash-es": "^4.17.4",
+    "node-fetch": "^2.6.0",
     "normalize.css": "^7.0.0",
-    "qrcode": "^1.3.2"
+    "qrcode": "^1.3.2",
+    "sass-library": "^1.2.0"
   },
   "scripts": {
     "start": "slate-tools start",

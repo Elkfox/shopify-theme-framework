@@ -1,56 +1,61 @@
-form {
-  margin: 0;
-}
-
-a,
-area,
-button,
-[role='button'],
-input,
-label,
-select,
-summary,
-textarea {
-  touch-action: manipulation;
-}
-
 input,
 textarea,
-select {
-  font-size: 1.6rem;
-  max-width: 100%;
-  border: 1px solid $color-border;
-  border-radius: 0;
+select,
+button {
+  margin-bottom: 1.5rem;
+}
 
-  &[disabled] {
-    border-color: $color-disabled-border;
-    background-color: $color-disabled;
-    cursor: default;
+label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+button,
+.button,
+input[type='submit'] {
+  display: inline-block;
+  height: 4rem;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: $color-accent;
+  border: 1px solid $color-accent;
+  color: $color-body;
+
+  &:hover,
+  &:active {
+    background-color: $color-body-text;
+    border-color: $color-body-text;
   }
 }
 
-button,
-input[type='submit'],
-label[for] {
-  cursor: pointer;
+input {
+  display: inline-block;
+  height: 4rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid $color-border;
 }
 
 textarea {
-  min-height: 100px;
+  min-width: 30rem;
+  border: 1px solid $color-border;
 }
 
-select::-ms-expand {
-  display: none;
-}
-
-// Force option color (affects IE only)
-option {
-  background-color: $color-body;
-  color: $color-body-text;
-}
-
-.input-error {
-  border-color: $color-error;
-  background-color: $color-error-bg;
-  color: $color-body-text;
+select {
+  height: 4rem;
+  padding: 1rem 4rem 1rem 1.5rem;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image:
+    url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23inherit%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.512.8z%22%2F%3E%3C%2Fsvg%3E'),
+    linear-gradient(to bottom, $color-body 0%, $color-body 100%);
+  background-repeat: no-repeat, repeat;
+  background-position: right 1em top 50%, 0 0;
+  background-size: .65em auto, 100%;
+  border: 1px solid $color-border;
 }

@@ -1,9 +1,5 @@
-.clearfix {
-  @include clearfix;
-}
-
 .visually-hidden {
-  @include visually-hidden;
+  @include visibility(hidden);
 }
 
 .js-focus-hidden:focus {
@@ -11,16 +7,16 @@
 }
 
 .label-hidden {
-  @include visually-hidden;
+  @include visibility(hidden);
 
   // No placeholders, so force show labels
   .no-placeholder & {
-    @include visually-shown;
+    @include visibility(visible);
   }
 }
 
 .visually-shown {
-  @include visually-shown;
+  @include visibility(visible);
 }
 
 // Only show when JS is not supported
@@ -58,7 +54,7 @@
 // Skip to content button
 // Overrides .visually-hidden when focused
 .skip-link:focus {
-  @include visually-shown(absolute);
+  @include visibility(visible, absolute);
   z-index: 10000;
   padding: $grid-gutter / 2;
   background-color: $color-body;

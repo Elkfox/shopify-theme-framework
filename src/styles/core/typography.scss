@@ -9,13 +9,33 @@ body {
   font-size: 1.6rem;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
   font-family: $font-heading;
+  font-weight: $font-heading-weight;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+h1, .h1 {
+  font-size: 3.75rem;
+}
+
+h2, .h2 {
+  font-size: 3rem;
+}
+
+h3, .h3 {
+  font-size: 2.5rem;
+}
+
+h4 {
+  font-size: 1.75rem;
 }
 
 body,
@@ -27,6 +47,33 @@ select {
   text-size-adjust: 100%;
 }
 
+a {
+  color: $color-accent;
+  text-decoration: none;
+}
+
 a:focus {
   color: inherit;
+  outline: none;
+}
+
+a:hover {
+  color: inherit;
+  color: $color-body-text;
+}
+
+p {
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+ul {
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
 }

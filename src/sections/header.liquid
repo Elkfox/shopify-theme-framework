@@ -25,8 +25,8 @@
     </div>
   {%- endif -%}
 
-  <header role="banner" class="container l">
-    <a href="/" class="logo-image">
+  <header role="banner" class="header">
+    <a href="/" class="logo">
       {% if section.settings.logo != blank %}
         {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
         <img src="{{ section.settings.logo | img_url: image_size }}"
@@ -35,12 +35,6 @@
       {% else %}
         {{ shop.name }}
       {% endif %}
-    </a>
-
-    <a href="/cart">
-      {% include 'icon-cart' %}
-      {{ 'layout.cart.title' | t }}
-      (<span data-cart-item-count>{{ cart.item_count }}</span> {{ 'layout.cart.items_count' | t: count: cart.item_count }})
     </a>
 
     {% if shop.customer_accounts_enabled %}
@@ -68,26 +62,14 @@
       </ul>
     {% endif %}
 
-    <form action="/search" method="get" role="search">
-      <label for="Search-{{ section.id }}" class="label-hidden">
-        {{ 'general.search.placeholder' | t }}
-      </label>
-
-      <input type="search"
-        name="q"
-        id="Search-{{ section.id }}"
-        value="{{ search.terms | escape }}"
-        placeholder="{{ 'general.search.placeholder' | t }}">
-
-      <button type="submit" class="button">
-        {% include 'icon-search' %}
-        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
-      </button>
-    </form>
+    <a href="/cart">
+      {{ 'layout.cart.title' | t }}
+      (<span data-cart-count>{{ cart.item_count }}</span><span class="visually-hidden"> {{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>)
+    </a>
   </header>
 
-  <nav role="navigation" class="container l">
-    <ul class="inline">
+  <nav role="navigation" class="nav">
+    <ul>
       {% for link in linklists[section.settings.menu].links %}
         {% if link.links != blank %}
           <li>
@@ -114,6 +96,23 @@
         {% endif %}
       {% endfor %}
     </ul>
+
+    <form action="/search" method="get" role="search">
+      <label for="Search-{{ section.id }}" class="label-hidden">
+        {{ 'general.search.placeholder' | t }}
+      </label>
+
+      <input type="search"
+        name="q"
+        id="Search-{{ section.id }}"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'general.search.placeholder' | t }}">
+
+      <button type="submit" class="button">
+        {% include 'icon-search' %}
+        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+      </button>
+    </form>
   </nav>
 </section>
 

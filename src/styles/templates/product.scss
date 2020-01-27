@@ -1,3 +1,21 @@
+.product section {
+  @include container($grid-large, 1rem);
+  @include prefix(display, flex, webkit ms);
+  @include prefix(flex-wrap, wrap, webkit moz ms);
+
+  > div {
+    padding: 1rem;
+
+    @include media-query($medium-up) {
+      @include prefix(flex-basis, 50%, webkit);
+    }
+  }
+
+  .responsive-image__image {
+    width: 100%;
+  }
+}
+
 .product-single__thumbnail-image {
   border: 2px solid transparent;
 

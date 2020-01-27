@@ -1,0 +1,25 @@
+.header {
+  @include prefix(display, flex, webkit ms);
+  @include prefix(justify-content, space-between, webkit ms);
+  padding: 2rem;
+}
+
+.logo {
+  font-family: $font-heading;
+  font-weight: $font-heading-weight;
+  font-size: 3rem;
+}
+
+.nav {
+  @include prefix(display, flex, webkit ms);
+  @include prefix(justify-content, space-between, webkit ms);
+  padding: 2rem;
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    display: inline;
+  }
+}

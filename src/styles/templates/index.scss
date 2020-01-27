@@ -1,0 +1,3 @@
+.template-index #MainContent {
+  @include container($grid-large, 1rem 2rem);
+}

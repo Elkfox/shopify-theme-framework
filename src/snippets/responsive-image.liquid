@@ -1,5 +1,5 @@
 {%- comment -%}
-    It creates a style tag and it restricts an image from growing larger than its max resolution.
+    Creates a style tag and it restricts an image from growing larger than its max resolution.
 
     Dependencies:
     - Lazysizes plugin (https://github.com/aFarkas/lazysizes) which enable responsive image with faster load time and better performance.
@@ -7,9 +7,9 @@
     - Lazysizes Bgset (https://github.com/aFarkas/lazysizes/tree/gh-pages/plugins/bgset) To use responsive images on background-image (CSS)
 
     Accepts:
-    - max_width: {Number} Max width of the image container
-    - max_height: {Number} Max height of the image container
-    - image: {Object} Image object
+    - max_width: {Number} Max width of the image container (required)
+    - max_height: {Number} Max height of the image container (required)
+    - image: {Object} Image object (required)
     - image_class: {String} class name of the <img />
     - image_attributes: {String}  additional HTML attributes of the <img />
     - wrapper_class: {String} class name of the <div> wrapper
@@ -24,18 +24,11 @@
 {%- capture responsive_image_counter %}{% increment responsive_image_counter %}{% endcapture -%}
 
 <style>
-  {%- comment -%}
-    The image aspect ratio tells us the orientation of the image:
-    - less than 1.0 is portrait
-    - exactly 1.0 is square
-    - greater than 1.0 is landscape
-  {%- endcomment -%}
-  {%- if image.aspect_ratio <= 1 -%}
-    {%- assign max_height_image = image.height | at_most: max_height -%}
-    {%- assign max_width_image = max_height_image | times: image.aspect_ratio -%}
-  {%- else -%}
-    {%- assign max_width_image = image.width | at_most: max_width -%}
-    {%- assign max_height_image = max_width_image | divided_by: image.aspect_ratio -%}
+  {%- assign max_height_image = image.height | at_most: max_height -%}
+  {%- assign max_width_image = image.width | at_most: max_width -%}
+  {%- assign max_ratio_height_image = max_width_image | divided_by: image.aspect_ratio -%}
+  {%- if max_ratio_height_image > max_height_image -%}
+    {% assign max_width_image = max_height_image | times: image.aspect_ratio %}
   {%- endif -%}
 
   #Image-{{ image.id }}-{{ responsive_image_counter }} {
@@ -67,7 +60,7 @@
   {%- endfor -%}
   {{ image.width }}
 {%- endcapture -%}
-{%- assign image_widths = image_widths | strip_newlines -%}
+{%- assign image_widths = image_widths | strip -%}
 
 <div id="ImageWrapper-{{ image.id }}-{{ responsive_image_counter }}" data-image-id="{{ image.id }}" class="responsive-image__wrapper {{ wrapper_class }}" {{ wrapper_attributes }}>
   <img id="Image-{{ image.id }}-{{ responsive_image_counter }}"

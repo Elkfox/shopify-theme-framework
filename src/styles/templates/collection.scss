@@ -1,0 +1,26 @@
+.collection__header {
+  @include container($grid-large, 1rem 2rem);
+}
+
+.collection__products {
+  @include container($grid-large, 1rem);
+  @include prefix(display, flex, webkit ms);
+  @include prefix(flex-wrap, wrap, webkit moz ms);
+}
+
+.collection__products__product {
+  @include prefix(flex-basis, 25%, webkit);
+  padding: 1rem;
+
+  .responsive-image__image {
+    width: 100%;
+  }
+
+  @include media-query($medium) {
+    @include prefix(flex-basis, 50%, webkit);
+  }
+
+  @include media-query($small) {
+    @include prefix(flex-basis, 100%, webkit);
+  }
+}

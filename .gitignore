@@ -17,7 +17,6 @@ npm-debug.log
 .env.*
 !.env.sample
 
-
 # Compiled source #
 ###################
 *.com
@@ -66,5 +65,3 @@ _site
 secrets.json
 .jekyll-metadata
 .ruby-version
-NOTES.md
-TESTS.liquid

@@ -1,63 +1,84 @@
-<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" class="container l">
+<section data-section-id="{{ section.id }}" data-section-type="product">
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
 
-  <div class="row">
-    <div class="column l6 m6 s12">
+  <div>
+    {% for image in product.images %}
+      {% capture wrapper_class %}
+        {%- unless featured_image == image -%}
+          hide
+        {%- endunless -%}
+      {% endcapture %}
 
-      {%- assign current_variant = product.selected_or_first_available_variant -%}
-      {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+      {% include 'responsive-image' with
+        image: image,
+        max_width: 700,
+        max_height: 800,
+        image_attributes: "data-product-featured-image",
+        wrapper_class: wrapper_class,
+        wrapper_attributes: "data-product-image-wrapper",
+      %}
+    {% endfor %}
 
-      {% for image in product.images %}
-        {% capture wrapper_class %}
-          {%- unless featured_image == image -%}
-            hide
-          {%- endunless -%}
-        {% endcapture %}
+    {% if product.images.size > 1 %}
+      <ul>
+        {% for image in product.images %}
+          <li>
+            <a href="{{ image.src | img_url: '480x480' }}" data-thumbnail-id="{{ image.id }}" data-product-single-thumbnail{% if featured_image == image %} aria-current="true"{% endif %}>
+              <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
 
-        {% include 'responsive-image' with
-          image: image,
-          max_width: 700,
-          max_height: 800,
-          image_attributes: "data-product-featured-image",
-          wrapper_class: wrapper_class,
-          wrapper_attributes: "data-product-image-wrapper",
-        %}
-      {% endfor %}
+  <div>
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.vendor }}</p>
 
-      {% if product.images.size > 1 %}
-        <ul class="inline">
-          {% for image in product.images %}
-            <li>
-              <a href="{{ image.src | img_url: '480x480' }}" data-thumbnail-id="{{ image.id }}" data-product-single-thumbnail>
-                {%- include 'responsive-image' with
-                  image: image,
-                  max_width: 150,
-                  max_height: 150,
-                  wrapper_class: 'product-single__thumbnail-image'
-                -%}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
+    <p data-price-wrapper>
+      <span data-product-price>
+        {{ current_variant.price | money }}
+      </span>
+
+      {% if product.compare_at_price_max > product.price %}
+        <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+        <s data-compare-price>
+          {% if current_variant.compare_at_price > current_variant.price %}
+            {{ current_variant.compare_at_price | money }}
+          {% endif %}
+        </s>
       {% endif %}
+    </p>
 
-    </div>
-    <div class="column l6 m6 s12">
+    {% form 'product', product, data-product-form: '', data-product-handle: product.handle, data-enable-history-state: 'true' %}
+      {% for option in product.options_with_values %}
+        <div class="js">
+          {% if product.has_only_default_variant %}
 
-      <h1>{{ product.title }}</h1>
-      <p>{{ product.vendor }}</p>
+            {%- comment -%}
+              We need a hidden default value if the product has only one variant
+            {%- endcomment -%}
+            <input type="hidden" id="Option1" name="options[Title]" value="{{ product.variants[0].title }}">
 
-      <form action="/cart/add" method="post" enctype="multipart/form-data">
-        {% unless product.has_only_default_variant %}
-          {% for option in product.options_with_values %}
-            <div class="selector-wrapper js">
-              <label for="SingleOptionSelector-{{ forloop.index0 }}">
+          {% else %}
+            {% if forloop.index0 > 0 %}
+
+              {% for value in option.values %}
+                <input type="radio" id="Option{{ option.position }}-{{ value }}" name="options[{{ option.name }}]" value="{{ value }}"{% if option.selected_value == value %} checked{% endif %}>
+                <label for="Option{{ option.position }}-{{ value }}">{{ value }}</label>
+              {% endfor %}
+
+            {% else %}
+
+              <label for="Option{{ option.position }}">
                 {{ option.name }}
               </label>
 
               <select
-                id="SingleOptionSelector-{{ forloop.index0 }}"
-                data-single-option-selector
-                data-index="option{{ option.position }}">
+                id="Option{{ option.position }}"
+                name="options[{{ option.name | escape }}]">
                 {% for value in option.values %}
                   <option
                     value="{{ value | escape }}"
@@ -66,11 +87,14 @@
                   </option>
                 {% endfor %}
               </select>
-            </div>
-          {% endfor %}
-        {% endunless %}
 
-        <select name="id" class="no-js" data-product-select>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <noscript>
+        <select name="id">
           {% for variant in product.variants %}
             <option
               {% if variant == current_variant %}selected="selected"{% endif %}
@@ -80,62 +104,40 @@
             </option>
           {% endfor %}
         </select>
+      </noscript>
 
-        <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
-        <input type="number" id="Quantity" name="quantity" value="1" min="1">
+      <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+      <input type="number" id="Quantity" name="quantity" value="1" min="1">
 
-        <div data-price-wrapper>
-          <span data-product-price>
-            {{ current_variant.price | money }}
+      <button
+        type="submit"
+        name="add"
+        data-submit-button
+        {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+          <span data-submit-button-text>
+            {% if current_variant.available %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% else %}
+              {{ 'products.product.sold_out' | t }}
+            {% endif %}
           </span>
+      </button>
+    {% endform %}
 
-          {% if product.compare_at_price_max > product.price %}
-            <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
-            <s data-compare-price>
-              {% if current_variant.compare_at_price > current_variant.price %}
-                {{ current_variant.compare_at_price | money }}
-              {% endif %}
-            </s>
-          {% endif %}
-        </div>
-
-        <button
-          type="submit"
-          name="add"
-          data-add-to-cart
-          {% unless current_variant.available %}disabled="disabled"{% endunless %}>
-            <span data-add-to-cart-text>
-              {% if current_variant.available %}
-                {{ 'products.product.add_to_cart' | t }}
-              {% else %}
-                {{ 'products.product.sold_out' | t }}
-              {% endif %}
-            </span>
-        </button>
-      </form>
-
-      <div data-cart-feedback></div>
-
-      <div class="rte">
-        {{ product.description }}
-      </div>
-
-      {% if section.settings.show_share_buttons %}
-        {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
-      {% endif %}
-
-      {% unless product == empty %}
-        <script type="application/json" data-product-json>
-          {{ product | json }}
-        </script>
-      {% endunless %}
+    <div class="rte">
+      {{ product.description }}
     </div>
+
+    {% if section.settings.show_share_buttons %}
+      {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+    {% endif %}
   </div>
-</div>
+</section>
 
 {% schema %}
   {
     "name": "Product pages",
+    "class": "product",
     "settings": [
       {
         "type": "checkbox",
