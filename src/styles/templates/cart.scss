@@ -1,5 +1,5 @@
 .cart-page {
-  @include container($grid-max-width, 1rem 2rem);
+  @include container($grid-large, 1rem 2rem);
 }
 
 .cart-page .responsive-table {
@@ -7,13 +7,13 @@
 }
 
 .cart-page__summary {
-  @include prefixer(display, flex, ('webkit', 'moz', 'ms', 'spec'));
-  @include prefixer(flex-wrap, wrap, ('webkit', 'moz', 'ms', 'spec'));
+  @include prefix(display, flex, webkit ms);
+  @include prefix(flex-wrap, wrap, webkit, moz, ms);
   margin-top: 4rem;
 
   @include media-query($medium-up) {
     > div {
-      @include prefixer(flex-basis, 50%, ('webkit', 'moz', 'ms', 'spec'));
+      @include prefix(flex-basis, 50%, webkit);
 
       &:last-of-type {
         text-align: right;

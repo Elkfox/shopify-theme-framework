@@ -1,6 +1,6 @@
 .header {
-  @include prefixer(display, flex, ('webkit', 'moz', 'ms', 'spec'));
-  @include prefixer(justify-content, space-between, ('webkit', 'moz', 'ms', 'spec'));
+  @include prefix(display, flex, webkit ms);
+  @include prefix(justify-content, space-between, webkit ms);
   padding: 2rem;
 }
 
@@ -11,8 +11,8 @@
 }
 
 .nav {
-  @include prefixer(display, flex, ('webkit', 'moz', 'ms', 'spec'));
-  @include prefixer(justify-content, space-between, ('webkit', 'moz', 'ms', 'spec'));
+  @include prefix(display, flex, webkit ms);
+  @include prefix(justify-content, space-between, webkit ms);
   padding: 2rem;
 
   ul {
