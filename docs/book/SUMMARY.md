@@ -1,4 +1,4 @@
 # Table of contents
 
-* [Concrete v4](README.md)
+* [Shopify Theme Framework](README.md)
 

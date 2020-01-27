@@ -1,4 +1,4 @@
-# Concrete v4
+# Shopify Theme Framework
 
 v4 is a complete rebuild of the Concrete Framework for Shopify theme development. The framework is currently dependant on Slate v1 \(beta\), though is being developed with a view to less reliance on the Shopify development team.
 
