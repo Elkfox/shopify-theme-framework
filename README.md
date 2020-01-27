@@ -2,6 +2,12 @@
 
 This is a complete rebuild of the Concrete Framework for Shopify theme development. The framework is currently dependant on Slate v1 (beta), though is being developed with a view to less reliance on the Shopify development team.
 
+-----------
+
+If you are looking for the Slate v0 version, please see [this](https://github.com/Elkfox/Concrete/tree/slate_0) branch.
+
+-----------
+
 Components will be liberated from the main framework where possible to allow for personal preferences while offering a solid starting point out-of-the-box.
 
 There are some key differences to Starter Theme that should be noted:
@@ -14,12 +20,9 @@ There are some key differences to Starter Theme that should be noted:
 * The product page works out-of-the-box with a single variant product
 * The breakpoints set in the variables.scss work out-of-the-box
 
-Coming soon:
+### Coming soon:
 
 * Optional sections library
-
-Coming later:
-
 * Support for upcoming [breaking Shopify theme changes](https://developers.shopify.com/changelog/the-new-online-store-design-experience-is-now-available-in-developer-preview-and-here-s-what-you-need-to-know)
 
 ## Getting started
