@@ -7,4 +7,5 @@
 
 * [Github](https://github.com/Elkfox/Concrete/)
 * [Demo site](http://concrete-theme.myshopify.com)
+* [Elkfox](https://elkfox.com/)
 
