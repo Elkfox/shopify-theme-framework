@@ -27,14 +27,6 @@ There are some key differences to Starter Theme that should be noted:
 
 ### Getting started
 
-Assuming you have Slate v1 installed locally.
-
-```text
-$ yarn create slate-theme my-new-theme elkfox/concrete
-```
-
-See [https://shopify.github.io/slate/docs/starter-themes\#custom-starter-themes](https://shopify.github.io/slate/docs/starter-themes#custom-starter-themes) &lt;/s&gt;
-
 Fork this branch to get started.
 
 ### System requirements
