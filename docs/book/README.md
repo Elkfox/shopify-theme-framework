@@ -10,8 +10,9 @@ There are some key differences to Starter Theme that should be noted:
 
 * jQuery is out, but you can add it if you want it
 * [@elkfox/shopify-theme](https://www.npmjs.com/package/@elkfox/shopify-theme) is used to add some important features
-* We will be adding more tools to [@elkfox/shopify-theme](https://www.npmjs.com/package/@elkfox/shopify-theme) that you can use to extend your theme development, if you choose.
-* Mixins and some other basic styles are pulled from [sass-library](https://www.npmjs.com/package/sass-library)
+  * Includes an **Ajax cart** wrapper
+  * We will be adding more tools to [@elkfox/shopify-theme](https://www.npmjs.com/package/@elkfox/shopify-theme) that you can use to extend your theme development, if you choose.
+* Mixins and some other basic styles are pulled from [sass-library](https://www.npmjs.com/package/sass-library) by [@Cam](https://github.com/cam)
 * US English is currently the only language shipped, but others can be easily added
 * The product page works out-of-the-box with a single variant product
 * The breakpoints set in the variables.scss work out-of-the-box
