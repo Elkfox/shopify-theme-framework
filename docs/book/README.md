@@ -16,7 +16,7 @@ There are some key differences to Starter Theme that should be noted:
 * The product page works out-of-the-box with a single variant product
 * The breakpoints set in the variables.scss work out-of-the-box
 
-### Coming soon:
+And some more, coming soon:
 
 * Optional sections library
 * Support for upcoming [breaking Shopify theme changes](https://developers.shopify.com/changelog/the-new-online-store-design-experience-is-now-available-in-developer-preview-and-here-s-what-you-need-to-know)
