@@ -1,0 +1,73 @@
+# Meta =======================================================================
+title: Concrete Shopify Theme Framework - A lightweight framework for building Shopify themes
+description: A lightweight framework for building Shopify themes
+# Site =======================================================================
+name: Concrete
+subtitle: Shopify theme boilerplate
+github_url: https://github.com/Elkfox/Concrete
+download_url: https://github.com/Elkfox/Concrete/archive/master.zip
+demo_url: https://concrete-theme.myshopify.com
+# Navigation =================================================================
+nav:
+  - title: About
+    url: '#about'
+  - title: Features
+    url: '#features'
+  - title: Getting Started
+    url: '#getting-started'
+    childlinks:
+      - title: 'Manually'
+        url: '#getting-started-manually'
+      - title: 'Theme Kit'
+        url: '#getting-started-theme-kit'
+      - title: 'Slate'
+        url: '#getting-started-slate'
+  - title: Grid
+    url: '#grid'
+    childlinks:
+      - title: 'Full width'
+        url: '#grid-full-width'
+      - title: 'Container'
+        url: '#grid-container'
+      - title: 'Row'
+        url: '#grid-row'
+      - title: 'Column'
+        url: '#grid-column'
+  - title: 'Sass variables'
+    url: '#sass-variables'
+  - title: 'Sass mixins'
+    url: '#sass-mixins'
+  - title: Helper classes
+    url: '#helper-classes'
+  - title: 'Icons'
+    url: '#icons'
+  - title: Javascript Modules
+    url: '#javascript-modules'
+    childlinks:
+    - title: 'Cartfox'
+      url: '#cart'
+    - title: 'Focus'
+      url: '#focus'
+    - title: 'Product'
+      url: '#concrete-product'
+    - title: 'Variants'
+      url: '#concrete-variants'
+    - title: 'Sections'
+      url: '#concrete-sections'
+    - title: 'Images'
+      url: '#concrete-images'
+  - title: 'Vendor scripts'
+    url: '#vendor-scripts'
+
+# Collections ================================================================
+collections:
+  documentation:
+    title: Documentation
+# Build settings =============================================================
+markdown: kramdown
+theme: minima
+gems:
+  - jekyll-feed
+exclude:
+  - Gemfile
+  - Gemfile.lock
