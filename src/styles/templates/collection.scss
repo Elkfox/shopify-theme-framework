@@ -5,7 +5,7 @@
 .collection__products {
   @include container($grid-large, 1rem);
   @include prefix(display, flex, webkit ms);
-  @include prefix(flex-wrap, wrap, webkit, moz, ms);
+  @include prefix(flex-wrap, wrap, webkit moz ms);
 }
 
 .collection__products__product {
