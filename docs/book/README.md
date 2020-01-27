@@ -1,6 +1,6 @@
 # Concrete v4
 
-This is a complete rebuild of the Concrete Framework for Shopify theme development. The framework is currently dependant on Slate v1 \(beta\), though is being developed with a view to less reliance on the Shopify development team.
+v4 is a complete rebuild of the Concrete Framework for Shopify theme development. The framework is currently dependant on Slate v1 \(beta\), though is being developed with a view to less reliance on the Shopify development team.
 
 If you are looking for the Slate v0 version, please see [this](https://github.com/Elkfox/Concrete/tree/slate_0) branch.
 
@@ -51,4 +51,3 @@ All developers who wish to contribute through code or issues, take a look at the
 Copyright © 2019 Elkfox Co Pty Ltd. See [LICENSE](https://github.com/Elkfox/Concrete/blob/master/LICENSE) for further details.
 
 Concrete v4 was built on Shopify's Starter Theme - Copyright © 2018 Shopify. See [LICENSE](https://github.com/Shopify/starter-theme/blob/master/LICENSE) for further details.
-
