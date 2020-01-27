@@ -21,22 +21,19 @@ And some more, coming soon:
 * Optional sections library
 * Support for upcoming [breaking Shopify theme changes](https://developers.shopify.com/changelog/the-new-online-store-design-experience-is-now-available-in-developer-preview-and-here-s-what-you-need-to-know)
 
-### Contributing
+## Contributing
 
 For help on setting up the repository locally, building, testing, and contributing please see [CONTRIBUTING.md](https://github.com/Elkfox/Concrete/blob/master/CONTRIBUTING.md).
 
-### Code of Conduct
+## Code of Conduct
 
 All developers who wish to contribute through code or issues, take a look at the [Code of Conduct](https://github.com/Elkfox/Concrete/blob/master/CODE_OF_CONDUCT.md).
 
-### License
+## License
 
 Copyright © 2019 Elkfox Co Pty Ltd. See [LICENSE](https://github.com/Elkfox/Concrete/blob/master/LICENSE) for further details.
 
 Concrete v4 was built on Shopify's Starter Theme - Copyright © 2018 Shopify. See [LICENSE](https://github.com/Shopify/starter-theme/blob/master/LICENSE) for further details.
 
------
+## ![](.gitbook/assets/elkfox_logotype-email_signature%20%281%29.png)[ ](https://elkfox.com/)
 
-<a href="https://elkfox.com/">
-  <img src=".gitbook/assets/elkfox_logotype-email_signature.png" alt="drawing" height="40"/>
-</a>
