@@ -47,3 +47,5 @@ All developers who wish to contribute through code or issues, take a look at the
 Copyright © 2019 Elkfox Co Pty Ltd. See [LICENSE](https://github.com/Elkfox/Concrete/blob/master/LICENSE) for further details.
 
 Concrete v4 was built on Shopify's Starter Theme - Copyright © 2018 Shopify. See [LICENSE](https://github.com/Shopify/starter-theme/blob/master/LICENSE) for further details.
+
+[![Elkfox](.gitbook/assets/elkfox_logotype-email_signature.png =40x)](https://elkfox.com/)
