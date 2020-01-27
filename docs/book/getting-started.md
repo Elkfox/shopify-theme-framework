@@ -13,5 +13,5 @@
 4. Run `$ yarn start`
 5. Get coding!
 
-
+![](.gitbook/assets/elkfox_logotype-email_signature.png)
 
