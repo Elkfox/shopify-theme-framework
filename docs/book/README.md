@@ -21,6 +21,8 @@ And some more, coming soon:
 * Optional sections library
 * Support for upcoming [breaking Shopify theme changes](https://developers.shopify.com/changelog/the-new-online-store-design-experience-is-now-available-in-developer-preview-and-here-s-what-you-need-to-know)
 
+{% page-ref page="getting-started.md" %}
+
 ## Contributing
 
 For help on setting up the repository locally, building, testing, and contributing please see [CONTRIBUTING.md](https://github.com/Elkfox/Concrete/blob/master/CONTRIBUTING.md).
