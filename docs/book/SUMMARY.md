@@ -5,7 +5,7 @@
 
 ## Links
 
-* [Github](https://github.com/Elkfox/Concrete/)
 * [Demo site](http://concrete-theme.myshopify.com)
+* [Github](https://github.com/Elkfox/Concrete/)
 * [Elkfox](https://elkfox.com/)
 
