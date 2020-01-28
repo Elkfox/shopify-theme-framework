@@ -7,6 +7,8 @@
 
 ## Setup
 
+Assuming you are using Yarn;
+
 1. Fork the master branch
 2. Install dependencies `$ yarn`
 3. Configure your `.env` file
