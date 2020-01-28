@@ -7,9 +7,11 @@
 
 ## Setup
 
+Assuming you are using Yarn;
+
 1. Fork the master branch
-2. Install dependencies
-3. Configure your `.env` files
+2. Install dependencies `$ yarn`
+3. Configure your `.env` file
 4. Run `$ yarn start`
 5. Get coding!
 
