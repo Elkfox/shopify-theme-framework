@@ -49,14 +49,7 @@
 
   {% render 'script-tags', layout: 'theme' %}
 
-  {%- comment -%}
-    Placing the {{ content_for_header }} tag in a conditional avoids the
-    browser-sync issue described at https://github.com/Shopify/slate/issues/1055
-    This should be resolved when the slate-analytics package is removed
-  {%- endcomment -%}
-  {% if request.host != shop.permanent_domain %}
-    {{ content_for_header }}
-  {% endif %}
+  {{ content_for_header }}
 </head>
 
 <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
