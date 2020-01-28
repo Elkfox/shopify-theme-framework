@@ -8,4 +8,4 @@ focusHash();
 bindInPageLinks();
 
 // Detect cookie support
-cookieTest();
+cookieTest('no-cookies', 'cookies');

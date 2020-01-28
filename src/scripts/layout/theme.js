@@ -18,7 +18,7 @@ focusHash();
 bindInPageLinks();
 
 // Detect cookie support
-cookieTest();
+cookieTest('no-cookies', 'cookies');
 
 // Responsive tables & RTE videos
 responsiveVideos();
