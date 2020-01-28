@@ -16,7 +16,7 @@
         <div
           style="background-image:url({{ block.settings.image | img_url: '6x' }});background-size:cover;"
           class="lazyload hero-media__background-image"
-          data-bgset="{% include 'responsive-bg-image', image: block.settings.image %}">
+          data-bgset="{% render 'responsive-bg-image', image: block.settings.image %}">
         </div>
       {% else %}
         <div class="hero-media__background-image">

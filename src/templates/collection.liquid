@@ -24,12 +24,27 @@
     {% endif %}
   </header>
 
+  {%- assign sort_options ='manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-descending,created-ascending' | split: ',' -%}
+
+  <div class="collection__sorting">
+    <label for="SortBy">{{- 'collections.sort.title' | t -}}</label>
+    <select name="SortBy" data-sort>
+      {% for option in sort_options %}
+        <option value="{{- option -}}"{% if collection.sort_by == blank and collection.default_sort_by == option %}
+                selected="selected"{% elsif collection.sort_by == option %}
+                selected="selected"{% endif %}>
+          {{- 'collections.sort.' | append: option | t -}}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
   <div class="collection__products">
     {% for product in collection.products %}
       <div class="collection__products__product">
         {% if product.featured_image != blank %}
           <a href="{{ product.url | within: collection }}">
-            {% include 'responsive-image' with
+            {% render 'responsive-image' with
               image: product.featured_image,
               max_width: 700,
               max_height: 800
@@ -97,6 +112,6 @@
   </div>
 
   {% if paginate.pages > 1 %}
-    {% include 'pagination' %}
+    {% render 'pagination' %}
   {% endif %}
 {% endpaginate %}

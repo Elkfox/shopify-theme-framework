@@ -17,9 +17,9 @@
 
   <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
 
-  {% include 'style-tags', layout: 'gift_card' %}
-  {% include 'css-variables' %}
-  {% include 'script-tags', layout: 'gift_card' %}
+  {% render 'style-tags', layout: 'gift_card' %}
+  {% render 'css-variables' %}
+  {% render 'script-tags', layout: 'gift_card' %}
 
   {%- comment -%}
     Placing the {{ content_for_header }} tag in a conditional avoids the

@@ -30,9 +30,9 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
 
-  {% include 'social-meta-tags' %}
-  {% include 'style-tags', layout: 'theme' %}
-  {% include 'css-variables' %}
+  {% render 'social-meta-tags' %}
+  {% render 'style-tags', layout: 'theme' %}
+  {% render 'css-variables' %}
 
   <script>
     document.documentElement.className = document.documentElement.className.replace('no-js', '');
@@ -47,7 +47,7 @@
     };
   </script>
 
-  {% include 'script-tags', layout: 'theme' %}
+  {% render 'script-tags', layout: 'theme' %}
 
   {%- comment -%}
     Placing the {{ content_for_header }} tag in a conditional avoids the

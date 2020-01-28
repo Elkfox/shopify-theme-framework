@@ -44,7 +44,7 @@
 
     {% if article.image %}
       <a href="{{ article.url }}">
-        {% include 'responsive-image' with
+        {% render 'responsive-image' with
           image: article.image,
           max_width: 1024,
           max_height: 1024
@@ -90,7 +90,7 @@
   {% endfor %}
 
   {% if paginate.pages > 1 %}
-    {% include 'pagination' %}
+    {% render 'pagination' %}
   {% endif %}
 
 {% endpaginate %}

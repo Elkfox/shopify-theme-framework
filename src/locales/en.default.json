@@ -117,8 +117,21 @@
   "collections": {
     "general": {
       "no_matches": "Sorry, there are no products in this collection",
-      "link_title": "Browse our {{ title }} collection"
-    }
+      "link_title": "Browse our {{ title }} collection",
+      "sort_by": "Sort by"
+    },
+    "sort": {
+      "title": "Sort by",
+      "manual": "Default",
+      "best-selling": "Best selling",
+      "title-ascending": "A-Z",
+      "title-descending": "Z-A",
+      "price-ascending": "Lowest price",
+      "price-descending": "Highest price",
+      "created-descending": "Newest",
+      "created-ascending": "Oldest"
+    },
+    "items_per_page": "Items per page"
   },
   "contact": {
     "form": {

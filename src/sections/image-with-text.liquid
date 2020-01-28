@@ -16,7 +16,7 @@
   {% capture image_layout %}
     <div class="image-with-text__image">
       {% if section.settings.image != blank %}
-        {% include 'responsive-image' with
+        {% render 'responsive-image' with
           image: section.settings.image,
           max_width: 545,
           max_height: 545

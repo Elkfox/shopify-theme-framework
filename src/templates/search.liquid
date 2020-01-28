@@ -19,7 +19,7 @@
            value="{{ search.terms | escape }}"
            placeholder="{{ 'general.search.placeholder' | t }}">
     <button type="submit" class="button">
-      {% include 'icon-search' %}
+      {% render 'icon-search' %}
       <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
     </button>
   </form>
@@ -72,7 +72,7 @@
       </ul>
 
       {% if paginate.pages > 1 %}
-        {% include 'pagination' %}
+        {% render 'pagination' %}
       {% endif %}
     {% endif %}
   {% endif %}

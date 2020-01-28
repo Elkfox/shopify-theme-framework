@@ -35,7 +35,7 @@
 <article role="article">
 
   {% if article.image %}
-    <div class="hero-banner hero-banner--article lazyload" data-bgset="{% include 'responsive-bg-image', image: article.image %}"></div>
+    <div class="hero-banner hero-banner--article lazyload" data-bgset="{% render 'responsive-bg-image', image: article.image %}"></div>
 
     <noscript>
       {%- assign image_size = article.image.width | append: 'x' -%}
@@ -64,7 +64,7 @@
   {% endif %}
 
   {% if settings.social_sharing_blog %}
-    {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+    {% render 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
   {% endif %}
 
   {% if blog.comments_enabled? %}
@@ -111,7 +111,7 @@
         </ul>
 
         {% if paginate.pages > 1 %}
-          {% include 'pagination' %}
+          {% render 'pagination' %}
         {% endif %}
       {% endif %}
     </div>

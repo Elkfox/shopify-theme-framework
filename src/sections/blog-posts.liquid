@@ -33,7 +33,7 @@
         {%- endcomment -%}
         <a href="{{ article.url }}">
           {% if article.image %}
-            {% include 'responsive-image' with
+            {% render 'responsive-image' with
                 image: article.image,
                 max_width: 400,
                 max_height: 400

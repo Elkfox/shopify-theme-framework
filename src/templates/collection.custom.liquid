@@ -1,109 +1,166 @@
 {%- assign pagination = 6 -%}
-{%- assign column_width = 'column l4 m6 s12' -%}
-{%- assign sort_options = 'manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-descending,created-ascending' | split: ',' -%}
+
 {%- comment -%}
   Use the following canonincal_url hack to create dynamic pagination options
   Mix this with concrete.urls.js to retain other view options
 {%- endcomment -%}
+
 {%- assign pagination_options = '6,12,24,48' | split: ',' -%}
+
 {%- if canonical_url contains 'handle=' -%}
   {%- assign pagination = canonical_url | split: 'handle=' | last | split: '&' | first | plus: 0 -%}
 {%- endif -%}
+
 {%- if pagination_options != null -%}
   {%- assign pagination_modifier = pagination | prepend: '&handle=' -%}
 {%- endif -%}
 
 {% paginate collection.products by pagination %}
 
-<div data-section-type="collection">
-  <header class="margin-top-2x margin-bottom-2x">
-    <div class="row">
-      <div class="column l6 m12 s12">
-        <h1>{{ collection.title }}</h1>
+  <header role="banner" class="collection__header">
+    <h1>{{ collection.title }}</h1>
+
+    {% if collection.description != blank %}
+      <div class="rte">
+        {{ collection.description }}
       </div>
-      <div class="column l6 m12 s12 l-right">
-        {% if collection.description != blank %}
-          <div class="rte">
-            {{ collection.description }}
-          </div>
-        {% endif %}
-      </div>
+    {% endif %}
+
+    <div>
+      <label>{{- 'collections.items_per_page' | t -}}</label>
+      <ul>
+        {% for pagination_option in pagination_options %}
+          <li style="display:inline;">
+            <a href="{{ collection.handle }}?view=custom&handle={{ pagination_option }}">
+              {{ pagination_option }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
 
-    <div class="row">
-      <div class="column l6 m12 s12">
-        <label>{{ 'collection.view.title' | t }}</label>
-        <ul class="inline">
-          {% for pagination_option in pagination_options %}
-            <li>
-              <a href="{{ collection.handle }}?handle={{ pagination_option }}">
-                {{ pagination_option }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="column l6 m12 s12 l-right">
-        <label for="SortBy">{{ 'collection.sort.title' | t }}</label>
-        <select name="SortBy" data-sort>
-          {% for option in sort_options %}
-            <option value="{{ option }}"{% if collection.sort_by == blank and collection.default_sort_by == option %}
-                    selected="selected"{% elsif collection.sort_by == option %}
-                    selected="selected"{% endif %}>
-              {{ 'collection.sort.' | append: option | t }}
-            </option>
-          {% endfor %}
-        </select>
-      </div>
+    {%- assign sort_options ='manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-descending,created-ascending' | split: ',' -%}
+
+    <div class="collection__sorting">
+      <label for="SortBy">{{- 'collections.sort.title' | t -}}</label>
+      <select name="SortBy" data-sort>
+        {% for option in sort_options %}
+          <option value="{{- option -}}"{% if collection.sort_by == blank and collection.default_sort_by == option %}
+                  selected="selected"{% elsif collection.sort_by == option %}
+                  selected="selected"{% endif %}>
+            {{- 'collections.sort.' | append: option | t -}}
+          </option>
+        {% endfor %}
+      </select>
     </div>
   </header>
 
-  <section class="row">
+  <div class="collection__products">
     {% for product in collection.products %}
-      {% include 'collection-product' %}
-    {% else %}
-      <div class="column l12">
-        <p class="h4">{{ 'collection.no_matches' | t }}</p>
+      <div class="collection__products__product">
+        {% if product.featured_image != blank %}
+          <a href="{{ product.url | within: collection }}">
+            {% render 'responsive-image' with
+              image: product.featured_image,
+              max_width: 700,
+              max_height: 800
+            %}
+          </a>
+        {% endif %}
+
+        <p>
+          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        </p>
+        <p>
+          {% if product.compare_at_price > product.price %}
+
+            {% if product.price_varies %}
+              {%- assign sale_price = product.price | money -%}
+              {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+              {{ 'products.product.on_sale' | t }}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% else %}
+
+            {% if product.price_varies %}
+              {%- assign price = product.price | money -%}
+              {{ 'products.product.from_text_html' | t: price: price }}
+            {% else %}
+              {{ product.price | money }}
+            {% endif %}
+
+          {% endif %}
+
+          {% if product.compare_at_price > product.price %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s>{{ product.compare_at_price | money }}</s>
+          {% endif %}
+
+          {% unless product.available %}
+            {{ 'products.product.sold_out' | t }}
+          {% endunless %}
+        </p>
       </div>
+
+    {% else %}
+      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+        {% for i in (1..8) %}
+          <a href="#">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          </a>
+
+          <p>
+            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+          </p>
+
+          <p>
+            {{ 1999 | money }}
+          </p>
+        {% endfor %}
+      {% else %}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {% endif %}
     {% endfor %}
-  </section>
+  </div>
 
   {%- comment -%}
     Custom pagination for the dynamic pagination canonincal_url hack
     See 'pagination_modifier'
   {%- endcomment -%}
   {% if paginate.pages > 1 %}
-    <ul class="inline">
+    <ul style="text-align: center;">
       {% if paginate.previous %}
-        <li>
+        <li style="display:inline;">
           <a href="{{ paginate.previous.url }}{{ pagination_modifier }}">
-             &laquo; {{ 'general.pagination.previous' | t }}
+             &laquo;
           </a>
         </li>
       {% endif %}
       {% for part in paginate.parts %}
         {% if part.is_link %}
-          <li>
+          <li style="display:inline;">
             <a href="{{ part.url }}{{ pagination_modifier }}" title="">{{ part.title }}</a>
           </li>
         {% else %}
           {% if part.title == paginate.current_page %}
-            <li>{{ part.title }}</li>
+            <li style="display:inline;">{{ part.title }}</li>
           {% else %}
-            <li>&hellip;</li>
+            <li style="display:inline;">&hellip;</li>
           {% endif %}
         {% endif %}
       {% endfor %}
       {% if paginate.next %}
-        <li>
+        <li style="display:inline;">
           <a href="{{ paginate.next.url }}{{ pagination_modifier }}">
-            {{ 'general.pagination.next' | t }} &raquo;
+            &raquo;
           </a>
         </li>
       {% endif %}
     </ul>
   {% endif %}
-
 </div>
 
 {% endpaginate %}

@@ -9,7 +9,7 @@
     <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: title }}">
       {% if collection.image != blank or collection.products.first != blank %}
         {%- assign image_object = collection.image | default: collection.products.first.featured_image -%}
-        {% include 'responsive-image' with
+        {% render 'responsive-image' with
           image: image_object,
           max_width: 480,
           max_height: 480

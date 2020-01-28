@@ -75,7 +75,7 @@
           <li>
             <a href="{{ link.url }}">
               {{ link.title }}
-              {% include 'icon-arrow-down' %}
+              {% render 'icon-arrow-down' %}
             </a>
             <ul>
               {% for childlink in link.links %}
@@ -109,7 +109,7 @@
         placeholder="{{ 'general.search.placeholder' | t }}">
 
       <button type="submit" class="button">
-        {% include 'icon-search' %}
+        {% render 'icon-search' %}
         <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
       </button>
     </form>
