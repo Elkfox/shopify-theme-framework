@@ -7,7 +7,3 @@
 
 * [Github](https://github.com/Elkfox/Concrete/)
 
-## Related projects
-
-* [Ajaxinate](https://ajaxinate.elkfox.io)
-
