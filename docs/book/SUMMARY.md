@@ -5,6 +5,5 @@
 
 ## Links
 
-* [Demo site](http://concrete-theme.myshopify.com)
 * [Github](https://github.com/Elkfox/Concrete/)
 
