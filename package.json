@@ -34,7 +34,7 @@
     "@shopify/theme-sections": "^1.1.0",
     "@shopify/theme-variants": "^1.0.0-alpha.8",
     "fstream": "^1.0.12",
-    "handlebars": "^4.5.3",
+    "handlebars": "^4.7.7",
     "lazysizes": "^4.1.1",
     "lodash-es": "^4.17.15",
     "lodash.mergewith": "^4.6.2",
