@@ -18,7 +18,7 @@ The Shopify Theme Framework has been used to build stores for some of the most w
 
 'Concrete' was a version of the long running <b>Shopify Theme Framework</b>, built on the now redundant [Shopify Slate](https://github.com/Shopify/slate).
 
-The final version of 'Concrete' is considered v4 of the Shopify Theme Framework. You can find the legacy v4 code in [this branch](https://github.com/Elkfox/Concrete/tree/4.final).
+The final version of 'Concrete' is considered v4 of the Shopify Theme Framework. You can find the legacy v4 code in [this release](https://github.com/Elkfox/Concrete/releases/tag/v4-alpha.1).
 
 -----
 
