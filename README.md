@@ -1,4 +1,4 @@
-# Shopify Theme Framework
+# Shopify Theme Framework (AKA Concrete)
 
 The original framework for building Shopify themes.
 
