@@ -1,5 +1,5 @@
 ---
-description: The original framework for building Shopify themes.
+description: The original framework for building native Shopify themes.
 ---
 
 # Shopify Theme Framework
