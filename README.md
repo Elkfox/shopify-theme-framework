@@ -30,7 +30,7 @@ The Shopify Theme Framework was created in 2013, and based on the [Foundation](h
 
 At that point there were no public frameworks available for building Shopify themes. You can find the original project [here](https://github.com/Cam/Shopify-Theme-Framework).
 
-### v1 (aka Forest) - c2014
+### v1 (aka Forest) - 2014 - 2016
 
 v1 ('Forest') was a highly modified variation of Shopify's abandoned [Timber](https://github.com/Shopify/Timber) theme framework.
 
