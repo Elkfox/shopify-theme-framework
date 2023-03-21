@@ -1,6 +1,6 @@
 # Shopify Theme Framework (AKA Concrete)
 
-The original framework for building Shopify themes.
+The original framework for building native Shopify themes.
 
 The Shopify Theme Framework has been used to build stores for some of the most well known brands in the world. Including;
 
