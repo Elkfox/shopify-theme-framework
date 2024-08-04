@@ -7,8 +7,10 @@ The Shopify Theme Framework has been used to build stores for some of the most w
 * Harry Potter
 * Warner Bros
 * The Cartoon Network
-* Mr Beast
+* The Hobbit
+* MrBeast
 * Mark Rober
+* Dude Perfect
 * Star Wars
 * National Geographic
 
