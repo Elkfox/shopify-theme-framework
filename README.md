@@ -42,6 +42,6 @@ Version 2 through 4 (known as 'Concrete') started life as a standalone framework
 
 Version 5 was written from the ground up, and utlize [Shopify CLI](https://github.com/Shopify/cli) and [Parcel bundler](https://github.com/parcel-bundler/parcel) for hyper efficient Shopify theme development.
 
-### v6 - 2022 to 2023
+### v6 - 2022 to 2024
 
 We are working toward releasing a public version of version 6.
